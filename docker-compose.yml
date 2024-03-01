@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - shop_db:/var/lib/postgresql/data
+    expose:
+      - 5432
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./medusa-store
+    container_name: medusa-store
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - ./medusa-store:/app/medusa
+      - medusa_node_modules:/app/medusa/node_modules
+    ports:
+      - "7000:7000"
+      - "7001:7001"
+      - "8000:8000"
+      - "9000:9000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://milosz:S3cret@db:5432/shop_app_db
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    container_name: frontend
+    restart: always
+    depends_on:
+      - db
+      - backend
+    volumes:
+      - ./frontend:/app/frontend
+      - frontend_node_modules:/app/frontend/node_modules
+    ports:
+      - "3000:3000"
+volumes:
+  medusa_node_modules:
+  frontend_node_modules:
+  shop_db:

@@ -1,7 +1,7 @@
 <template>
-  <NuxtLayout>
-    <v-app>
-      <TestFetchMedusa />
-    </v-app>
-  </NuxtLayout>
+  <v-app>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </v-app>
 </template>

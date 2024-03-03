@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "vuetify/lib/styles/main.css",
     "@mdi/font/css/materialdesignicons.min.css",
   ],
+  pages: true,
   devtools: { enabled: true },
   build: {
     transpile: ["vuetify"],
@@ -25,6 +26,17 @@ export default defineNuxtConfig({
     vue: {
       template: {
         transformAssetUrls,
+      },
+    },
+
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @use "~/assets/scss/_variables.module.scss" as variables;
+            @use "~/assets/scss/_mixins.module.scss" as mixins;
+            `,
+        },
       },
     },
   },

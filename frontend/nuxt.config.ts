@@ -28,16 +28,11 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
-
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `
-            @use "~/assets/scss/_variables.module.scss" as variables;
-            @use "~/assets/scss/_mixins.module.scss" as mixins;
-            `,
-        },
-      },
-    },
   },
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
 });

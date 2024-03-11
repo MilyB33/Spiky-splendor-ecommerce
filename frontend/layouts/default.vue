@@ -1,10 +1,10 @@
 <template>
-  <!-- <CommonNavigation /> -->
-  <div :class="$style.main">
-    <slot />
+  <div>
+    <CommonNavigation />
+    <v-main>
+      <v-container fluid>
+        <slot />
+      </v-container>
+    </v-main>
   </div>
 </template>
-
-<style lang="scss" module>
-@use "~/assets/scss/components/default-layout.module.scss";
-</style>

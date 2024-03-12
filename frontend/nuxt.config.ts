@@ -2,10 +2,7 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: [
-    "vuetify/lib/styles/main.css",
-    "@mdi/font/css/materialdesignicons.min.css",
-  ],
+  css: ["vuetify/lib/styles/main.css", "@mdi/font/css/materialdesignicons.min.css"],
   pages: true,
   devtools: { enabled: true },
   build: {

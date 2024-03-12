@@ -1,12 +1,14 @@
 <template>
-  <v-btn>
-    <NuxtLink
-      :to="to"
-      class="text-decoration-none text-black w-full h-full"
-      exact-active-class="text-decoration-underline"
-      ><slot
-    /></NuxtLink>
-  </v-btn>
+  <NuxtLink
+    :to="to"
+    class="button text-decoration-none text-black w-100 h-100"
+    exact-active-class="button--active"
+  >
+    <v-btn
+      rounded="0"
+      variant="plain"
+      ><slot /></v-btn
+  ></NuxtLink>
 </template>
 
 <script setup lang="ts">
@@ -16,3 +18,16 @@ type CommonNavigationButtonProps = {
 
 defineProps<CommonNavigationButtonProps>();
 </script>
+
+<style lang="scss" scoped>
+.button {
+  border-radius: 0;
+  &--active {
+    border-bottom: 2px solid black;
+  }
+
+  &:hover {
+    border-bottom: 2px solid black;
+  }
+}
+</style>

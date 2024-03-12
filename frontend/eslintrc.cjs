@@ -8,7 +8,12 @@ module.exports = {
   parserOptions: {
     parser: "@typescript-eslint/parser",
   },
-  extends: ["@nuxt/eslint-config", "plugin:prettier/recommended", "prettier"],
+  extends: [
+    "@nuxt/eslint-config",
+    "plugin:prettier/recommended",
+    "prettier",
+    "plugin:vue/vue3-recommended",
+  ],
   plugins: [],
   rules: {},
   ignorePatterns: ["node_modules/"],

@@ -1,22 +1,27 @@
 import "@mdi/font/css/materialdesignicons.css";
 import colors from "vuetify/util/colors";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 
-export default defineNuxtPlugin((app) => {
+export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
+    ssr: true,
+    components,
+    directives,
     theme: {
       themes: {
         light: {
           dark: false,
           colors: {
             primary: colors.shades.black,
-            green_primary: colors.green.accent3,
+            green_primary: colors.green.darken3,
           },
         },
       },
     },
   });
-  app.vueApp.use(vuetify);
+  nuxtApp.vueApp.use(vuetify);
 });

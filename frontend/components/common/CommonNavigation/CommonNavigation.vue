@@ -1,6 +1,19 @@
 <template>
   <v-toolbar :elevation="3">
-    <template v-slot:prepend>
+    <template
+      v-if="mobile"
+      v-slot:prepend
+    >
+      <v-btn
+        icon="mdi-menu"
+        @click.stop="toggleButton"
+      />
+    </template>
+
+    <template
+      v-if="!mobile"
+      v-slot:prepend
+    >
       <v-icon
         icon="mdi-cactus"
         size="x-large"
@@ -9,14 +22,19 @@
       <v-toolbar-title>Spiky Splendor</v-toolbar-title>
     </template>
 
-    <v-toolbar-items class="ml-8">
+    <v-toolbar-items
+      v-if="!mobile"
+      class="ml-md-8 ml-4"
+    >
       <CommonNavigationButton to="/products">Our Products</CommonNavigationButton>
       <CommonNavigationButton to="/about">About</CommonNavigationButton>
     </v-toolbar-items>
 
     <v-spacer />
 
-    <CartButton />
+    <v-btn icon="mdi-heart-outline" />
+
+    <CommonNavigationAccountMenu />
 
     <v-divider
       vertical
@@ -25,6 +43,18 @@
       thickness="2"
     />
 
-    <CommonNavigationAccountMenu />
+    <CartButton />
   </v-toolbar>
 </template>
+
+<script setup lang="ts">
+import { useDisplay } from "vuetify";
+
+const isOpen = defineModel<boolean>("isOpen");
+
+const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
+
+const toggleButton = () => {
+  isOpen.value = !isOpen.value;
+};
+</script>

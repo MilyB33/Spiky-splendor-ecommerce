@@ -1,6 +1,7 @@
 <template>
   <v-menu
     open-on-hover
+    :open-on-click="mobile"
     :close-on-content-click="false"
     location="bottom"
     offset="8"
@@ -9,6 +10,13 @@
   >
     <template v-slot:activator="{ props }">
       <v-btn
+        v-if="mobile"
+        icon="mdi-account-circle-outline"
+        v-bind="props"
+      />
+
+      <v-btn
+        v-else
         prepend-icon="mdi-account-circle-outline"
         v-bind="props"
       >
@@ -32,3 +40,9 @@
     </v-card>
   </v-menu>
 </template>
+
+<script setup lang="ts">
+import { useDisplay } from "vuetify";
+
+const { mobile } = useDisplay({ mobileBreakpoint: "md" });
+</script>

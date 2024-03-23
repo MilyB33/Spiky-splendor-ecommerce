@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
       context: ./medusa-store
     container_name: medusa-store
-    restart: always
+    restart: no
     depends_on:
       - db
     volumes:
@@ -37,7 +37,7 @@ services:
       dockerfile: Dockerfile
       context: ./frontend
     container_name: frontend
-    restart: always
+    restart: no
     depends_on:
       - db
       - backend

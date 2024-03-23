@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
     "nuxt-medusa",
+    "@vee-validate/nuxt",
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
         // @ts-expect-error
@@ -18,6 +19,9 @@ export default defineNuxtConfig({
       });
     },
   ],
+  medusa: {
+    server: true,
+  },
   vite: {
     define: { "process.env.DEBUG": false },
     vue: {

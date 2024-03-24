@@ -16,13 +16,17 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@pinia/nuxt": "^0.5.1",
+    "@vee-validate/nuxt": "^4.12.6",
+    "@vee-validate/zod": "^4.12.6",
     "nuxt": "^3.10.2",
     "pinia": "^2.1.7",
     "sass": "^1.71.1",
     "vue": "^3.4.19",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@medusajs/client-types": "^0.2.10",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/types": "^2.17.3",
     "@nuxt/typescript-build": "^3.0.2",

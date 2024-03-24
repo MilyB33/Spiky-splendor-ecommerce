@@ -29,14 +29,14 @@
     </template>
 
     <v-card min-width="200">
-      <AuthenticationButton to="/sign_in">Sign in</AuthenticationButton>
+      <AuthenticationButton to="/login#login">Sign in</AuthenticationButton>
 
       <v-divider
         thickness="2"
         class="mx-4"
       />
 
-      <AuthenticationButton to="/sign_up">Sign up</AuthenticationButton>
+      <AuthenticationButton to="/login#register">Sign up</AuthenticationButton>
     </v-card>
   </v-menu>
 </template>

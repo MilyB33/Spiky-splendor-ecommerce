@@ -1,7 +1,7 @@
 <template>
   <div>
-    <CommonNavigation v-model:isOpen="isOpen" />
-    <NavigationDrawer
+    <TopNavigation v-model:isOpen="isOpen" />
+    <Sidebar
       v-model:isOpen="isOpen"
       v-if="mobile"
     />

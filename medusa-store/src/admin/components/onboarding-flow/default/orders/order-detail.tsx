@@ -2,7 +2,7 @@ import React from "react";
 import {
   ComputerDesktopSolid,
   CurrencyDollarSolid,
-  NextJs
+  NextJs,
 } from "@medusajs/icons";
 import { IconBadge, Heading, Text } from "@medusajs/ui";
 
@@ -47,8 +47,8 @@ const OrderDetailDefault = () => {
                 Add Commerce Features
               </Text>
               <Text size="small">
-                Learn about all available commerce features and how to
-                add them in your storefront
+                Learn about all available commerce features and how to add them
+                in your storefront
               </Text>
             </div>
           </div>
@@ -75,8 +75,8 @@ const OrderDetailDefault = () => {
                 Build Custom Use Cases
               </Text>
               <Text size="small">
-                Build a marketplace, subscription-based purchases,
-                or your custom use-cases.
+                Build a marketplace, subscription-based purchases, or your
+                custom use-cases.
               </Text>
             </div>
           </div>
@@ -103,8 +103,7 @@ const OrderDetailDefault = () => {
                 Install Next.js Quickstart
               </Text>
               <Text size="small">
-                Install and use the Next.js storefront with
-                your commerce store.
+                Install and use the Next.js storefront with your commerce store.
               </Text>
             </div>
           </div>

@@ -34,7 +34,7 @@
 
     <v-btn icon="mdi-heart-outline" />
 
-    <CommonNavigationAccountMenu />
+    <NavigationAccountMenu />
 
     <v-divider
       vertical

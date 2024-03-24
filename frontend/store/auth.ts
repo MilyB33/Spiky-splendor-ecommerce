@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { StorePostCustomersReq, StorePostAuthReq } from "@medusajs/medusa";
+import type { StorePostCustomersReq, StorePostAuthReq } from "@medusajs/client-types";
 
 export const useAuthStore = defineStore("auth", () => {
   const isAuthenticated = ref<boolean>(false);

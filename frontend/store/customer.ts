@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { Customer } from "@medusajs/client-types";
+import type { Customer } from "@medusajs/medusa";
 
 export const useCustomerStore = defineStore("customer", () => {
   const customer = ref<Omit<Customer, "password_hash"> | null>(null);

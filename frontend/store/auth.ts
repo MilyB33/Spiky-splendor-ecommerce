@@ -1,59 +1,107 @@
 import { defineStore } from "pinia";
 import type { StorePostCustomersReq, StorePostAuthReq } from "@medusajs/medusa";
+import { useCustomerStore } from "./customer";
 
 export const useAuthStore = defineStore("auth", () => {
   const isAuthenticated = ref<boolean>(false);
   const isLoading = ref<boolean>(false);
+  const isCheckingSession = ref<boolean>(false);
 
   function $reset() {
     isAuthenticated.value = false;
     isLoading.value = false;
   }
 
-  async function registerUser(data: StorePostCustomersReq) {
+  async function registerCustomer(data: StorePostCustomersReq) {
+    const customerStore = useCustomerStore();
+
+    isLoading.value = true;
+
+    const client = useMedusaClient();
+
+    const result = await client.customers.create(data);
+
+    if (result.customer) {
+      isAuthenticated.value = true;
+      customerStore.customer = result.customer;
+    }
+
+    isLoading.value = false;
+  }
+
+  async function authenticateCustomer(data: StorePostAuthReq) {
+    const customerStore = useCustomerStore();
+
+    isLoading.value = true;
+
+    const client = useMedusaClient();
+
+    const result = await client.auth.authenticate(data);
+
+    if (result.customer) {
+      isAuthenticated.value = true;
+      customerStore.customer = result.customer;
+    }
+
+    isLoading.value = false;
+  }
+
+  async function checkCustomerSession() {
+    const customerStore = useCustomerStore();
+    const client = useMedusaClient();
+
     try {
       isLoading.value = true;
+      isCheckingSession.value = true;
 
-      const client = useMedusaClient();
+      const result = await client.auth.getSession();
 
-      await client.customers.create(data);
-      const result = await client.auth.getToken({ email: data.email, password: data.password });
-
-      if (result.access_token) {
+      if (result.customer) {
         isAuthenticated.value = true;
-        localStorage.setItem("auth_token", result.access_token);
+        customerStore.customer = result.customer;
       }
+
+      return result.customer;
     } catch (error) {
       console.error(error);
     } finally {
       isLoading.value = false;
+      isCheckingSession.value = false;
     }
   }
 
-  async function authenticate(data: StorePostAuthReq) {
-    try {
-      isLoading.value = true;
+  async function logoutCustomer() {
+    const customerStore = useCustomerStore();
 
-      const client = useMedusaClient();
+    isLoading.value = true;
 
-      const result = await client.auth.getToken(data);
+    const client = useMedusaClient();
 
-      if (result.access_token) {
-        isAuthenticated.value = true;
-        localStorage.setItem("auth_token", result.access_token);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      isLoading.value = false;
+    const result = await client.auth.deleteSession();
+
+    if (result.response.status === 200) {
+      isAuthenticated.value = false;
+      customerStore.$reset();
+      $reset();
     }
+
+    isLoading.value = false;
   }
+
+  // getters
+  const isCustomerAuthenticated = computed(() => isAuthenticated.value);
 
   return {
     isAuthenticated,
+    isCheckingSession,
+    isLoading,
 
-    registerUser,
-    authenticate,
+    registerCustomer,
+    authenticateCustomer,
+    checkCustomerSession,
+    logoutCustomer,
+
+    isCustomerAuthenticated,
 
     $reset,
   };

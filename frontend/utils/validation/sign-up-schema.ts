@@ -1,4 +1,4 @@
-import type { StorePostCustomersReq } from "@medusajs/client-types";
+import type { StorePostCustomersReq } from "@medusajs/medusa";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 

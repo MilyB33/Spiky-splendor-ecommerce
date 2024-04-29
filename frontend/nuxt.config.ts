@@ -4,6 +4,7 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 export default defineNuxtConfig({
   css: ["vuetify/lib/styles/main.css", "@mdi/font/css/materialdesignicons.min.css"],
   pages: true,
+  ssr: false,
   devtools: { enabled: true },
   build: {
     transpile: ["vuetify"],
@@ -20,7 +21,7 @@ export default defineNuxtConfig({
     },
   ],
   medusa: {
-    server: true,
+    server: false,
   },
   vite: {
     define: { "process.env.DEBUG": false },

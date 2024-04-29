@@ -33,6 +33,7 @@
         block
         color="orange_primary"
         type="submit"
+        :loading="isSubmitting"
       >
         Sign up
       </v-btn>
@@ -47,16 +48,24 @@ import { signUpTypedSchema } from "~/utils/validation/sign-up-schema";
 
 const form = useForm({ validationSchema: signUpTypedSchema });
 const authStore = useAuthStore();
-const router = useRouter();
+const { snackbar } = useSnackbar();
 
 const { value: first_name, errorMessage: firstNameError } = useField<string>("first_name");
 const { value: last_name, errorMessage: lastNameError } = useField<string>("last_name");
 const { value: email, errorMessage: emailError } = useField<string>("email");
 const { value: password, errorMessage: passwordError } = useField<string>("password");
+const isSubmitting = form.isSubmitting;
 
-const onSubmit = form.handleSubmit((values) => {
-  authStore.registerUser(values);
-  form.handleReset();
+const onSubmit = form.handleSubmit(async (values) => {
+  try {
+    await authStore.registerCustomer(values);
+    form.handleReset();
+    navigateTo("/");
+    snackbar.success("Account created.");
+  } catch (error) {
+    console.error(error);
+    snackbar.error("Something went wrong.");
+  }
 });
 </script>
 

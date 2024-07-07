@@ -5,7 +5,9 @@ export const useCustomer = () => {
   const authStore = useAuthStore();
   const customerStore = useCustomerStore();
 
-  const isCustomerAuthenticated = authStore.isCustomerAuthenticated;
+  const isCustomerAuthenticated = computed(
+    () => authStore.isAuthenticated && !!customerStore.customer,
+  );
 
   return {
     isCustomerAuthenticated,

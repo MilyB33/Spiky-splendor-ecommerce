@@ -34,27 +34,25 @@
       min-width="200"
       v-else
     >
-      <AuthenticationButton to="/login#login">Sign in</AuthenticationButton>
+      <AuthenticationButton to="/login?login=true">Sign in</AuthenticationButton>
 
       <v-divider
         thickness="2"
         class="mx-4"
       />
 
-      <AuthenticationButton to="/login#register">Sign up</AuthenticationButton>
+      <AuthenticationButton to="/login?register=true">Sign up</AuthenticationButton>
     </v-card>
   </v-menu>
 </template>
 
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
-import { useAuthStore } from "~/store/auth";
 
 const { isCustomerAuthenticated } = useCustomer();
 const { mobile } = useDisplay({ mobileBreakpoint: "md" });
-const authStore = useAuthStore();
-
+const isAuthenticated = ref(isCustomerAuthenticated);
 const isOpenMenuOnClick = computed(() => {
-  return mobile.value || authStore.isCustomerAuthenticated;
+  return mobile.value || isAuthenticated.value;
 });
 </script>

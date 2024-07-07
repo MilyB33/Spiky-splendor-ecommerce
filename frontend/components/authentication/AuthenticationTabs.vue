@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 const route = useRoute();
-const authenticationTab = route.hash === "#login" ? "signIn" : "signUp";
+const authenticationTab = route.query.register === "true" ? "signUp" : "signIn";
 
 const tab = defineModel<"signIn" | "signUp">("tab");
 

@@ -88,9 +88,6 @@ export const useAuthStore = defineStore("auth", () => {
     isLoading.value = false;
   }
 
-  // getters
-  const isCustomerAuthenticated = computed(() => isAuthenticated.value);
-
   return {
     isAuthenticated,
     isCheckingSession,
@@ -100,8 +97,6 @@ export const useAuthStore = defineStore("auth", () => {
     authenticateCustomer,
     checkCustomerSession,
     logoutCustomer,
-
-    isCustomerAuthenticated,
 
     $reset,
   };

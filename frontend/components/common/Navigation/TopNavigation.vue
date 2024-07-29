@@ -32,7 +32,7 @@
 
     <v-spacer />
 
-    <v-btn icon="mdi-heart-outline" />
+    <FavoriteButton />
 
     <NavigationAccountMenu />
 

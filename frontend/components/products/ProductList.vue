@@ -30,7 +30,7 @@ const { products, isLoading } = storeToRefs(productStore);
 
 onMounted(async () => {
   if (!isLoading.value) {
-    await productStore.retrieveProductList({});
+    await productStore.retrieveProductList({ expand: "categories,variants" });
   }
 });
 </script>

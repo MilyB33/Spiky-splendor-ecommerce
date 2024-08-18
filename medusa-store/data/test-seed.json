@@ -282,9 +282,10 @@
       {
         "id": "pcat_andromischus",
         "name": "Andromischusy",
-        "rank": 0,
+        "rank": 1,
         "category_children": [],
         "handle": "andromischus",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -292,6 +293,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -299,9 +301,10 @@
       {
         "id": "pcat_aloesy",
         "name": "Aloesy",
-        "rank": 0,
+        "rank": 2,
         "category_children": [],
         "handle": "aloesy",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -309,6 +312,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -316,9 +320,10 @@
       {
         "id": "pcat_ceropegie",
         "name": "Ceropegie",
-        "rank": 0,
+        "rank": 3,
         "category_children": [],
         "handle": "ceropegie",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -326,6 +331,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -333,9 +339,10 @@
       {
         "id": "pcat_draceny",
         "name": "Draceny",
-        "rank": 0,
+        "rank": 4,
         "category_children": [],
         "handle": "draceny",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -343,6 +350,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -350,9 +358,10 @@
       {
         "id": "pcat_dischidie",
         "name": "Dischidie",
-        "rank": 0,
+        "rank": 5,
         "category_children": [],
         "handle": "dischidie",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -360,6 +369,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -367,9 +377,10 @@
       {
         "id": "pcat_eszeverie",
         "name": "Eszeverie",
-        "rank": 0,
+        "rank": 6,
         "category_children": [],
         "handle": "eszeverie",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -377,6 +388,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -384,9 +396,10 @@
       {
         "id": "pcat_grubosze",
         "name": "Grubosze",
-        "rank": 0,
+        "rank": 7,
         "category_children": [],
         "handle": "grubosze",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -394,6 +407,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -401,9 +415,10 @@
       {
         "id": "pcat_haworsje",
         "name": "Haworsje",
-        "rank": 0,
+        "rank": 8,
         "category_children": [],
         "handle": "haworsje",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -411,6 +426,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -418,9 +434,10 @@
       {
         "id": "pcat_kaktusy",
         "name": "Kaktusy",
-        "rank": 0,
+        "rank": 9,
         "category_children": [],
         "handle": "kaktusy",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -428,6 +445,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -435,9 +453,10 @@
       {
         "id": "pcat_kalanchoe",
         "name": "Kalanchoe",
-        "rank": 0,
+        "rank": 10,
         "category_children": [],
         "handle": "kalanchoe",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -445,6 +464,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -452,9 +472,10 @@
       {
         "id": "pcat_noliny",
         "name": "Noliny",
-        "rank": 0,
+        "rank": 11,
         "category_children": [],
         "handle": "noliny",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -462,6 +483,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -469,9 +491,10 @@
       {
         "id": "pcat_opuncje",
         "name": "Opuncje",
-        "rank": 0,
+        "rank": 12,
         "category_children": [],
         "handle": "opuncje",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -479,6 +502,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -486,9 +510,10 @@
       {
         "id": "pcat_peperomie",
         "name": "Peperomie",
-        "rank": 0,
+        "rank": 13,
         "category_children": [],
         "handle": "peperomie",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -496,6 +521,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -503,9 +529,10 @@
       {
         "id": "pcat_rochodniki",
         "name": "Rozchodniki",
-        "rank": 0,
+        "rank": 14,
         "category_children": [],
         "handle": "rozchodniki",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -513,6 +540,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -520,9 +548,10 @@
       {
         "id": "pcat_ripsalisy",
         "name": "Ripsalisy",
-        "rank": 0,
+        "rank": 15,
         "category_children": [],
         "handle": "ripsalisy",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -530,6 +559,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -537,9 +567,10 @@
       {
         "id": "pcat_sansewierie",
         "name": "Sansewierie",
-        "rank": 0,
+        "rank": 16,
         "category_children": [],
         "handle": "sansewierie",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -547,6 +578,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -554,9 +586,10 @@
       {
         "id": "pcat_wilczomlecze",
         "name": "Wilczomlecze",
-        "rank": 0,
+        "rank": 17,
         "category_children": [],
         "handle": "wilczomlecze",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -564,6 +597,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -571,9 +605,10 @@
       {
         "id": "pcat_zywe_kamienie",
         "name": "Żywe Kamienie",
-        "rank": 0,
+        "rank": 18,
         "category_children": [],
         "handle": "zywe_kamienie",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -581,6 +616,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]
@@ -588,9 +624,10 @@
       {
         "id": "pcat_inne",
         "name": "Inne",
-        "rank": 0,
+        "rank": 19,
         "category_children": [],
         "handle": "inne",
+        "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
@@ -598,6 +635,7 @@
             "name": "Sukulenty",
             "rank": 0,
             "handle": "succulents",
+            "parent_category_id": null,
             "is_active": true
           }
         ]

@@ -2,7 +2,7 @@
   <NuxtLink
     :to="to"
     class="button text-decoration-none text-black w-100 h-100"
-    exact-active-class="button--active"
+    active-class="button--active"
   >
     <v-btn
       rounded="0"

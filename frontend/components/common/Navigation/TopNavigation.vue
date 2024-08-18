@@ -26,7 +26,14 @@
       v-if="!mobile"
       class="ml-md-8 ml-4"
     >
-      <CommonNavigationButton to="/products">Our Products</CommonNavigationButton>
+      <!-- TODO fix type -->
+      <CategoryNavigationButton
+        v-if="categories"
+        v-for="category in categories.product_categories"
+        :key="category.id"
+        :category="category as ProductCategory"
+      />
+
       <CommonNavigationButton to="/about">About</CommonNavigationButton>
     </v-toolbar-items>
 
@@ -49,9 +56,13 @@
 
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
+import { useProductStore } from "~/store/products";
+import { type ProductCategory } from "~/types";
 
+const productStore = useProductStore();
 const isOpen = defineModel<boolean>("isOpen");
 
+const { categories } = storeToRefs(productStore);
 const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
 
 const toggleButton = () => {

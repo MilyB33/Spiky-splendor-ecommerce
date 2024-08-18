@@ -18,6 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           colors: {
             primary: colors.shades.black,
             green_primary: colors.green.darken3,
+            light_green: colors.lightGreen.lighten1,
             orange_primary: colors.deepOrange.lighten1,
           },
         },

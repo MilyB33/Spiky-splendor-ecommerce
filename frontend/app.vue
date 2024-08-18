@@ -2,7 +2,7 @@
   <v-app>
     <SnackbarProvider>
       <div
-        v-if="isCheckingSession"
+        v-if="isLoading"
         class="d-flex justify-center align-center fill-height"
       >
         <v-progress-circular
@@ -25,15 +25,5 @@
 </style>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useAuthStore } from "./store/auth";
-
-const authStore = useAuthStore();
-const { isCheckingSession, isAuthenticated } = storeToRefs(authStore);
-
-onMounted(async () => {
-  if (!isAuthenticated.value && !isCheckingSession.value) {
-    await authStore.checkCustomerSession();
-  }
-});
+const { isLoading } = useInitialize();
 </script>

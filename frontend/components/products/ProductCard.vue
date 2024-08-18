@@ -27,7 +27,12 @@
         {{ product.title }}
       </h4>
 
-      <h6 class="category">Category</h6>
+      <h6
+        class="category"
+        v-if="product.categories?.length"
+      >
+        {{ product.categories[0].name }}
+      </h6>
 
       <div class="d-flex align-center ga-1">
         <div class="status-circle--available"></div>

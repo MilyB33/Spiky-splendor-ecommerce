@@ -10,7 +10,7 @@ export const useInitialize = () => {
   const { isCheckingSession, isAuthenticated } = storeToRefs(authStore);
   const { isFetchingCategories, categories } = storeToRefs(productsStore);
 
-  onMounted(async () => {
+  onBeforeMount(async () => {
     if (!isAuthenticated.value && !isCheckingSession.value) {
       authStore.checkCustomerSession();
     }

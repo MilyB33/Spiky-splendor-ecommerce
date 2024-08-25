@@ -1,11 +1,15 @@
-export const useProducts = async () => {
-  try {
-    const client = useMedusaClient();
+import type { StoreGetProductsParams } from "@medusajs/medusa";
+import { useProductStore } from "~/store/products";
 
-    const { products } = await client.products.list();
+export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
+  const productStore = useProductStore();
+  const { products, isFetchingCategories: isLoading } = storeToRefs(productStore);
 
-    return products;
-  } catch (error) {
-    console.log(error);
-  }
+  onBeforeMount(() => {
+    if (!isLoading.value) {
+      productStore.retrieveProductList(params?.value);
+    }
+  });
+
+  return { products, isLoading: isLoading };
 };

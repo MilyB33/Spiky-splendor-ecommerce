@@ -1,3 +1,3 @@
 <template>
-  <ProductList />
+  <AllProducts />
 </template>

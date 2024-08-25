@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isLoading"
+    v-if="props.isLoading"
     class="d-flex justify-center align-center fill-height"
   >
     <v-progress-circular
@@ -13,26 +13,20 @@
     class="list"
     v-else
   >
-    <template v-for="product in products?.products">
-      <!-- TODO: Fix type -->
-      <ProductCard :product="product as PricedProduct" />
+    <template v-for="product in props.products?.products">
+      <ProductCard :product="product" />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useProductStore } from "~/store/products";
-import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import type { ProductsListResponse } from "~/types";
+const props = defineProps<{ products: ProductsListResponse | null; isLoading: boolean }>();
 
-const productStore = useProductStore();
-const { products, isLoading } = storeToRefs(productStore);
-
-onMounted(async () => {
-  if (!isLoading.value) {
-    await productStore.retrieveProductList({ expand: "categories,variants" });
-  }
-});
+watch(
+  () => props.isLoading,
+  () => props.products,
+);
 </script>
 
 <style scoped lang="scss">

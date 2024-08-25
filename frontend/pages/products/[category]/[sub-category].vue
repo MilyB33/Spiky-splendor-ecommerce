@@ -1,1 +1,3 @@
-<template>sub category</template>
+<template>
+  <CategoryProducts />
+</template>

@@ -2,19 +2,19 @@ import {
   StoreGetProductCategoriesParams,
   type StoreGetProductCategoriesRes,
   type StoreGetProductsParams,
-  type StoreProductsListRes,
 } from "@medusajs/medusa";
 import { defineStore } from "pinia";
+import type { ProductsListResponse } from "~/types";
 
 export const useProductStore = defineStore("product", () => {
-  const isLoading = ref<boolean>(false);
-  const products = ref<StoreProductsListRes | null>(null);
+  const iseFetchingProducts = ref<boolean>(false);
+  const products = ref<ProductsListResponse | null>(null);
   const isFetchingCategories = ref<boolean>(false);
   const categories = ref<StoreGetProductCategoriesRes | null>(null);
 
   async function retrieveProductList(params?: StoreGetProductsParams) {
     try {
-      isLoading.value = true;
+      iseFetchingProducts.value = true;
 
       const client = useMedusaClient();
 
@@ -24,7 +24,7 @@ export const useProductStore = defineStore("product", () => {
     } catch (error) {
       console.error(error);
     } finally {
-      isLoading.value = false;
+      iseFetchingProducts.value = false;
     }
   }
 
@@ -38,11 +38,12 @@ export const useProductStore = defineStore("product", () => {
 
       // TODO: This should be done on backend
       // keep only parent categories
-      const filteredCategories = result.product_categories.filter(
-        (category) => category.category_children.length,
+
+      const filteredCategories = computed(() =>
+        result.product_categories.filter((category) => category.category_children.length),
       );
 
-      categories.value = { ...result, product_categories: filteredCategories };
+      categories.value = { ...result, product_categories: filteredCategories.value };
     } catch (error) {
       console.error(error);
     } finally {
@@ -53,7 +54,7 @@ export const useProductStore = defineStore("product", () => {
   function $reset() {
     products.value = null;
     categories.value = null;
-    isLoading.value = false;
+    iseFetchingProducts.value = false;
     isFetchingCategories.value = false;
   }
 
@@ -61,7 +62,7 @@ export const useProductStore = defineStore("product", () => {
     products,
     categories,
 
-    isLoading,
+    iseFetchingProducts,
     isFetchingCategories,
 
     retrieveProductList,

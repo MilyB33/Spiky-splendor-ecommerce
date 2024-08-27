@@ -11,7 +11,6 @@ export const useGetCategoryProducts = (params?: StoreGetProductsParams) => {
 
   const filters = computed(() => {
     return {
-      expand: "categories,variants",
       ...params,
       category_id: [categoryId.value as string],
     } satisfies StoreGetProductsParams;

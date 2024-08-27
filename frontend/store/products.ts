@@ -7,14 +7,14 @@ import { defineStore } from "pinia";
 import type { ProductsListResponse } from "~/types";
 
 export const useProductStore = defineStore("product", () => {
-  const iseFetchingProducts = ref<boolean>(false);
+  const isFetchingProducts = ref<boolean>(false);
   const products = ref<ProductsListResponse | null>(null);
   const isFetchingCategories = ref<boolean>(false);
   const categories = ref<StoreGetProductCategoriesRes | null>(null);
 
   async function retrieveProductList(params?: StoreGetProductsParams) {
     try {
-      iseFetchingProducts.value = true;
+      isFetchingProducts.value = true;
 
       const client = useMedusaClient();
 
@@ -24,7 +24,7 @@ export const useProductStore = defineStore("product", () => {
     } catch (error) {
       console.error(error);
     } finally {
-      iseFetchingProducts.value = false;
+      isFetchingProducts.value = false;
     }
   }
 
@@ -54,7 +54,7 @@ export const useProductStore = defineStore("product", () => {
   function $reset() {
     products.value = null;
     categories.value = null;
-    iseFetchingProducts.value = false;
+    isFetchingProducts.value = false;
     isFetchingCategories.value = false;
   }
 
@@ -62,7 +62,7 @@ export const useProductStore = defineStore("product", () => {
     products,
     categories,
 
-    iseFetchingProducts,
+    isFetchingProducts,
     isFetchingCategories,
 
     retrieveProductList,

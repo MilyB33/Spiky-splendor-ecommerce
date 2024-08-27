@@ -18,7 +18,9 @@
       <div class="favorite-button">
         <favorite-button
           size="small"
-          variant="tonal"
+          variant="elevated"
+          color="light_green"
+          style="color: white !important"
         />
       </div>
     </div>
@@ -35,8 +37,15 @@
       </h6>
 
       <div class="d-flex align-center ga-1">
-        <div class="status-circle--available"></div>
-        <span class="text-body-2">Available</span>
+        <div
+          class="status-circle"
+          :class="productAvailabilityConfig.class"
+        ></div>
+        <span class="text-body-2">{{ productAvailabilityConfig.label }}</span>
+      </div>
+
+      <div class="">
+        <span>{{ price }}</span>
       </div>
     </div>
 
@@ -45,6 +54,7 @@
         icon="mdi-cart-plus"
         size="x-small"
         color="green_primary"
+        :disabled="productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK"
       />
 
       <v-btn
@@ -62,12 +72,51 @@
 
 <script setup lang="ts">
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PRODUCT_AVAILABILITY, PRODUCT_AVAILABILITY_LABELS } from "~/constant";
+import { getProductAvailabilityStatus } from "~/utils/product";
 
 type ProductCardProps = {
   product: PricedProduct;
 };
 
-defineProps<ProductCardProps>();
+const props = defineProps<ProductCardProps>();
+const productQuantityStatus = getProductAvailabilityStatus(props.product);
+
+const productAvailabilityConfig = computed(() => {
+  switch (productQuantityStatus) {
+    case PRODUCT_AVAILABILITY.OUT_OF_STOCK: {
+      return {
+        class: "status-circle--out-of-stock",
+        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.OUT_OF_STOCK],
+      };
+    }
+    case PRODUCT_AVAILABILITY.LOW_STOCK: {
+      return {
+        class: "status-circle--low-stock",
+        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.LOW_STOCK],
+      };
+    }
+    case PRODUCT_AVAILABILITY.AVAILABLE: {
+      return {
+        class: "status-circle--available",
+        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.AVAILABLE],
+      };
+    }
+    case PRODUCT_AVAILABILITY.OUT_OF_STOCK:
+    default: {
+      return {
+        class: "status-circle--out-of-stock",
+        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.OUT_OF_STOCK],
+      };
+    }
+  }
+});
+
+const price = computed(() => {
+  return props.product.variants.reduce((prev, curr) => {
+    return `${curr.original_price_includes_tax}` || "0";
+  }, "");
+});
 </script>
 
 <style scoped lang="scss">
@@ -88,10 +137,21 @@ defineProps<ProductCardProps>();
   color: #8d99ae;
 }
 
-.status-circle--available {
-  background-color: #80b918;
+.status-circle {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+
+  &--available {
+    background-color: #80b918;
+  }
+
+  &--low-stock {
+    background-color: #ff8800;
+  }
+
+  &--out-of-stock {
+    background-color: #cc0000;
+  }
 }
 </style>

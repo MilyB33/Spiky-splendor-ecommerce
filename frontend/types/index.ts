@@ -3,7 +3,9 @@
 import {
   type ProductCategory as MedusaProductCategory,
   type StoreProductsListRes as MedusaProductsListResponse,
+  type StoreRegionsListRes as MedusaRegionsListResponse,
 } from "@medusajs/medusa";
 
 export type ProductCategory = MedusaProductCategory;
 export type ProductsListResponse = MedusaProductsListResponse;
+export type RegionsListResponse = MedusaRegionsListResponse;

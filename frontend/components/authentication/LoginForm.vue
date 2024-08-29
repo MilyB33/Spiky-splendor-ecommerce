@@ -37,28 +37,36 @@
 </template>
 
 <script setup lang="ts">
+import type { StorePostAuthReq } from "@medusajs/medusa";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useField, useForm } from "vee-validate";
-import { useAuthStore } from "~/store/auth";
+import { API_QUERY_KEY } from "~/constant";
 import { signInTypedSchema } from "~/utils/validation/sign-in-schema";
 
+const client = useMedusaClient();
 const form = useForm({ validationSchema: signInTypedSchema });
-const authStore = useAuthStore();
 const { snackbar } = useSnackbar();
-
-const { value: email, errorMessage: emailError } = useField<string>("email");
-const { value: password, errorMessage: passwordError } = useField<string>("password");
-const isSubmitting = form.isSubmitting;
-
-const onSubmit = form.handleSubmit(async (values) => {
-  try {
-    await authStore.authenticateCustomer(values);
+const queryClient = useQueryClient();
+const { mutate, isPending } = useMutation({
+  mutationFn: (params: StorePostAuthReq) => client.auth.authenticate(params),
+  onError: (error) => {
+    console.error(error);
+    snackbar.error("Something went wrong.");
+  },
+  onSuccess: () => {
     form.handleReset();
     navigateTo("/");
     snackbar.success("Successfully logged in.");
-  } catch (error) {
-    console.error(error);
-    snackbar.error("Something went wrong.");
-  }
+    queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+  },
+});
+
+const { value: email, errorMessage: emailError } = useField<string>("email");
+const { value: password, errorMessage: passwordError } = useField<string>("password");
+const isSubmitting = computed(() => form.isSubmitting.value || isPending.value);
+
+const onSubmit = form.handleSubmit((values) => {
+  mutate(values);
 });
 </script>
 

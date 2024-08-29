@@ -1,19 +1,23 @@
 import type { StoreGetProductsParams } from "@medusajs/medusa";
-import { useProductStore } from "~/store/products";
+import { useQuery } from "@tanstack/vue-query";
+import { API_QUERY_KEY } from "~/constant";
+import { useCommonStore } from "~/store/common";
 
 export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
-  const productStore = useProductStore();
-  const { products, isFetchingProducts: isLoading } = storeToRefs(productStore);
+  const client = useMedusaClient();
+  const commonStore = useCommonStore();
+  const { selectedRegion } = storeToRefs(commonStore);
 
-  onBeforeMount(() => {
-    if (!isLoading.value) {
-      productStore.retrieveProductList({
+  const { data: products, isPending } = useQuery({
+    queryKey: [API_QUERY_KEY.PRODUCTS, API_QUERY_KEY.ALL, params?.value, selectedRegion.value?.id],
+    queryFn: () =>
+      client.products.list({
         ...params?.value,
         expand: "categories,variants,variants.prices",
-        region_id: "reg_01J680WVRHRBJT12483PVMWCN8",
-      });
-    }
+        region_id: selectedRegion.value?.id,
+      }),
+    enabled: !!selectedRegion.value,
   });
 
-  return { products, isLoading: isLoading };
+  return { products, isLoading: isPending };
 };

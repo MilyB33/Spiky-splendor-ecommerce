@@ -34,19 +34,27 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "~/store/auth";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
+import { API_QUERY_KEY } from "~/constant";
 
-const { logoutCustomer } = useAuthStore();
+const client = useMedusaClient();
+const queryClient = useQueryClient();
 const { snackbar } = useSnackbar();
 
-const handleLogout = async () => {
-  try {
-    await logoutCustomer();
-    snackbar.success("Successfully logged out.");
-    navigateTo("/");
-  } catch (error) {
+const { mutate } = useMutation({
+  mutationFn: () => client.auth.deleteSession(),
+  onError: (error) => {
     console.error(error);
     snackbar.error("Something went wrong.");
-  }
+  },
+  onSuccess: () => {
+    snackbar.success("Successfully logged out.");
+    navigateTo("/");
+    queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER], exact: true });
+  },
+});
+
+const handleLogout = async () => {
+  mutate();
 };
 </script>

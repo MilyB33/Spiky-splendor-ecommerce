@@ -1,16 +1,21 @@
-import { useAuthStore } from "~/store/auth";
-import { useCustomerStore } from "~/store/customer";
+import { useQuery } from "@tanstack/vue-query";
+import { API_QUERY_KEY } from "~/constant";
 
 export const useCustomer = () => {
-  const authStore = useAuthStore();
-  const customerStore = useCustomerStore();
+  const client = useMedusaClient();
 
-  const isCustomerAuthenticated = computed(
-    () => authStore.isAuthenticated && !!customerStore.customer,
-  );
+  const { data: customer, isPending: isFetchingCustomer } = useQuery({
+    queryKey: [API_QUERY_KEY.CUSTOMER],
+    queryFn: () => client.customers.retrieve(),
+    retry: 0,
+    retryOnMount: false,
+  });
+
+  const isAuthenticated = computed(() => !!customer.value);
 
   return {
-    isCustomerAuthenticated,
-    customer: customerStore.customer,
+    isAuthenticated,
+    isLoading: isFetchingCustomer,
+    customer: customer,
   };
 };

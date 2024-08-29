@@ -42,30 +42,38 @@
 </template>
 
 <script setup lang="ts">
+import type { StorePostCustomersReq } from "@medusajs/medusa";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useField, useForm } from "vee-validate";
-import { useAuthStore } from "~/store/auth";
+import { API_QUERY_KEY } from "~/constant";
 import { signUpTypedSchema } from "~/utils/validation/sign-up-schema";
 
+const client = useMedusaClient();
 const form = useForm({ validationSchema: signUpTypedSchema });
-const authStore = useAuthStore();
 const { snackbar } = useSnackbar();
+const queryClient = useQueryClient();
+const { mutate, isPending } = useMutation({
+  mutationFn: (params: StorePostCustomersReq) => client.customers.create(params),
+  onError: (error) => {
+    console.error(error);
+    snackbar.error("Something went wrong.");
+  },
+  onSuccess: () => {
+    form.handleReset();
+    snackbar.success("Account created.");
+    queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+    navigateTo("/");
+  },
+});
 
 const { value: first_name, errorMessage: firstNameError } = useField<string>("first_name");
 const { value: last_name, errorMessage: lastNameError } = useField<string>("last_name");
 const { value: email, errorMessage: emailError } = useField<string>("email");
 const { value: password, errorMessage: passwordError } = useField<string>("password");
-const isSubmitting = form.isSubmitting;
+const isSubmitting = computed(() => form.isSubmitting.value || isPending.value);
 
-const onSubmit = form.handleSubmit(async (values) => {
-  try {
-    await authStore.registerCustomer(values);
-    form.handleReset();
-    navigateTo("/");
-    snackbar.success("Account created.");
-  } catch (error) {
-    console.error(error);
-    snackbar.error("Something went wrong.");
-  }
+const onSubmit = form.handleSubmit((values) => {
+  mutate(values);
 });
 </script>
 

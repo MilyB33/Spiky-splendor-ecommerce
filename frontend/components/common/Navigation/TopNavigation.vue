@@ -29,7 +29,7 @@
       <!-- TODO fix type -->
       <CategoryNavigationButton
         v-if="categories"
-        v-for="category in categories.product_categories"
+        v-for="category in categories"
         :key="category.id"
         :category="category as ProductCategory"
       />
@@ -56,13 +56,11 @@
 
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
-import { useProductStore } from "~/store/products";
 import { type ProductCategory } from "~/types";
 
-const productStore = useProductStore();
 const isOpen = defineModel<boolean>("isOpen");
 
-const { categories } = storeToRefs(productStore);
+const { categories } = useCategories();
 const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
 
 const toggleButton = () => {

@@ -1,31 +1,25 @@
-import { useAuthStore } from "~/store/auth";
 import { useCommonStore } from "~/store/common";
-import { useProductStore } from "~/store/products";
 
 export const useInitialize = () => {
-  const authStore = useAuthStore();
-  const productsStore = useProductStore();
   const commonStore = useCommonStore();
+  const { selectedRegion } = storeToRefs(commonStore);
+  const { isLoading: isCheckingSession } = useCustomer();
+  const { isFetchingCategories } = useCategories();
+  const { isFetchingRegions, regions } = useRegions();
 
-  const { isCheckingSession, isAuthenticated } = storeToRefs(authStore);
-  const { isFetchingCategories, categories } = storeToRefs(productsStore);
-  const { isFetchingRegions, regions } = storeToRefs(commonStore);
+  const isLoading = computed(
+    () => isCheckingSession.value || isFetchingCategories.value || isFetchingRegions.value,
+  );
 
-  onBeforeMount(async () => {
-    if (!isAuthenticated.value && !isCheckingSession.value) {
-      authStore.checkCustomerSession();
-    }
+  watch(regions, (newRegions) => {
+    const region = newRegions?.regions[0];
 
-    if (!categories.value?.count && !isFetchingCategories.value) {
-      productsStore.retrieveCategoriesList();
-    }
-
-    if (!regions.value?.count && !isFetchingRegions.value) {
-      commonStore.retrieveRegions();
+    if (region && !selectedRegion.value) {
+      commonStore.selectRegion(region);
     }
   });
 
   return {
-    isLoading: isCheckingSession.value || isFetchingCategories.value || isFetchingRegions.value,
+    isLoading,
   };
 };

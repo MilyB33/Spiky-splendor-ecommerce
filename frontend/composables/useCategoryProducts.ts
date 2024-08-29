@@ -1,5 +1,4 @@
 import { StoreGetProductsParams } from "@medusajs/medusa";
-import { useProductStore } from "~/store/products";
 
 export const useGetCategoryProducts = (params?: StoreGetProductsParams) => {
   const route = useRoute();

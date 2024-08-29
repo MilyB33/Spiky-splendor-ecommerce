@@ -1,8 +1,8 @@
 <template>
   <v-menu
-    :open-on-hover="!isCustomerAuthenticated"
+    :open-on-hover="!isAuthenticated"
     :open-on-click="isOpenMenuOnClick"
-    :close-on-content-click="!isCustomerAuthenticated"
+    :close-on-content-click="!isAuthenticated"
     location="bottom"
     offset="8"
     open-delay="0"
@@ -28,7 +28,7 @@
       </v-btn>
     </template>
 
-    <UserAccountContextMenu v-if="isCustomerAuthenticated" />
+    <UserAccountContextMenu v-if="isAuthenticated" />
 
     <v-card
       min-width="200"
@@ -49,9 +49,9 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
 
-const { isCustomerAuthenticated } = useCustomer();
+const { isAuthenticated } = useCustomer();
 const { mobile } = useDisplay({ mobileBreakpoint: "md" });
-const isAuthenticated = ref(isCustomerAuthenticated);
+
 const isOpenMenuOnClick = computed(() => {
   return mobile.value || isAuthenticated.value;
 });

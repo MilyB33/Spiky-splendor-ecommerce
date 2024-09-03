@@ -18,5 +18,6 @@ export const API_QUERY_KEY = {
   REGIONS: "REGIONS",
   CUSTOMER: "CUSTOMER",
   PRODUCTS: "PRODUCTS",
+  WISHLIST: "WISHLIST",
   ALL: "ALL",
 } as const;

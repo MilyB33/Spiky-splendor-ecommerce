@@ -19,8 +19,8 @@
       "countries": ["gb", "de", "dk", "se", "fr", "es", "it"]
     },
     {
-      "id": "test-region-na",
-      "name": "NA",
+      "id": "test-region-us",
+      "name": "US",
       "currency_code": "usd",
       "tax_rate": 0,
       "payment_providers": ["manual"],
@@ -73,7 +73,7 @@
     },
     {
       "name": "FakeEx Standard",
-      "region_id": "test-region-na",
+      "region_id": "test-region-us",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -83,7 +83,7 @@
     },
     {
       "name": "FakeEx Express",
-      "region_id": "test-region-na",
+      "region_id": "test-region-us",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -93,7 +93,7 @@
     },
     {
       "name": "FakeEx Return",
-      "region_id": "test-region-na",
+      "region_id": "test-region-us",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -104,7 +104,7 @@
     },
     {
       "name": "I want to return it myself",
-      "region_id": "test-region-na",
+      "region_id": "test-region-us",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"

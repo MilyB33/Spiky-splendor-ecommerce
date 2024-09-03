@@ -39,7 +39,18 @@
 
     <v-spacer />
 
-    <FavoriteButton />
+    <NuxtLink
+      to="/wishlist"
+      class="button text-decoration-none text-black"
+      active-class="button--active"
+    >
+      <v-btn
+        icon="mdi-heart-outline"
+        variant="text"
+        color="green_primary"
+      >
+      </v-btn>
+    </NuxtLink>
 
     <NavigationAccountMenu />
 
@@ -51,6 +62,15 @@
     />
 
     <CartButton />
+
+    <v-divider
+      vertical
+      class="mx-3 align-self-center"
+      length="32"
+      thickness="2"
+    />
+
+    <RegionsMenu />
   </v-toolbar>
 </template>
 
@@ -61,6 +81,7 @@ import { type ProductCategory } from "~/types";
 const isOpen = defineModel<boolean>("isOpen");
 
 const { categories } = useCategories();
+const { wishlist } = useWishlist();
 const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
 
 const toggleButton = () => {

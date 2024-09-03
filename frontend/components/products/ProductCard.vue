@@ -16,12 +16,15 @@
       ></v-img>
 
       <div class="favorite-button">
-        <favorite-button
+        <v-btn
+          :icon="isItemInWishlist ? 'mdi-heart' : 'mdi-heart-outline'"
           size="small"
           variant="elevated"
           color="light_green"
           style="color: white !important"
-        />
+          @click="onClick"
+        >
+        </v-btn>
       </div>
     </div>
     <div class="mt-2 d-flex flex-column ga-1">
@@ -73,6 +76,7 @@
 <script setup lang="ts">
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { PRODUCT_AVAILABILITY, PRODUCT_AVAILABILITY_LABELS } from "~/constant";
+import { useCommonStore } from "~/store/common";
 import { getProductAvailabilityStatus } from "~/utils/product";
 
 type ProductCardProps = {
@@ -81,6 +85,30 @@ type ProductCardProps = {
 
 const props = defineProps<ProductCardProps>();
 const productQuantityStatus = getProductAvailabilityStatus(props.product);
+const commonStore = useCommonStore();
+const { selectedRegion } = storeToRefs(commonStore);
+const { wishlist, removeFromWishlist, addToWishlist, isRemovingFromWishlist, isAddingToWishlist } =
+  useWishlist();
+
+const isItemInWishlist = computed(() => {
+  return wishlist.value.some((item) => item.variant_id === props.product.variants[0].id);
+});
+
+const onClick = () => {
+  const { id: variantID } = props.product.variants[0];
+
+  if (!variantID) return;
+
+  if (!isItemInWishlist.value) {
+    addToWishlist({ variantID, quantity: 1 });
+  } else {
+    const itemIndex = wishlist.value.findIndex((item) => item.variant_id === variantID);
+
+    if (itemIndex !== -1) {
+      removeFromWishlist({ index: itemIndex });
+    }
+  }
+};
 
 const productAvailabilityConfig = computed(() => {
   switch (productQuantityStatus) {
@@ -112,9 +140,16 @@ const productAvailabilityConfig = computed(() => {
   }
 });
 
+const convertToDecimal = (amount: number) => {
+  return Math.floor(amount) / 100;
+};
+
 const price = computed(() => {
   return props.product.variants.reduce((prev, curr) => {
-    return `${curr.original_price_includes_tax}` || "0";
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: selectedRegion.value?.currency_code || "usd",
+    }).format(convertToDecimal(curr.calculated_price_incl_tax || 0));
   }, "");
 });
 </script>

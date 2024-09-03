@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import type { ProductsListResponse } from "~/types";
-const props = defineProps<{ products: ProductsListResponse | null; isLoading: boolean }>();
+const props = defineProps<{ products?: ProductsListResponse; isLoading: boolean }>();
 </script>
 
 <style scoped lang="scss">

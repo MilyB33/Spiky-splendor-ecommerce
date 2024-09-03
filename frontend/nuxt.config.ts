@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     transpile: ["vuetify"],
   },
   modules: [
+    "@vueuse/nuxt",
     "@pinia/nuxt",
     "nuxt-medusa",
     "@vee-validate/nuxt",

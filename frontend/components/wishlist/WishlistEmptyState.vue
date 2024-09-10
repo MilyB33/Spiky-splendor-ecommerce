@@ -16,6 +16,7 @@
     </div>
 
     <v-divider
+      v-if="!isAuthenticated"
       :thickness="5"
       width="90%"
       class="opacity-100"
@@ -27,12 +28,14 @@
     >
       <p>Would you like to save it on your account?</p>
 
-      <v-btn
-        color="black"
-        size="small"
-      >
-        Log In or create a new account
-      </v-btn>
+      <NuxtLink to="/login?login=true">
+        <v-btn
+          color="black"
+          size="small"
+        >
+          Log In or create a new account
+        </v-btn>
+      </NuxtLink>
     </div>
   </div>
 </template>

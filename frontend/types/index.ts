@@ -5,6 +5,8 @@ import {
   type StoreProductsListRes as MedusaProductsListResponse,
   type StoreRegionsListRes as MedusaRegionsListResponse,
   type LineItem as MedusaLineItem,
+  type Customer as MedusaCustomer,
+  type Product as MedusaProduct,
 } from "@medusajs/medusa";
 
 export type ProductCategory = MedusaProductCategory;
@@ -12,4 +14,16 @@ export type ProductsListResponse = MedusaProductsListResponse;
 export type RegionsListResponse = MedusaRegionsListResponse;
 
 // Wishlist
-export type Wishlist = ({ title: string } & MedusaLineItem)[];
+export type WishlistItem = {
+  id: string;
+  wishlist: Wishlist;
+  product_id: string;
+  product: MedusaProduct;
+};
+
+export type Wishlist = {
+  id: string;
+  customer_id: string;
+  customer: MedusaCustomer;
+  items: WishlistItem[];
+};

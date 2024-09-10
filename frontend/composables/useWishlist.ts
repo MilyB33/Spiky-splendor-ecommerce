@@ -1,39 +1,60 @@
-import type { Customer } from "@medusajs/medusa";
-import { useMutation, useQueryClient } from "@tanstack/vue-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
-import type { Wishlist } from "~/types";
+import type { Wishlist, WishlistItem } from "~/types";
 import { useStorage } from "@vueuse/core";
 
-type StorageWishlistItem = {
-  variantID: string;
-  quantity: number;
-};
-
 type AddToWishlistParams = {
-  customerID: string;
-  variantID: string;
-  quantity: number;
+  wishlistID: string;
+  productID: string;
 };
 
 type RemoveFromWishlistParams = {
-  customerID: string;
-  variantID: string;
-  index: number;
+  wishlistID: string;
+  wishItemIDS: string[];
 };
 
-// TODO: Maybe wishlist can be fetched separately
 export const useWishlist = () => {
   const client = useMedusaClient();
-  const { customer } = useCustomer();
+  const { customer, isAuthenticated } = useCustomer();
   const { snackbar } = useSnackbar();
   const queryClient = useQueryClient();
-  const storageWishlist = useStorage<StorageWishlistItem[]>("wishlist", []);
+  const storageWishlist = useStorage<string | null>("wishlist", null, sessionStorage);
+
+  const wishlistId = computed(() => {
+    return customer.value?.customer.wishlist_id || storageWishlist.value;
+  });
+
+  const invalidateQueries = () => {
+    if (!customer.value?.customer.wishlist_id && isAuthenticated.value) {
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+    }
+
+    queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.WISHLIST] });
+  };
+
+  const { data: wishlistData, isPending } = useQuery({
+    queryKey: [API_QUERY_KEY.WISHLIST],
+    queryFn: (): Promise<Wishlist> =>
+      client.client.request("GET", `/store/wishlist/${wishlistId.value}`),
+    enabled: computed(() => !!wishlistId.value),
+  });
+
+  const { mutateAsync: createWishlistHandler, isPending: isCreatingWishlist } = useMutation({
+    mutationFn: (): Promise<Wishlist> => client.client.request("POST", `/store/wishlist/`),
+    onError: (error) => {
+      console.error(error);
+      snackbar.error("Can't create wishlist. Try again!");
+    },
+    onSuccess: () => {
+      snackbar.success("Wishlist created!");
+      invalidateQueries();
+    },
+  });
 
   const { mutate: addToWishlistHandler, isPending: isAddingToWishlist } = useMutation({
-    mutationFn: ({ customerID, variantID, quantity }: AddToWishlistParams): Promise<Customer> =>
-      client.customers.client.request("POST", `/store/customers/${customerID}/wishlist`, {
-        variant_id: variantID,
-        quantity,
+    mutationFn: ({ wishlistID, productID }: AddToWishlistParams): Promise<Wishlist> =>
+      client.client.request("POST", `/store/wishlist/${wishlistID}/wish-item/`, {
+        product_id: productID,
       }),
     onError: (error) => {
       console.error(error);
@@ -41,14 +62,14 @@ export const useWishlist = () => {
     },
     onSuccess: () => {
       snackbar.success("Item added to wishlist!");
-      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      invalidateQueries();
     },
   });
 
   const { mutate: removeFromWishlistHandler, isPending: isRemovingFromWishlist } = useMutation({
-    mutationFn: ({ customerID, index }: RemoveFromWishlistParams): Promise<Customer> =>
-      client.customers.client.request("DELETE", `/store/customers/${customerID}/wishlist`, {
-        index,
+    mutationFn: ({ wishlistID, wishItemIDS }: RemoveFromWishlistParams): Promise<Wishlist> =>
+      client.client.request("DELETE", `/store/wishlist/${wishlistID}/wish-item/`, {
+        wish_items_ids: wishItemIDS,
       }),
     onError: (error) => {
       console.error(error);
@@ -56,35 +77,64 @@ export const useWishlist = () => {
     },
     onSuccess: () => {
       snackbar.success("Item removed from wishlist!");
-      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      invalidateQueries();
     },
   });
 
-  const addToWishlist = async (params: Omit<AddToWishlistParams, "customerID">) => {
-    storageWishlist.value = [...storageWishlist.value, params];
+  const {
+    mutate: addCustomerToExistingWishlistHandler,
+    isPending: addingCustomerToExistingWishlist,
+  } = useMutation({
+    mutationFn: (wishlistID: string): Promise<Wishlist> =>
+      // @ts-expect-error client doesn't support PATCH method
+      client.client.request("PATCH", `/store/wishlist/${wishlistID}/`),
+    onError: (error) => {
+      console.error(error);
+      snackbar.error("Can't add customer to wishlist. Try again!");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.WISHLIST] });
+    },
+  });
 
-    if (customer.value?.customer.id) {
-      addToWishlistHandler({ ...params, customerID: customer.value.customer.id });
+  const addToWishlist = async (data: Omit<AddToWishlistParams, "wishlistID">) => {
+    if (!wishlistId.value) {
+      const _wishlist = await createWishlistHandler();
+      storageWishlist.value = _wishlist.id;
+      addToWishlistHandler({ productID: data.productID, wishlistID: _wishlist.id });
+      return;
     }
+
+    addToWishlistHandler({ productID: data.productID, wishlistID: wishlistId.value });
   };
 
-  const removeFromWishlist = async (params: Omit<RemoveFromWishlistParams, "customerID">) => {
-    storageWishlist.value = storageWishlist.value.filter(
-      (item) => item.variantID === params.variantID,
-    );
-
-    if (customer.value?.customer.id) {
-      removeFromWishlistHandler({ ...params, customerID: customer.value.customer.id });
+  const removeFromWishlist = async (data: Omit<RemoveFromWishlistParams, "wishlistID">) => {
+    if (!wishlistId.value) {
+      throw Error("No wishlist id");
     }
+
+    removeFromWishlistHandler({ wishlistID: wishlistId.value, wishItemIDS: data.wishItemIDS });
   };
 
-  const wishlist = computed(() => (customer.value?.customer.metadata?.wishlist || []) as Wishlist);
+  const addCustomerToExistingWishlist = async () => {
+    // TODO: This should also check this  !customer.value?.customer || customer.value?.customer.wishlist_id
+    if (!wishlistId.value) return;
+
+    return addCustomerToExistingWishlistHandler(wishlistId.value);
+  };
+
+  const wishlistItems = computed(() => wishlistData.value?.items || []);
 
   return {
     addToWishlist,
     removeFromWishlist,
+    addCustomerToExistingWishlist,
+    isFetchingWishlist: isPending,
     isRemovingFromWishlist,
     isAddingToWishlist,
-    wishlist,
+    isCreatingWishlist,
+    addingCustomerToExistingWishlist,
+    wishlist: wishlistItems,
   };
 };

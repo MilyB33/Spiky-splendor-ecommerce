@@ -50,6 +50,7 @@ import { signUpTypedSchema } from "~/utils/validation/sign-up-schema";
 
 const client = useMedusaClient();
 const form = useForm({ validationSchema: signUpTypedSchema });
+const { addCustomerToExistingWishlist } = useWishlist();
 const { snackbar } = useSnackbar();
 const queryClient = useQueryClient();
 const { mutate, isPending } = useMutation({
@@ -58,11 +59,18 @@ const { mutate, isPending } = useMutation({
     console.error(error);
     snackbar.error("Something went wrong.");
   },
-  onSuccess: () => {
+  onSuccess: (data) => {
     form.handleReset();
-    snackbar.success("Account created.");
-    queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     navigateTo("/");
+    snackbar.success("Account created.");
+    // TODO: This should be somewhere on top of app and watching customer
+    if (data.customer.wishlist_id) {
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+    } else {
+      addCustomerToExistingWishlist().then(() => {
+        queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      });
+    }
   },
 });
 

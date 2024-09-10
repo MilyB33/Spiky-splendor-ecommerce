@@ -52,9 +52,6 @@ const plugins = [
       },
     },
   },
-  {
-    resolve: `medusa-plugin-wishlist`,
-  },
 ];
 
 const modules = {

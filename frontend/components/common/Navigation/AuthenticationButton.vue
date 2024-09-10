@@ -18,6 +18,7 @@ import type { RouteLocationRaw } from "vue-router";
 
 type AuthenticationButtonProps = {
   to: RouteLocationRaw;
+  block?: boolean;
 };
 
 defineProps<AuthenticationButtonProps>();

@@ -1,6 +1,7 @@
 import { Entity, Column, OneToOne, JoinColumn } from "typeorm";
 import { Customer as MedusaCustomer } from "@medusajs/medusa/dist/models/customer";
 import { Wishlist } from "./wishlist";
+import { Cart } from "@medusajs/medusa";
 
 @Entity()
 export class Customer extends MedusaCustomer {
@@ -8,10 +9,10 @@ export class Customer extends MedusaCustomer {
   wishlist_id: string;
 
   @OneToOne(() => Wishlist, {
-    cascade: true, // Automatically handle saving/removing the related wishlist
+    cascade: true,
     nullable: true,
     onDelete: "CASCADE",
   })
-  @JoinColumn({ name: "wishlist_id" }) // Establish the link between Customer and Wishlist using wishlist_id
+  @JoinColumn({ name: "wishlist_id" })
   wishlist: Wishlist;
 }

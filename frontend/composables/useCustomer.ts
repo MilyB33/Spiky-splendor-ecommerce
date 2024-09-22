@@ -4,11 +4,14 @@ import { API_QUERY_KEY } from "~/constant";
 export const useCustomer = () => {
   const client = useMedusaClient();
 
+  // TODO: it is refetching when failed on browser focus
   const { data: customer, isPending: isFetchingCustomer } = useQuery({
     queryKey: [API_QUERY_KEY.CUSTOMER],
     queryFn: () => client.customers.retrieve(),
-    retry: 0,
+    retry: false,
     retryOnMount: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const isAuthenticated = computed(() => !!customer.value);

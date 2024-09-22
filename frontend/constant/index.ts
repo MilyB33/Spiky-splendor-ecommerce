@@ -19,5 +19,11 @@ export const API_QUERY_KEY = {
   CUSTOMER: "CUSTOMER",
   PRODUCTS: "PRODUCTS",
   WISHLIST: "WISHLIST",
+  CART: "CART",
   ALL: "ALL",
+} as const;
+
+export const LOCAL_STORAGE_KEY = {
+  CART_ID: "CART_ID",
+  WISHLIST_ID: "WISHLIST_ID",
 } as const;

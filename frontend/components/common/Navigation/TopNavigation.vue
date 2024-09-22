@@ -26,12 +26,11 @@
       v-if="!mobile"
       class="ml-md-8 ml-4"
     >
-      <!-- TODO fix type -->
       <CategoryNavigationButton
         v-if="categories"
         v-for="category in categories"
         :key="category.id"
-        :category="category as ProductCategory"
+        :category="category"
       />
 
       <CommonNavigationButton to="/about">About</CommonNavigationButton>
@@ -61,7 +60,7 @@
       thickness="2"
     />
 
-    <CartButton />
+    <MenuCart />
 
     <v-divider
       vertical
@@ -76,7 +75,6 @@
 
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
-import { type ProductCategory } from "~/types";
 
 const isOpen = defineModel<boolean>("isOpen");
 

@@ -59,6 +59,7 @@
         size="x-small"
         color="green_primary"
         :disabled="productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK"
+        @click="onAddToCart"
       />
 
       <v-btn
@@ -78,7 +79,7 @@
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { PRODUCT_AVAILABILITY, PRODUCT_AVAILABILITY_LABELS } from "~/constant";
 import { useCommonStore } from "~/store/common";
-import { getProductAvailabilityStatus } from "~/utils/product";
+import { getProductAvailabilityStatus, formatCurrency } from "~/utils/product";
 
 type ProductCardProps = {
   product: PricedProduct;
@@ -90,6 +91,7 @@ const commonStore = useCommonStore();
 const { selectedRegion } = storeToRefs(commonStore);
 const { wishlist, removeFromWishlist, addToWishlist, isRemovingFromWishlist, isAddingToWishlist } =
   useWishlist();
+const { addItemToCart, cart } = useCart();
 
 const wishlistItemId = computed(() => {
   return wishlist.value.find((item) => item.product_id === props.product.id)?.id;
@@ -108,6 +110,12 @@ const onClick = () => {
     addToWishlist({ productID });
   } else {
     removeFromWishlist({ wishItemIDS: [wishlistItemId.value] });
+  }
+};
+
+const onAddToCart = () => {
+  if (props.product.variants[0].id) {
+    addItemToCart(props.product.variants[0].id);
   }
 };
 
@@ -141,16 +149,9 @@ const productAvailabilityConfig = computed(() => {
   }
 });
 
-const convertToDecimal = (amount: number) => {
-  return Math.floor(amount) / 100;
-};
-
 const price = computed(() => {
   return props.product.variants.reduce((prev, curr) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: selectedRegion.value?.currency_code || "usd",
-    }).format(convertToDecimal(curr.calculated_price_incl_tax || 0));
+    return formatCurrency(curr.calculated_price_incl_tax || 0, selectedRegion.value?.currency_code);
   }, "");
 });
 </script>

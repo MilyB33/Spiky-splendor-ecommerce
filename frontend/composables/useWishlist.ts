@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
-import { API_QUERY_KEY } from "~/constant";
+import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
 import type { Wishlist, WishlistItem } from "~/types";
 import { useStorage } from "@vueuse/core";
 
@@ -18,7 +18,11 @@ export const useWishlist = () => {
   const { customer, isAuthenticated } = useCustomer();
   const { snackbar } = useSnackbar();
   const queryClient = useQueryClient();
-  const storageWishlist = useStorage<string | null>("wishlist", null, sessionStorage);
+  const storageWishlist = useStorage<string | null>(
+    LOCAL_STORAGE_KEY.WISHLIST_ID,
+    null,
+    sessionStorage,
+  );
 
   const wishlistId = computed(() => {
     return customer.value?.customer.wishlist_id || storageWishlist.value;

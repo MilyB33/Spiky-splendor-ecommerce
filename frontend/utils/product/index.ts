@@ -17,3 +17,13 @@ export const getProductAvailabilityStatus = (product: PricedProduct) => {
 
   return PRODUCT_AVAILABILITY.AVAILABLE;
 };
+
+const convertToDecimal = (amount: number) => {
+  return Math.floor(amount) / 100;
+};
+export const formatCurrency = (price: number | undefined, currencyCode: string = "usd") => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currencyCode,
+  }).format(convertToDecimal(price || 0));
+};

@@ -1,0 +1,62 @@
+<template>
+  <div
+    class="cart-item"
+    style="min-width: 0"
+  >
+    <!-- TODO: use v-img here -->
+    <img
+      v-if="lineItem.thumbnail"
+      width="120"
+      height="120"
+      :src="lineItem.thumbnail"
+      :alt="lineItem.title"
+      class="thumbnail"
+    />
+
+    <div
+      class="pr-4 d-flex flex-column flex-1"
+      style="min-width: 0"
+    >
+      <h4 class="d-inline-block text-truncate text-left">
+        {{ lineItem.title }}
+      </h4>
+
+      <p
+        class="text-caption"
+        v-if="lineItem.quantity > 1"
+      >
+        Quantity: {{ lineItem.quantity }}
+      </p>
+
+      <p class="align-self-end justify-self-end mt-auto">
+        {{ price }}
+      </p>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import type { LineItem } from "@medusajs/medusa";
+import { useCommonStore } from "~/store/common";
+import { formatCurrency } from "~/utils/product";
+const commonStore = useCommonStore();
+const { selectedRegion } = storeToRefs(commonStore);
+
+type MenuCartItemProps = {
+  lineItem: LineItem;
+};
+
+const props = defineProps<MenuCartItemProps>();
+
+const price = computed(() => {
+  return formatCurrency(props.lineItem.total || 0, selectedRegion.value?.currency_code);
+});
+</script>
+
+<style scoped lang="scss">
+.cart-item {
+  display: grid;
+  grid-template-columns: 120px auto;
+  gap: 16px;
+}
+</style>

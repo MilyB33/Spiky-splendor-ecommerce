@@ -30,11 +30,13 @@
 import type { Region } from "@medusajs/medusa";
 import { useCommonStore } from "~/store/common";
 
+const { updateCart } = useCart();
 const commonStore = useCommonStore();
 const { regions } = useRegions();
 const { selectedRegion } = storeToRefs(commonStore);
 
 const onClick = (region: Region) => {
   commonStore.selectRegion(region);
+  updateCart({ region_id: region.id });
 };
 </script>

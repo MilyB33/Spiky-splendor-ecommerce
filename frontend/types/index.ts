@@ -4,7 +4,6 @@ import {
   type ProductCategory as MedusaProductCategory,
   type StoreProductsListRes as MedusaProductsListResponse,
   type StoreRegionsListRes as MedusaRegionsListResponse,
-  type LineItem as MedusaLineItem,
   type Customer as MedusaCustomer,
   type Product as MedusaProduct,
 } from "@medusajs/medusa";

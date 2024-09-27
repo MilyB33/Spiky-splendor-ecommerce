@@ -1,5 +1,8 @@
 <template>
-  <div class="cart-container">
+  <div
+    v-if="!showEmptyState"
+    class="cart-container"
+  >
     <div class="cart-items-section">
       <div class="cart-items-section__wrapper">
         <div class="d-flex ga-4 align-center">
@@ -61,9 +64,13 @@
         <p>{{ total }}</p>
       </div>
 
-      <v-btn>Checkout {{ !isAuthenticated ? "(continue as a guest)" : "" }}</v-btn>
+      <NuxtLink to="/checkout/shipping">
+        <v-btn class="w-100">Checkout {{ !isAuthenticated ? "(continue as a guest)" : "" }}</v-btn>
+      </NuxtLink>
     </v-sheet>
   </div>
+
+  <CartEmptyState v-else />
 </template>
 
 <script lang="ts" setup>
@@ -71,7 +78,7 @@ import { pluralize } from "~/utils/string";
 import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
 
-const { cart } = useCart();
+const { cart, isFetchingCart } = useCart();
 const commonStore = useCommonStore();
 const { selectedRegion } = storeToRefs(commonStore);
 const { isAuthenticated } = useCustomer();
@@ -82,6 +89,7 @@ const countLabel = computed(() => pluralize("item", itemsCount.value));
 const total = computed(() => {
   return formatCurrency(cart.value?.cart.total || 0, selectedRegion.value?.currency_code);
 });
+const showEmptyState = computed(() => !itemsCount.value && !isFetchingCart.value);
 </script>
 
 <style lang="scss" scoped>

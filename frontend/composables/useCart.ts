@@ -2,12 +2,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useStorage } from "@vueuse/core";
 import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
 import { useCommonStore } from "~/store/common";
+import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 
 type UpdateCartParams = {
   cart_id: string;
-  customer_id?: string;
-  region_id?: string;
-};
+} & CartUpdateProps;
 
 type UpdateLineItemParams = {
   line_item_id: string;
@@ -38,6 +37,8 @@ export const useCart = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+      // For changing region
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
     },
   });
 
@@ -55,10 +56,11 @@ export const useCart = () => {
       }
 
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
     },
   });
 
-  const { mutate: createLineItemHandler, isPending: isCreatingLineItem } = useMutation({
+  const { mutateAsync: createLineItemHandler, isPending: isCreatingLineItem } = useMutation({
     mutationFn: (variantId: string) =>
       client.carts.lineItems.create(localStorageCartValue.value, {
         variant_id: variantId,
@@ -69,7 +71,7 @@ export const useCart = () => {
     },
   });
 
-  const { mutate: deleteLineItemHandler, isPending: isDeletingLineItem } = useMutation({
+  const { mutateAsync: deleteLineItemHandler, isPending: isDeletingLineItem } = useMutation({
     mutationFn: (lineItemId: string) =>
       client.carts.lineItems.delete(localStorageCartValue.value, lineItemId),
     onSuccess: async () => {
@@ -77,9 +79,17 @@ export const useCart = () => {
     },
   });
 
-  const { mutate: updateLineItemHandler, isPending: isUpdatingLineItem } = useMutation({
+  const { mutateAsync: updateLineItemHandler, isPending: isUpdatingLineItem } = useMutation({
     mutationFn: ({ line_item_id, ...data }: UpdateLineItemParams) =>
       client.carts.lineItems.update(localStorageCartValue.value, line_item_id, data),
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+    },
+  });
+
+  const { mutateAsync: addShippingMethodHandler, isPending: isAddingShippingMethod } = useMutation({
+    mutationFn: (shippingOptionId: string) =>
+      client.carts.addShippingMethod(localStorageCartValue.value, { option_id: shippingOptionId }),
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
     },
@@ -90,25 +100,31 @@ export const useCart = () => {
       await createCartHandler();
     }
 
-    createLineItemHandler(variantId);
+    await createLineItemHandler(variantId);
   };
 
   const updateItemInCart = async (data: UpdateLineItemParams) => {
     if (!cart.value?.cart.id) return;
 
-    updateLineItemHandler(data);
+    await updateLineItemHandler(data);
   };
 
-  const updateCart = (data: Omit<UpdateCartParams, "cart_id">) => {
+  const updateCart = async (data: Omit<UpdateCartParams, "cart_id">) => {
     if (!cart.value?.cart.id) return;
 
-    updateCartHandler({ cart_id: cart.value.cart.id, ...data });
+    await updateCartHandler({ cart_id: cart.value.cart.id, ...data });
   };
 
-  const deleteItemFromCart = (lineItemId: string) => {
+  const deleteItemFromCart = async (lineItemId: string) => {
     if (!cart.value?.cart.id) return;
 
-    deleteLineItemHandler(lineItemId);
+    await deleteLineItemHandler(lineItemId);
+  };
+
+  const addShippingMethod = async (shippingMethodId: string) => {
+    if (!cart.value?.cart.id) return;
+
+    await addShippingMethodHandler(shippingMethodId);
   };
 
   return {
@@ -119,9 +135,11 @@ export const useCart = () => {
     isDeletingLineItem,
     isCreatingLineItem,
     isUpdatingLineItem,
+    isAddingShippingMethod,
     addItemToCart,
     updateItemInCart,
     updateCart,
     deleteItemFromCart,
+    addShippingMethod,
   };
 };

@@ -8,7 +8,7 @@
       close-on-content-click
       :open-on-focus="false"
       offset="8"
-      :disabled="isCartPage"
+      :disabled="isCartMenuDisabled"
     >
       <template v-slot:activator="{ props }">
         <NuxtLink
@@ -119,8 +119,8 @@ const itemsCount = computed(() => {
   return cartItems.value.length.toString();
 });
 // TODO: this can be resolved better
-const isCartPage = computed(() => {
-  return route.path.includes("cart");
+const isCartMenuDisabled = computed(() => {
+  return route.path.includes("cart") || !hasItems.value;
 });
 </script>
 

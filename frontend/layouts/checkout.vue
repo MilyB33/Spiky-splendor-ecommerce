@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="d-flex flex-column py-8 px-16">
+  <v-layout class="d-flex ga-4 flex-column py-8 px-16">
     <v-progress-circular
       v-if="isFetchingShippingMethods"
       color="primary"
@@ -7,8 +7,8 @@
     ></v-progress-circular>
 
     <header
-      class="checkout-header"
       v-if="!isFetchingShippingMethods"
+      class="d-flex justify-center"
     >
       <NuxtLink
         to="/"
@@ -21,13 +21,13 @@
         />
         <h1>Spiky Splendor</h1>
       </NuxtLink>
-
-      <div>
-        <CheckoutTimeline />
-      </div>
     </header>
 
-    <v-main v-if="!isFetchingShippingMethods">
+    <v-main
+      v-if="!isFetchingShippingMethods"
+      max-width="1000"
+      class="d-flex mx-auto w-100"
+    >
       <slot />
     </v-main>
   </v-layout>
@@ -40,15 +40,5 @@ const { isFetchingShippingMethods } = useCheckout();
 <style lang="scss" scoped>
 .logo-link {
   color: black;
-}
-
-.checkout-header {
-  display: grid;
-  grid-template-columns: 1fr 50% 1fr;
-  justify-content: space-between;
-  align-items: center;
-  height: fit-content;
-  padding: 8px 0;
-  width: 100%;
 }
 </style>

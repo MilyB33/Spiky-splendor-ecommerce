@@ -1,19 +1,25 @@
 <template>
-  <v-card class="pa-4 w-100">
-    <div style="max-width: 700px">
-      <ShippingAddress />
-      <v-divider
-        :thickness="2"
-        class="my-4"
-      ></v-divider>
-      <BillingAddress />
-      <v-divider
-        :thickness="2"
-        class="my-4"
-      ></v-divider>
-      <ShippingMethods />
-    </div>
-  </v-card>
+  <div class="d-flex flex-column ga-4 w-100">
+    <v-card class="pa-4 w-100">
+      <CheckoutTimeline />
+    </v-card>
+
+    <v-card class="pa-4 w-100">
+      <div style="max-width: 700px">
+        <ShippingAddress />
+        <v-divider
+          :thickness="2"
+          class="my-4"
+        ></v-divider>
+        <BillingAddress />
+        <v-divider
+          :thickness="2"
+          class="my-4"
+        ></v-divider>
+        <ShippingMethods />
+      </div>
+    </v-card>
+  </div>
 
   <ShippingSummary :is-valid="isValid" />
 </template>

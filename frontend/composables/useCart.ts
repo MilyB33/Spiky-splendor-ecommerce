@@ -95,6 +95,43 @@ export const useCart = () => {
     },
   });
 
+  const { mutateAsync: selectPaymentSessionHandler, isPending: isSelectingPaymentSession } =
+    useMutation({
+      mutationFn: (paymentProviderId: string) =>
+        client.carts.setPaymentSession(localStorageCartValue.value, {
+          provider_id: paymentProviderId,
+        }),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+      },
+    });
+
+  const { mutateAsync: createPaymentSessionHandler, isPending: isCreatingPaymentSession } =
+    useMutation({
+      mutationFn: () => client.carts.createPaymentSessions(localStorageCartValue.value),
+      onSuccess: (data) => {
+        // check if stripe is selected
+        const isStripeAvailable = data.cart.payment_sessions?.some(
+          (session) => session.provider_id === "stripe",
+        );
+
+        if (!isStripeAvailable) {
+          return;
+        }
+
+        // select payment session
+        selectPaymentSessionHandler("stripe");
+      },
+    });
+
+  const { mutateAsync: completeCartHandler, isPending: isCompletingCart } = useMutation({
+    mutationFn: () => client.carts.complete(localStorageCartValue.value),
+    onSuccess: () => {
+      localStorageCartValue.value = "";
+      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
+    },
+  });
+
   const addItemToCart = async (variantId: string) => {
     if (!localStorageCartValue.value) {
       await createCartHandler();
@@ -127,6 +164,18 @@ export const useCart = () => {
     await addShippingMethodHandler(shippingMethodId);
   };
 
+  const createPaymentSession = async () => {
+    if (!cart.value?.cart.id) return;
+
+    await createPaymentSessionHandler();
+  };
+
+  const completeCart = async () => {
+    if (!cart.value?.cart.id) return;
+
+    await completeCartHandler();
+  };
+
   return {
     cart,
     isCreatingCart,
@@ -136,10 +185,15 @@ export const useCart = () => {
     isCreatingLineItem,
     isUpdatingLineItem,
     isAddingShippingMethod,
+    isSelectingPaymentSession,
+    isCreatingPaymentSession,
+    isCompletingCart,
     addItemToCart,
     updateItemInCart,
     updateCart,
     deleteItemFromCart,
     addShippingMethod,
+    createPaymentSession,
+    completeCart,
   };
 };

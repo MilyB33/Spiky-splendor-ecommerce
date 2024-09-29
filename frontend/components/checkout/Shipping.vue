@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="onSubmit"
-    class="d-flex ga-4"
+    class="d-flex ga-4 w-100"
   >
     <ShippingCustomerFormFields />
   </form>
@@ -17,7 +17,7 @@ import {
   type CheckoutSchemaValues,
 } from "~/utils/validation/shipping-schema";
 const { shippingMethods } = useCheckout();
-const { updateCart, addShippingMethod } = useCart();
+const { updateCart, addShippingMethod, createPaymentSession } = useCart();
 
 const initialShippingMethod = computed<CheckoutSchemaValues["shippingMethod"]>(() => {
   return {
@@ -46,6 +46,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     await updateCart(preparedData);
     await addShippingMethod(shippingMethod.methodId);
+    await createPaymentSession();
 
     navigateTo("/checkout/payment");
   } catch (error) {

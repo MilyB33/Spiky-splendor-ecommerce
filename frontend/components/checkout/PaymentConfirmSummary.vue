@@ -23,12 +23,12 @@
       </div>
 
       <v-btn
-        type="submit"
-        color="green"
+        @click="props.pay"
+        color="blue"
         :disabled="isSubmitButtonDisabled"
         :loading="isLoading"
       >
-        Continue</v-btn
+        Pay</v-btn
       >
     </div>
   </v-card>
@@ -36,7 +36,7 @@
 
 <script lang="ts" setup>
 type ShippingSummaryProps = {
-  isValid: boolean;
+  pay: () => void;
 };
 import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
@@ -57,7 +57,7 @@ const totalPrice = computed(() => {
   return cartPrice.value + shippingMethodPrice.value;
 });
 const isSubmitButtonDisabled = computed(() => {
-  return !props.isValid || isUpdatingCart.value;
+  return isUpdatingCart.value;
 });
 const isLoading = computed(() => {
   return isUpdatingCart.value;

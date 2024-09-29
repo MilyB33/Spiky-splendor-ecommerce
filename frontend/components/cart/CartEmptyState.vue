@@ -1,39 +1,34 @@
 <template>
   <v-card
     class="pa-4 text-center mx-auto"
-    max-width="800"
+    max-width="400"
+    variant="text"
   >
     <img
       src="/empty-cart.png"
-      width="128"
-      height="128"
+      width="248"
+      height="248"
       alt="empty cart icon"
     />
 
-    <h2>Your cart is empty</h2>
+    <h3>Your cart is empty</h3>
 
-    <v-divider :thickness="2" />
+    <v-divider
+      :thickness="2"
+      class="my-5"
+    />
 
     <div class="d-flex ga-4 flex-column align-center mx-auto">
-      <p>
-        Look at our
-        <NuxtLink
-          class="text-decoration-none products-link"
-          to="/products/succulents"
-          >products</NuxtLink
-        >, maybe something will catch your eye.
-      </p>
+      <p>Look at our</p>
 
-      <p>
-        Should your cart be full? The cart may be cleared after 30 days of absence from our website
-        or when changing browsers. If none of these cases apply to you and your basket has been
-        cleared,
-        <NuxtLink
-          to="/"
-          class="text-decoration-none report-error-link"
-          >report an error</NuxtLink
-        >.
-      </p>
+      <p>Looks like you have not added anything to your cart. Go ahead & explore our products.</p>
+
+      <NuxtLink
+        class="text-decoration-none products-link"
+        to="/products/succulents"
+      >
+        <v-btn color="black">Go to products</v-btn>
+      </NuxtLink>
     </div>
   </v-card>
 </template>

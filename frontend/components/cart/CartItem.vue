@@ -19,6 +19,7 @@
         class="h-auto"
         variant="text"
         color="pink"
+        size="small"
         prepend-icon="mdi-cart-remove"
         @click="() => deleteItemFromCart(lineItem.id)"
         >Remove</v-btn
@@ -98,7 +99,6 @@ const onChangeQuantity = (quantity: number | "remove") => {
   grid-template-columns: max-content auto max-content;
   grid-template-rows: 1fr max-content;
   gap: 16px;
-  border-bottom: 1px solid gray;
 }
 
 .thumbnail {

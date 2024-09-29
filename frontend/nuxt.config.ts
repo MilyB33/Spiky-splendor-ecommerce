@@ -9,6 +9,12 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
+  runtimeConfig: {
+    public: {
+      PUBLIC_STRIPE_KEY: process.env.PUBLIC_STRIPE_KEY,
+      PAYMENT_RETURN_URL: process.env.PAYMENT_RETURN_URL,
+    },
+  },
   modules: [
     "@vueuse/nuxt",
     "@pinia/nuxt",

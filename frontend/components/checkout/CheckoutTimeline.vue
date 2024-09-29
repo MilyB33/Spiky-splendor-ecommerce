@@ -4,21 +4,35 @@
       icon="mdi-check"
       dot-color="green"
     >
-      <h2>Cart</h2>
+      <h4>Cart</h4>
     </v-timeline-item>
 
-    <v-timeline-item dot-color="blue">
+    <v-timeline-item
+      :icon="props.isPaymentStep ? 'mdi-check' : undefined"
+      :dot-color="props.isPaymentStep ? 'green' : 'blue'"
+    >
       <template v-slot:opposite>
-        <h2>Shipping</h2>
+        <h4>Shipping</h4>
       </template>
-      <template v-slot:icon> 2 </template>
+      <template
+        v-if="!props.isPaymentStep"
+        v-slot:icon
+      >
+        2
+      </template>
     </v-timeline-item>
 
-    <v-timeline-item dot-color="white">
-      <h2>Payment</h2>
+    <v-timeline-item :dot-color="props.isPaymentStep ? 'blue' : 'white'">
+      <h4>Payment</h4>
       <template v-slot:icon> 3 </template>
     </v-timeline-item>
   </v-timeline>
 </template>
 
-<style></style>
+<script lang="ts" setup>
+type CheckoutTimeline = {
+  isPaymentStep?: boolean;
+};
+
+const props = defineProps<CheckoutTimeline>();
+</script>

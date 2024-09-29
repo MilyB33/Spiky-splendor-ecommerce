@@ -1,6 +1,6 @@
 {
   "store": {
-    "currencies": ["eur", "usd"]
+    "currencies": ["eur", "usd", "PLN"]
   },
   "users": [
     {
@@ -12,11 +12,11 @@
     {
       "id": "test-region-eu",
       "name": "EU",
-      "currency_code": "eur",
+      "currency_code": "PLN",
       "tax_rate": 0,
       "payment_providers": ["manual"],
       "fulfillment_providers": ["manual"],
-      "countries": ["gb", "de", "dk", "se", "fr", "es", "it"]
+      "countries": ["gb", "de", "dk", "se", "fr", "es", "it", "pl"]
     },
     {
       "id": "test-region-us",
@@ -137,7 +137,7 @@
           "title": "Standard",
           "prices": [
             {
-              "currency_code": "eur",
+              "currency_code": "PLN",
               "amount": 1500
             },
             {
@@ -173,7 +173,7 @@
           "title": "Medium",
           "prices": [
             {
-              "currency_code": "eur",
+              "currency_code": "PLN",
               "amount": 1200
             },
             {
@@ -209,7 +209,7 @@
           "title": "Small",
           "prices": [
             {
-              "currency_code": "eur",
+              "currency_code": "PLN",
               "amount": 800
             },
             {
@@ -245,7 +245,7 @@
           "title": "Large",
           "prices": [
             {
-              "currency_code": "eur",
+              "currency_code": "PLN",
               "amount": 2000
             },
             {

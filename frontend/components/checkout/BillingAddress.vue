@@ -166,6 +166,11 @@ const availableCountries = computed(() => {
     );
 
     return selectedRegionCountries.includes(country.code.toLocaleLowerCase());
+  }).map((filtererCountry) => {
+    return {
+      ...filtererCountry,
+      code: filtererCountry.code.toLocaleLowerCase(),
+    };
   });
 });
 

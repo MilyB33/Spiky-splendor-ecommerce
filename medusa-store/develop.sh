@@ -4,7 +4,7 @@
 medusa migrations run
 
 # Populate the database
-medusa seed --seed-file="./data/seed.json"
+# medusa seed --seed-file="./data/seed.json"
 
 #Start development environment
 medusa develop

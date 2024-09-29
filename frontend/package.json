@@ -16,9 +16,11 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@pinia/nuxt": "^0.5.1",
+    "@stripe/stripe-js": "^4.5.0",
     "@tanstack/vue-query": "^5.52.2",
     "@vee-validate/nuxt": "^4.12.6",
     "@vee-validate/zod": "^4.12.6",
+    "@vue-stripe/vue-stripe": "^4.5.0",
     "@vueuse/core": "^11.0.3",
     "axios": "^1.6.8",
     "nuxt": "^3.10.2",

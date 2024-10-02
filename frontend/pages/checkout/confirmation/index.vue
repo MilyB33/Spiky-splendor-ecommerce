@@ -1,4 +1,6 @@
-<template>Confirmation page</template>
+<template>
+  <Confirmation />
+</template>
 
 <script setup lang="ts">
 definePageMeta({

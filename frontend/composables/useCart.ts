@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
+import { useQuery, useMutation, useQueryClient, skipToken } from "@tanstack/vue-query";
 import { useStorage } from "@vueuse/core";
 import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
 import { useCommonStore } from "~/store/common";
@@ -14,7 +14,7 @@ type UpdateLineItemParams = {
 };
 
 // TODO: add snackbars (they can't be used when we use it within use initialize)
-export const useCart = () => {
+export const useCart = (skipFetchingCart?: boolean) => {
   const commonStore = useCommonStore();
   const queryClient = useQueryClient();
   const { customer } = useCustomer();
@@ -23,9 +23,15 @@ export const useCart = () => {
 
   const { selectedRegion } = storeToRefs(commonStore);
 
-  const { data: cart, isPaused: isFetchingCart } = useQuery({
+  const {
+    data: cart,
+    isPending: isFetchingCart,
+    isFetching: isLoadingCart,
+  } = useQuery({
     queryKey: [API_QUERY_KEY.CART],
-    queryFn: () => client.carts.retrieve(localStorageCartValue.value),
+    queryFn: skipFetchingCart
+      ? skipToken
+      : () => client.carts.retrieve(localStorageCartValue.value),
     enabled: computed(() => !!localStorageCartValue.value).value,
   });
 
@@ -126,7 +132,7 @@ export const useCart = () => {
 
   const { mutateAsync: completeCartHandler, isPending: isCompletingCart } = useMutation({
     mutationFn: () => client.carts.complete(localStorageCartValue.value),
-    onSuccess: () => {
+    onSuccess: (data) => {
       localStorageCartValue.value = "";
       queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
     },
@@ -137,49 +143,50 @@ export const useCart = () => {
       await createCartHandler();
     }
 
-    await createLineItemHandler(variantId);
+    return createLineItemHandler(variantId);
   };
 
   const updateItemInCart = async (data: UpdateLineItemParams) => {
     if (!cart.value?.cart.id) return;
 
-    await updateLineItemHandler(data);
+    return updateLineItemHandler(data);
   };
 
   const updateCart = async (data: Omit<UpdateCartParams, "cart_id">) => {
     if (!cart.value?.cart.id) return;
 
-    await updateCartHandler({ cart_id: cart.value.cart.id, ...data });
+    return updateCartHandler({ cart_id: cart.value.cart.id, ...data });
   };
 
   const deleteItemFromCart = async (lineItemId: string) => {
     if (!cart.value?.cart.id) return;
 
-    await deleteLineItemHandler(lineItemId);
+    return deleteLineItemHandler(lineItemId);
   };
 
   const addShippingMethod = async (shippingMethodId: string) => {
     if (!cart.value?.cart.id) return;
 
-    await addShippingMethodHandler(shippingMethodId);
+    return addShippingMethodHandler(shippingMethodId);
   };
 
   const createPaymentSession = async () => {
     if (!cart.value?.cart.id) return;
 
-    await createPaymentSessionHandler();
+    return createPaymentSessionHandler();
   };
 
   const completeCart = async () => {
     if (!cart.value?.cart.id) return;
 
-    await completeCartHandler();
+    return completeCartHandler();
   };
 
   return {
     cart,
     isCreatingCart,
     isFetchingCart,
+    isLoadingCart,
     isUpdatingCart,
     isDeletingLineItem,
     isCreatingLineItem,

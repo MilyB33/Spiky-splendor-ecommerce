@@ -53,7 +53,7 @@ const { selectedRegion } = storeToRefs(commonStore);
 const { isAuthenticated } = useCustomer();
 
 const total = computed(() => {
-  return formatCurrency(cart.value?.cart.total || 0, selectedRegion.value?.currency_code);
+  return formatCurrency(cart.value?.cart.subtotal || 0, selectedRegion.value?.currency_code);
 });
 </script>
 

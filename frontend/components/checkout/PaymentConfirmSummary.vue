@@ -37,13 +37,12 @@
 <script lang="ts" setup>
 type ShippingSummaryProps = {
   pay: () => void;
+  isPaying: boolean;
 };
 import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
-import type { CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
 
 const props = defineProps<ShippingSummaryProps>();
-const checkoutFormValues = useFormValues<CheckoutSchemaValues>();
 const commonStore = useCommonStore();
 const { selectedRegion } = storeToRefs(commonStore);
 const { cart, isUpdatingCart } = useCart();
@@ -51,7 +50,7 @@ const { cart, isUpdatingCart } = useCart();
 const currencyCode = computed(() => selectedRegion.value?.currency_code);
 const cartItemsCount = computed(() => cart.value?.cart.items.length || 0);
 const cartPrice = computed(() => cart.value?.cart.total || 0);
-const shippingMethodPrice = computed(() => checkoutFormValues.value.shippingMethod?.price || 0);
+const shippingMethodPrice = computed(() => cart.value?.cart.shipping_total || 0);
 
 const totalPrice = computed(() => {
   return cartPrice.value + shippingMethodPrice.value;
@@ -60,6 +59,6 @@ const isSubmitButtonDisabled = computed(() => {
   return isUpdatingCart.value;
 });
 const isLoading = computed(() => {
-  return isUpdatingCart.value;
+  return isUpdatingCart.value || props.isPaying;
 });
 </script>

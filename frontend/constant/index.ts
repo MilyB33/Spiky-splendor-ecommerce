@@ -21,12 +21,14 @@ export const API_QUERY_KEY = {
   WISHLIST: "WISHLIST",
   CART: "CART",
   SHIPPING_METHODS: "SHIPPING_METHODS",
+  ORDERS: "ORDERS",
   ALL: "ALL",
 } as const;
 
 export const LOCAL_STORAGE_KEY = {
   CART_ID: "CART_ID",
   WISHLIST_ID: "WISHLIST_ID",
+  LAST_ORDER_ID: "LAST_ORDER_ID",
 } as const;
 
 // TODO: Maybe some lib

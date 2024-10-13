@@ -1,11 +1,17 @@
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { PRODUCT_AVAILABILITY, PRODUCT_LOW_STOCK_THRESHOLD } from "../../constant";
 
-export const getProductAvailabilityStatus = (product: PricedProduct) => {
-  // TODO: This should be handled on backend
-  const productQuantity = product.variants.reduce((prev, curr) => {
+export const getProductQuantity = (product?: PricedProduct) => {
+  if (!product) return 0;
+
+  return product.variants.reduce((prev, curr) => {
     return prev + (curr.inventory_quantity || 0);
   }, 0);
+};
+
+export const getProductAvailabilityStatus = (product: PricedProduct) => {
+  // TODO: This should be handled on backend
+  const productQuantity = getProductQuantity(product);
 
   if (productQuantity === 0) {
     return PRODUCT_AVAILABILITY.OUT_OF_STOCK;
@@ -22,7 +28,7 @@ const convertToDecimal = (amount: number) => {
   return Math.floor(amount) / 100;
 };
 export const formatCurrency = (price: number | undefined, currencyCode: string = "usd") => {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("pl-PL", {
     style: "currency",
     currency: currencyCode,
   }).format(convertToDecimal(price || 0));

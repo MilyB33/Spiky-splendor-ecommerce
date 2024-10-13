@@ -40,13 +40,10 @@
         {{ product.categories[0].name }}
       </h6>
 
-      <div class="d-flex align-center ga-1">
-        <div
-          class="status-circle"
-          :class="productAvailabilityConfig.class"
-        ></div>
-        <span class="text-body-2">{{ productAvailabilityConfig.label }}</span>
-      </div>
+      <ProductAvailability
+        :product="props.product"
+        size="sm"
+      />
 
       <div class="">
         <span>{{ price }}</span>
@@ -62,22 +59,24 @@
         @click="onAddToCart"
       />
 
-      <v-btn
-        size="small"
-        color="green_primary"
-        class="read-more-btn"
-        append-icon="mdi-arrow-right"
-        rounded
-      >
-        Read More
-      </v-btn>
+      <NuxtLink :to="`/products/product/${product.handle}`">
+        <v-btn
+          size="small"
+          color="green_primary"
+          class="read-more-btn"
+          append-icon="mdi-arrow-right"
+          rounded
+        >
+          Read More
+        </v-btn>
+      </NuxtLink>
     </div>
   </v-sheet>
 </template>
 
 <script setup lang="ts">
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
-import { PRODUCT_AVAILABILITY, PRODUCT_AVAILABILITY_LABELS } from "~/constant";
+import { PRODUCT_AVAILABILITY } from "~/constant";
 import { useCommonStore } from "~/store/common";
 import { getProductAvailabilityStatus, formatCurrency } from "~/utils/product";
 
@@ -119,36 +118,6 @@ const onAddToCart = () => {
   }
 };
 
-const productAvailabilityConfig = computed(() => {
-  switch (productQuantityStatus) {
-    case PRODUCT_AVAILABILITY.OUT_OF_STOCK: {
-      return {
-        class: "status-circle--out-of-stock",
-        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.OUT_OF_STOCK],
-      };
-    }
-    case PRODUCT_AVAILABILITY.LOW_STOCK: {
-      return {
-        class: "status-circle--low-stock",
-        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.LOW_STOCK],
-      };
-    }
-    case PRODUCT_AVAILABILITY.AVAILABLE: {
-      return {
-        class: "status-circle--available",
-        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.AVAILABLE],
-      };
-    }
-    case PRODUCT_AVAILABILITY.OUT_OF_STOCK:
-    default: {
-      return {
-        class: "status-circle--out-of-stock",
-        label: PRODUCT_AVAILABILITY_LABELS[PRODUCT_AVAILABILITY.OUT_OF_STOCK],
-      };
-    }
-  }
-});
-
 const price = computed(() => {
   return props.product.variants.reduce((prev, curr) => {
     return formatCurrency(curr.calculated_price_incl_tax || 0, selectedRegion.value?.currency_code);
@@ -172,23 +141,5 @@ const price = computed(() => {
 
 .category {
   color: #8d99ae;
-}
-
-.status-circle {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-
-  &--available {
-    background-color: #80b918;
-  }
-
-  &--low-stock {
-    background-color: #ff8800;
-  }
-
-  &--out-of-stock {
-    background-color: #cc0000;
-  }
 }
 </style>

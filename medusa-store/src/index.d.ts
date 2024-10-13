@@ -13,3 +13,9 @@ export declare module "@medusajs/medusa/dist/models/product" {
     wishlist_item?: WishlistItem;
   }
 }
+
+export declare module "@medusajs/medusa/dist/models/product" {
+  export interface Product {
+    pot_diameter: number;
+  }
+}

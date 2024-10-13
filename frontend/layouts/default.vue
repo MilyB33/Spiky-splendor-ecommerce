@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div class="w-100">
     <TopNavigation v-model:isOpen="isOpen" />
     <Sidebar
       v-model:isOpen="isOpen"
       v-if="mobile"
     />
-    <v-main>
-      <v-container fluid>
-        <slot />
-      </v-container>
+    <v-main
+      max-width="1200"
+      class="d-flex mx-auto pa-8 w-100"
+    >
+      <slot />
     </v-main>
   </div>
 </template>

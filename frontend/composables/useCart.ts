@@ -25,7 +25,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const {
     data: cart,
-    isPending: isFetchingCart,
+    isLoading: isFetchingCart,
     isFetching: isLoadingCart,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CART],

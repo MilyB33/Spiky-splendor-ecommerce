@@ -1,31 +1,42 @@
 {
   "store": {
-    "currencies": ["eur", "usd", "PLN"]
+    "currencies": ["EUR", "PLN"],
+    "default_currency_code": "PLN"
   },
   "users": [
     {
-      "email": "admin@medusa-test.com",
-      "password": "supersecret"
+      "email": "test@example.com",
+      "password": "test"
     }
   ],
   "regions": [
     {
-      "id": "test-region-eu",
-      "name": "EU",
+      "id": "test-region-pl",
+      "name": "PL",
       "currency_code": "PLN",
-      "tax_rate": 0,
-      "payment_providers": ["manual"],
+      "tax_rate": 23,
+      "payment_providers": [
+        "manual",
+        "stripe",
+        "stripe-blik",
+        "stripe-przelewy24"
+      ],
       "fulfillment_providers": ["manual"],
-      "countries": ["gb", "de", "dk", "se", "fr", "es", "it", "pl"]
+      "countries": ["pl"]
     },
     {
-      "id": "test-region-us",
-      "name": "US",
-      "currency_code": "usd",
+      "id": "test-region-eu",
+      "name": "EU",
+      "currency_code": "EUR",
       "tax_rate": 0,
-      "payment_providers": ["manual"],
+      "payment_providers": [
+        "manual",
+        "stripe",
+        "stripe-blik",
+        "stripe-przelewy24"
+      ],
       "fulfillment_providers": ["manual"],
-      "countries": ["us", "ca"]
+      "countries": ["gb", "de", "dk", "se", "fr", "es", "it"]
     }
   ],
   "shipping_options": [
@@ -73,7 +84,7 @@
     },
     {
       "name": "FakeEx Standard",
-      "region_id": "test-region-us",
+      "region_id": "test-region-pl",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -83,7 +94,7 @@
     },
     {
       "name": "FakeEx Express",
-      "region_id": "test-region-us",
+      "region_id": "test-region-pl",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -93,7 +104,7 @@
     },
     {
       "name": "FakeEx Return",
-      "region_id": "test-region-us",
+      "region_id": "test-region-pl",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -104,7 +115,7 @@
     },
     {
       "name": "I want to return it myself",
-      "region_id": "test-region-us",
+      "region_id": "test-region-pl",
       "provider_id": "manual",
       "data": {
         "id": "manual-fulfillment"
@@ -116,6 +127,7 @@
   ],
   "products": [
     {
+      "id": "prod_1",
       "title": "Andromischus cristatus",
       "categories": [
         {
@@ -127,13 +139,26 @@
       "handle": "andromischus-cristatus",
       "is_giftcard": false,
       "weight": 300,
+      "height": 60,
+      "pot_diameter": 30,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2335199133/display_1500/stock-photo-leaves-of-the-succulent-plant-adromischus-cooperi-on-a-blurry-background-2335199133.jpg",
         "https://www.shutterstock.com/shutterstock/photos/1898795101/display_1500/stock-photo-adromischus-maculatus-in-flowerpot-with-white-background-1898795101.jpg"
       ],
-      "options": [],
+      "options": [
+        {
+          "id": "opt_1",
+          "created_at": "2024-10-06T19:27:24.836Z",
+          "updated_at": "2024-10-06T19:27:24.836Z",
+          "deleted_at": null,
+          "title": "Plant habit",
+          "product_id": "prod_1",
+          "metadata": null
+        }
+      ],
       "variants": [
         {
+          "id": "variant_1",
           "title": "Standard",
           "prices": [
             {
@@ -141,17 +166,29 @@
               "amount": 1500
             },
             {
-              "currency_code": "usd",
+              "currency_code": "EUR",
               "amount": 1600
             }
           ],
-          "options": [],
+          "options": [
+            {
+              "id": "optval_1",
+              "created_at": "2024-10-06T19:27:24.836Z",
+              "updated_at": "2024-10-06T19:27:38.141Z",
+              "deleted_at": null,
+              "value": "Upright plant",
+              "option_id": "opt_1",
+              "variant_id": "variant_1",
+              "metadata": null
+            }
+          ],
           "inventory_quantity": 50,
           "manage_inventory": true
         }
       ]
     },
     {
+      "id": "prod_2",
       "title": "Aloe Vera",
       "categories": [
         {
@@ -163,13 +200,25 @@
       "handle": "aloe-vera",
       "is_giftcard": false,
       "weight": 400,
+      "height": 50,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2492317671/display_1500/stock-photo-a-plant-with-spiky-leaves-grows-in-a-pot-in-the-home-garden-2492317671.jpg",
         "https://www.shutterstock.com/shutterstock/photos/2448629537/display_1500/stock-photo-aloe-vera-leaves-where-growth-in-our-house-yard-it-is-natural-ingredients-of-cosmetics-skin-care-2448629537.jpg"
       ],
-      "options": [],
+      "options": [
+        {
+          "id": "opt_2",
+          "created_at": "2024-10-06T19:27:24.836Z",
+          "updated_at": "2024-10-06T19:27:24.836Z",
+          "deleted_at": null,
+          "title": "Plant habit",
+          "product_id": "prod_2",
+          "metadata": null
+        }
+      ],
       "variants": [
         {
+          "id": "variant_2",
           "title": "Medium",
           "prices": [
             {
@@ -177,17 +226,29 @@
               "amount": 1200
             },
             {
-              "currency_code": "usd",
+              "currency_code": "EUR",
               "amount": 1300
             }
           ],
-          "options": [],
+          "options": [
+            {
+              "id": "optval_2",
+              "created_at": "2024-10-06T19:27:24.836Z",
+              "updated_at": "2024-10-06T19:27:38.141Z",
+              "deleted_at": null,
+              "value": "Upright plant",
+              "option_id": "opt_2",
+              "variant_id": "variant_2",
+              "metadata": null
+            }
+          ],
           "inventory_quantity": 100,
           "manage_inventory": true
         }
       ]
     },
     {
+      "id": "prod_3",
       "title": "Haworthia fasciata",
       "categories": [
         {
@@ -199,13 +260,25 @@
       "handle": "haworthia-fasciata",
       "is_giftcard": false,
       "weight": 200,
+      "height": 30,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2123723780/display_1500/stock-photo-haworthia-fasciata-concolor-indoor-plant-2123723780.jpg",
         "https://www.shutterstock.com/shutterstock/photos/1883417128/display_1500/stock-photo-haworthiopsis-fasciata-formerly-haworthia-fasciata-it-s-a-species-of-succulent-plant-native-from-1883417128.jpg"
       ],
-      "options": [],
+      "options": [
+        {
+          "id": "opt_3",
+          "created_at": "2024-10-06T19:27:24.836Z",
+          "updated_at": "2024-10-06T19:27:24.836Z",
+          "deleted_at": null,
+          "title": "Plant habit",
+          "product_id": "prod_3",
+          "metadata": null
+        }
+      ],
       "variants": [
         {
+          "id": "variant_3",
           "title": "Small",
           "prices": [
             {
@@ -213,17 +286,29 @@
               "amount": 800
             },
             {
-              "currency_code": "usd",
+              "currency_code": "EUR",
               "amount": 900
             }
           ],
-          "options": [],
+          "options": [
+            {
+              "id": "optval_3",
+              "created_at": "2024-10-06T19:27:24.836Z",
+              "updated_at": "2024-10-06T19:27:38.141Z",
+              "deleted_at": null,
+              "value": "Upright plant",
+              "option_id": "opt_3",
+              "variant_id": "variant_3",
+              "metadata": null
+            }
+          ],
           "inventory_quantity": 75,
           "manage_inventory": true
         }
       ]
     },
     {
+      "id": "prod_4",
       "title": "Sansevieria trifasciata",
       "categories": [
         {
@@ -235,13 +320,25 @@
       "handle": "sansevieria-trifasciata",
       "is_giftcard": false,
       "weight": 500,
+      "height": 40,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2262430201/display_1500/stock-photo-sansevieria-golden-hahnii-snake-plant-in-grey-plastic-pot-on-wooden-table-on-light-background-in-2262430201.jpg",
         "https://www.shutterstock.com/shutterstock/photos/2309666589/display_1500/stock-photo-succulent-of-sansevieria-cylindrica-or-cylindrical-snake-plant-growing-in-a-pot-on-a-wooden-boat-2309666589.jpg"
       ],
-      "options": [],
+      "options": [
+        {
+          "id": "opt_4",
+          "created_at": "2024-10-06T19:27:24.836Z",
+          "updated_at": "2024-10-06T19:27:24.836Z",
+          "deleted_at": null,
+          "title": "Plant habit",
+          "product_id": "prod_4",
+          "metadata": null
+        }
+      ],
       "variants": [
         {
+          "id": "variant_4",
           "title": "Large",
           "prices": [
             {
@@ -249,11 +346,22 @@
               "amount": 2000
             },
             {
-              "currency_code": "usd",
+              "currency_code": "EUR",
               "amount": 2200
             }
           ],
-          "options": [],
+          "options": [
+            {
+              "id": "optval_4",
+              "created_at": "2024-10-06T19:27:24.836Z",
+              "updated_at": "2024-10-06T19:27:38.141Z",
+              "deleted_at": null,
+              "value": "Upright plant",
+              "option_id": "opt_4",
+              "variant_id": "variant_4",
+              "metadata": null
+            }
+          ],
           "inventory_quantity": 30,
           "manage_inventory": true
         }
@@ -813,5 +921,6 @@
       "handle": "succulents",
       "metadata": {}
     }
-  ]
+  ],
+  "plant_form": [{ "id": "pform_1", "name": "Climbing plant" }]
 }

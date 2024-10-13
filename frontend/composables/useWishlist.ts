@@ -36,7 +36,7 @@ export const useWishlist = () => {
     queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.WISHLIST] });
   };
 
-  const { data: wishlistData, isPending } = useQuery({
+  const { data: wishlistData, isLoading } = useQuery({
     queryKey: [API_QUERY_KEY.WISHLIST],
     queryFn: (): Promise<Wishlist> =>
       client.client.request("GET", `/store/wishlist/${wishlistId.value}`),
@@ -134,7 +134,7 @@ export const useWishlist = () => {
     addToWishlist,
     removeFromWishlist,
     addCustomerToExistingWishlist,
-    isFetchingWishlist: isPending,
+    isFetchingWishlist: isLoading,
     isRemovingFromWishlist,
     isAddingToWishlist,
     isCreatingWishlist,

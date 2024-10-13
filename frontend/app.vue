@@ -12,7 +12,7 @@
         />
       </div>
       <NuxtLayout v-else>
-        <NuxtPage />
+        <NuxtPage class="w-100" />
       </NuxtLayout>
     </SnackbarProvider>
   </v-app>

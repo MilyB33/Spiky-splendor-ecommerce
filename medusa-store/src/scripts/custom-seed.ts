@@ -1,133 +1,35 @@
 import "reflect-metadata";
-import { DataSource } from "typeorm";
-const json = require("./product_category.json");
-import {
-  Currency,
-  Store,
-  Image,
-  ProductOption,
-  ProductOptionValue,
-  Product,
-  ProductVariant,
-  PriceList,
-  MoneyAmount,
-  CustomerGroup,
-  Item,
-  Cart,
-  Order,
-  Customer,
-  Return,
-  Swap,
-  ReturnItem,
-  Address,
-  LineItem,
-  ReturnReason,
-  ClaimOrder,
-  ClaimItem,
-  ClaimImage,
-  ClaimTag,
-  ShippingMethod,
-  ShippingOption,
-  Region,
-  ShippingProfile,
-  PaymentProvider,
-  TaxProvider,
-  FulfillmentProvider,
-  ShippingOptionRequirement,
-  LineItemTaxLine,
-  ShippingMethodTaxLine,
-  Fulfillment,
-  FulfillmentItem,
-  FulfillmentOption,
-  Payment,
-  TrackingLink,
-  LineItemAdjustment,
-  Discount,
-  DiscountRule,
-  DiscountCondition,
-  ProductType,
-  ProductTag,
-  ProductCategory,
-  ProductCollection,
-  OrderEdit,
-  OrderItemChange,
-  PaymentCollection,
-  GiftCard,
-  PaymentSession,
-  Refund,
-  DraftOrder,
-  GiftCardTransaction,
-  ProductVariantInventoryItem,
-  TaxRate,
-  Country,
-} from "@medusajs/medusa";
+import { PlantForm } from "./../models/plant-form";
+import * as dotenv from "dotenv";
 
-const AppDataSource = new DataSource({
+import { DataSource } from "typeorm";
+
+try {
+  dotenv.config({ path: "../../.env" });
+} catch (e) {}
+
+const dataSource = new DataSource({
   type: "postgres",
-  host: process.env.DATABASE_HOST,
-  port: 5432,
-  database: "medusa-store-update",
-  entities: [
-    Product,
-    Store,
-    Currency,
-    ProductVariant,
-    Image,
-    ProductOption,
-    ProductOptionValue,
-    MoneyAmount,
-    PriceList,
-    CustomerGroup,
-    Customer,
-    Address,
-    Swap,
-    Return,
-    ReturnItem,
-    Cart,
-    LineItem,
-    Order,
-    Item,
-    ReturnReason,
-    ClaimOrder,
-    ClaimItem,
-    ClaimImage,
-    ClaimTag,
-    ShippingMethod,
-    ShippingOption,
-    Region,
-    ShippingProfile,
-    PaymentProvider,
-    TaxProvider,
-    FulfillmentProvider,
-    ShippingOptionRequirement,
-    LineItemTaxLine,
-    ShippingMethodTaxLine,
-    Fulfillment,
-    FulfillmentItem,
-    FulfillmentOption,
-    Payment,
-    TrackingLink,
-    LineItemAdjustment,
-    Discount,
-    DiscountRule,
-    DiscountCondition,
-    ProductType,
-    ProductTag,
-    ProductCategory,
-    ProductCollection,
-    OrderEdit,
-    OrderItemChange,
-    PaymentCollection,
-    GiftCard,
-    PaymentSession,
-    Refund,
-    DraftOrder,
-    GiftCardTransaction,
-    ProductVariantInventoryItem,
-    TaxRate,
-    Country,
-    ProductCategory,
-  ],
-  synchronize: false,
-  logging: false,
+  host: process.env.DATABASE_HOST || "localhost",
+  port: parseInt(process.env.DATABASE_PORT || "5432"),
+  username: process.env.DATABASE_USERNAME || "medusa",
+  password: process.env.DATABASE_PASSWORD || "medusa",
+  database: process.env.DATABASE_NAME || "medusa",
+  entities: [PlantForm],
 });
+
+const run = async () => {
+  console.info("Starting script...");
+
+  await dataSource.initialize();
+
+  const plantFormRepository = dataSource.getRepository(PlantForm);
+
+  const plantForms = await plantFormRepository.find();
+
+  console.info("Plant forms:", plantForms);
+
+  console.info("Ending script...");
+};
+
+run();

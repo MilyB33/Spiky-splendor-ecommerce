@@ -140,6 +140,8 @@
       "is_giftcard": false,
       "weight": 300,
       "height": 60,
+      "min_height": 40,
+      "max_height": 80,
       "pot_diameter": 30,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2335199133/display_1500/stock-photo-leaves-of-the-succulent-plant-adromischus-cooperi-on-a-blurry-background-2335199133.jpg",
@@ -201,6 +203,9 @@
       "is_giftcard": false,
       "weight": 400,
       "height": 50,
+      "min_height": 40,
+      "max_height": 60,
+      "pot_diameter": 30,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2492317671/display_1500/stock-photo-a-plant-with-spiky-leaves-grows-in-a-pot-in-the-home-garden-2492317671.jpg",
         "https://www.shutterstock.com/shutterstock/photos/2448629537/display_1500/stock-photo-aloe-vera-leaves-where-growth-in-our-house-yard-it-is-natural-ingredients-of-cosmetics-skin-care-2448629537.jpg"
@@ -261,6 +266,7 @@
       "is_giftcard": false,
       "weight": 200,
       "height": 30,
+      "pot_diameter": 20,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2123723780/display_1500/stock-photo-haworthia-fasciata-concolor-indoor-plant-2123723780.jpg",
         "https://www.shutterstock.com/shutterstock/photos/1883417128/display_1500/stock-photo-haworthiopsis-fasciata-formerly-haworthia-fasciata-it-s-a-species-of-succulent-plant-native-from-1883417128.jpg"
@@ -321,6 +327,9 @@
       "is_giftcard": false,
       "weight": 500,
       "height": 40,
+      "min_height": 30,
+      "max_height": 50,
+      "pot_diameter": 30,
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2262430201/display_1500/stock-photo-sansevieria-golden-hahnii-snake-plant-in-grey-plastic-pot-on-wooden-table-on-light-background-in-2262430201.jpg",
         "https://www.shutterstock.com/shutterstock/photos/2309666589/display_1500/stock-photo-succulent-of-sansevieria-cylindrica-or-cylindrical-snake-plant-growing-in-a-pot-on-a-wooden-boat-2309666589.jpg"
@@ -921,6 +930,5 @@
       "handle": "succulents",
       "metadata": {}
     }
-  ],
-  "plant_form": [{ "id": "pform_1", "name": "Climbing plant" }]
+  ]
 }

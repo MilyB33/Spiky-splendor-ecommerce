@@ -1,0 +1,36 @@
+{
+  "plant_forms": [
+    {
+      "id": "pform_1",
+      "name": "Roślina pnąca"
+    },
+    {
+      "id": "pform_2",
+      "name": "Roślina stojąca"
+    }
+  ],
+  "plant_placements": [
+    {
+      "id": "pplacement_1",
+      "name": "Ocienione"
+    },
+    {
+      "id": "pplacement_2",
+      "name": "Słoneczne"
+    }
+  ],
+  "plant_water_demands": [
+    {
+      "id": "pwaterdemand_1",
+      "name": "Duże"
+    },
+    {
+      "id": "pwaterdemand_2",
+      "name": "Średnie"
+    },
+    {
+      "id": "pwaterdemand_3",
+      "name": "Małe"
+    }
+  ]
+}

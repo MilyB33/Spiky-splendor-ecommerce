@@ -20,7 +20,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
   const fetchProducts = () => {
     return client.products.list({
       ...params?.value,
-      expand: "categories,variants,variants.prices",
+      expand: "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
       region_id: selectedRegion.value?.id,
     });
   };

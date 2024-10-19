@@ -1,4 +1,3 @@
-import type { StoreGetProductsParams } from "@medusajs/medusa";
 import { useQuery } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
 import { useCommonStore } from "~/store/common";
@@ -17,7 +16,8 @@ export const useProduct = (productHandle: string) => {
   const fetchProduct = () => {
     return client.products.list({
       handle: productHandle,
-      expand: "categories,variants,variants.prices,images,options,variants.options",
+      expand:
+        "categories,variants,variants.prices,images,options,variants.options,plant_forms,plant_placements,plant_water_demand",
       region_id: selectedRegion.value?.id,
     });
   };

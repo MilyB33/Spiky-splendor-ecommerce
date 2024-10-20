@@ -13,7 +13,7 @@
         />
       </template>
 
-      Settings
+      Ustawienia
     </v-btn>
 
     <v-divider />
@@ -28,7 +28,7 @@
       <template v-slot:append>
         <v-icon size="large" />
       </template>
-      Log out
+      Wyloguj się
     </v-btn>
   </v-card>
 </template>

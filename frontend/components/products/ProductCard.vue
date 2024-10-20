@@ -114,7 +114,7 @@ const onClick = () => {
 
 const onAddToCart = () => {
   if (props.product.variants[0].id) {
-    addItemToCart(props.product.variants[0].id);
+    addItemToCart({ variantId: props.product.variants[0].id, quantity: 1 });
   }
 };
 

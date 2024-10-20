@@ -41,7 +41,7 @@
               />
             </template>
 
-            Your cart
+            Twój koszyk
           </v-btn>
         </NuxtLink>
       </template>

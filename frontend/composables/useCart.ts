@@ -13,6 +13,11 @@ type UpdateLineItemParams = {
   quantity: number;
 };
 
+type AddItemToCartParams = {
+  variantId: string;
+  quantity: number;
+};
+
 // TODO: add snackbars (they can't be used when we use it within use initialize)
 export const useCart = (skipFetchingCart?: boolean) => {
   const commonStore = useCommonStore();
@@ -67,10 +72,10 @@ export const useCart = (skipFetchingCart?: boolean) => {
   });
 
   const { mutateAsync: createLineItemHandler, isPending: isCreatingLineItem } = useMutation({
-    mutationFn: (variantId: string) =>
+    mutationFn: ({ variantId, quantity }: AddItemToCartParams) =>
       client.carts.lineItems.create(localStorageCartValue.value, {
         variant_id: variantId,
-        quantity: 1,
+        quantity: quantity ?? 1,
       }),
     onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
@@ -138,12 +143,12 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
   });
 
-  const addItemToCart = async (variantId: string) => {
+  const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {
     if (!localStorageCartValue.value) {
       await createCartHandler();
     }
 
-    return createLineItemHandler(variantId);
+    return createLineItemHandler({ variantId, quantity });
   };
 
   const updateItemInCart = async (data: UpdateLineItemParams) => {

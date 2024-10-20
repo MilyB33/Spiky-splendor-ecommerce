@@ -33,7 +33,9 @@
         :category="category"
       />
 
-      <CommonNavigationButton to="/about">About</CommonNavigationButton>
+      <CommonNavigationButton to="/about">O nas</CommonNavigationButton>
+
+      <CommonNavigationButton to="/contact">Kontakt</CommonNavigationButton>
     </v-toolbar-items>
 
     <v-spacer />

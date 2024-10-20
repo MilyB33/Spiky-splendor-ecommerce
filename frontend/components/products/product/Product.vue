@@ -32,11 +32,6 @@
 
           <ProductDescription :description="product?.description || ''" />
 
-          <div class="mb-8">
-            <p>Plant height with pot: {{ product?.height }} cm</p>
-            <p>Plant weight with pot: {{ product?.weight }} g</p>
-          </div>
-
           <ProductAvailability
             v-if="product"
             :product="product"
@@ -54,6 +49,8 @@
             v-if="product"
             :product="product"
           />
+
+          <ProductContactSection />
         </div>
       </div>
     </div>

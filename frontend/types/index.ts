@@ -28,3 +28,24 @@ export type Wishlist = {
   customer: MedusaCustomer;
   items: WishlistItem[];
 };
+
+export type PlantForm = {
+  id: string;
+  name: string;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type PlantPlacement = {
+  id: string;
+  name: string;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type PlantWaterDemand = {
+  id: string;
+  name: string;
+  created_at: Date;
+  updated_at: Date;
+};

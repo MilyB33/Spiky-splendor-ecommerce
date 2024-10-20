@@ -24,7 +24,7 @@
           <v-icon size="x-large" />
         </template>
 
-        Account
+        Konto
       </v-btn>
     </template>
 
@@ -34,14 +34,14 @@
       min-width="200"
       v-else
     >
-      <AuthenticationButton to="/login?login=true">Sign in</AuthenticationButton>
+      <AuthenticationButton to="/login?login=true"> Zaloguj się </AuthenticationButton>
 
       <v-divider
         thickness="2"
         class="mx-4"
       />
 
-      <AuthenticationButton to="/login?register=true">Sign up</AuthenticationButton>
+      <AuthenticationButton to="/login?register=true"> Zarejestruj się </AuthenticationButton>
     </v-card>
   </v-menu>
 </template>

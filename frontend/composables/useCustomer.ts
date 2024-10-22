@@ -7,7 +7,10 @@ export const useCustomer = () => {
   // TODO: it is refetching when failed on browser focus
   const { data: customer, isPending: isFetchingCustomer } = useQuery({
     queryKey: [API_QUERY_KEY.CUSTOMER],
-    queryFn: () => client.customers.retrieve(),
+    queryFn: () =>
+      client.customers.retrieve({
+        expand: "billing_address,shipping_addresses",
+      }),
     retry: false,
     retryOnMount: false,
     refetchOnMount: false,

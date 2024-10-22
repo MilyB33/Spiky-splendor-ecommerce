@@ -4,6 +4,8 @@ declare module "@medusajs/medusa/dist/models/customer" {
   export interface Customer {
     wishlist_id?: string;
     wishlist?: Wishlist;
+    orders_count?: number;
+    returns_count?: number;
   }
 }
 

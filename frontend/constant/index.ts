@@ -10,6 +10,22 @@ export const PRODUCT_AVAILABILITY_LABELS = {
   LOW_STOCK: "Low stock",
 };
 
+export const ORDER_STATUS = {
+  PENDING: "pending",
+  COMPLETED: "completed",
+  CANCELED: "canceled",
+  REQUIRES_ACTION: "requires_action",
+  ARCHIVED: "archived",
+} as const;
+
+export const ORDER_STATUS_LABELS = {
+  [ORDER_STATUS.PENDING]: "Oczekujące",
+  [ORDER_STATUS.COMPLETED]: "Zakończone",
+  [ORDER_STATUS.CANCELED]: "Anulowane",
+  [ORDER_STATUS.REQUIRES_ACTION]: "Wymaga działania",
+  [ORDER_STATUS.ARCHIVED]: "Zarchiwizowane",
+} as const;
+
 export const PRODUCT_LOW_STOCK_THRESHOLD = 10;
 
 export const API_QUERY_KEY = {
@@ -21,7 +37,9 @@ export const API_QUERY_KEY = {
   WISHLIST: "WISHLIST",
   CART: "CART",
   SHIPPING_METHODS: "SHIPPING_METHODS",
+  RETURN_SHIPPING_METHODS: "RETURN_SHIPPING_METHODS",
   ORDERS: "ORDERS",
+  RETURNS: "RETURNS",
   ALL: "ALL",
 } as const;
 
@@ -277,3 +295,7 @@ export const COUNTRIES = [
   { name: "Zambia", code: "ZM" },
   { name: "Zimbabwe", code: "ZW" },
 ] as const;
+
+export const SETTINGS = {
+  ORDERS_PAGE_LIMIT: 10,
+} as const;

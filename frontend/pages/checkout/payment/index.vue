@@ -1,10 +1,8 @@
 <template>
-  <Payment v-if="!isLoadingCart" />
+  <Payment />
 </template>
 
 <script setup lang="ts">
-const { isLoadingCart } = useCart();
-
 definePageMeta({
   layout: "checkout",
   middleware: "checkout",

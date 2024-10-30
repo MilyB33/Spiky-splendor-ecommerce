@@ -1,15 +1,6 @@
 <template>
   <v-layout class="d-flex ga-4 flex-column py-8 px-16">
-    <v-progress-circular
-      v-if="isFetchingShippingMethods"
-      color="primary"
-      indeterminate
-    ></v-progress-circular>
-
-    <header
-      v-if="!isFetchingShippingMethods"
-      class="d-flex justify-center"
-    >
+    <header class="d-flex justify-center">
       <NuxtLink
         to="/"
         class="d-flex align-center text-decoration-none logo-link"
@@ -24,17 +15,22 @@
     </header>
 
     <v-main
-      v-if="!isFetchingShippingMethods"
       max-width="1000"
       class="d-flex mx-auto w-100"
     >
-      <slot />
+      <v-progress-circular
+        v-if="isLoadingCart || !cart"
+        indeterminate
+        color="green_primary"
+      />
+
+      <slot v-else />
     </v-main>
   </v-layout>
 </template>
 
 <script lang="ts" setup>
-const { isFetchingShippingMethods } = useCheckout();
+const { cart, isLoadingCart } = useCart();
 </script>
 
 <style lang="scss" scoped>

@@ -38,6 +38,7 @@ const isLoading = ref(false);
 
 onMounted(async () => {
   clientSecret = cart.value?.cart.payment_session?.data.client_secret as string;
+
   if (!stripePk || !clientSecret) return;
 
   stripe = await loadStripe(stripePk);

@@ -2,7 +2,10 @@ import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import WishlistService from "../../../../../services/wishlist";
 import { MedusaError } from "medusa-core-utils";
 
-export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
+export const POST = async (
+  req: MedusaRequest & { body: { product_id: string } },
+  res: MedusaResponse
+) => {
   const wishlistService: WishlistService = req.scope.resolve("wishlistService");
 
   const idParam: string = req.params.id;
@@ -13,7 +16,10 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   res.json(wishlist);
 };
 
-export const DELETE = async (req: MedusaRequest, res: MedusaResponse) => {
+export const DELETE = async (
+  req: MedusaRequest & { body: { wish_items_ids: string[] } },
+  res: MedusaResponse
+) => {
   const wishlistService: WishlistService = req.scope.resolve("wishlistService");
 
   const idParam: string = req.params.id;

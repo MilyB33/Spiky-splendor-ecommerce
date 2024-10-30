@@ -1,20 +1,25 @@
 <template>
   <v-card>
-    <v-btn
-      variant="text"
-      block
-      append-icon="mdi-cog-outline"
-      class="d-flex justify-space-between"
+    <NuxtLink
+      to="/account/"
+      class="text-decoration-none text-black"
     >
-      <template v-slot:append>
-        <v-icon
-          size="large"
-          class="ml-auto"
-        />
-      </template>
+      <v-btn
+        variant="text"
+        block
+        append-icon="mdi-cog-outline"
+        class="d-flex justify-space-between"
+      >
+        <template v-slot:append>
+          <v-icon
+            size="large"
+            class="ml-auto"
+          />
+        </template>
 
-      Ustawienia
-    </v-btn>
+        Ustawienia
+      </v-btn>
+    </NuxtLink>
 
     <v-divider />
 

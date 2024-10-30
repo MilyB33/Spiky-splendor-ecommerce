@@ -19,27 +19,27 @@
     <AccountDashboardCard
       title="Dane osobowe"
       icon="mdi-account"
-      link="/account/personal_data"
+      link="/account/details"
     >
       <AccountDashboardCardListItem
         label="Imię"
         :value="customer?.customer.first_name"
-        link="/account/personal_data"
+        link="/account/details"
       />
       <AccountDashboardCardListItem
         label="Nazwisko"
         :value="customer?.customer.last_name"
-        link="/account/personal_data"
+        link="/account/details"
       />
       <AccountDashboardCardListItem
         label="Email"
         :value="customer?.customer.email"
-        link="/account/personal_data"
+        link="/account/details"
       />
       <AccountDashboardCardListItem
         label="Telefon"
         :value="customer?.customer.phone"
-        link="/account/personal_data"
+        link="/account/details"
       />
     </AccountDashboardCard>
 

@@ -62,10 +62,6 @@ export const useCart = (skipFetchingCart?: boolean) => {
       localStorageCartValue.value = data.cart.id;
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
 
-      if (customer.value?.customer.id) {
-        await updateCartHandler({ cart_id: data.cart.id, customer_id: customer.value.customer.id });
-      }
-
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
     },
@@ -119,17 +115,16 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const { mutateAsync: createPaymentSessionHandler, isPending: isCreatingPaymentSession } =
     useMutation({
-      mutationFn: () => client.carts.createPaymentSessions(localStorageCartValue.value),
+      mutationFn: () => client.carts.createPaymentSessions(cart.value?.cart.id || ""),
       onSuccess: (data) => {
         // check if stripe is selected
         const isStripeAvailable = data.cart.payment_sessions?.some(
           (session) => session.provider_id === "stripe",
         );
-
+        console.log("isStripeAvailable", isStripeAvailable, data);
         if (!isStripeAvailable) {
           return;
         }
-
         // select payment session
         selectPaymentSessionHandler("stripe");
       },

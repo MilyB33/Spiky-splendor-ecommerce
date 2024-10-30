@@ -46,9 +46,12 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     await updateCart(preparedData);
     await addShippingMethod(shippingMethod.methodId);
-    await createPaymentSession();
 
-    navigateTo("/checkout/payment");
+    // TODO: remove this after testing (for now it's needed as there is some race condition in the backend https://github.com/medusajs/medusa/issues/6331) maybe 2 second needs to be added
+    setTimeout(async () => {
+      await createPaymentSession();
+      navigateTo("/checkout/payment");
+    }, 1000);
   } catch (error) {
     console.log(error);
   }

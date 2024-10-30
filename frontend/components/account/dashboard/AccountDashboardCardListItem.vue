@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 type AccountDashboardCardListItemProps = {
   label: string;
-  value: string;
+  value?: string;
   link?: string;
 };
 

@@ -63,8 +63,8 @@ const form = useForm({
   },
 });
 
-const onSubmit = form.handleSubmit((values) => {
-  createReturn({
+const onSubmit = form.handleSubmit(async (values) => {
+  await createReturn({
     order_id: props.orderId,
     return_shipping: {
       option_id: values.shippingMethod.methodId,
@@ -76,5 +76,7 @@ const onSubmit = form.handleSubmit((values) => {
         quantity: item.quantity,
       })),
   });
+
+  props.isActive.value = false;
 });
 </script>

@@ -1,3 +1,5 @@
+import { ReturnStatus } from "@medusajs/medusa";
+
 export const PRODUCT_AVAILABILITY = {
   AVAILABLE: "AVAILABLE",
   OUT_OF_STOCK: "OUT_OF_STOCK",
@@ -18,12 +20,26 @@ export const ORDER_STATUS = {
   ARCHIVED: "archived",
 } as const;
 
+export const RETURN_STATUS = {
+  REQUESTED: "requested",
+  RECEIVED: "received",
+  REQUIRES_ACTION: "requires_action",
+  CANCELED: "canceled",
+} as const;
+
 export const ORDER_STATUS_LABELS = {
   [ORDER_STATUS.PENDING]: "Oczekujące",
   [ORDER_STATUS.COMPLETED]: "Zakończone",
   [ORDER_STATUS.CANCELED]: "Anulowane",
   [ORDER_STATUS.REQUIRES_ACTION]: "Wymaga działania",
   [ORDER_STATUS.ARCHIVED]: "Zarchiwizowane",
+} as const;
+
+export const RETURN_STATUS_LABELS = {
+  [RETURN_STATUS.REQUESTED]: "Zgłoszone",
+  [RETURN_STATUS.RECEIVED]: "Odebrane",
+  [RETURN_STATUS.REQUIRES_ACTION]: "Wymaga działania",
+  [RETURN_STATUS.CANCELED]: "Anulowane",
 } as const;
 
 export const PRODUCT_LOW_STOCK_THRESHOLD = 10;
@@ -47,6 +63,7 @@ export const LOCAL_STORAGE_KEY = {
   CART_ID: "CART_ID",
   WISHLIST_ID: "WISHLIST_ID",
   LAST_ORDER_ID: "LAST_ORDER_ID",
+  REGION_ID: "REGION_ID",
 } as const;
 
 // TODO: Maybe some lib
@@ -298,4 +315,5 @@ export const COUNTRIES = [
 
 export const SETTINGS = {
   ORDERS_PAGE_LIMIT: 10,
+  RETURNS_PAGE_LIMIT: 10,
 } as const;

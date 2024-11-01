@@ -9,5 +9,9 @@ export const config: MiddlewaresConfig = {
       matcher: "/store/orders/*/cancel*",
       middlewares: [requireCustomerAuthentication()],
     },
+    {
+      matcher: "/store/returns*",
+      middlewares: [requireCustomerAuthentication()],
+    },
   ],
 };

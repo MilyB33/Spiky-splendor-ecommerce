@@ -46,32 +46,32 @@
     <AccountDashboardCard
       title="Adres rozliczeniowy"
       icon="mdi-map-marker"
-      link="/account/address"
+      link="/account/addresses"
     >
       <AccountDashboardCardListItem
         label="Kraj"
         :value="customer?.customer?.billing_address?.country"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Miasto"
         :value="customer?.customer?.billing_address?.city"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Ulica"
         :value="customer?.customer?.billing_address?.street"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Kod pocztowy"
         :value="customer?.customer?.billing_address?.postcode"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Województwo"
         :value="customer?.customer?.billing_address?.province"
-        link="/account/address"
+        link="/account/addresses"
       />
     </AccountDashboardCard>
 
@@ -79,32 +79,32 @@
       v-if="!customer?.customer?.shipping_addresses?.length"
       :title="`Adres wysyłkowy 1`"
       icon="mdi-map-marker"
-      link="/account/address"
+      link="/account/addresses"
     >
       <AccountDashboardCardListItem
         label="Kraj"
         :value="customer?.customer?.shipping_addresses[0]?.country"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Miasto"
         :value="customer?.customer?.shipping_addresses[0]?.city"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Ulica"
         :value="customer?.customer?.shipping_addresses[0]?.street"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Kod pocztowy"
         :value="customer?.customer?.shipping_addresses[0]?.postcode"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Województwo"
         :value="customer?.customer?.shipping_addresses[0]?.province"
-        link="/account/address"
+        link="/account/addresses"
       />
     </AccountDashboardCard>
 
@@ -114,32 +114,32 @@
       :key="address.id"
       :title="`Adres wysyłkowy ${index + 1}`"
       icon="mdi-map-marker"
-      link="/account/address"
+      link="/account/addresses"
     >
       <AccountDashboardCardListItem
         label="Kraj"
         :value="address.country"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Miasto"
         :value="address.city"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Ulica"
         :value="address.street"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Kod pocztowy"
         :value="address.postcode"
-        link="/account/address"
+        link="/account/addresses"
       />
       <AccountDashboardCardListItem
         label="Województwo"
         :value="address.province"
-        link="/account/address"
+        link="/account/addresses"
       />
     </AccountDashboardCard>
   </div>

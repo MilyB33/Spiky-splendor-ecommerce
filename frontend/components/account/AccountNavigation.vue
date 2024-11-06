@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex flex-column ga-8">
+  <div
+    style="max-width: 150px"
+    class="d-flex flex-column ga-8 w-100"
+  >
     <NuxtLink
       to="/account"
       class="text-decoration-none text-black text-h5"

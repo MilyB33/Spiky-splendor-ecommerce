@@ -26,12 +26,9 @@
       v-if="!mobile"
       class="ml-md-8 ml-4"
     >
-      <CategoryNavigationButton
-        v-if="categories"
-        v-for="category in categories"
-        :key="category.id"
-        :category="category"
-      />
+      <CommonNavigationButton :to="`/products/${categories?.[0].handle || ''}`">{{
+        categories?.[0].name || ""
+      }}</CommonNavigationButton>
 
       <CommonNavigationButton to="/about">O nas</CommonNavigationButton>
 
@@ -81,7 +78,6 @@ import { useDisplay } from "vuetify";
 const isOpen = defineModel<boolean>("isOpen");
 
 const { categories } = useCategories();
-const { wishlist } = useWishlist();
 const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
 
 const toggleButton = () => {

@@ -42,14 +42,6 @@
     >
       Dane osobowe
     </NuxtLink>
-
-    <NuxtLink
-      to="/account/privacy"
-      class="text-decoration-none text-black text-h5"
-      exact-active-class="active-link"
-    >
-      Prywatność
-    </NuxtLink>
   </div>
 </template>
 

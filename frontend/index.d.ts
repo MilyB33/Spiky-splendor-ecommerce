@@ -20,3 +20,14 @@ declare module "@medusajs/medusa/dist/models/product" {
     plant_water_demand_id: string;
   }
 }
+
+declare module "@medusajs/medusa/dist/api/routes/store/products" {
+  export interface StoreGetProductsParams {
+    plant_forms_ids?: string[];
+    plant_placements_ids?: string[];
+    plant_water_demand_ids?: string[];
+    categories_ids?: string[];
+    min_price?: number;
+    max_price?: number;
+  }
+}

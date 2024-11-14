@@ -7,8 +7,8 @@
     <div class="position-relative">
       <v-img
         v-if="product.thumbnail"
-        :width="225"
-        :height="225"
+        :width="180"
+        :height="180"
         cover
         :src="product.thumbnail"
         :alt="product.title"

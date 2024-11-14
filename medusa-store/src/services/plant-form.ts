@@ -1,7 +1,7 @@
 import { TransactionBaseService } from "@medusajs/medusa";
 import { PlantForm } from "src/models/plant-form";
 import { PlantFormRepository } from "src/repositories/plant-form";
-import { EntityManager, Repository } from "typeorm";
+import { EntityManager } from "typeorm";
 
 type InjectedDependencies = {
   manager: EntityManager;

@@ -7,5 +7,5 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 
   const plantForms = await plantFormService.list();
 
-  res.json(plantForms);
+  res.json({ plant_forms: plantForms });
 };

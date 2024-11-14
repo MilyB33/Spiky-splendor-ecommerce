@@ -16,8 +16,6 @@ const label = computed(() => {
       return "Twoje zwroty";
     case "/account/address":
       return "Twoje adresy";
-    case "/account/privacy":
-      return "Prywatność";
     case "/account/details":
       return "Dane osobowe";
     default:

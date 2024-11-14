@@ -8,5 +8,5 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 
   const plantWaterDemands = await plantWaterDemandService.list();
 
-  res.json(plantWaterDemands);
+  res.json({ plant_water_demands: plantWaterDemands });
 };

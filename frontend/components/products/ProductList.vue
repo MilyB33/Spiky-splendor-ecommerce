@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="props.isLoading"
-    class="d-flex justify-center align-center fill-height"
+    class="d-flex justify-center align-center"
   >
     <v-progress-circular
       size="80"
@@ -10,12 +10,17 @@
     />
   </div>
   <div
-    class="list"
     v-else
+    class="d-flex flex-column ga-12"
   >
-    <template v-for="product in props.products?.products">
-      <ProductCard :product="product" />
-    </template>
+    <div>
+      <h2>Lista produktów ({{ products?.count }})</h2>
+    </div>
+    <div class="list">
+      <template v-for="product in props.products?.products">
+        <ProductCard :product="product" />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -28,7 +33,7 @@ const props = defineProps<{ products?: ProductsListResponse; isLoading: boolean 
 .list {
   display: flex;
   gap: 8px;
-  justify-content: center;
   flex-wrap: wrap;
+  height: fit-content;
 }
 </style>

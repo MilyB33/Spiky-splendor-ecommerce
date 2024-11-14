@@ -25,5 +25,6 @@ export declare module "@medusajs/medusa/dist/models/product" {
     plant_placements: PlantPlacement[];
     plant_water_demand: PlantWaterDemand;
     plant_water_demand_id: string;
+    plant_forms_ids: string[];
   }
 }

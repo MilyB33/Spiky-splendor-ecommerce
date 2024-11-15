@@ -10,7 +10,7 @@ import {
   ProductFilterOptions,
 } from "@medusajs/medusa/dist/types/product";
 import ProductRepository from "src/repositories/product";
-import { FindOptionsWhere, In, Raw } from "typeorm";
+import { FindOneOptions, FindOptionsWhere, In, Raw } from "typeorm";
 
 type InjectedDependencies = {
   productRepository: typeof ProductRepository;
@@ -79,10 +79,16 @@ class ProductService extends MedusaProductService {
       categories_ids,
     });
 
+    const order = this.prepareOrder_(config.order);
+
     const result = await productRepo.findAndCount({
       ...query,
-      relationLoadStrategy: "query", // TO have all fields "join" only returns applied
-      where: { ...query.where, ...filtersQuery },
+      relationLoadStrategy: "join", // It cuts the values that are not applied by filter e.g only returns plant_form which is applied in form
+      where: {
+        ...query.where,
+        ...filtersQuery,
+      },
+      order,
     });
 
     return result;
@@ -125,6 +131,24 @@ class ProductService extends MedusaProductService {
     }
 
     return filtersQuery;
+  }
+
+  prepareOrder_(order_: { [key: string]: "ASC" | "DESC" }) {
+    const order: FindOneOptions<Product>["order"] = {};
+
+    const field = Object.keys(order_)[0];
+
+    if (field === "variants.prices.amount") {
+      order.variants = {
+        prices: { amount: order_[field] },
+      };
+    }
+
+    if (field === "title") {
+      order.title = order_[field];
+    }
+
+    return order;
   }
 }
 

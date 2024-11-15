@@ -14,11 +14,15 @@ type Filters = Pick<
   | "categories_ids"
 >;
 
+type OrderValues = "price" | "-price" | "title" | "-title";
+type OrderParam = "title" | "-title" | "-variants.prices.amount" | "variants.prices.amount" | "";
+
 export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
   const client = useMedusaClient();
   const commonStore = useCommonStore();
   const { selectedRegion } = storeToRefs(commonStore);
   const filters = ref<Filters>({});
+  const order = ref<OrderParam>("title");
 
   // Computed query key to ensure reactivity
   const queryKey = computed(() => [
@@ -26,6 +30,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     API_QUERY_KEY.ALL,
     params?.value,
     filters.value,
+    order.value,
     selectedRegion.value?.id,
   ]);
 
@@ -36,7 +41,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
       ...filters.value,
       expand: "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
       region_id: selectedRegion.value?.id,
-      order: "created_at",
+      order: order.value,
     });
   };
 
@@ -50,6 +55,25 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     queryFn: fetchProducts,
     enabled: computed(() => !!selectedRegion.value?.id),
   });
+
+  const onChangeOrder = (order_: OrderValues) => {
+    switch (order_) {
+      case "-price":
+        order.value = "-variants.prices.amount";
+        break;
+      case "price":
+        order.value = "variants.prices.amount";
+        break;
+      case "title":
+        order.value = "title";
+        break;
+      case "-title":
+        order.value = "-title";
+        break;
+      default:
+        order.value = "";
+    }
+  };
 
   const onFiltersChange = (values: ProductFiltersSchemaValues) => {
     if (values.categories) {
@@ -79,5 +103,5 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     refetch();
   };
 
-  return { products, isLoading: isPending, onFiltersChange };
+  return { products, isLoading: isPending, onFiltersChange, onChangeOrder };
 };

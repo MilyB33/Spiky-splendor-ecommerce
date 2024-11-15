@@ -13,9 +13,6 @@
     v-else
     class="d-flex flex-column ga-12"
   >
-    <div>
-      <h2>Lista produktów ({{ products?.count }})</h2>
-    </div>
     <div class="list">
       <template v-for="product in props.products?.products">
         <ProductCard :product="product" />

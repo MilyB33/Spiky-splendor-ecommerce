@@ -8,12 +8,17 @@ import {
   ProductSelector,
   FindProductConfig,
   ProductFilterOptions,
+  UpdateProductInput,
 } from "@medusajs/medusa/dist/types/product";
 import ProductRepository from "src/repositories/product";
 import { FindOneOptions, FindOptionsWhere, In, Raw } from "typeorm";
+import { PlantFormRepository } from "src/repositories/plant-form";
+import { PlantPlacementRepository } from "src/repositories/plant-placement";
 
 type InjectedDependencies = {
   productRepository: typeof ProductRepository;
+  plantFormRepository: typeof PlantFormRepository;
+  plantPlacementRepository: typeof PlantPlacementRepository;
 };
 
 type ProductSelectorExtended = ProductSelector & {
@@ -23,28 +28,62 @@ type ProductSelectorExtended = ProductSelector & {
   categories_ids?: string[];
   min_price?: number;
   max_price?: number;
+  is_search?: boolean;
+};
+
+type UpdateProductInputExtended = UpdateProductInput & {
+  plant_forms?: string[];
+  plant_placements?: string[];
+  plant_water_demand_id: string[];
+  min_price?: number;
+  max_price?: number;
 };
 
 class ProductService extends MedusaProductService {
   protected productRepository_: typeof ProductRepository;
+  protected plantFormRepository_: typeof PlantFormRepository;
+  protected plantPlacementRepository_: typeof PlantPlacementRepository;
 
-  constructor({ productRepository }: InjectedDependencies) {
+  constructor({
+    productRepository,
+    plantFormRepository,
+    plantPlacementRepository,
+  }: InjectedDependencies) {
     super(arguments[0]);
 
     this.productRepository_ = productRepository;
+    this.plantFormRepository_ = plantFormRepository;
+    this.plantPlacementRepository_ = plantPlacementRepository;
   }
 
-  async list(
-    selector: ProductSelector,
-    config?: FindProductConfig
-  ): Promise<Product[]> {
-    return super.list(selector, config);
+  async update(productId: string, update: UpdateProductInputExtended) {
+    const { plant_forms, plant_placements, ...restUpdate } = update;
+
+    const plantForms = await this.plantFormRepository_.find({
+      where: { id: In(plant_forms) },
+    });
+    const plantPlacements = await this.plantPlacementRepository_.find({
+      where: { id: In(plant_placements) },
+    });
+
+    return super.update(productId, {
+      ...restUpdate,
+      // @ts-expect-error can't update module
+      plant_forms: plantForms,
+      plant_placements: plantPlacements,
+    });
   }
 
   async listAndCount(
     selector: ProductSelectorExtended,
     config?: FindProductConfig
   ): Promise<[Product[], number]> {
+    const { is_search, ...restSelector } = selector;
+
+    if (!is_search) {
+      return super.listAndCount(restSelector, config);
+    }
+
     const productRepo = this.activeManager_.withRepository(
       this.productRepository_
     );
@@ -58,7 +97,7 @@ class ProductService extends MedusaProductService {
       min_price,
       max_price,
       ...productSelector
-    } = selector;
+    } = restSelector;
 
     const query = buildQuery(productSelector, config) as ExtendedFindConfig<
       Product & ProductFilterOptions

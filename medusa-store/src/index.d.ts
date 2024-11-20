@@ -26,5 +26,18 @@ export declare module "@medusajs/medusa/dist/models/product" {
     plant_water_demand: PlantWaterDemand;
     plant_water_demand_id: string;
     plant_forms_ids: string[];
+    min_height: number;
+    max_height: number;
+  }
+}
+
+export declare module "@medusajs/medusa/dist/api/routes/admin/products/update-product" {
+  export interface AdminPostProductsProductReq {
+    pot_diameter?: number;
+    plant_forms?: string[];
+    plant_placements?: string[];
+    plant_water_demand_id?: string;
+    min_height?: number;
+    max_height?: number;
   }
 }

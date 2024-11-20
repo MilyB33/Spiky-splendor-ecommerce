@@ -42,6 +42,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
       expand: "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
       region_id: selectedRegion.value?.id,
       order: order.value,
+      is_search: true,
     });
   };
 

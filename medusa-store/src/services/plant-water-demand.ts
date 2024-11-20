@@ -1,6 +1,6 @@
 import { PlantWaterDemand } from "../models/plant-water-demand";
 import { PlantWaterDemandRepository } from "../repositories/plant-water-demand";
-import { EntityManager } from "typeorm";
+import { DeleteResult, EntityManager } from "typeorm";
 
 type InjectedDependencies = {
   manager: EntityManager;
@@ -18,6 +18,26 @@ class PlantWaterDemandService {
     const plantWaterDemands = await this.plantWaterDemandRepository.find();
 
     return plantWaterDemands;
+  }
+
+  async delete(id: string): Promise<DeleteResult> {
+    const removedPlantWaterDemand =
+      await this.plantWaterDemandRepository.delete({
+        id,
+      });
+
+    return removedPlantWaterDemand;
+  }
+
+  async add(name: string): Promise<PlantWaterDemand> {
+    const newPlantWaterDemand = this.plantWaterDemandRepository.create({
+      name,
+    });
+    const plantWaterDemandResult = await this.plantWaterDemandRepository.save(
+      newPlantWaterDemand
+    );
+
+    return plantWaterDemandResult;
   }
 }
 

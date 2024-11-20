@@ -34,6 +34,7 @@ export const useOrders = () => {
       client.customers.listOrders({
         limit: params.value.limit,
         offset: (params.value.page - 1) * params.value.limit,
+        expand: "returns",
       }),
     enabled: computed(() => !!customer.value?.customer.id).value,
   });

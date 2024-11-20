@@ -42,6 +42,10 @@ export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
   @IsOptional()
   @Type(() => Number())
   max_price: number;
+
+  @IsOptional()
+  @Type(() => Boolean())
+  is_search: boolean;
 }
 
 registerOverriddenValidators(StoreGetProductsParams);

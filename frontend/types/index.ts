@@ -51,3 +51,13 @@ export type PlantWaterDemand = {
   created_at: Date;
   updated_at: Date;
 };
+
+export type Invoice = {
+  id: string;
+  name: string;
+  display_id: string;
+  order: Order;
+  order_id: string;
+  created_at: Date;
+  updated_at: Date;
+};

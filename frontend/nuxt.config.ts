@@ -44,4 +44,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+  experimental: {
+    clientNodeCompat: true,
+  },
 });

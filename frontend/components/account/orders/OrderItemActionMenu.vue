@@ -27,12 +27,21 @@
           :fulfillment_status="fulfillmentStatus"
         />
       </div>
+      <v-divider />
+      <div>
+        <GenerateInvoice
+          :order-id="orderId"
+          :payment-status="paymentStatus"
+          :invoice="invoice"
+        />
+      </div>
     </v-card>
   </v-menu>
 </template>
 
 <script lang="ts" setup>
 import type { FulfillmentStatus, Order, OrderStatus, Return } from "@medusajs/medusa";
+import type { Invoice } from "~/types";
 
 type OrderItemActionMenuProps = {
   orderId: string;
@@ -41,6 +50,8 @@ type OrderItemActionMenuProps = {
   orderItems: Order["items"];
   returns?: Return[];
   fulfillmentStatus: FulfillmentStatus;
+  paymentStatus: string;
+  invoice?: Invoice;
 };
 
 defineProps<OrderItemActionMenuProps>();

@@ -1,4 +1,8 @@
-import { OrderService as MedusaOrderService } from "@medusajs/medusa";
+import {
+  FindConfig,
+  OrderService as MedusaOrderService,
+  Order,
+} from "@medusajs/medusa";
 import OrderRepository from "@medusajs/medusa/dist/repositories/order";
 import { PaymentService } from "@medusajs/medusa/dist/services";
 import PaymentRepository from "@medusajs/medusa/dist/repositories/payment";
@@ -46,6 +50,10 @@ class OrderService extends MedusaOrderService {
 
       return canceledOrder;
     });
+  }
+
+  async retrieve(orderId: string, config?: FindConfig<Order>) {
+    return super.retrieve(orderId, config);
   }
 }
 

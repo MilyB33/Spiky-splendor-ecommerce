@@ -28,6 +28,8 @@
           :order-items="item.items"
           :returns="item.returns"
           :fulfillment-status="item.fulfillments_status"
+          :payment-status="item.payment_status"
+          :invoice="item.invoice"
         />
       </template>
     </v-data-table>

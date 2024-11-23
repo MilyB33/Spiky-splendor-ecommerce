@@ -10,5 +10,5 @@ export default async function updateOrder({ data, container }: SubscriberArgs) {
 }
 
 export const config: SubscriberConfig = {
-  event: "order.fulfillment_created",
+  event: OrderService.Events.FULFILLMENT_CREATED,
 };

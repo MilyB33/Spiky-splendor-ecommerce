@@ -1,5 +1,5 @@
 import { RouteConfig, RouteProps } from "@medusajs/admin";
-import { Heading, Input, Button } from "@medusajs/ui";
+import { Heading } from "@medusajs/ui";
 import { useGetCustomAttributes } from "../../hooks/use-get-custom-attributes";
 import { CustomAttributeItem } from "../../components/custom-attributes/item";
 import { AddNewAttributeInput } from "../../components/custom-attributes/add-new-attribute-input";

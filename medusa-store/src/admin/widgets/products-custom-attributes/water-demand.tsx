@@ -1,4 +1,4 @@
-import { Label, RadioGroup, Select } from "@medusajs/ui";
+import { Select } from "@medusajs/ui";
 import { CustomAttributesValues } from "./useProductsCustomAttributes";
 
 type Option = {

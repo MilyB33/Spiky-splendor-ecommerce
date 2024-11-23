@@ -15,6 +15,8 @@ export const prepareOrdersTableColumns = (orders: Order[], currencyCode?: string
     status: ORDER_STATUS_LABELS[order.status],
     returns: order.returns,
     fulfillments_status: order.fulfillment_status,
+    payment_status: order.payment_status,
+    invoice: order.invoice,
   }));
 };
 

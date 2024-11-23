@@ -34,7 +34,7 @@ export const useOrders = () => {
       client.customers.listOrders({
         limit: params.value.limit,
         offset: (params.value.page - 1) * params.value.limit,
-        expand: "returns",
+        expand: "returns,invoice",
       }),
     enabled: computed(() => !!customer.value?.customer.id).value,
   });
@@ -53,6 +53,22 @@ export const useOrders = () => {
     },
   });
 
+  const { mutateAsync: generateInvoice, isPending: isGeneratingInvoice } = useMutation({
+    mutationFn: (orderId: string) =>
+      client.client.request("GET", `/store/orders/${orderId}/invoice/`),
+    onSuccess: (response) => {
+      const pdfBuffer = Buffer.from(response.buffer, "base64");
+
+      const pdfBytes = new Uint8Array(pdfBuffer);
+
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Open the blob URL in a new tab
+      window.open(blobUrl, "_blank");
+    },
+  });
+
   const setOrderId = (orderID: string) => {
     localStorageLastOrderId.value = orderID;
   };
@@ -68,5 +84,7 @@ export const useOrders = () => {
     pageCount,
     cancelOrder,
     isCancellingOrder,
+    generateInvoice,
+    isGeneratingInvoice,
   };
 };

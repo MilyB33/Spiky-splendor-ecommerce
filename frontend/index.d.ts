@@ -1,4 +1,4 @@
-import { Wishlist, PlantForm, PlantPlacement, PlantWaterDemand } from "./types/index";
+import { Wishlist, PlantForm, PlantPlacement, PlantWaterDemand, type Invoice } from "./types/index";
 
 declare module "@medusajs/medusa/dist/models/customer" {
   export interface Customer {
@@ -30,5 +30,11 @@ declare module "@medusajs/medusa/dist/api/routes/store/products" {
     min_price?: number;
     max_price?: number;
     is_search?: boolean;
+  }
+}
+
+declare module "@medusajs/medusa/dist/models/order" {
+  export interface Order {
+    invoice?: Invoice;
   }
 }

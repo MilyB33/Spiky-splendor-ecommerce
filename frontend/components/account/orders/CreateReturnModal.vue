@@ -14,6 +14,7 @@
           <v-btn
             v-bind="{ ...activatorProps, ...props }"
             variant="text"
+            block
             :disabled="isDisabled"
             style="pointer-events: auto"
           >

@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 
 import { Customer } from "@medusajs/medusa/dist/models/customer";
-import { BaseEntity, Region } from "@medusajs/medusa";
+import { BaseEntity } from "@medusajs/medusa";
 import { generateEntityId } from "@medusajs/medusa/dist/utils";
 import { WishlistItem } from "./wishlist-item";
 

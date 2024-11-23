@@ -6,26 +6,37 @@
     height="100"
   />
 
-  <h2>Successful Payment</h2>
+  <h2>Zamówienie zostało opłacone</h2>
 
   <div>
-    <p>Order number: #{{ lastOrder?.order.display_id }}</p>
+    <p>Twój numer zamówienia: #{{ lastOrder?.order.display_id }}</p>
 
-    <p>Thank you for shopping.</p>
+    <p>Dziękujemy za zakupy.</p>
   </div>
 
-  <NuxtLink
-    to="/"
-    class="text-decoration-none w-100"
-  >
+  <div class="w-100 d-flex flex-column ga-3">
     <v-btn
-      color="green"
+      v-if="lastOrder?.order.id"
+      color="blue"
       block
-      >Continue</v-btn
+      :disabled="isGeneratingInvoice"
+      @click="() => generateInvoice(lastOrder?.order.id || '')"
+      >Pobierz fakturę</v-btn
     >
-  </NuxtLink>
+    <NuxtLink
+      to="/"
+      class="text-decoration-none w-100"
+    >
+      <v-btn
+        color="green"
+        block
+        :disabled="isGeneratingInvoice"
+        >Kontynuuj</v-btn
+      >
+    </NuxtLink>
+  </div>
 </template>
 
 <script lang="ts" setup>
-const { lastOrder } = useOrders();
+const { lastOrder, generateInvoice, isGeneratingInvoice } = useOrders();
 </script>

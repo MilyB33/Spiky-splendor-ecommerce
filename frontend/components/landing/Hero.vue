@@ -8,7 +8,7 @@
       Witaj w Spiky Splendor
     </h2>
     <NuxtLink to="/products/succulents">
-      <v-btn color="white">Odkryj nasze rośliny</v-btn>
+      <v-btn color="white">Odkryj nasze roślin</v-btn>
     </NuxtLink>
   </div>
 </template>

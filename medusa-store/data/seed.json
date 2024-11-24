@@ -926,8 +926,8 @@
   ],
   "product_collections": [
     {
-      "title": "Succulents",
-      "handle": "succulents",
+      "title": "Recommended",
+      "handle": "recommended",
       "metadata": {}
     }
   ]

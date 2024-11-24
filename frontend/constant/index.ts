@@ -1,5 +1,3 @@
-import { ReturnStatus } from "@medusajs/medusa";
-
 export const PRODUCT_AVAILABILITY = {
   AVAILABLE: "AVAILABLE",
   OUT_OF_STOCK: "OUT_OF_STOCK",
@@ -59,6 +57,7 @@ export const API_QUERY_KEY = {
   PLANT_FORMS: "PLANT_FORMS",
   PLANT_PLACEMENTS: "PLANT_PLACEMENTS",
   PLANT_WATER_DEMANDS: "PLANT_WATER_DEMANDS",
+  COLLECTIONS: "COLLECTIONS",
   ALL: "ALL",
 } as const;
 

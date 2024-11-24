@@ -1,5 +1,5 @@
 <template>
-  <h1>Index page</h1>
+  <Landing />
 </template>
 
 <script lang="ts" setup></script>

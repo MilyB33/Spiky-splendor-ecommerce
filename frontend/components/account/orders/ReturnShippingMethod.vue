@@ -25,7 +25,7 @@
               ></v-radio>
             </td>
             <td>
-              {{ formatCurrency(method.price_incl_tax || 0, selectedRegion?.currency_code) }}
+              {{ formatCurrency(method.price_incl_tax || 0, region?.currency_code) }}
             </td>
           </tr>
         </tbody>
@@ -47,7 +47,6 @@
 import type { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing";
 import { formatCurrency } from "~/utils/product";
 import { type ReturnSchemaValues } from "~/utils/validation/return-schema";
-import { useCommonStore } from "~/store/common";
 
 type ReturnShippingMethodProps = {
   shippingMethods: PricedShippingOption[];
@@ -56,8 +55,7 @@ type ReturnShippingMethodProps = {
 
 defineProps<ReturnShippingMethodProps>();
 
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
+const { region } = useRegions();
 
 const { value: shippingMethod, errorMessage: shippingMethodError } =
   useField<ReturnSchemaValues["shippingMethod"]>("shippingMethod");

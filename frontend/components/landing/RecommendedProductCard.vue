@@ -27,7 +27,7 @@
 
     <NuxtLink
       class="read-more-btn"
-      :to="`/products/product/${product.handle}`"
+      :to="`/products/${product.handle}`"
     >
       <v-btn
         size="small"
@@ -44,7 +44,6 @@
 <script lang="ts" setup>
 import { formatCurrency } from "~/utils/product";
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
-import { useCommonStore } from "~/store/common";
 
 type RecommendedProductCardProps = {
   product: PricedProduct;
@@ -52,12 +51,11 @@ type RecommendedProductCardProps = {
 
 const props = defineProps<RecommendedProductCardProps>();
 
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
+const { region } = useRegions();
 
 const price = computed(() => {
   return props.product.variants.reduce((prev, curr) => {
-    return formatCurrency(curr.calculated_price_incl_tax || 0, selectedRegion.value?.currency_code);
+    return formatCurrency(curr.calculated_price_incl_tax || 0, region.value?.currency_code);
   }, "");
 });
 </script>

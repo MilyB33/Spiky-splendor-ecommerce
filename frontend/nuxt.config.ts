@@ -17,7 +17,6 @@ export default defineNuxtConfig({
   },
   modules: [
     "@vueuse/nuxt",
-    "@pinia/nuxt",
     "nuxt-medusa",
     "@vee-validate/nuxt",
     (_options, nuxt) => {

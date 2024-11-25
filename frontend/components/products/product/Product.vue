@@ -58,13 +58,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useCommonStore } from "~/store/common";
 import { formatCurrency, getProductQuantity } from "~/utils/product";
 
 const route = useRoute();
 const { product, isLoading } = useProduct(route.params.handle as string);
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
+const { region } = useRegions();
 
 const images = computed(() => {
   const images = product.value?.images;
@@ -79,7 +77,7 @@ const images = computed(() => {
 const price = computed(() => {
   return formatCurrency(
     product.value?.variants[0].calculated_price_incl_tax || 0,
-    selectedRegion.value?.currency_code,
+    region.value?.currency_code,
   );
 });
 </script>

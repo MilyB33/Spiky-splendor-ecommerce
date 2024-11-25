@@ -13,5 +13,8 @@ export const useRegions = () => {
     queryFn: () => client.regions.list(),
   });
 
-  return { regions, isFetchingRegions, isSuccess };
+  // There should only one region
+  const region = computed(() => regions.value?.regions[0]);
+
+  return { availableRegions: regions, region, isFetchingRegions, isSuccess };
 };

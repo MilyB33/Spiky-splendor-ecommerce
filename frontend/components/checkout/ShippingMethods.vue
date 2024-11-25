@@ -26,7 +26,7 @@
             </td>
             <!-- TODO: add this to entity -->
             <td>3 days</td>
-            <td>{{ formatCurrency(method.price_incl_tax || 0, selectedRegion?.currency_code) }}</td>
+            <td>{{ formatCurrency(method.price_incl_tax || 0, region?.currency_code) }}</td>
           </tr>
         </tbody>
       </v-table>
@@ -35,13 +35,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
 import type { CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
 
 const { shippingMethods, isFetchingShippingMethods } = useCheckout();
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
+const { region } = useRegions();
+
 const { value: shippingMethod, errorMessage: shippingMethodError } =
   useField<CheckoutSchemaValues["shippingMethod"]>("shippingMethod");
 </script>

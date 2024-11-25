@@ -48,21 +48,19 @@
 
 <script lang="ts" setup>
 import type { LineItem } from "@medusajs/medusa";
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
 
 type CartItemProps = {
   lineItem: LineItem;
 };
 
-const commonStore = useCommonStore();
 const { deleteItemFromCart, updateItemInCart } = useCart();
-const { selectedRegion } = storeToRefs(commonStore);
+const { region } = useRegions();
 
 const props = defineProps<CartItemProps>();
 
 const price = computed(() => {
-  return formatCurrency(props.lineItem.total || 0, selectedRegion.value?.currency_code);
+  return formatCurrency(props.lineItem.total || 0, region.value?.currency_code);
 });
 
 const selectItems = [

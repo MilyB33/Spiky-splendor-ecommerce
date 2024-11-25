@@ -97,20 +97,18 @@
 </template>
 <script lang="ts" setup>
 import { useDisplay } from "vuetify";
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
-const route = useRoute();
 
+const route = useRoute();
 const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 const { cart, isFetchingCart } = useCart();
+const { region } = useRegions();
 const menu = ref(false);
 
 const cartItems = computed(() => cart.value?.cart.items || []);
 
 const subtotal = computed(() =>
-  formatCurrency(cart.value?.cart.subtotal || 0, selectedRegion.value?.currency_code),
+  formatCurrency(cart.value?.cart.subtotal || 0, region.value?.currency_code),
 );
 const hasItems = computed(() => !!cartItems.value.length);
 const itemsCount = computed(() => {

@@ -41,7 +41,7 @@
             </div>
           </td>
           <td>
-            <span>{{ formatCurrency(item.total, selectedRegion?.currency_code) }}</span>
+            <span>{{ formatCurrency(item.total, region?.currency_code) }}</span>
           </td>
         </tr>
       </tbody>
@@ -58,11 +58,10 @@
 <script lang="ts" setup>
 // TODO: Make total adjust to quantity
 import type { Order } from "@medusajs/medusa";
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
 import type { ReturnSchemaValues } from "~/utils/validation/return-schema";
 
-const { selectedRegion } = useCommonStore();
+const { region } = useRegions();
 
 type ReturnItemsSelectProps = {
   orderItems: Order["items"];

@@ -144,20 +144,21 @@
 </template>
 
 <script lang="ts" setup>
+import type { Country } from "@medusajs/medusa";
 import { useField } from "vee-validate";
 import { COUNTRIES } from "~/constant";
-import { useCommonStore } from "~/store/common";
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
+
+const { region } = useRegions();
 
 const availableCountries = computed(() => {
   return COUNTRIES.filter((country) => {
-    const selectedRegionCountries = selectedRegion.value?.countries.map(
-      (selectedRegionCountry: any) => {
+    const selectedRegionCountries = region.value?.countries.map(
+      (selectedRegionCountry: Country) => {
         return selectedRegionCountry.iso_2;
       },
     );
 
+    //@ts-ignore
     return selectedRegionCountries.includes(country.code.toLocaleLowerCase());
   }).map((filtererCountry) => {
     return {

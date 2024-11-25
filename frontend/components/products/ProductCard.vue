@@ -59,7 +59,7 @@
         @click="onAddToCart"
       />
 
-      <NuxtLink :to="`/products/product/${product.handle}`">
+      <NuxtLink :to="`/products/${product.handle}`">
         <v-btn
           size="small"
           color="green_primary"
@@ -77,7 +77,6 @@
 <script setup lang="ts">
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { PRODUCT_AVAILABILITY } from "~/constant";
-import { useCommonStore } from "~/store/common";
 import { getProductAvailabilityStatus, formatCurrency } from "~/utils/product";
 
 type ProductCardProps = {
@@ -86,11 +85,10 @@ type ProductCardProps = {
 
 const props = defineProps<ProductCardProps>();
 const productQuantityStatus = getProductAvailabilityStatus(props.product);
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
 const { wishlist, removeFromWishlist, addToWishlist, isRemovingFromWishlist, isAddingToWishlist } =
   useWishlist();
 const { addItemToCart, cart } = useCart();
+const { region } = useRegions();
 
 const wishlistItemId = computed(() => {
   return wishlist.value.find((item) => item.product_id === props.product.id)?.id;
@@ -120,7 +118,7 @@ const onAddToCart = () => {
 
 const price = computed(() => {
   return props.product.variants.reduce((prev, curr) => {
-    return formatCurrency(curr.calculated_price_incl_tax || 0, selectedRegion.value?.currency_code);
+    return formatCurrency(curr.calculated_price_incl_tax || 0, region.value?.currency_code);
   }, "");
 });
 </script>

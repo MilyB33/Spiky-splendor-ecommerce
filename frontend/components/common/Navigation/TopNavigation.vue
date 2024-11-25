@@ -14,25 +14,27 @@
       v-if="!mobile"
       v-slot:prepend
     >
-      <v-icon
-        icon="mdi-cactus"
-        size="x-large"
-        color="green_primary"
-      />
-      <v-toolbar-title>Spiky Splendor</v-toolbar-title>
+      <NuxtLink
+        to="/"
+        class="d-flex align-center text-decoration-none text-green"
+      >
+        <v-icon
+          icon="mdi-cactus"
+          size="x-large"
+          color="green_primary"
+        />
+        <v-toolbar-title>Spiky Splendor</v-toolbar-title>
+      </NuxtLink>
     </template>
 
     <v-toolbar-items
       v-if="!mobile"
       class="ml-md-8 ml-4"
     >
-      <CommonNavigationButton :to="`/products/${categories?.[0].handle || ''}`">{{
-        categories?.[0].name || ""
-      }}</CommonNavigationButton>
-
-      <CommonNavigationButton to="/about">O nas</CommonNavigationButton>
+      <CommonNavigationButton to="/products">Produkty</CommonNavigationButton>
 
       <CommonNavigationButton to="/contact">Kontakt</CommonNavigationButton>
+      <CommonNavigationButton to="/about">FAQ</CommonNavigationButton>
     </v-toolbar-items>
 
     <v-spacer />
@@ -60,15 +62,6 @@
     />
 
     <MenuCart />
-
-    <v-divider
-      vertical
-      class="mx-3 align-self-center"
-      length="32"
-      thickness="2"
-    />
-
-    <RegionsMenu />
   </v-toolbar>
 </template>
 

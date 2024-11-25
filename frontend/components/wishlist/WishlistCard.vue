@@ -79,7 +79,6 @@
 
 <script setup lang="ts">
 import { PRODUCT_AVAILABILITY, PRODUCT_AVAILABILITY_LABELS } from "~/constant";
-import { useCommonStore } from "~/store/common";
 import type { WishlistItem } from "~/types";
 import { getProductAvailabilityStatus } from "~/utils/product";
 
@@ -89,9 +88,8 @@ type WishlistCardProps = {
 
 const props = defineProps<WishlistCardProps>();
 const productQuantityStatus = getProductAvailabilityStatus(props.wishlistItem.product);
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
 const { wishlist, removeFromWishlist, isRemovingFromWishlist } = useWishlist();
+const { region } = useRegions();
 
 const wishlistItemId = computed(() => {
   return wishlist.value.find((item) => item.product_id === props.wishlistItem.product.id)?.id;
@@ -147,7 +145,7 @@ const price = computed(() => {
   return props.wishlistItem.product.variants.reduce((prev, curr) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: selectedRegion.value?.currency_code || "usd",
+      currency: region.value?.currency_code || "usd",
     }).format(convertToDecimal(curr.calculated_price_incl_tax || 0));
   }, "");
 });

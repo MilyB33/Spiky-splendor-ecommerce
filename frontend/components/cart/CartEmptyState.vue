@@ -25,7 +25,7 @@
 
       <NuxtLink
         class="text-decoration-none products-link"
-        to="/products/succulents"
+        to="/products"
       >
         <v-btn color="black">Go to products</v-btn>
       </NuxtLink>

@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
 import { ProductCollection } from "@medusajs/medusa";
-import { useCommonStore } from "~/store/common";
 
 export const useLanding = () => {
   const client = useMedusaClient();
-  const { selectedRegion } = useCommonStore();
+  const { region } = useRegions();
 
   const { data: recommendedCollectionResponse, isLoading: isLoadingRecommendedCollection } =
     useQuery({
@@ -26,7 +25,7 @@ export const useLanding = () => {
       client.products.list({
         expand:
           "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
-        region_id: selectedRegion?.id,
+        region_id: region.value?.id,
         collection_id: [recommendedCollection.value?.id || ""],
       }),
     enabled: shouldFetch,

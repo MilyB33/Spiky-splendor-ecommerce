@@ -44,16 +44,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
 
 const { cart } = useCart();
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
 const { isAuthenticated } = useCustomer();
+const { region } = useRegions();
 
 const total = computed(() => {
-  return formatCurrency(cart.value?.cart.subtotal || 0, selectedRegion.value?.currency_code);
+  return formatCurrency(cart.value?.cart.subtotal || 0, region.value?.currency_code);
 });
 </script>
 

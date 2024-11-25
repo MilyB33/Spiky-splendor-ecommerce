@@ -39,15 +39,13 @@ type ShippingSummaryProps = {
   pay: () => void;
   isPaying: boolean;
 };
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
 
 const props = defineProps<ShippingSummaryProps>();
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
 const { cart, isUpdatingCart } = useCart();
+const { region } = useRegions();
 
-const currencyCode = computed(() => selectedRegion.value?.currency_code);
+const currencyCode = computed(() => region.value?.currency_code);
 const cartItemsCount = computed(() => cart.value?.cart.items.length || 0);
 const cartPrice = computed(() => cart.value?.cart.total || 0);
 const shippingMethodPrice = computed(() => cart.value?.cart.shipping_total || 0);

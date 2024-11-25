@@ -1,7 +1,6 @@
 import { useQuery, useMutation, useQueryClient, skipToken } from "@tanstack/vue-query";
 import { useStorage } from "@vueuse/core";
 import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
-import { useCommonStore } from "~/store/common";
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 
 type UpdateCartParams = {
@@ -20,13 +19,11 @@ type AddItemToCartParams = {
 
 // TODO: add snackbars (they can't be used when we use it within use initialize)
 export const useCart = (skipFetchingCart?: boolean) => {
-  const commonStore = useCommonStore();
   const queryClient = useQueryClient();
   const { customer } = useCustomer();
   const client = useMedusaClient();
   const localStorageCartValue = useStorage(LOCAL_STORAGE_KEY.CART_ID, "");
-
-  const { selectedRegion } = storeToRefs(commonStore);
+  const { region } = useRegions();
 
   const {
     data: cart,
@@ -54,7 +51,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   });
 
   const { mutateAsync: createCartHandler, isPending: isCreatingCart } = useMutation({
-    mutationFn: () => client.carts.create({ region_id: selectedRegion.value?.id }),
+    mutationFn: () => client.carts.create({ region_id: region.value?.id }),
     onError: (error) => {
       console.error(error);
     },

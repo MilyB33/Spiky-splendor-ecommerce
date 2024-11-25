@@ -1,7 +1,6 @@
 import type { StoreGetProductsParams } from "@medusajs/medusa";
 import { useQuery } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
-import { useCommonStore } from "~/store/common";
 import type { ProductFiltersSchemaValues } from "~/utils/validation/product-filters-schema";
 
 type Filters = Pick<
@@ -19,8 +18,7 @@ type OrderParam = "title" | "-title" | "-variants.prices.amount" | "variants.pri
 
 export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
   const client = useMedusaClient();
-  const commonStore = useCommonStore();
-  const { selectedRegion } = storeToRefs(commonStore);
+  const { region } = useRegions();
   const filters = ref<Filters>({});
   const order = ref<OrderParam>("title");
 
@@ -31,7 +29,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     params?.value,
     filters.value,
     order.value,
-    selectedRegion.value?.id,
+    region.value?.id,
   ]);
 
   // Query function
@@ -40,7 +38,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
       ...params?.value,
       ...filters.value,
       expand: "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
-      region_id: selectedRegion.value?.id,
+      region_id: region.value?.id,
       order: order.value,
       is_search: true,
     });
@@ -54,7 +52,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
   } = useQuery({
     queryKey,
     queryFn: fetchProducts,
-    enabled: computed(() => !!selectedRegion.value?.id),
+    enabled: computed(() => !!region.value?.id),
   });
 
   const onChangeOrder = (order_: OrderValues) => {

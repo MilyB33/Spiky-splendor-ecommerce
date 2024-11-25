@@ -37,10 +37,7 @@
 
 <script lang="ts" setup>
 import type { LineItem } from "@medusajs/medusa";
-import { useCommonStore } from "~/store/common";
 import { formatCurrency } from "~/utils/product";
-const commonStore = useCommonStore();
-const { selectedRegion } = storeToRefs(commonStore);
 
 type MenuCartItemProps = {
   lineItem: LineItem;
@@ -48,8 +45,10 @@ type MenuCartItemProps = {
 
 const props = defineProps<MenuCartItemProps>();
 
+const { region } = useRegions();
+
 const price = computed(() => {
-  return formatCurrency(props.lineItem.total || 0, selectedRegion.value?.currency_code);
+  return formatCurrency(props.lineItem.total || 0, region.value?.currency_code);
 });
 </script>
 

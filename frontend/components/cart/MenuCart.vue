@@ -100,7 +100,7 @@ import { useDisplay } from "vuetify";
 import { formatCurrency } from "~/utils/product";
 
 const route = useRoute();
-const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: 1040 });
 const { cart, isFetchingCart } = useCart();
 const { region } = useRegions();
 const menu = ref(false);

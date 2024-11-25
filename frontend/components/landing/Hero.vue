@@ -2,22 +2,45 @@
   <div class="d-flex flex-column ga-4 align-center justify-center hero-container">
     <div class="hero-image"></div>
     <h2
-      class="text-white text-h2"
+      :class="`text-white ${textSize}`"
       style="z-index: 1"
     >
       Witaj w Spiky Splendor
     </h2>
     <NuxtLink to="/products">
-      <v-btn color="white">Odkryj nasze rośliny</v-btn>
+      <v-btn
+        color="white"
+        :size="isMobile ? 'small' : undefined"
+        >Odkryj nasze rośliny</v-btn
+      >
     </NuxtLink>
   </div>
 </template>
 
+<script lang="ts" setup>
+import { useDisplay } from "vuetify";
+
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "sm" });
+const { mobile: isMedium } = useDisplay({ mobileBreakpoint: 792 });
+
+const textSize = computed(() => {
+  if (isMobile.value) {
+    return "text-h5";
+  }
+
+  if (isMedium.value) {
+    return "text-h4";
+  }
+
+  return "text-h2";
+});
+</script>
+
 <style lang="scss" scoped>
 .hero-container {
   position: relative;
-  width: 1136px;
-  height: 400px;
+  width: 100%;
+  aspect-ratio: 16/6;
   border-radius: 10px;
 }
 

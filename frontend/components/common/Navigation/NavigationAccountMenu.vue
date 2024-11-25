@@ -50,7 +50,7 @@
 import { useDisplay } from "vuetify";
 
 const { isAuthenticated } = useCustomer();
-const { mobile } = useDisplay({ mobileBreakpoint: "md" });
+const { mobile } = useDisplay({ mobileBreakpoint: 1040 });
 
 const isOpenMenuOnClick = computed(() => {
   return mobile.value || isAuthenticated.value;

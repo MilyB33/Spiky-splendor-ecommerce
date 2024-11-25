@@ -19,5 +19,5 @@ import { useDisplay } from "vuetify";
 
 const isOpen = defineModel<boolean>();
 
-const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
+const { mobile } = useDisplay({ mobileBreakpoint: 830 });
 </script>

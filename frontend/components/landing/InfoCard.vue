@@ -1,7 +1,7 @@
 <template>
-  <v-card class="d-flex flex-column ga-3 w-100 pa-4">
+  <v-card class="info-card">
     <div class="d-flex ga-3 align-start text-green">
-      <h4 :style="`min-height: ${variant === 'plant' ? '60' : '20'}px`">
+      <h4>
         <v-icon
           :icon="icon"
           class="mr-2"
@@ -23,3 +23,12 @@ type InfoCardProps = {
 
 defineProps<InfoCardProps>();
 </script>
+
+<style lang="scss" scoped>
+.info-card {
+  padding: 16px;
+  gap: 16px;
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+}
+</style>

@@ -14,25 +14,15 @@
       v-if="!mobile"
       v-slot:prepend
     >
-      <NuxtLink
-        to="/"
-        class="d-flex align-center text-decoration-none text-green"
-      >
-        <v-icon
-          icon="mdi-cactus"
-          size="x-large"
-          color="green_primary"
-        />
-        <v-toolbar-title>Spiky Splendor</v-toolbar-title>
-      </NuxtLink>
+      <Logo />
     </template>
 
     <v-toolbar-items
       v-if="!mobile"
       class="ml-md-8 ml-4"
     >
+      <CommonNavigationButton to="/">Strona główna</CommonNavigationButton>
       <CommonNavigationButton to="/products">Produkty</CommonNavigationButton>
-
       <CommonNavigationButton to="/contact">Kontakt</CommonNavigationButton>
       <CommonNavigationButton to="/about">FAQ</CommonNavigationButton>
     </v-toolbar-items>
@@ -70,8 +60,7 @@ import { useDisplay } from "vuetify";
 
 const isOpen = defineModel<boolean>("isOpen");
 
-const { categories } = useCategories();
-const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
+const { mobile } = useDisplay({ mobileBreakpoint: 830 });
 
 const toggleButton = () => {
   isOpen.value = !isOpen.value;

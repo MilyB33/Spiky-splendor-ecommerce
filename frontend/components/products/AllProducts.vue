@@ -1,8 +1,13 @@
 <template>
   <div class="d-flex ga-8">
-    <Filters :onFiltersChange="onFiltersChange" />
+    <Filters
+      v-if="!isMobile"
+      :onFiltersChange="onFiltersChange"
+      :initial-filters="initialFilters"
+    />
 
     <v-divider
+      v-if="!isMobile"
       vertical
       :thickness="4"
     ></v-divider>
@@ -11,6 +16,8 @@
       <ProductsHeader
         :products="products"
         :onChangeOrder="onChangeOrder"
+        :onFiltersChange="onFiltersChange"
+        :initial-filters="initialFilters"
       />
       <ProductList
         :isLoading="isLoading"
@@ -21,5 +28,8 @@
 </template>
 
 <script setup lang="ts">
-const { products, isLoading, onFiltersChange, onChangeOrder } = useProducts();
+import { useDisplay } from "vuetify";
+
+const { products, isLoading, initialFilters, onFiltersChange, onChangeOrder } = useProducts();
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 </script>

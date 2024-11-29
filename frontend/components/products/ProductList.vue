@@ -13,7 +13,7 @@
     v-else
     class="d-flex flex-column ga-12"
   >
-    <div class="list">
+    <div class="d-flex ga-2 flex-wrap">
       <template v-for="product in props.products?.products">
         <ProductCard :product="product" />
       </template>
@@ -25,12 +25,3 @@
 import type { ProductsListResponse } from "~/types";
 const props = defineProps<{ products?: ProductsListResponse; isLoading: boolean }>();
 </script>
-
-<style scoped lang="scss">
-.list {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  height: fit-content;
-}
-</style>

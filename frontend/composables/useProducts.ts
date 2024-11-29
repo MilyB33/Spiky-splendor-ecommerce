@@ -102,5 +102,16 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     refetch();
   };
 
-  return { products, isLoading: isPending, onFiltersChange, onChangeOrder };
+  const initialFilters: ComputedRef<ProductFiltersSchemaValues> = computed(() => {
+    return {
+      minPrice: filters.value.min_price || 0,
+      maxPrice: filters.value.max_price || 100000,
+      categories: filters.value.categories_ids || [],
+      plantForms: filters.value.plant_forms_ids || [],
+      plantPlacements: filters.value.plant_placements_ids || [],
+      plantWaterDemands: filters.value.plant_water_demand_ids || [],
+    };
+  });
+
+  return { products, isLoading: isPending, initialFilters, onFiltersChange, onChangeOrder };
 };

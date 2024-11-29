@@ -1,7 +1,7 @@
 <template>
   <div
     class="d-flex flex-column ga-4 w-100"
-    style="width: fit-content"
+    style="max-width: 250px"
   >
     <p class="text-h6">Cena</p>
 

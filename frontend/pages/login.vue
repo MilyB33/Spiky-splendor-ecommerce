@@ -1,5 +1,6 @@
 <template>
   <Header />
+  <v-divider :thickness="3"></v-divider>
   <AuthenticationTabs />
 </template>
 

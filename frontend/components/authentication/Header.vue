@@ -3,23 +3,20 @@
     to="/"
     class="text-decoration-none text-black"
   >
-    <div class="header">
+    <div class="d-flex align-center justify-center ga-2">
       <v-icon
-        size="64"
+        :size="isMobile ? 48 : 64"
         color="green_primary"
         >mdi-cactus</v-icon
       >
 
-      <p class="text-h3">Spiky Splendor</p>
+      <p :class="isMobile ? 'text-h4' : 'text-h3'">Spiky Splendor</p>
     </div>
   </NuxtLink>
 </template>
 
-<style scoped lang="scss">
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-</style>
+<script lang="ts" setup>
+import { useDisplay } from "vuetify";
+
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "sm" });
+</script>

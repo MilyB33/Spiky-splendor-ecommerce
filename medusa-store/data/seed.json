@@ -22,66 +22,10 @@
         "stripe-przelewy24"
       ],
       "fulfillment_providers": ["manual"],
-      "countries": ["pl"]
-    },
-    {
-      "id": "test-region-eu",
-      "name": "EU",
-      "currency_code": "EUR",
-      "tax_rate": 0,
-      "payment_providers": [
-        "manual",
-        "stripe",
-        "stripe-blik",
-        "stripe-przelewy24"
-      ],
-      "fulfillment_providers": ["manual"],
-      "countries": ["gb", "de", "dk", "se", "fr", "es", "it"]
+      "countries": ["pl", "gb", "de", "dk", "se", "fr", "es", "it"]
     }
   ],
   "shipping_options": [
-    {
-      "name": "PostFake Standard",
-      "region_id": "test-region-eu",
-      "provider_id": "manual",
-      "data": {
-        "id": "manual-fulfillment"
-      },
-      "price_type": "flat_rate",
-      "amount": 1000
-    },
-    {
-      "name": "PostFake Express",
-      "region_id": "test-region-eu",
-      "provider_id": "manual",
-      "data": {
-        "id": "manual-fulfillment"
-      },
-      "price_type": "flat_rate",
-      "amount": 1500
-    },
-    {
-      "name": "PostFake Return",
-      "region_id": "test-region-eu",
-      "provider_id": "manual",
-      "data": {
-        "id": "manual-fulfillment"
-      },
-      "price_type": "flat_rate",
-      "is_return": true,
-      "amount": 1000
-    },
-    {
-      "name": "I want to return it myself",
-      "region_id": "test-region-eu",
-      "provider_id": "manual",
-      "data": {
-        "id": "manual-fulfillment"
-      },
-      "price_type": "flat_rate",
-      "is_return": true,
-      "amount": 0
-    },
     {
       "name": "FakeEx Standard",
       "region_id": "test-region-pl",
@@ -167,10 +111,6 @@
             {
               "currency_code": "PLN",
               "amount": 1500
-            },
-            {
-              "currency_code": "EUR",
-              "amount": 1600
             }
           ],
           "options": [
@@ -231,10 +171,6 @@
             {
               "currency_code": "PLN",
               "amount": 1200
-            },
-            {
-              "currency_code": "EUR",
-              "amount": 1300
             }
           ],
           "options": [
@@ -293,10 +229,6 @@
             {
               "currency_code": "PLN",
               "amount": 800
-            },
-            {
-              "currency_code": "EUR",
-              "amount": 900
             }
           ],
           "options": [
@@ -357,10 +289,6 @@
             {
               "currency_code": "PLN",
               "amount": 2000
-            },
-            {
-              "currency_code": "EUR",
-              "amount": 2200
             }
           ],
           "options": [

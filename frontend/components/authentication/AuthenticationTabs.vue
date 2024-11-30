@@ -3,11 +3,11 @@
     <v-tabs
       v-model="tab"
       align-tabs="center"
-      color="orange_primary"
+      color="green"
       grow
     >
-      <v-tab value="signIn">Sign in</v-tab>
-      <v-tab value="signUp">Sign up</v-tab>
+      <v-tab value="signIn">Zaloguj się</v-tab>
+      <v-tab value="signUp">Stwórz konto</v-tab>
     </v-tabs>
 
     <v-window

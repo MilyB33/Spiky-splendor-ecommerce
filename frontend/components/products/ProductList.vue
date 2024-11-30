@@ -9,15 +9,14 @@
       indeterminate
     />
   </div>
+
   <div
     v-else
-    class="d-flex flex-column ga-12"
+    class="d-flex ga-2 flex-wrap justify-center"
   >
-    <div class="d-flex ga-2 flex-wrap">
-      <template v-for="product in props.products?.products">
-        <ProductCard :product="product" />
-      </template>
-    </div>
+    <template v-for="product in props.products?.products">
+      <ProductCard :product="product" />
+    </template>
   </div>
 </template>
 

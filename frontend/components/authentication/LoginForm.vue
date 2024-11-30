@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <div class="py-4 form">
+    <div class="py-4 d-flex flex-column ga-2">
       <v-text-field
         label="Email"
         variant="outlined"
@@ -14,23 +14,13 @@
         :error-messages="passwordError"
       />
 
-      <div class="action-buttons">
-        <v-checkbox-btn label="Remember me" />
-        <v-btn
-          variant="text"
-          color="orange_primary"
-        >
-          Forgot password?
-        </v-btn>
-      </div>
-
       <v-btn
         block
-        color="orange_primary"
+        color="green"
         type="submit"
         :loading="isSubmitting"
       >
-        Sign in
+        Zaloguj się
       </v-btn>
     </div>
   </form>
@@ -78,18 +68,3 @@ const onSubmit = form.handleSubmit((values) => {
   mutate(values);
 });
 </script>
-
-<style scoped lang="scss">
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.action-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-</style>

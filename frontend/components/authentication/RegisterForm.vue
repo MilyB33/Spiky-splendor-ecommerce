@@ -3,13 +3,13 @@
     <div class="py-4 form">
       <div class="customer-info">
         <v-text-field
-          label="First name"
+          label="Imię"
           variant="outlined"
           v-model="first_name"
           :error-messages="firstNameError"
         />
         <v-text-field
-          label="Last name"
+          label="Nazwisko"
           variant="outlined"
           v-model="last_name"
           :error-messages="lastNameError"
@@ -31,11 +31,11 @@
 
       <v-btn
         block
-        color="orange_primary"
+        color="green"
         type="submit"
         :loading="isSubmitting"
       >
-        Sign up
+        Stwórz konto
       </v-btn>
     </div>
   </form>

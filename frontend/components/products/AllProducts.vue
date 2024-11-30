@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex ga-8">
+  <div class="d-flex ga-8 w-100">
     <Filters
       v-if="!isMobile"
       :onFiltersChange="onFiltersChange"
@@ -12,7 +12,7 @@
       :thickness="4"
     ></v-divider>
 
-    <div class="d-flex flex-column ga-8">
+    <div class="d-flex flex-column ga-8 w-100">
       <ProductsHeader
         :products="products"
         :onChangeOrder="onChangeOrder"

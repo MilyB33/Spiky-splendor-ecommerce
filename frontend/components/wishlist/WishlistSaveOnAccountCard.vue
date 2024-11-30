@@ -12,7 +12,7 @@
       alt="save on your account cactus image"
       class="image"
     ></v-img>
-    <h3>Want to save wishlist on your account?</h3>
+    <h3>Chcesz zapisać listę na swoim koncie?</h3>
 
     <NuxtLink to="/login?login=true">
       <v-btn
@@ -20,7 +20,7 @@
         class="text-black w-100"
         size="small"
       >
-        Sign in!
+        Zaloguj się!
       </v-btn>
     </NuxtLink>
   </v-sheet>

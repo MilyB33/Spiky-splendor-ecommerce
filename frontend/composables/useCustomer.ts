@@ -1,8 +1,14 @@
 import { useQuery } from "@tanstack/vue-query";
-import { API_QUERY_KEY } from "~/constant";
+import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
+import { useStorage } from "@vueuse/core";
 
 export const useCustomer = () => {
   const client = useMedusaClient();
+  const storageWishlist = useStorage<string | null>(
+    LOCAL_STORAGE_KEY.WISHLIST_ID,
+    null,
+    sessionStorage,
+  );
 
   // TODO: it is refetching when failed on browser focus
   const { data: customer, isPending: isFetchingCustomer } = useQuery({
@@ -18,6 +24,12 @@ export const useCustomer = () => {
   });
 
   const isAuthenticated = computed(() => !!customer.value);
+
+  watch(customer, () => {
+    if (customer.value?.customer.wishlist_id !== storageWishlist.value) {
+      storageWishlist.value = customer.value?.customer.wishlist_id;
+    }
+  });
 
   return {
     isAuthenticated,

@@ -18,6 +18,7 @@ export const useWishlist = () => {
   const { customer, isAuthenticated } = useCustomer();
   const { snackbar } = useSnackbar();
   const queryClient = useQueryClient();
+  const { region } = useRegions();
   const storageWishlist = useStorage<string | null>(
     LOCAL_STORAGE_KEY.WISHLIST_ID,
     null,
@@ -39,12 +40,19 @@ export const useWishlist = () => {
   const { data: wishlistData, isLoading } = useQuery({
     queryKey: [API_QUERY_KEY.WISHLIST],
     queryFn: (): Promise<Wishlist> =>
-      client.client.request("GET", `/store/wishlist/${wishlistId.value}`),
+      client.client.request(
+        "GET",
+        `/store/wishlist/${wishlistId.value}?region_id=${region.value?.id}&currency_code=${region.value?.currency_code}`,
+      ),
     enabled: computed(() => !!wishlistId.value),
   });
 
   const { mutateAsync: createWishlistHandler, isPending: isCreatingWishlist } = useMutation({
-    mutationFn: (): Promise<Wishlist> => client.client.request("POST", `/store/wishlist/`),
+    mutationFn: (): Promise<Wishlist> =>
+      client.client.request("POST", `/store/wishlist/`, {
+        region_id: region.value?.id,
+        currency_code: region.value?.currency_code,
+      }),
     onError: (error) => {
       console.error(error);
       snackbar.error("Can't create wishlist. Try again!");
@@ -59,13 +67,15 @@ export const useWishlist = () => {
     mutationFn: ({ wishlistID, productID }: AddToWishlistParams): Promise<Wishlist> =>
       client.client.request("POST", `/store/wishlist/${wishlistID}/wish-item/`, {
         product_id: productID,
+        region_id: region.value?.id,
+        currency_code: region.value?.currency_code,
       }),
     onError: (error) => {
       console.error(error);
-      snackbar.error("Can't add item to wishlist. Try again!");
+      snackbar.error("Nie można dodać produktu do ulubionych. Spróbuj ponownie!");
     },
     onSuccess: () => {
-      snackbar.success("Item added to wishlist!");
+      snackbar.success("Produkt dodany do ulubionych!");
       invalidateQueries();
     },
   });
@@ -74,13 +84,15 @@ export const useWishlist = () => {
     mutationFn: ({ wishlistID, wishItemIDS }: RemoveFromWishlistParams): Promise<Wishlist> =>
       client.client.request("DELETE", `/store/wishlist/${wishlistID}/wish-item/`, {
         wish_items_ids: wishItemIDS,
+        region_id: region.value?.id,
+        currency_code: region.value?.currency_code,
       }),
     onError: (error) => {
       console.error(error);
-      snackbar.error("Can't remove item from wishlist. Try again!");
+      snackbar.error("Nie można usunąć produktu z ulubionych. Spróbuj ponownie!");
     },
     onSuccess: () => {
-      snackbar.success("Item removed from wishlist!");
+      snackbar.success("Produkt został usunięty z ulubionych!");
       invalidateQueries();
     },
   });
@@ -91,7 +103,10 @@ export const useWishlist = () => {
   } = useMutation({
     mutationFn: (wishlistID: string): Promise<Wishlist> =>
       // @ts-expect-error client doesn't support PATCH method
-      client.client.request("PATCH", `/store/wishlist/${wishlistID}/`),
+      client.client.request("PATCH", `/store/wishlist/${wishlistID}/`, {
+        region_id: region.value?.id,
+        currency_code: region.value?.currency_code,
+      }),
     onError: (error) => {
       console.error(error);
       snackbar.error("Can't add customer to wishlist. Try again!");

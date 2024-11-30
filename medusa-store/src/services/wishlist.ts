@@ -1,9 +1,15 @@
-import { TransactionBaseService } from "@medusajs/medusa";
+import { PricingService, TransactionBaseService } from "@medusajs/medusa";
 import { EntityManager, In } from "typeorm";
 import { MedusaError } from "medusa-core-utils";
 import { WishlistRepository } from "../repositories/wishlist";
 import { WishlistItemRepository } from "../repositories/wishlist-item";
-import { CreateWishlistStateInput } from "../types/wishlist";
+import {
+  AddCustomerToWishlistItemStateInput,
+  AddWishlistItemStateInput,
+  CreateWishlistStateInput,
+  RemoveWishlistItemStateInput,
+  RetrieveWishlistStateInput,
+} from "../types/wishlist";
 import { CustomerRepository } from "@medusajs/medusa/dist/repositories/customer";
 import { Wishlist } from "src/models/wishlist";
 
@@ -12,38 +18,41 @@ type InjectedDependencies = {
   wishlistRepository: typeof WishlistRepository;
   wishlistItemRepository: typeof WishlistItemRepository;
   customerRepository: typeof CustomerRepository;
+  pricingService: PricingService;
 };
 
 class WishlistService extends TransactionBaseService {
   protected readonly wishlistRepository_: typeof WishlistRepository;
   protected readonly wishlistItemRepository_: typeof WishlistItemRepository;
   protected readonly customerRepository_: typeof CustomerRepository;
+  protected readonly pricingService_: PricingService;
 
   constructor({
     wishlistRepository,
     wishlistItemRepository,
     customerRepository,
+    pricingService,
   }: InjectedDependencies) {
     super(arguments[0]);
     this.wishlistRepository_ = wishlistRepository;
     this.wishlistItemRepository_ = wishlistItemRepository;
     this.customerRepository_ = customerRepository;
+    this.pricingService_ = pricingService;
   }
   async create(payload: CreateWishlistStateInput) {
-    // TODO: can't save wishlist id to customer model
-    // return await this.atomicPhase_(
-    //   async (transactionManager: EntityManager) => {
+    const { region_id, currency_code, ...restPayload } = payload;
+
     const wishlistRepository = this.activeManager_.withRepository(
       this.wishlistRepository_
     );
 
-    const createdWishlist = wishlistRepository.create(payload);
+    const createdWishlist = wishlistRepository.create(restPayload);
     const savedWishlist = await wishlistRepository.save(createdWishlist);
     const { id } = savedWishlist;
 
-    if (payload.customer_id && id) {
+    if (restPayload.customer_id && id) {
       const customer = await this.customerRepository_.findOne({
-        where: { id: payload.customer_id },
+        where: { id: restPayload.customer_id },
       });
 
       if (customer) {
@@ -55,18 +64,31 @@ class WishlistService extends TransactionBaseService {
 
     const [wishlist] = await wishlistRepository.find({
       where: { id },
-      relations: ["items", "items.product"],
+      relations: [
+        "items",
+        "items.product",
+        "items.product.categories",
+        "items.product.variants",
+        "items.product.variants.prices",
+      ],
     });
 
-    return wishlist;
-    //   }
-    // );
+    const items = await this.addPricesToProducts(
+      wishlist.items,
+      region_id,
+      currency_code
+    );
+
+    return { ...wishlist, items };
   }
-  async retrieve(id: string) {
+
+  async retrieve(payload: RetrieveWishlistStateInput) {
     return await this.atomicPhase_(async (transactionManager) => {
       const wishlistRepository = transactionManager.withRepository(
         this.wishlistRepository_
       );
+
+      const { id, region_id, currency_code } = payload;
       const [wishlist] = await wishlistRepository.find({
         where: { id },
         // TODO: it's not adding a price like for extend in product
@@ -84,10 +106,17 @@ class WishlistService extends TransactionBaseService {
           `Wishlist with ${id} was not found`
         );
       }
-      return wishlist;
+
+      const items = await this.addPricesToProducts(
+        wishlist.items,
+        region_id,
+        currency_code
+      );
+
+      return { ...wishlist, items };
     });
   }
-  async addWishItem(wishlist_id: string, product_id: string) {
+  async addWishItem(payload: AddWishlistItemStateInput) {
     return await this.atomicPhase_(async (transactionManager) => {
       const wishlistItemRepository = transactionManager.withRepository(
         this.wishlistItemRepository_
@@ -95,6 +124,9 @@ class WishlistService extends TransactionBaseService {
       const wishlistRepository = transactionManager.withRepository(
         this.wishlistRepository_
       );
+
+      const { wishlist_id, product_id, region_id, currency_code } = payload;
+
       const [item] = await wishlistItemRepository.find({
         where: { wishlist_id, product_id },
       });
@@ -107,13 +139,26 @@ class WishlistService extends TransactionBaseService {
       }
       const [wishlist] = await wishlistRepository.find({
         where: { id: wishlist_id },
-        relations: ["items", "items.product"],
+        relations: [
+          "items",
+          "items.product",
+          "items.product.categories",
+          "items.product.variants",
+          "items.product.variants.prices",
+        ],
       });
-      return wishlist;
+
+      const items = await this.addPricesToProducts(
+        wishlist.items,
+        region_id,
+        currency_code
+      );
+
+      return { ...wishlist, items };
     });
   }
 
-  async removeWishItem(ids: string[], wishlist_id: string) {
+  async removeWishItem(payload: RemoveWishlistItemStateInput) {
     return await this.atomicPhase_(async (transactionManager) => {
       const wishlistItemRepository = transactionManager.withRepository(
         this.wishlistItemRepository_
@@ -121,6 +166,8 @@ class WishlistService extends TransactionBaseService {
       const wishlistRepository = transactionManager.withRepository(
         this.wishlistRepository_
       );
+
+      const { ids, wishlist_id, region_id, currency_code } = payload;
 
       const items = await wishlistItemRepository.find({
         where: { id: In(ids) },
@@ -131,18 +178,32 @@ class WishlistService extends TransactionBaseService {
       }
       const [wishlist] = await wishlistRepository.find({
         where: { id: wishlist_id },
-        relations: ["items", "items.product"],
+        relations: [
+          "items",
+          "items.product",
+          "items.product.categories",
+          "items.product.variants",
+          "items.product.variants.prices",
+        ],
       });
 
-      return wishlist;
+      const newItems = await this.addPricesToProducts(
+        wishlist.items,
+        region_id,
+        currency_code
+      );
+
+      return { ...wishlist, items: newItems };
     });
   }
 
-  async addCustomerToWishlist(data: Pick<Wishlist, "customer_id" | "id">) {
+  async addCustomerToWishlist(payload: AddCustomerToWishlistItemStateInput) {
     return await this.atomicPhase_(async (transactionManager) => {
       const wishlistRepository = transactionManager.withRepository(
         this.wishlistRepository_
       );
+
+      const { region_id, currency_code, ...data } = payload;
 
       await wishlistRepository.update(
         { id: data.id },
@@ -156,11 +217,51 @@ class WishlistService extends TransactionBaseService {
 
       const [wishlist] = await wishlistRepository.find({
         where: { id: data.id },
-        relations: ["items", "items.product"],
+        relations: [
+          "items",
+          "items.product",
+          "items.product.categories",
+          "items.product.variants",
+          "items.product.variants.prices",
+        ],
       });
 
-      return wishlist;
+      const items = await this.addPricesToProducts(
+        wishlist.items,
+        region_id,
+        currency_code
+      );
+
+      return { ...wishlist, items };
     });
+  }
+
+  async addPricesToProducts(
+    items: Wishlist["items"] = [],
+    region_id: string,
+    currency_code: string
+  ) {
+    if (!region_id || !currency_code) return items;
+
+    const products = items.map((item) => item.product);
+
+    const productsWithPrices = await this.pricingService_.setProductPrices(
+      products,
+      { region_id, currency_code }
+    );
+
+    const mappedWishlistItems = items.map((item) => {
+      const product = productsWithPrices.find(
+        (product) => product.id === item.product_id
+      );
+
+      return {
+        ...item,
+        product,
+      };
+    });
+
+    return mappedWishlistItems;
   }
 }
 

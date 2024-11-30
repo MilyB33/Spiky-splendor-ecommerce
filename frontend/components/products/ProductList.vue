@@ -10,6 +10,8 @@
     />
   </div>
 
+  <ProductsEmptyState v-if="!products?.count && !isLoading" />
+
   <div
     v-else
     class="d-flex ga-2 flex-wrap justify-center"

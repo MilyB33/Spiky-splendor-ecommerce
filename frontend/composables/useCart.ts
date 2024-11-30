@@ -45,7 +45,6 @@ export const useCart = (skipFetchingCart?: boolean) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
-      // For changing region
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
     },
   });

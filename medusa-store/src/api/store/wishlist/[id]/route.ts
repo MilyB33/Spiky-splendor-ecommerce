@@ -5,9 +5,15 @@ import { MedusaError } from "medusa-core-utils";
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
   const wishlistService: WishlistService = req.scope.resolve("wishlistService");
 
-  const idParam: string = req.params.id;
+  const id: string = req.params.id;
+  const region_id: string = req.query.region_id as string;
+  const currency_code: string = req.query.currency_code as string;
 
-  const wishlist = await wishlistService.retrieve(idParam);
+  const wishlist = await wishlistService.retrieve({
+    id,
+    region_id,
+    currency_code,
+  });
 
   res.json(wishlist);
 };
@@ -15,15 +21,18 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 export const PATCH = async (req: MedusaRequest, res: MedusaResponse) => {
   const wishlistService: WishlistService = req.scope.resolve("wishlistService");
 
+  const body = req.body as { region_id: string; currency_code: string };
+
   const idParam: string = req.params.id;
 
   if (!req.user?.customer_id) {
     throw new MedusaError(MedusaError.Types.NOT_FOUND, "Unauthorized");
   }
-  console.log(req.user.customer_id);
+
   const wishlist = await wishlistService.addCustomerToWishlist({
     id: idParam,
     customer_id: req.user.customer_id,
+    ...body,
   });
 
   res.json(wishlist);

@@ -8,10 +8,18 @@ export const POST = async (
 ) => {
   const wishlistService: WishlistService = req.scope.resolve("wishlistService");
 
-  const idParam: string = req.params.id;
-  const product_id: string = req.body.product_id;
+  const body = req.body as {
+    region_id: string;
+    currency_code: string;
+    product_id: string;
+  };
 
-  const wishlist = await wishlistService.addWishItem(idParam, product_id);
+  const idParam: string = req.params.id;
+
+  const wishlist = await wishlistService.addWishItem({
+    wishlist_id: idParam,
+    ...body,
+  });
 
   res.json(wishlist);
 };
@@ -22,16 +30,26 @@ export const DELETE = async (
 ) => {
   const wishlistService: WishlistService = req.scope.resolve("wishlistService");
 
-  const idParam: string = req.params.id;
-  const wishItemsIds: string[] = req.body.wish_items_ids;
+  const body = req.body as {
+    region_id: string;
+    currency_code: string;
+    wish_items_ids: string[];
+  };
 
-  if (!wishItemsIds)
+  const { wish_items_ids, ...rest } = body;
+  const idParam: string = req.params.id;
+
+  if (!wish_items_ids)
     throw new MedusaError(
       MedusaError.Types.INVALID_ARGUMENT,
       "Invalid argument"
     );
 
-  const wishlist = await wishlistService.removeWishItem(wishItemsIds, idParam);
+  const wishlist = await wishlistService.removeWishItem({
+    wishlist_id: idParam,
+    ids: wish_items_ids,
+    ...rest,
+  });
 
   res.json(wishlist);
 };

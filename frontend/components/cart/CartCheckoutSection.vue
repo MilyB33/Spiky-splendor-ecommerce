@@ -1,19 +1,20 @@
 <template>
   <v-card class="checkout-section">
     <!-- TODO: use v-img here -->
-    <img
-      width="160"
-      height="160"
+    <v-img
+      :width="160"
+      :height="160"
+      :max-height="160"
       src="/shopping-cart.png"
       alt="cart icon"
       class="mx-auto mb-10"
-    />
+    ></v-img>
 
     <div
       class="w-100"
       v-if="!isAuthenticated"
     >
-      <p class="text-caption mb-4">Sign in to save order on your account!</p>
+      <p class="text-caption mb-4">Zaloguj się, aby zapisać zamówienie na swoim koncie.</p>
       <NuxtLink
         to="/login?login=true"
         class="text-decoration-none"
@@ -21,7 +22,7 @@
         <v-btn
           block
           color="black"
-          >Sign in</v-btn
+          >Zaloguj się</v-btn
         >
       </NuxtLink>
     </div>
@@ -33,12 +34,12 @@
     ></v-divider>
 
     <div class="d-flex justify-space-between text-h6 w-100">
-      <p>Total:</p>
-      <p>{{ total }}</p>
+      <p>Całkowita wartość:</p>
+      <p>{{ subtotal }}</p>
     </div>
 
     <NuxtLink to="/checkout/shipping">
-      <v-btn class="w-100">Checkout {{ !isAuthenticated ? "(continue as a guest)" : "" }}</v-btn>
+      <v-btn class="w-100">Zamówienie {{ !isAuthenticated ? "(Kontynuuj jako gość)" : "" }}</v-btn>
     </NuxtLink>
   </v-card>
 </template>
@@ -51,7 +52,15 @@ const { isAuthenticated } = useCustomer();
 const { region } = useRegions();
 
 const total = computed(() => {
-  return formatCurrency(cart.value?.cart.subtotal || 0, region.value?.currency_code);
+  return (
+    cart.value?.cart.total! -
+      cart.value?.cart.shipping_tax_total! -
+      cart.value?.cart.shipping_total! || 0
+  );
+});
+
+const subtotal = computed(() => {
+  return formatCurrency(total.value, region.value?.currency_code);
 });
 </script>
 

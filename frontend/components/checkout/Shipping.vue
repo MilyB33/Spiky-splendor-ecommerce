@@ -2,6 +2,7 @@
   <form
     @submit.prevent="onSubmit"
     class="d-flex ga-4 w-100"
+    :class="isMobile && 'flex-column'"
   >
     <ShippingCustomerFormFields />
   </form>
@@ -10,6 +11,7 @@
 <script lang="ts" setup>
 import { useForm } from "vee-validate";
 import { prepareCheckoutDataBeforePayment } from "~/utils/checkout";
+import { useDisplay } from "vuetify";
 
 import {
   checkoutSchema,
@@ -18,6 +20,7 @@ import {
 } from "~/utils/validation/shipping-schema";
 const { shippingMethods } = useCheckout();
 const { updateCart, addShippingMethod, createPaymentSession } = useCart();
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 
 const initialShippingMethod = computed<CheckoutSchemaValues["shippingMethod"]>(() => {
   return {

@@ -1,17 +1,22 @@
 <template>
   <article class="py-4 cart-item">
-    <!-- TODO: use v-img here -->
-    <img
+    <v-img
       v-if="lineItem.thumbnail"
-      width="160"
-      height="160"
+      :width="160"
+      :height="160"
+      cover
       :src="lineItem.thumbnail"
       :alt="lineItem.title"
       class="rounded thumbnail"
-    />
+    ></v-img>
 
     <div class="info">
-      <h4 class="text-truncate">{{ lineItem.title }}</h4>
+      <h4
+        class="text-truncate"
+        :title="lineItem.title"
+      >
+        {{ lineItem.title }}
+      </h4>
     </div>
 
     <div class="remove">
@@ -22,7 +27,7 @@
         size="small"
         prepend-icon="mdi-cart-remove"
         @click="() => deleteItemFromCart(lineItem.id)"
-        >Remove</v-btn
+        >Usuń</v-btn
       >
     </div>
 
@@ -92,11 +97,20 @@ const onChangeQuantity = (quantity: number | "remove") => {
 .cart-item {
   display: grid;
   grid-template-areas:
-    "img info remove"
-    "img quantity price";
-  grid-template-columns: max-content auto max-content;
-  grid-template-rows: 1fr max-content;
+    "img remove"
+    "info info"
+    "quantity price";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content max-content max-content;
   gap: 16px;
+
+  @media (min-width: 550px) {
+    grid-template-areas:
+      "img info remove"
+      "img quantity price";
+    grid-template-columns: max-content auto max-content;
+    grid-template-rows: 1fr max-content;
+  }
 }
 
 .thumbnail {
@@ -111,6 +125,7 @@ const onChangeQuantity = (quantity: number | "remove") => {
 
 .remove {
   grid-area: remove;
+  margin-left: auto;
 }
 
 .quantity {

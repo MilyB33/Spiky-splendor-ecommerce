@@ -1,9 +1,8 @@
 <template>
   <v-card
     class="pa-4"
-    width="40%"
     style="height: fit-content"
-    min-width="150"
+    min-width="40%"
   >
     <h3>Order Ships Feed</h3>
     <div class="d-flex flex-column ga-4 mt-4">

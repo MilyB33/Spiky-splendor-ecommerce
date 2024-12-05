@@ -10,7 +10,6 @@ export const getProductQuantity = (product?: PricedProduct) => {
 };
 
 export const getProductAvailabilityStatus = (product: PricedProduct) => {
-  // TODO: This should be handled on backend
   const productQuantity = getProductQuantity(product);
 
   if (productQuantity === 0) {
@@ -27,6 +26,7 @@ export const getProductAvailabilityStatus = (product: PricedProduct) => {
 const convertToDecimal = (amount: number) => {
   return Math.floor(amount) / 100;
 };
+
 export const formatCurrency = (price: number | undefined, currencyCode: string = "usd") => {
   return new Intl.NumberFormat("pl-PL", {
     style: "currency",

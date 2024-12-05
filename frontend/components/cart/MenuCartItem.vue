@@ -3,30 +3,28 @@
     class="cart-item"
     style="min-width: 0"
   >
-    <!-- TODO: use v-img here -->
-    <img
+    <v-img
       v-if="lineItem.thumbnail"
-      width="120"
-      height="120"
+      :width="120"
+      :height="120"
+      cover
       :src="lineItem.thumbnail"
       :alt="lineItem.title"
       class="thumbnail"
-    />
+    ></v-img>
 
     <div
       class="pr-4 d-flex flex-column flex-1"
       style="min-width: 0"
     >
-      <h4 class="d-inline-block text-truncate text-left">
+      <h4
+        class="d-inline-block text-truncate text-left"
+        :title="lineItem.title"
+      >
         {{ lineItem.title }}
       </h4>
 
-      <p
-        class="text-caption"
-        v-if="lineItem.quantity > 1"
-      >
-        Quantity: {{ lineItem.quantity }}
-      </p>
+      <p class="text-caption">Ilość: {{ lineItem.quantity }}</p>
 
       <p class="align-self-end justify-self-end mt-auto">
         {{ price }}

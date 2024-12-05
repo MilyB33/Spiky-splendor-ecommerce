@@ -65,6 +65,7 @@
             <v-divider
               v-if="index !== cartItems.length - 1"
               :thickness="2"
+              class="my-2"
             ></v-divider>
           </template>
         </div>
@@ -73,13 +74,13 @@
           v-else
           class="text-center"
         >
-          Cart is empty
+          Koszyk jest pusty
         </p>
 
         <v-divider :thickness="4"></v-divider>
 
         <div class="d-flex justify-space-between w-100">
-          <p>Subtotal:</p>
+          <p>Całkowita wartość:</p>
           <p>{{ subtotal }}</p>
         </div>
 
@@ -88,7 +89,7 @@
             color="black"
             width="100%"
             v-if="hasItems"
-            >Cart</v-btn
+            >Koszyk</v-btn
           >
         </NuxtLink>
       </v-card>
@@ -107,16 +108,22 @@ const menu = ref(false);
 
 const cartItems = computed(() => cart.value?.cart.items || []);
 
-const subtotal = computed(() =>
-  formatCurrency(cart.value?.cart.subtotal || 0, region.value?.currency_code),
-);
+const total = computed(() => {
+  return (
+    cart.value?.cart.total! -
+      cart.value?.cart.shipping_tax_total! -
+      cart.value?.cart.shipping_total! || 0
+  );
+});
+
+const subtotal = computed(() => formatCurrency(total.value, region.value?.currency_code));
 const hasItems = computed(() => !!cartItems.value.length);
 const itemsCount = computed(() => {
   if (cartItems.value.length > 6) return "6+";
 
   return cartItems.value.length.toString();
 });
-// TODO: this can be resolved better
+
 const isCartMenuDisabled = computed(() => {
   return route.path.includes("cart") || !hasItems.value;
 });

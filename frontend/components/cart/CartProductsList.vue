@@ -2,7 +2,7 @@
   <v-card class="cart-items-section">
     <div class="cart-items-section__wrapper">
       <div class="d-flex ga-4 align-center">
-        <h2>Cart</h2>
+        <h2>Koszyk</h2>
         <v-chip
           color="deep-purple-accent-4"
           label
@@ -27,13 +27,11 @@
 </template>
 
 <script lang="ts" setup>
-import { pluralize } from "~/utils/string";
-
 const { cart } = useCart();
 
 const cartItems = computed(() => cart.value?.cart.items || []);
 const itemsCount = computed(() => cartItems.value.length || 0);
-const countLabel = computed(() => pluralize("item", itemsCount.value));
+const countLabel = computed(() => (itemsCount.value > 4 ? "produktów" : "produkty"));
 </script>
 
 <style lang="scss" scoped>

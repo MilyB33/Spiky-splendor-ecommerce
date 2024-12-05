@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex ga-4 w-100">
+  <div
+    class="d-flex ga-4 w-100"
+    :class="isMobile && 'flex-column'"
+  >
     <div class="d-flex flex-column ga-4 w-100">
       <v-card class="pa-4 w-100">
         <CheckoutTimeline is-payment-step />
@@ -26,6 +29,7 @@ import {
   type StripePaymentElementOptions,
   type Appearance,
 } from "@stripe/stripe-js";
+import { useDisplay } from "vuetify";
 
 const config = useRuntimeConfig();
 const { cart } = useCart();
@@ -35,6 +39,8 @@ let elements: StripeElements | undefined;
 let paymentElement: StripePaymentElement | undefined;
 let clientSecret: string | undefined;
 const isLoading = ref(false);
+
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 
 onMounted(async () => {
   clientSecret = cart.value?.cart.payment_session?.data.client_secret as string;

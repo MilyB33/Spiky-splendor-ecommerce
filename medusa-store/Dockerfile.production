@@ -19,4 +19,4 @@ COPY . .
 
 RUN yarn build
 
-RUN yarn start
+RUN medusa start

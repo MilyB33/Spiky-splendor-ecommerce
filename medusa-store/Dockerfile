@@ -15,5 +15,6 @@ RUN yarn global add @medusajs/medusa-cli
 # Add the remaining files
 COPY . .
 
+RUN medusa develop
+
 # reset
-ENTRYPOINT "./reset.sh"

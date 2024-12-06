@@ -19,4 +19,4 @@ COPY . .
 
 RUN yarn build
 
-ENTRYPOINT "./entrypoint-production.sh"
+RUN yarn start

@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+WORKDIR /app/medusa
+
+COPY package.json .
+COPY reset.sh .
+COPY yarn.* .
+
+# Install dependencies
+RUN yarn --network-timeout 1000000
+
+# Install medusa CLI
+RUN yarn global add @medusajs/medusa-cli
+
+RUN yarn build:server
+
+RUN yarn build:admin
+
+# Add the remaining files
+COPY . .
+
+ENTRYPOINT "./entrypoint-production.sh"

@@ -14,9 +14,9 @@ RUN yarn global add @medusajs/medusa-cli
 
 RUN yarn global add typescript
 
-RUN yarn build
-
 # Add the remaining files
 COPY . .
+
+RUN yarn build
 
 ENTRYPOINT "./entrypoint-production.sh"

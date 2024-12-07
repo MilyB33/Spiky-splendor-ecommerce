@@ -12,6 +12,8 @@ RUN yarn --network-timeout 1000000
 # Install medusa CLI
 RUN yarn global add @medusajs/medusa-cli
 
+RUN yarn build
+
 # Add the remaining files
 COPY . .
 

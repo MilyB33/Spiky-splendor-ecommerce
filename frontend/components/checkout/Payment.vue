@@ -70,11 +70,13 @@ onMounted(async () => {
 const finishPayment = async () => {
   try {
     isLoading.value = true;
+    console.log(stripe, clientSecret, paymentElement);
     if (!stripe || !clientSecret || !paymentElement) return;
 
     await elements?.submit().then(async () => {
+      console.log("submitted");
       if (!stripe || !clientSecret || !paymentElement) return;
-
+      console.log("confirmation");
       await stripe.confirmPayment({
         clientSecret,
         elements,
@@ -89,6 +91,7 @@ const finishPayment = async () => {
           },
         },
       });
+      console.log("after confirmation");
     });
   } catch (error) {
     console.error(error);

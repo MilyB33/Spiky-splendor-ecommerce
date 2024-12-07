@@ -18,14 +18,18 @@ switch (process.env.NODE_ENV) {
 }
 
 try {
-  dotenv.config();
+  dotenv.config({
+    path:
+      process.env.NODE_ENV === "development"
+        ? process.cwd() + "/" + ENV_FILE_NAME
+        : "/etc/secrets/.env.production",
+  });
 } catch (e) {}
-console.log(
-  process.env,
-  process.env.NODE_ENV === "development"
-    ? process.cwd() + "/" + ENV_FILE_NAME
-    : "/etc/secrets/.env.production"
-);
+fs.readdir(process.cwd(), (err, files) => {
+  files.forEach((file) => {
+    console.log(file);
+  });
+});
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
   process.env.ADMIN_CORS || "http://localhost:7000,http://localhost:7001";

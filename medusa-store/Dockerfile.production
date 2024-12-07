@@ -15,8 +15,4 @@ RUN yarn global add @medusajs/medusa-cli
 # Add the remaining files
 COPY . .
 
-RUN medusa migrations run
-
-RUN yarn build
-
-RUN yarn start
+ENTRYPOINT "./reset-production.sh"

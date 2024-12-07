@@ -18,12 +18,7 @@ switch (process.env.NODE_ENV) {
 }
 
 try {
-  dotenv.config({
-    path:
-      process.env.NODE_ENV === "development"
-        ? process.cwd() + "/" + ENV_FILE_NAME
-        : "/etc/secrets/.env.production",
-  });
+  dotenv.config();
 } catch (e) {}
 console.log(
   process.env,

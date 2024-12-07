@@ -36,11 +36,11 @@ const isLoading = computed(() => isMounting.value || isFetchingLastOrder.value);
 
 onMounted(async () => {
   isMounting.value = true;
-  console.log("isMounting");
+
   if (!stripePk || !clientSecret) return;
 
   stripe = await loadStripe(stripePk);
-  console.log("loadedStripe");
+
   const paymentIntent = await stripe?.retrievePaymentIntent(clientSecret);
 
   if (
@@ -50,7 +50,7 @@ onMounted(async () => {
   ) {
     isFail.value = true;
   }
-  console.log("loadedPaymentIntent", isFail.value);
+
   if (!isFail.value) {
     const cart = await completeCart();
 

@@ -30,8 +30,7 @@ const ADMIN_CORS =
 
 // CORS to avoid issues when consuming Medusa from a client
 
-const STORE_CORS =
-  "https://praca-in-ynierska-p7f4t1tfn-milyb33s-projects.vercel.app";
+const STORE_CORS = /http:\/\/.+/;
 
 const DATABASE_URL =
   process.env.DATABASE_URL || "postgres://localhost/medusa-starter-default";

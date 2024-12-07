@@ -20,10 +20,7 @@ switch (process.env.NODE_ENV) {
 
 try {
   dotenv.config({
-    path:
-      process.env.NODE_ENV === "development"
-        ? process.cwd() + "/" + ENV_FILE_NAME
-        : "/etc/secrets/.env.production",
+    path: process.cwd() + "/" + ENV_FILE_NAME,
   });
 } catch (e) {}
 

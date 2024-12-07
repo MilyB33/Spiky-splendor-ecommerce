@@ -25,7 +25,12 @@ try {
         : "/etc/secrets/.env.production",
   });
 } catch (e) {}
-console.log(process.cwd() + "/" + ENV_FILE_NAME);
+console.log(
+  process.env,
+  process.env.NODE_ENV === "development"
+    ? process.cwd() + "/" + ENV_FILE_NAME
+    : "/etc/secrets/.env.production"
+);
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
   process.env.ADMIN_CORS || "http://localhost:7000,http://localhost:7001";

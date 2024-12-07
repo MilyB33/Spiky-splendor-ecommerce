@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
   case "production":
-    ENV_FILE_NAME = ".env.production";
+    ENV_FILE_NAME = ".env";
     break;
   case "staging":
     ENV_FILE_NAME = ".env.staging";
@@ -85,6 +85,14 @@ const projectConfig = {
   store_cors: STORE_CORS,
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
+  database_extra:
+    process.env.NODE_ENV !== "development"
+      ? {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
+      : {},
   // Uncomment the following lines to enable REDIS
   // redis_url: REDIS_URL
 };

@@ -14,6 +14,8 @@ RUN yarn global add @medusajs/medusa-cli
 
 RUN yarn global add typescript
 
+COPY . .
+
 RUN yarn build
 
 # Add the remaining files

@@ -18,7 +18,12 @@ switch (process.env.NODE_ENV) {
 }
 
 try {
-  dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
+  dotenv.config({
+    path:
+      process.env.NODE_ENV === "development"
+        ? process.cwd() + "/" + ENV_FILE_NAME
+        : "/etc/secrets/.env.production",
+  });
 } catch (e) {}
 console.log(process.cwd() + "/" + ENV_FILE_NAME);
 // CORS when consuming Medusa from admin

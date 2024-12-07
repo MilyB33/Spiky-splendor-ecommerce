@@ -173,6 +173,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   };
 
   const completeCart = async () => {
+    console.log(cart.value);
     if (!cart.value?.cart.id) return;
 
     return completeCartHandler();

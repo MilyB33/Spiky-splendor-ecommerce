@@ -8,15 +8,12 @@ export const prepareCheckoutDataBeforePayment = (
     first_name: values.shippingName,
     last_name: values.shippingSurname,
     company: values.shippingCompany,
-    // TODO: Add this in medusa
-    //  email: values.shippingEmail,
     address_1: values.shippingAddress1,
     address_2: values.shippingAddress2,
     // TODO: fix this to input values be Country codes
     country_code: values.shippingCountry,
     postal_code: values.shippingZipCode,
     city: values.shippingCity,
-    province: values.shippingState,
     phone: values.shippingPhoneNumber,
   };
 
@@ -34,7 +31,6 @@ export const prepareCheckoutDataBeforePayment = (
         country_code: values.billingCountry,
         postal_code: values.billingZipCode,
         city: values.billingCountry,
-        province: values.billingState,
         phone: values.billingPhoneNumber,
       };
 

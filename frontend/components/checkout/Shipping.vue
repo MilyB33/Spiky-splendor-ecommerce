@@ -18,8 +18,7 @@ import {
   checkoutTypedSchema,
   type CheckoutSchemaValues,
 } from "~/utils/validation/shipping-schema";
-const { shippingMethods } = useCheckout();
-const { updateCart, addShippingMethod, createPaymentSession } = useCart();
+const { updateCart, addShippingMethod, createPaymentSession, shippingMethods } = useCart();
 const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 
 const initialShippingMethod = computed<CheckoutSchemaValues["shippingMethod"]>(() => {

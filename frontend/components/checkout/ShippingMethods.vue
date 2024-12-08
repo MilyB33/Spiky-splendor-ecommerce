@@ -1,9 +1,9 @@
 <template>
   <section class="d-flex flex-column ga-4">
-    <h4>Shipping Method</h4>
+    <h4>Metody dostawy</h4>
 
     <v-progress-circular
-      v-if="isFetchingShippingMethods"
+      v-if="isLoadingShippingMethods"
       color="primary"
       indeterminate
     ></v-progress-circular>
@@ -24,8 +24,6 @@
                 color="green"
               ></v-radio>
             </td>
-            <!-- TODO: add this to entity -->
-            <td>3 days</td>
             <td>{{ formatCurrency(method.price_incl_tax || 0, region?.currency_code) }}</td>
           </tr>
         </tbody>
@@ -38,7 +36,7 @@
 import { formatCurrency } from "~/utils/product";
 import type { CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
 
-const { shippingMethods, isFetchingShippingMethods } = useCheckout();
+const { shippingMethods, isLoadingShippingMethods } = useCart();
 const { region } = useRegions();
 
 const { value: shippingMethod, errorMessage: shippingMethodError } =

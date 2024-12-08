@@ -27,7 +27,6 @@ const initialValues = computed(() => ({
   country: billingAddress.value?.country?.name || "Poland",
   zipCode: billingAddress.value?.postal_code || "",
   city: billingAddress.value?.city || "",
-  state: billingAddress.value?.province || "",
   phoneNumber: billingAddress.value?.phone || "",
 }));
 
@@ -46,7 +45,6 @@ const onSubmit = form.handleSubmit(async (values) => {
     country_code: values.country,
     postal_code: values.zipCode,
     city: values.city,
-    province: values.state,
     phone: values.phoneNumber,
   });
 });

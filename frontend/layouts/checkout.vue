@@ -1,5 +1,8 @@
 <template>
-  <v-layout class="d-flex ga-4 flex-column py-8 px-16">
+  <v-layout
+    class="d-flex ga-4 flex-column"
+    :class="mobile ? 'py-8 px-2' : 'py-8 px-16'"
+  >
     <header class="d-flex justify-center">
       <NuxtLink
         to="/"
@@ -30,7 +33,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useDisplay } from "vuetify";
+
 const { cart, isLoadingCart } = useCart();
+const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
 </script>
 
 <style lang="scss" scoped>

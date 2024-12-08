@@ -4,7 +4,7 @@
       icon="mdi-check"
       dot-color="green"
     >
-      <h4>Cart</h4>
+      <h4>Koszyk</h4>
     </v-timeline-item>
 
     <v-timeline-item
@@ -12,7 +12,7 @@
       :dot-color="props.isPaymentStep ? 'green' : 'blue'"
     >
       <template v-slot:opposite>
-        <h4>Shipping</h4>
+        <h4>Dostawa</h4>
       </template>
       <template
         v-if="!props.isPaymentStep"
@@ -23,7 +23,7 @@
     </v-timeline-item>
 
     <v-timeline-item :dot-color="props.isPaymentStep ? 'blue' : 'white'">
-      <h4>Payment</h4>
+      <h4>Płatność</h4>
       <template v-slot:icon> 3 </template>
     </v-timeline-item>
   </v-timeline>

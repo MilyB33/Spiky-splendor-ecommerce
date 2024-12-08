@@ -1,11 +1,11 @@
 <template>
   <section class="d-flex flex-column ga-4">
-    <h4>Billing Address</h4>
+    <h4>Adres rozliczeniowy</h4>
 
     <v-checkbox
       hide-details="auto"
       color="green"
-      label="Shipping address is the same as my billing address"
+      label="Adres rozliczeniowy jest taki sam jak adres dostawy  "
       v-model="sameBillingAddress"
       :error-messages="sameBillingAddressError"
     />
@@ -17,12 +17,12 @@
         :error-messages="billingCustomerTypeError"
       >
         <v-radio
-          label="Individual"
+          label="Indywidualne"
           value="individual"
           color="green"
         ></v-radio>
         <v-radio
-          label="Company"
+          label="Firma"
           value="company"
           color="green"
         ></v-radio>
@@ -34,7 +34,7 @@
       >
         <v-text-field
           variant="outlined"
-          label="Name"
+          label="Imię"
           density="compact"
           hide-details="auto"
           class="w-50"
@@ -44,7 +44,7 @@
 
         <v-text-field
           variant="outlined"
-          label="Surname"
+          label="Nazwisko"
           density="compact"
           hide-details="auto"
           class="w-50"
@@ -55,7 +55,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Company name"
+        label="Nazwa firmy"
         density="compact"
         hide-details="auto"
         v-if="isCompany"
@@ -65,7 +65,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Email Address"
+        label="Adres email"
         density="compact"
         hide-details="auto"
         v-model="billingEmail"
@@ -74,7 +74,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Address Line 1"
+        label="Adres 1"
         density="compact"
         hide-details="auto"
         v-model="billingAddress1"
@@ -83,7 +83,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Address Line 2"
+        label="Adres 2"
         density="compact"
         hide-details="auto"
         v-model="billingAddress2"
@@ -93,7 +93,7 @@
       <div class="d-flex ga-4">
         <v-select
           variant="outlined"
-          label="Country"
+          label="Kraj"
           density="compact"
           hide-details="auto"
           :items="availableCountries"
@@ -106,7 +106,7 @@
 
         <v-text-field
           variant="outlined"
-          label="Zip Code/Postal Code"
+          label="Kod pocztowy"
           density="compact"
           hide-details="auto"
           class="w-50"
@@ -118,31 +118,19 @@
       <div class="d-flex ga-4">
         <v-text-field
           variant="outlined"
-          label="City"
+          label="Miasto"
           density="compact"
           hide-details="auto"
-          class="w-50"
           v-model="billingCity"
           :error-messages="billingCityError"
-        ></v-text-field>
-
-        <v-text-field
-          variant="outlined"
-          label="State/Province/Region"
-          density="compact"
-          hide-details="auto"
-          class="w-50"
-          v-model="billingState"
-          :error-messages="billingStateError"
         ></v-text-field>
       </div>
 
       <v-text-field
         variant="outlined"
-        label="Mobile Phone"
+        label="Numer telefonu"
         density="compact"
         hide-details="auto"
-        class="w-50"
         v-model="billingPhoneNumber"
         :error-messages="billingPhoneNumberError"
       ></v-text-field>
@@ -195,7 +183,6 @@ const { value: billingCountry, errorMessage: billingCountryError } =
 const { value: billingZipCode, errorMessage: billingZipCodeError } =
   useField<string>("billingZipCode");
 const { value: billingCity, errorMessage: billingCityError } = useField<string>("billingCity");
-const { value: billingState, errorMessage: billingStateError } = useField<string>("billingState");
 const { value: billingPhoneNumber, errorMessage: billingPhoneNumberError } =
   useField<string>("billingPhoneNumber");
 </script>

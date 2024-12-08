@@ -74,9 +74,8 @@ const finishPayment = async () => {
     if (!stripe || !clientSecret || !paymentElement) return;
 
     await elements?.submit().then(async () => {
-      console.log("submitted");
       if (!stripe || !clientSecret || !paymentElement) return;
-      console.log("confirmation", config.public);
+
       await stripe.confirmPayment({
         clientSecret,
         elements,
@@ -91,7 +90,6 @@ const finishPayment = async () => {
           },
         },
       });
-      console.log("after confirmation");
     });
   } catch (error) {
     console.error(error);

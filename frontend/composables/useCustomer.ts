@@ -6,12 +6,12 @@ export const useCustomer = () => {
   const client = useMedusaClient();
   const storageWishlist = useStorage<string | null>(
     LOCAL_STORAGE_KEY.WISHLIST_ID,
-    null,
+    "",
     sessionStorage,
   );
 
   // TODO: it is refetching when failed on browser focus
-  const { data: customer, isPending: isFetchingCustomer } = useQuery({
+  const { data: customer, isLoading: isLoadingCustomer } = useQuery({
     queryKey: [API_QUERY_KEY.CUSTOMER],
     queryFn: () =>
       client.customers.retrieve({
@@ -33,7 +33,7 @@ export const useCustomer = () => {
 
   return {
     isAuthenticated,
-    isLoading: isFetchingCustomer,
+    isLoading: isLoadingCustomer,
     customer: customer,
   };
 };

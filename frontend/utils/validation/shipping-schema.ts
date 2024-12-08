@@ -2,159 +2,192 @@ import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 
 export const shippingSchema = z.object({
-  shippingCustomerType: z.union([z.literal("individual"), z.literal("company")]),
-  // https://stackoverflow.com/questions/73582246/zod-schema-how-to-make-a-field-optional-or-have-a-minimum-string-contraint
-  shippingName: z.string().min(5).optional().or(z.literal("")),
-  shippingSurname: z.string().min(5).optional().or(z.literal("")),
-  shippingCompany: z.string().min(5).optional().or(z.literal("")),
-  shippingEmail: z.string().min(5).email().min(4),
-  shippingAddress1: z.string().min(5),
-  shippingAddress2: z.string().min(5).optional().or(z.literal("")),
-  shippingCountry: z.string().min(1),
-  shippingZipCode: z.string().min(5),
-  shippingCity: z.string().min(5),
-  shippingState: z.string().min(5),
+  shippingCustomerType: z.union([z.literal("individual"), z.literal("company")], {
+    required_error: "Wymagane pole: wybierz rodzaj klienta (indywidualny lub firma).",
+  }),
+  shippingName: z
+    .string()
+    .min(5, "Imię musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  shippingSurname: z
+    .string()
+    .min(5, "Nazwisko musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  shippingCompany: z
+    .string()
+    .min(5, "Nazwa firmy musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  shippingEmail: z
+    .string()
+    .min(5, "Email musi mieć co najmniej 5 znaków.")
+    .email("Podaj poprawny adres email."),
+  shippingAddress1: z.string().min(5, "Adres musi mieć co najmniej 5 znaków."),
+  shippingAddress2: z
+    .string()
+    .min(5, "Adres dodatkowy musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  shippingCountry: z.string().min(1, "Kraj jest wymagany."),
+  shippingZipCode: z.string().min(5, "Kod pocztowy musi mieć co najmniej 5 znaków."),
+  shippingCity: z.string().min(5, "Miasto musi mieć co najmniej 5 znaków."),
   shippingPhoneNumber: z
     .string()
-    .min(9, "Phone number must be at least 10 digits")
-    .regex(/^\d+$/, "Phone number must only contain digits"),
+    .min(9, "Numer telefonu musi mieć co najmniej 9 cyfr.")
+    .regex(/^\d+$/, "Numer telefonu może zawierać tylko cyfry."),
 });
 
 const billingDetailsSchema = z.object({
-  sameBillingAddress: z.boolean().optional(),
-  billingCustomerType: z.union([z.literal("individual"), z.literal("company")]).optional(),
-  billingName: z.string().min(5).optional().or(z.literal("")),
-  billingSurname: z.string().min(5).optional().or(z.literal("")),
-  billingCompany: z.string().min(5).optional().or(z.literal("")),
-  billingEmail: z.string().email().min(4).optional(),
-  billingAddress1: z.string().min(5).optional(),
-  billingAddress2: z.string().min(5).optional().or(z.literal("")),
-  billingCountry: z.string().min(1).optional(),
-  billingZipCode: z.string().min(5).optional(),
-  billingCity: z.string().min(5).optional(),
-  billingState: z.string().min(5).optional(),
+  sameBillingAddress: z.boolean().optional(), // Pole opcjonalne, brak walidacji tekstowej.
+  billingCustomerType: z
+    .union([z.literal("individual"), z.literal("company")])
+    .optional()
+    .or(z.literal("")),
+  billingName: z
+    .string()
+    .min(5, "Imię musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  billingSurname: z
+    .string()
+    .min(5, "Nazwisko musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  billingCompany: z
+    .string()
+    .min(5, "Nazwa firmy musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  billingEmail: z
+    .string()
+    .email("Podaj poprawny adres email.")
+    .min(4, "Email musi mieć co najmniej 4 znaki.")
+    .optional(),
+  billingAddress1: z.string().min(5, "Adres musi mieć co najmniej 5 znaków.").optional(),
+  billingAddress2: z
+    .string()
+    .min(5, "Adres dodatkowy musi mieć co najmniej 5 znaków.")
+    .optional()
+    .or(z.literal("")),
+  billingCountry: z.string().min(1, "Kraj jest wymagany.").optional(),
+  billingZipCode: z.string().min(5, "Kod pocztowy musi mieć co najmniej 5 znaków.").optional(),
+  billingCity: z.string().min(5, "Miasto musi mieć co najmniej 5 znaków.").optional(),
   billingPhoneNumber: z
     .string()
-    .min(9, "Phone number must be at least 9 digits")
-    .regex(/^\d+$/, "Phone number must only contain digits")
+    .min(9, "Numer telefonu musi mieć co najmniej 9 cyfr.")
+    .regex(/^\d+$/, "Numer telefonu może zawierać tylko cyfry.")
     .optional(),
 });
 
 const shippingMethodsSchema = z.object({
-  shippingMethod: z.object({ methodId: z.string(), price: z.number() }),
+  shippingMethod: z.object(
+    { methodId: z.string(), price: z.number() },
+    { required_error: "Metoda wysyłki jest wymagana!" },
+  ),
 });
 
 export const checkoutSchema = shippingSchema
   .merge(billingDetailsSchema)
   .merge(shippingMethodsSchema)
   .superRefine((data, ctx) => {
-    // If the customer type is 'individual', check for shippingName and shippingSurname
     if (data.shippingCustomerType === "individual") {
       if (!data.shippingName) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Shipping name is required",
-          path: ["shippingName"], // Point to the correct field
+          message: "Imię do wysyłki jest wymagane.",
+          path: ["shippingName"],
         });
       }
 
       if (!data.shippingSurname) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Shipping surname is required",
-          path: ["shippingSurname"], // Point to the correct field
+          message: "Nazwisko do wysyłki jest wymagane.",
+          path: ["shippingSurname"],
         });
       }
     }
 
-    // If the customer type is 'company', check for shippingCompany
     if (data.shippingCustomerType === "company") {
       if (!data.shippingCompany) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Shipping company is required",
-          path: ["shippingCompany"], // Point to the correct field
+          message: "Nazwa firmy do wysyłki jest wymagana.",
+          path: ["shippingCompany"],
         });
       }
     }
 
-    // If sameBillingAddress is true, we allow all fields to be optional
     if (!data.sameBillingAddress) {
-      // Add an error for each field that should be required if sameBillingAddress is false
       if (!data.billingCustomerType) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing customer type is required",
+          message: "Typ klienta dla faktury jest wymagany.",
           path: ["billingCustomerType"],
         });
       }
       if (!data.billingName && data.billingCustomerType === "individual") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing name is required",
+          message: "Imię na fakturze jest wymagane.",
           path: ["billingName"],
         });
       }
       if (!data.billingSurname && data.billingCustomerType === "individual") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing surname is required for individuals",
+          message: "Nazwisko na fakturze jest wymagane dla osób indywidualnych.",
           path: ["billingSurname"],
         });
       }
       if (data.billingCustomerType === "company" && !data.billingCompany) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing company is required for companies",
+          message: "Nazwa firmy na fakturze jest wymagana dla firm.",
           path: ["billingCompany"],
         });
       }
       if (!data.billingEmail) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing email is required",
+          message: "Email do faktury jest wymagany.",
           path: ["billingEmail"],
         });
       }
       if (!data.billingAddress1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing address is required",
+          message: "Adres do faktury jest wymagany.",
           path: ["billingAddress1"],
         });
       }
       if (!data.billingCountry) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing country is required",
+          message: "Kraj na fakturze jest wymagany.",
           path: ["billingCountry"],
         });
       }
       if (!data.billingZipCode) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing zip code is required",
+          message: "Kod pocztowy na fakturze jest wymagany.",
           path: ["billingZipCode"],
         });
       }
       if (!data.billingCity) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing city is required",
+          message: "Miasto na fakturze jest wymagane.",
           path: ["billingCity"],
-        });
-      }
-      if (!data.billingState) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Billing state is required",
-          path: ["billingState"],
         });
       }
       if (!data.billingPhoneNumber) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Billing phone number is required",
+          message: "Numer telefonu do faktury jest wymagany.",
           path: ["billingPhoneNumber"],
         });
       }

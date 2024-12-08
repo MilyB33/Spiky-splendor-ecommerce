@@ -1,6 +1,6 @@
 <template>
   <v-progress-circular
-    v-if="isLoadingCart"
+    v-if="isLoadingCart || isLoadingShippingMethods"
     color="primary"
     indeterminate
   ></v-progress-circular>
@@ -11,5 +11,5 @@
 </template>
 
 <script setup lang="ts">
-const { isLoadingCart } = useCart();
+const { isLoadingCart, isLoadingShippingMethods } = useCart();
 </script>

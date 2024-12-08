@@ -7,7 +7,8 @@
     />
     <v-main
       max-width="1200"
-      class="d-flex mx-auto pa-8 w-100"
+      class="d-flex mx-auto w-100"
+      :class="mobile ? 'px-2 py-8' : 'pa-8'"
     >
       <slot />
     </v-main>

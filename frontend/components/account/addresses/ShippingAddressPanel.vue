@@ -76,7 +76,6 @@ const initialValues = computed(() => ({
   country: props.address?.country?.name || "Poland",
   zipCode: props.address?.postal_code || "",
   city: props.address?.city || "",
-  state: props.address?.province || "",
   phoneNumber: props.address?.phone || "",
 }));
 
@@ -99,7 +98,6 @@ const onSubmit = form.handleSubmit(async (values) => {
         country_code: values.country,
         postal_code: values.zipCode,
         city: values.city,
-        province: values.state,
         phone: values.phoneNumber,
         metadata: {},
       },
@@ -117,7 +115,6 @@ const onSubmit = form.handleSubmit(async (values) => {
     country_code: values.country,
     postal_code: values.zipCode,
     city: values.city,
-    province: values.state,
     phone: values.phoneNumber,
     metadata: {},
   });

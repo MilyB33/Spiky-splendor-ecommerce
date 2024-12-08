@@ -55,7 +55,9 @@
         icon="mdi-cart-plus"
         size="x-small"
         color="green_primary"
-        :disabled="productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK"
+        :disabled="
+          productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK || isCreatingLineItem
+        "
         @click="onAddToCart"
       />
 
@@ -87,7 +89,7 @@ const props = defineProps<ProductCardProps>();
 const productQuantityStatus = getProductAvailabilityStatus(props.product);
 const { wishlist, removeFromWishlist, addToWishlist, isRemovingFromWishlist, isAddingToWishlist } =
   useWishlist();
-const { addItemToCart, cart } = useCart();
+const { addItemToCart, isCreatingLineItem } = useCart();
 const { region } = useRegions();
 
 const wishlistItemId = computed(() => {

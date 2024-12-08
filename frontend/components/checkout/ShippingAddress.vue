@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex justify-start flex-column ga-4">
-    <h4>Shipping Address</h4>
+    <h4>Adres dostawy</h4>
 
     <v-radio-group
       inline
@@ -9,12 +9,12 @@
       :error-messages="shippingCustomerTypeError"
     >
       <v-radio
-        label="Individual"
+        label="Indywidualne"
         value="individual"
         color="green"
       ></v-radio>
       <v-radio
-        label="Company"
+        label="Firma"
         value="company"
         color="green"
       ></v-radio>
@@ -26,7 +26,7 @@
     >
       <v-text-field
         variant="outlined"
-        label="Name"
+        label="Imię"
         density="compact"
         hide-details="auto"
         class="w-50"
@@ -36,7 +36,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Surname"
+        label="Nazwisko"
         density="compact"
         hide-details="auto"
         class="w-50"
@@ -47,7 +47,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Company name"
+      label="Nazwa firmy"
       density="compact"
       hide-details="auto"
       v-if="isCompany"
@@ -57,18 +57,18 @@
 
     <v-text-field
       variant="outlined"
-      label="Email Address"
+      label="Adres email"
       density="compact"
       hide-details="auto"
       persistent-hint
-      hint="We will send information about the order to this address"
+      hint="Wyślemy informacje o zamówieniu na ten adres"
       v-model="shippingEmail"
       :error-messages="shippingEmailError"
     ></v-text-field>
 
     <v-text-field
       variant="outlined"
-      label="Address Line 1"
+      label="Adres 1"
       density="compact"
       hide-details="auto"
       v-model="shippingAddress1"
@@ -77,7 +77,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Address Line 2"
+      label="Adres 2"
       density="compact"
       hide-details="auto"
       v-model="shippingAddress2"
@@ -87,7 +87,7 @@
     <div class="d-flex ga-4">
       <v-select
         variant="outlined"
-        label="Country"
+        label="Kraj"
         density="compact"
         hide-details="auto"
         :items="availableCountries"
@@ -100,7 +100,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Zip Code/Postal Code"
+        label="Kod pocztowy"
         density="compact"
         hide-details="auto"
         class="w-50"
@@ -112,31 +112,19 @@
     <div class="d-flex ga-4">
       <v-text-field
         variant="outlined"
-        label="City"
+        label="Miasto"
         density="compact"
         hide-details="auto"
-        class="w-50"
         v-model="shippingCity"
         :error-messages="shippingCityError"
-      ></v-text-field>
-
-      <v-text-field
-        variant="outlined"
-        label="State/Province/Region"
-        density="compact"
-        hide-details="auto"
-        class="w-50"
-        v-model="shippingState"
-        :error-messages="shippingStateError"
       ></v-text-field>
     </div>
 
     <v-text-field
       variant="outlined"
-      label="Mobile Phone"
+      label="Numer telefonu"
       density="compact"
       hide-details="auto"
-      class="w-50"
       v-model="shippingPhoneNumber"
       :error-messages="shippingPhoneNumberError"
     ></v-text-field>
@@ -187,8 +175,6 @@ const { value: shippingCountry, errorMessage: shippingCountryError } =
 const { value: shippingZipCode, errorMessage: shippingZipCodeError } =
   useField<string>("shippingZipCode");
 const { value: shippingCity, errorMessage: shippingCityError } = useField<string>("shippingCity");
-const { value: shippingState, errorMessage: shippingStateError } =
-  useField<string>("shippingState");
 const { value: shippingPhoneNumber, errorMessage: shippingPhoneNumberError } =
   useField<string>("shippingPhoneNumber");
 </script>

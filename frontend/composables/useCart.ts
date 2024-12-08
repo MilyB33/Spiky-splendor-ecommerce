@@ -20,22 +20,11 @@ type AddItemToCartParams = {
 // TODO: add snackbars (they can't be used when we use it within use initialize)
 export const useCart = (skipFetchingCart?: boolean) => {
   const queryClient = useQueryClient();
-  const { customer } = useCustomer();
   const client = useMedusaClient();
   const localStorageCartValue = useStorage(LOCAL_STORAGE_KEY.CART_ID, "");
+  const { snackbar } = useSnackbar();
   const { region } = useRegions();
-
-  const {
-    data: cart,
-    isLoading: isFetchingCart,
-    isFetching: isLoadingCart,
-  } = useQuery({
-    queryKey: [API_QUERY_KEY.CART],
-    queryFn: skipFetchingCart
-      ? skipToken
-      : () => client.carts.retrieve(localStorageCartValue.value),
-    enabled: computed(() => !!localStorageCartValue.value).value,
-  });
+  const { cart, isFetchingCart, isLoadingCart, isCartEmpty } = useGetCart(skipFetchingCart);
 
   const { mutateAsync: updateCartHandler, isPending: isUpdatingCart } = useMutation({
     mutationFn: ({ cart_id, ...rest }: UpdateCartParams) => client.carts.update(cart_id, rest),
@@ -57,7 +46,6 @@ export const useCart = (skipFetchingCart?: boolean) => {
     onSuccess: async (data) => {
       localStorageCartValue.value = data.cart.id;
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
-
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
     },
@@ -128,10 +116,20 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const { mutateAsync: completeCartHandler, isPending: isCompletingCart } = useMutation({
     mutationFn: () => client.carts.complete(localStorageCartValue.value),
-    onSuccess: (data) => {
+    onSuccess: () => {
       localStorageCartValue.value = "";
       queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
     },
+  });
+
+  const { data: shippingMethodsResponse, isLoading: isLoadingShippingMethods } = useQuery({
+    queryKey: [API_QUERY_KEY.SHIPPING_METHODS],
+    queryFn: () => {
+      if (cart.value?.cart.id) {
+        return client.shippingOptions.listCartOptions(cart.value?.cart.id);
+      }
+    },
+    enabled: computed(() => !!cart.value?.cart.id).value,
   });
 
   const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {
@@ -178,8 +176,11 @@ export const useCart = (skipFetchingCart?: boolean) => {
     return completeCartHandler();
   };
 
+  const shippingMethods = computed(() => shippingMethodsResponse.value?.shipping_options || []);
+
   return {
     cart,
+    shippingMethods,
     isCreatingCart,
     isFetchingCart,
     isLoadingCart,
@@ -191,6 +192,8 @@ export const useCart = (skipFetchingCart?: boolean) => {
     isSelectingPaymentSession,
     isCreatingPaymentSession,
     isCompletingCart,
+    isLoadingShippingMethods,
+    isCartEmpty,
     addItemToCart,
     updateItemInCart,
     updateCart,

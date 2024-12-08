@@ -4,14 +4,14 @@
     style="height: fit-content"
     min-width="40%"
   >
-    <h3>Order Ships Feed</h3>
+    <h3>Zamówienie</h3>
     <div class="d-flex flex-column ga-4 mt-4">
       <div class="d-flex justify-space-between">
-        <p>Items ({{ cartItemsCount }}):</p>
+        <p>Przedmioty ({{ cartItemsCount }}):</p>
         <p>{{ formatCurrency(cartPrice, currencyCode) }}</p>
       </div>
       <div class="d-flex justify-space-between">
-        <p>Shipping:</p>
+        <p>Dostawa:</p>
         <p>{{ formatCurrency(shippingMethodPrice, currencyCode) }}</p>
       </div>
 

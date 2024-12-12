@@ -34,11 +34,12 @@ import { useDisplay } from "vuetify";
 const config = useRuntimeConfig();
 const { cart } = useCart();
 const stripePk = config.public.PUBLIC_STRIPE_KEY;
-let stripe: Stripe | null = null;
-let elements: StripeElements | undefined;
-let paymentElement: StripePaymentElement | undefined;
+const stripe = ref<Stripe | null>(null);
+const elements = ref<StripeElements | null | undefined>(null);
+const paymentElement = ref<StripePaymentElement | null | undefined>(null);
 let clientSecret: string | undefined;
 const isLoading = ref(false);
+const { snackbar } = useSnackbar();
 
 const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 
@@ -47,7 +48,7 @@ onMounted(async () => {
 
   if (!stripePk || !clientSecret) return;
 
-  stripe = await loadStripe(stripePk);
+  stripe.value = await loadStripe(stripePk);
 
   const appearance: Appearance = {
     theme: "flat",
@@ -62,23 +63,22 @@ onMounted(async () => {
     },
   };
 
-  elements = stripe?.elements({ clientSecret, appearance });
-  paymentElement = elements?.create("payment", options);
-  paymentElement?.mount("#payment-element");
+  elements.value = stripe.value?.elements({ clientSecret, appearance });
+  paymentElement.value = elements.value?.create("payment", options);
+  paymentElement.value?.mount("#payment-element");
 });
 
 const finishPayment = async () => {
+  isLoading.value = true;
   try {
-    isLoading.value = true;
-    console.log(stripe, clientSecret, paymentElement);
-    if (!stripe || !clientSecret || !paymentElement) return;
+    if (!stripe.value || !clientSecret || !paymentElement.value || !elements.value) return;
 
-    await elements?.submit().then(async () => {
-      if (!stripe || !clientSecret || !paymentElement) return;
+    await elements.value?.submit().then(async () => {
+      if (!stripe.value || !clientSecret || !paymentElement.value || !elements.value) return;
 
-      await stripe.confirmPayment({
+      await stripe.value.confirmPayment({
         clientSecret,
-        elements,
+        elements: elements.value,
         // TODO: Maybe this can be applied for cards (needs to be implemented separately)
         // redirect: "if_required",
         confirmParams: {
@@ -92,7 +92,7 @@ const finishPayment = async () => {
       });
     });
   } catch (error) {
-    console.error(error);
+    snackbar.error("Something went wrong! Try again");
   } finally {
     isLoading.value = false;
   }

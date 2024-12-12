@@ -39,7 +39,7 @@ export const useOrders = () => {
     enabled: computed(() => !!customer.value?.customer.id).value,
   });
 
-  const { data: lastOrder, isPending: isFetchingLastOrder } = useQuery({
+  const { data: lastOrder, isLoading: isFetchingLastOrder } = useQuery({
     queryKey: [API_QUERY_KEY.ORDERS, localStorageLastOrderId.value],
     queryFn: () => client.orders.retrieve(localStorageLastOrderId.value),
     enabled: computed(() => !!localStorageLastOrderId.value).value,

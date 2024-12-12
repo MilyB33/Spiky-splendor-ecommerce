@@ -11,7 +11,11 @@ export const useCustomer = () => {
   );
 
   // TODO: it is refetching when failed on browser focus
-  const { data: customer, isLoading: isLoadingCustomer } = useQuery({
+  const {
+    data: customer,
+    isLoading: isLoadingCustomer,
+    isPending: isPendingCustomer,
+  } = useQuery({
     queryKey: [API_QUERY_KEY.CUSTOMER],
     queryFn: () =>
       client.customers.retrieve({
@@ -34,6 +38,7 @@ export const useCustomer = () => {
   return {
     isAuthenticated,
     isLoading: isLoadingCustomer,
+    isPendingCustomer,
     customer: customer,
   };
 };

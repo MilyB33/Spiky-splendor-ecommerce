@@ -21,13 +21,21 @@
     </v-card>
   </div>
 
-  <ShippingSummary :is-valid="isValid" />
+  <ShippingSummary
+    :is-valid="isValid"
+    :is-loading="isLoading"
+  />
 </template>
 
 <script lang="ts" setup>
 import { useFormValues } from "vee-validate";
-
 import { checkoutSchema, type CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
+
+type ShippingCustomerFormFieldsProps = {
+  isLoading: boolean;
+};
+
+defineProps<ShippingCustomerFormFieldsProps>();
 
 const values = useFormValues<CheckoutSchemaValues>();
 

@@ -22,7 +22,7 @@
       class="d-flex mx-auto w-100"
     >
       <v-progress-circular
-        v-if="isLoadingCart || !cart"
+        v-if="isLoadingCart || !cart || isLoadingShippingMethods"
         indeterminate
         color="green_primary"
       />
@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import { useDisplay } from "vuetify";
 
-const { cart, isLoadingCart } = useCart();
+const { cart, isLoadingCart, isLoadingShippingMethods } = useCart();
 const { mobile } = useDisplay({ mobileBreakpoint: "sm" });
 </script>
 

@@ -4,7 +4,7 @@
     class="d-flex ga-4 w-100"
     :class="isMobile && 'flex-column'"
   >
-    <ShippingCustomerFormFields />
+    <ShippingCustomerFormFields :is-loading="isLoading" />
   </form>
 </template>
 
@@ -18,8 +18,18 @@ import {
   checkoutTypedSchema,
   type CheckoutSchemaValues,
 } from "~/utils/validation/shipping-schema";
-const { updateCart, addShippingMethod, createPaymentSession, shippingMethods } = useCart();
+const {
+  updateCart,
+  addShippingMethod,
+  createPaymentSession,
+  shippingMethods,
+  isUpdatingCart,
+  isAddingShippingMethod,
+  isCreatingPaymentSession,
+  isFetchingCart,
+} = useCart();
 const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
+const { snackbar } = useSnackbar();
 
 const initialShippingMethod = computed<CheckoutSchemaValues["shippingMethod"]>(() => {
   return {
@@ -37,6 +47,18 @@ const form = useForm({
   },
 });
 
+const isCreatingPaymentMethodDelayed = ref(false);
+
+const isLoading = computed(() => {
+  return (
+    isUpdatingCart.value ||
+    isAddingShippingMethod.value ||
+    isCreatingPaymentSession.value ||
+    isCreatingPaymentMethodDelayed.value ||
+    isFetchingCart.value
+  );
+});
+
 const onSubmit = form.handleSubmit(async (values) => {
   try {
     const parsedData = checkoutSchema.safeParse(values);
@@ -50,12 +72,16 @@ const onSubmit = form.handleSubmit(async (values) => {
     await addShippingMethod(shippingMethod.methodId);
 
     // TODO: remove this after testing (for now it's needed as there is some race condition in the backend https://github.com/medusajs/medusa/issues/6331) maybe 2 second needs to be added
+    isCreatingPaymentMethodDelayed.value = true;
     setTimeout(async () => {
       await createPaymentSession();
+
+      isCreatingPaymentMethodDelayed.value = false;
+
       navigateTo("/checkout/payment");
     }, 1000);
   } catch (error) {
-    console.log(error);
+    snackbar.error("Something went wrong!");
   }
 });
 </script>

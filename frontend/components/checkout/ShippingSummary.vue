@@ -17,46 +17,50 @@
 
       <v-divider></v-divider>
       <div class="d-flex justify-space-between text-h6">
-        <p>Total:</p>
+        <p>Do zapłaty:</p>
         <p>{{ formatCurrency(totalPrice, currencyCode) }}</p>
       </div>
 
       <v-btn
         type="submit"
         color="green"
-        :disabled="isSubmitButtonDisabled"
+        :disabled="!isValid || isLoading"
         :loading="isLoading"
       >
-        Continue</v-btn
+        Kontynuuj</v-btn
       >
     </div>
   </v-card>
 </template>
 
 <script lang="ts" setup>
-type ShippingSummaryProps = {
-  isValid: boolean;
-};
 import { formatCurrency } from "~/utils/product";
 import type { CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
 
-const props = defineProps<ShippingSummaryProps>();
+type ShippingSummaryProps = {
+  isValid: boolean;
+  isLoading: boolean;
+};
+
+defineProps<ShippingSummaryProps>();
 const checkoutFormValues = useFormValues<CheckoutSchemaValues>();
-const { cart, isUpdatingCart } = useCart();
+const { cart } = useCart();
 const { region } = useRegions();
 
 const currencyCode = computed(() => region.value?.currency_code);
 const cartItemsCount = computed(() => cart.value?.cart.items.length || 0);
-const cartPrice = computed(() => cart.value?.cart.total || 0);
 const shippingMethodPrice = computed(() => checkoutFormValues.value.shippingMethod?.price || 0);
+const cartPrice = computed(() => {
+  if (!cart.value?.cart) return 0;
+
+  const cartTotal = cart.value.cart.total || 0;
+  const shippingTotal = cart.value.cart.shipping_total || 0;
+  const shippingTax = cart.value.cart.shipping_tax_total || 0;
+
+  return cartTotal - shippingTotal - shippingTax;
+});
 
 const totalPrice = computed(() => {
   return cartPrice.value + shippingMethodPrice.value;
-});
-const isSubmitButtonDisabled = computed(() => {
-  return !props.isValid || isUpdatingCart.value;
-});
-const isLoading = computed(() => {
-  return isUpdatingCart.value;
 });
 </script>

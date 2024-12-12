@@ -25,6 +25,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const { snackbar } = useSnackbar();
   const { region } = useRegions();
   const { cart, isFetchingCart, isLoadingCart, isCartEmpty } = useGetCart(skipFetchingCart);
+  const { customer } = useCustomer();
 
   const { mutateAsync: updateCartHandler, isPending: isUpdatingCart } = useMutation({
     mutationFn: ({ cart_id, ...rest }: UpdateCartParams) => client.carts.update(cart_id, rest),
@@ -32,9 +33,12 @@ export const useCart = (skipFetchingCart?: boolean) => {
       console.error(error);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
+
+      if (customer.value) {
+        queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      }
     },
   });
 
@@ -46,8 +50,11 @@ export const useCart = (skipFetchingCart?: boolean) => {
     onSuccess: async (data) => {
       localStorageCartValue.value = data.cart.id;
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
-      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
+
+      if (customer.value) {
+        queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      }
     },
   });
 
@@ -105,7 +112,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
         const isStripeAvailable = data.cart.payment_sessions?.some(
           (session) => session.provider_id === "stripe",
         );
-        console.log("isStripeAvailable", isStripeAvailable, data);
+
         if (!isStripeAvailable) {
           return;
         }
@@ -122,7 +129,11 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
   });
 
-  const { data: shippingMethodsResponse, isLoading: isLoadingShippingMethods } = useQuery({
+  const {
+    data: shippingMethodsResponse,
+    isLoading: isLoadingShippingMethods,
+    isPending: isPendingShippingMethods,
+  } = useQuery({
     queryKey: [API_QUERY_KEY.SHIPPING_METHODS],
     queryFn: () => {
       if (cart.value?.cart.id) {
@@ -193,6 +204,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     isCreatingPaymentSession,
     isCompletingCart,
     isLoadingShippingMethods,
+    isPendingShippingMethods,
     isCartEmpty,
     addItemToCart,
     updateItemInCart,

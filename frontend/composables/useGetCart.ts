@@ -8,8 +8,8 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
 
   const {
     data: cart,
-    isLoading: isFetchingCart,
-    isFetching: isLoadingCart,
+    isLoading: isLoadingCart,
+    isFetching: isFetchingCart,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CART],
     queryFn: skipFetchingCart

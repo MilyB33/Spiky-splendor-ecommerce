@@ -23,25 +23,24 @@
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
 
 const config = useRuntimeConfig();
-const { completeCart } = useCart();
+const { cart, isFetchingCart, completeCart, isCompletingCart } = useCart(true);
 const { isFetchingLastOrder, setOrderId } = useOrders();
 
 const stripePk = config.public.PUBLIC_STRIPE_KEY;
-let stripe: Stripe | null = null;
+const stripe = ref<Stripe | null>(null);
 const params = useUrlSearchParams("history");
 const clientSecret = params["payment_intent_client_secret"] as string;
 const isFail = ref(false);
 const isMounting = ref(true);
-const isLoading = computed(() => isMounting.value || isFetchingLastOrder.value);
 
 onMounted(async () => {
   isMounting.value = true;
 
   if (!stripePk || !clientSecret) return;
 
-  stripe = await loadStripe(stripePk);
+  stripe.value = await loadStripe(stripePk);
 
-  const paymentIntent = await stripe?.retrievePaymentIntent(clientSecret);
+  const paymentIntent = await stripe.value?.retrievePaymentIntent(clientSecret);
 
   if (
     paymentIntent?.paymentIntent?.status !== "succeeded" &&
@@ -51,7 +50,7 @@ onMounted(async () => {
     isFail.value = true;
   }
 
-  if (!isFail.value) {
+  if (!isFail.value && !cart.value?.cart.completed_at) {
     const cart = await completeCart();
 
     if (cart?.type === "order") {
@@ -61,4 +60,9 @@ onMounted(async () => {
 
   isMounting.value = false;
 });
+
+const isLoading = computed(
+  () =>
+    isMounting.value || isCompletingCart.value || isFetchingLastOrder.value || isFetchingCart.value,
+);
 </script>

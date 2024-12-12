@@ -16,7 +16,6 @@ export const generateInvoiceTable = (
   order: Order,
   items: LineItem[]
 ) => {
-  console.log(items);
   const data = formatDataForTable(order, items);
   const shippingAmount = amountToDisplay(
     order.shipping_total + order.shipping_total * 0.23,

@@ -20,7 +20,7 @@ export const WaterDemand = ({
   const onChange = (value: string) => {
     onChangeValues({ plant_water_demand_id: value });
   };
-  console.log(value);
+
   return (
     <Select value={value} onValueChange={onChange}>
       <Select.Trigger>

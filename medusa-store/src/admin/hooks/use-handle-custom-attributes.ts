@@ -111,8 +111,6 @@ export const useHandleCustomAttributes = ({
       },
     });
 
-  console.log(error);
-
   return {
     removePlantForm,
     removePlantPlacement,

@@ -69,7 +69,7 @@ export const useAddresses = () => {
   const shippingAddresses: ComputedRef<Address[]> = computed(() => {
     return customer.value?.customer.shipping_addresses || [];
   });
-  console.log(customer.value?.customer.shipping_addresses);
+
   return {
     billingAddress,
     shippingAddresses,

@@ -1,6 +1,5 @@
 <template>
   <v-card class="checkout-section">
-    <!-- TODO: use v-img here -->
     <v-img
       :width="160"
       :height="160"

@@ -1,6 +1,6 @@
-import type { Address, AddressCreatePayload, AddressPayload } from "@medusajs/medusa";
+import type { Address, AddressCreatePayload, AddressPayload, Country } from "@medusajs/medusa";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
-import { API_QUERY_KEY } from "~/constant";
+import { API_QUERY_KEY, COUNTRIES } from "~/constant";
 
 type UpdateAddressPayload = {
   addressId: string;
@@ -12,6 +12,7 @@ export const useAddresses = () => {
   const client = useMedusaClient();
   const { snackbar } = useSnackbar();
   const { customer } = useCustomer();
+  const { region } = useRegions();
 
   const { mutateAsync: saveBillingAddress, isPending: isSavingBillingAddress } = useMutation({
     mutationFn: (data: AddressPayload) =>
@@ -70,7 +71,26 @@ export const useAddresses = () => {
     return customer.value?.customer.shipping_addresses || [];
   });
 
+  const availableCountries = computed(() => {
+    return COUNTRIES.filter((country) => {
+      const selectedRegionCountries = region.value?.countries.map(
+        (selectedRegionCountry: Country) => {
+          return selectedRegionCountry.iso_2;
+        },
+      );
+
+      // @ts-ignore
+      return selectedRegionCountries.includes(country.code.toLocaleLowerCase());
+    }).map((filtererCountry) => {
+      return {
+        ...filtererCountry,
+        code: filtererCountry.code.toLocaleLowerCase(),
+      };
+    });
+  });
+
   return {
+    availableCountries,
     billingAddress,
     shippingAddresses,
     isSavingBillingAddress,

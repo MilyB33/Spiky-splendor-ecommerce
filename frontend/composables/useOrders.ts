@@ -24,6 +24,9 @@ export const useOrders = () => {
 
   const queryKey = computed(() => [API_QUERY_KEY.ORDERS, params.value.limit, params.value.page]);
 
+  const isListOrdersEnabled = computed(() => () => !!customer.value?.customer.id);
+  const isLastOrderEnabled = computed(() => !!localStorageLastOrderId.value);
+
   const {
     data: orders,
     isLoading: isLoadingOrders,
@@ -36,13 +39,13 @@ export const useOrders = () => {
         offset: (params.value.page - 1) * params.value.limit,
         expand: "returns,invoice",
       }),
-    enabled: computed(() => !!customer.value?.customer.id).value,
+    enabled: isListOrdersEnabled,
   });
 
   const { data: lastOrder, isLoading: isFetchingLastOrder } = useQuery({
     queryKey: [API_QUERY_KEY.ORDERS, localStorageLastOrderId.value],
     queryFn: () => client.orders.retrieve(localStorageLastOrderId.value),
-    enabled: computed(() => !!localStorageLastOrderId.value).value,
+    enabled: isLastOrderEnabled,
   });
 
   const { mutateAsync: cancelOrder, isPending: isCancellingOrder } = useMutation({

@@ -15,20 +15,11 @@
 </template>
 
 <script lang="ts" setup>
+import { getInitialValues } from "~/utils/addresses";
 import { addressTypedSchema } from "~/utils/validation/address-schema";
 const { billingAddress, isSavingBillingAddress, saveBillingAddress } = useAddresses();
 
-const initialValues = computed(() => ({
-  name: billingAddress?.value?.first_name || "",
-  surname: billingAddress?.value?.last_name || "",
-  company: billingAddress.value?.company || "",
-  address1: billingAddress.value?.address_1 || "",
-  address2: billingAddress.value?.address_2 || "",
-  country: billingAddress.value?.country?.name || "Poland",
-  zipCode: billingAddress.value?.postal_code || "",
-  city: billingAddress.value?.city || "",
-  phoneNumber: billingAddress.value?.phone || "",
-}));
+const initialValues = computed(() => getInitialValues(billingAddress.value));
 
 const form = useForm({
   validationSchema: addressTypedSchema,

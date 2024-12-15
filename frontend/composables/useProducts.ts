@@ -44,7 +44,8 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     });
   };
 
-  // UseQuery hook with a dynamic query key
+  const isProductsEnabled = computed(() => !!region.value?.id);
+
   const {
     data: products,
     isPending,
@@ -52,7 +53,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
   } = useQuery({
     queryKey,
     queryFn: fetchProducts,
-    enabled: computed(() => !!region.value?.id),
+    enabled: isProductsEnabled,
   });
 
   const onChangeOrder = (order_: OrderValues) => {

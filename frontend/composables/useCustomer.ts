@@ -1,16 +1,16 @@
-import { useQuery } from "@tanstack/vue-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
 import { useStorage } from "@vueuse/core";
 
 export const useCustomer = () => {
   const client = useMedusaClient();
+
   const storageWishlist = useStorage<string | null>(
     LOCAL_STORAGE_KEY.WISHLIST_ID,
     "",
     sessionStorage,
   );
 
-  // TODO: it is refetching when failed on browser focus
   const {
     data: customer,
     isLoading: isLoadingCustomer,

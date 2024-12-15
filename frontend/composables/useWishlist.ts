@@ -37,6 +37,8 @@ export const useWishlist = () => {
     queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.WISHLIST] });
   };
 
+  const isWishlistEnabled = computed(() => !!wishlistId.value);
+
   const { data: wishlistData, isLoading } = useQuery({
     queryKey: [API_QUERY_KEY.WISHLIST],
     queryFn: (): Promise<Wishlist> =>
@@ -44,7 +46,7 @@ export const useWishlist = () => {
         "GET",
         `/store/wishlist/${wishlistId.value}?region_id=${region.value?.id}&currency_code=${region.value?.currency_code}`,
       ),
-    enabled: computed(() => !!wishlistId.value),
+    enabled: isWishlistEnabled,
   });
 
   const { mutateAsync: createWishlistHandler, isPending: isCreatingWishlist } = useMutation({

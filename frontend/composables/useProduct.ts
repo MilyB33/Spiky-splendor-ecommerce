@@ -16,10 +16,12 @@ export const useProduct = (productHandle: string) => {
     });
   };
 
+  const isProductEnabled = computed(() => !!region.value?.id);
+
   const { data: products, isLoading } = useQuery({
     queryKey: queryKey,
     queryFn: fetchProduct,
-    enabled: computed(() => !!region.value?.id),
+    enabled: isProductEnabled,
   });
 
   const product = computed(() => products.value?.products[0]);

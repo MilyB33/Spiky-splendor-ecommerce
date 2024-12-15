@@ -1,7 +1,7 @@
 <template>
   <v-menu
     :open-on-hover="!isAuthenticated"
-    :open-on-click="isOpenMenuOnClick"
+    open-on-click
     :close-on-content-click="!isAuthenticated"
     location="bottom"
     offset="8"

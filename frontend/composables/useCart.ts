@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useQueryClient, skipToken } from "@tanstack/vue-query";
-import { useStorage } from "@vueuse/core";
 import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 
@@ -17,20 +16,19 @@ type AddItemToCartParams = {
   quantity: number;
 };
 
-// TODO: add snackbars (they can't be used when we use it within use initialize)
 export const useCart = (skipFetchingCart?: boolean) => {
   const queryClient = useQueryClient();
   const client = useMedusaClient();
-  const localStorageCartValue = useStorage(LOCAL_STORAGE_KEY.CART_ID, "");
   const { snackbar } = useSnackbar();
   const { region } = useRegions();
-  const { cart, isFetchingCart, isLoadingCart, isCartEmpty } = useGetCart(skipFetchingCart);
+  const { cart, isFetchingCart, isLoadingCart, isCartEmpty, localStorageCartValue } =
+    useGetCart(skipFetchingCart);
   const { customer } = useCustomer();
 
   const { mutateAsync: updateCartHandler, isPending: isUpdatingCart } = useMutation({
     mutationFn: ({ cart_id, ...rest }: UpdateCartParams) => client.carts.update(cart_id, rest),
-    onError: (error) => {
-      console.error(error);
+    onError: () => {
+      snackbar.error("Something went wrong!");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
@@ -44,8 +42,8 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const { mutateAsync: createCartHandler, isPending: isCreatingCart } = useMutation({
     mutationFn: () => client.carts.create({ region_id: region.value?.id }),
-    onError: (error) => {
-      console.error(error);
+    onError: () => {
+      snackbar.error("Something went wrong!");
     },
     onSuccess: async (data) => {
       localStorageCartValue.value = data.cart.id;
@@ -64,22 +62,33 @@ export const useCart = (skipFetchingCart?: boolean) => {
         variant_id: variantId,
         quantity: quantity ?? 1,
       }),
-    onSuccess: async (data) => {
+    onError: () => {
+      snackbar.error("Something went wrong!");
+    },
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+      snackbar.success("Item added to cart");
     },
   });
 
   const { mutateAsync: deleteLineItemHandler, isPending: isDeletingLineItem } = useMutation({
     mutationFn: (lineItemId: string) =>
       client.carts.lineItems.delete(localStorageCartValue.value, lineItemId),
+    onError: () => {
+      snackbar.error("Something went wrong!");
+    },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+      snackbar.success("Item removed from cart");
     },
   });
 
   const { mutateAsync: updateLineItemHandler, isPending: isUpdatingLineItem } = useMutation({
     mutationFn: ({ line_item_id, ...data }: UpdateLineItemParams) =>
       client.carts.lineItems.update(localStorageCartValue.value, line_item_id, data),
+    onError: () => {
+      snackbar.error("Something went wrong!");
+    },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
     },
@@ -88,6 +97,9 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const { mutateAsync: addShippingMethodHandler, isPending: isAddingShippingMethod } = useMutation({
     mutationFn: (shippingOptionId: string) =>
       client.carts.addShippingMethod(localStorageCartValue.value, { option_id: shippingOptionId }),
+    onError: () => {
+      snackbar.error("Something went wrong!");
+    },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
     },
@@ -99,6 +111,9 @@ export const useCart = (skipFetchingCart?: boolean) => {
         client.carts.setPaymentSession(localStorageCartValue.value, {
           provider_id: paymentProviderId,
         }),
+      onError: () => {
+        snackbar.error("Something went wrong!");
+      },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
       },
@@ -107,8 +122,10 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const { mutateAsync: createPaymentSessionHandler, isPending: isCreatingPaymentSession } =
     useMutation({
       mutationFn: () => client.carts.createPaymentSessions(cart.value?.cart.id || ""),
+      onError: () => {
+        snackbar.error("Something went wrong!");
+      },
       onSuccess: (data) => {
-        // check if stripe is selected
         const isStripeAvailable = data.cart.payment_sessions?.some(
           (session) => session.provider_id === "stripe",
         );
@@ -116,18 +133,23 @@ export const useCart = (skipFetchingCart?: boolean) => {
         if (!isStripeAvailable) {
           return;
         }
-        // select payment session
+
         selectPaymentSessionHandler("stripe");
       },
     });
 
   const { mutateAsync: completeCartHandler, isPending: isCompletingCart } = useMutation({
     mutationFn: () => client.carts.complete(localStorageCartValue.value),
+    onError: () => {
+      snackbar.error("Something went wrong!");
+    },
     onSuccess: () => {
       localStorageCartValue.value = "";
       queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
     },
   });
+
+  const shippingMethodsEnabled = computed(() => !!cart.value?.cart.id);
 
   const {
     data: shippingMethodsResponse,
@@ -140,7 +162,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
         return client.shippingOptions.listCartOptions(cart.value?.cart.id);
       }
     },
-    enabled: computed(() => !!cart.value?.cart.id).value,
+    enabled: shippingMethodsEnabled,
   });
 
   const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {

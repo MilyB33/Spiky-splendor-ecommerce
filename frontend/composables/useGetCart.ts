@@ -6,6 +6,8 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
   const client = useMedusaClient();
   const localStorageCartValue = useStorage(LOCAL_STORAGE_KEY.CART_ID, "");
 
+  const isEnabled = computed(() => !!localStorageCartValue.value);
+
   const {
     data: cart,
     isLoading: isLoadingCart,
@@ -15,12 +17,13 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
     queryFn: skipFetchingCart
       ? skipToken
       : () => client.carts.retrieve(localStorageCartValue.value),
-    enabled: computed(() => !!localStorageCartValue.value).value,
+    enabled: isEnabled,
   });
 
   const isCartEmpty = computed(() => !!cart.value && !cart.value.cart.items.length);
 
   return {
+    localStorageCartValue,
     cart,
     isFetchingCart,
     isLoadingCart,

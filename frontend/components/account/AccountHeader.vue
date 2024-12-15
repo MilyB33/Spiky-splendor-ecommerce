@@ -1,12 +1,18 @@
 <template>
   <div class="d-flex ga-8 align-center justify-space-between">
     <h1>{{ label }}</h1>
-    <v-btn>Wyloguj się</v-btn>
+    <v-btn
+      @click="logCustomerOut"
+      :disabled="isLoggingCustomerOut"
+      >Wyloguj się</v-btn
+    >
   </div>
 </template>
 
 <script lang="ts" setup>
 const route = useRoute();
+
+const { isLoggingCustomerOut, logCustomerOut } = useAuth();
 
 const label = computed(() => {
   switch (route.path) {

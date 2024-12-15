@@ -79,8 +79,6 @@ const finishPayment = async () => {
       await stripe.value.confirmPayment({
         clientSecret,
         elements: elements.value,
-        // TODO: Maybe this can be applied for cards (needs to be implemented separately)
-        // redirect: "if_required",
         confirmParams: {
           return_url: config.public.PAYMENT_RETURN_URL,
           payment_method_data: {

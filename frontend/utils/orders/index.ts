@@ -2,7 +2,6 @@ import { formatCurrency } from "../product";
 import { ORDER_STATUS_LABELS } from "~/constant";
 import { type Order } from "~/types";
 
-// TODO: ^ this can cause crash
 export const prepareOrdersTableColumns = (orders: Order[], currencyCode?: string) => {
   return orders.map((order) => ({
     id: order.id,

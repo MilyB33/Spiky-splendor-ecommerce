@@ -1,6 +1,8 @@
 <template>
   <v-expansion-panel :value="address?.id || 'new'">
-    <v-expansion-panel-title> {{ address?.id || "Nowy adres" }} </v-expansion-panel-title>
+    <v-expansion-panel-title>
+      {{ address?.metadata.name || "Nowy adres" }}
+    </v-expansion-panel-title>
     <v-expansion-panel-text>
       <form
         @submit="onSubmit"
@@ -10,6 +12,8 @@
           placeholder="Nazwa"
           variant="outlined"
           density="compact"
+          v-model="addressName"
+          :error-messages="addressNameError"
         />
         <AddressFields />
 
@@ -35,8 +39,12 @@
 </template>
 
 <script lang="ts" setup>
-import { addressTypedSchema } from "~/utils/validation/address-schema";
+import {
+  extendedShippingAddressTypedSchema,
+  type ExtendedShippingAddressSchemaValues,
+} from "~/utils/validation/address-schema";
 import type { Address } from "@medusajs/medusa";
+import { getInitialValues } from "~/utils/addresses";
 
 type ShippingAddressPanelProps = {
   address?: Address;
@@ -68,45 +76,20 @@ const onDelete = () => {
 };
 
 const initialValues = computed(() => ({
-  name: props.address?.first_name || "",
-  surname: props.address?.last_name || "",
-  company: props.address?.company || "",
-  address1: props.address?.address_1 || "",
-  address2: props.address?.address_2 || "",
-  country: props.address?.country?.name || "Poland",
-  zipCode: props.address?.postal_code || "",
-  city: props.address?.city || "",
-  phoneNumber: props.address?.phone || "",
+  ...getInitialValues(props.address),
+  addressName: (props.address?.metadata.name as string) || "",
 }));
 
 const form = useForm({
-  validationSchema: addressTypedSchema,
+  validationSchema: extendedShippingAddressTypedSchema,
   initialValues: initialValues.value,
   keepValuesOnUnmount: true,
 });
 
-const onSubmit = form.handleSubmit(async (values) => {
-  if (props.address?.id) {
-    await updateShippingAddress({
-      addressId: props.address.id,
-      data: {
-        first_name: values.name,
-        last_name: values.surname,
-        company: values.company || "",
-        address_1: values.address1,
-        address_2: values.address2 || "",
-        country_code: values.country,
-        postal_code: values.zipCode,
-        city: values.city,
-        phone: values.phoneNumber,
-        metadata: {},
-      },
-    });
+const { value: addressName, errorMessage: addressNameError } = useField<string>("addressName");
 
-    return;
-  }
-
-  await createShippingAddress({
+const mapValues = (values: ExtendedShippingAddressSchemaValues) => {
+  return {
     first_name: values.name,
     last_name: values.surname,
     company: values.company || "",
@@ -116,10 +99,23 @@ const onSubmit = form.handleSubmit(async (values) => {
     postal_code: values.zipCode,
     city: values.city,
     phone: values.phoneNumber,
-    metadata: {},
-  });
-  form.handleReset();
+    metadata: { name: values.addressName },
+  };
+};
 
-  // TODO: handle to close panel when saving new
+const onSubmit = form.handleSubmit(async (values) => {
+  const mappedValues = mapValues(values);
+
+  if (props.address?.id) {
+    await updateShippingAddress({
+      addressId: props.address.id,
+      data: mappedValues,
+    });
+
+    return;
+  }
+
+  await createShippingAddress(mappedValues);
+  form.handleReset();
 });
 </script>

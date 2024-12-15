@@ -1,4 +1,3 @@
-<!-- TODO: Create base component along with product card -->
 <template>
   <v-sheet
     elevation="1"

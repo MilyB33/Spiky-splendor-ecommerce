@@ -80,15 +80,6 @@
 
     <v-text-field
       variant="outlined"
-      label="Województwo"
-      density="compact"
-      hide-details="auto"
-      v-model="state"
-      :error-messages="stateError"
-    ></v-text-field>
-
-    <v-text-field
-      variant="outlined"
       label="Numer telefonu"
       density="compact"
       hide-details="auto"
@@ -99,29 +90,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Country } from "@medusajs/medusa";
 import { useField } from "vee-validate";
-import { COUNTRIES } from "~/constant";
-
-const { region } = useRegions();
-
-const availableCountries = computed(() => {
-  return COUNTRIES.filter((country) => {
-    const selectedRegionCountries = region.value?.countries.map(
-      (selectedRegionCountry: Country) => {
-        return selectedRegionCountry.iso_2;
-      },
-    );
-
-    // @ts-ignore
-    return selectedRegionCountries.includes(country.code.toLocaleLowerCase());
-  }).map((filtererCountry) => {
-    return {
-      ...filtererCountry,
-      code: filtererCountry.code.toLocaleLowerCase(),
-    };
-  });
-});
+const { availableCountries } = useAddresses();
 
 const { value: name, errorMessage: nameError } = useField<string>("name");
 const { value: surname, errorMessage: surnameError } = useField<string>("surname");
@@ -131,7 +101,6 @@ const { value: address2, errorMessage: address2Error } = useField<string>("addre
 const { value: country, errorMessage: countryError } = useField<string>("country");
 const { value: zipCode, errorMessage: zipCodeError } = useField<string>("zipCode");
 const { value: city, errorMessage: cityError } = useField<string>("city");
-const { value: state, errorMessage: stateError } = useField<string>("state");
 const { value: phoneNumber, errorMessage: phoneNumberError } = useField<string>("phoneNumber");
 </script>
 

@@ -1,12 +1,11 @@
 import { useQuery, skipToken } from "@tanstack/vue-query";
-import { useStorage } from "@vueuse/core";
-import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
+import { API_QUERY_KEY, COOKIES } from "~/constant";
 
 export const useGetCart = (skipFetchingCart?: boolean) => {
   const client = useMedusaClient();
-  const localStorageCartValue = useStorage(LOCAL_STORAGE_KEY.CART_ID, "");
+  const cookieCartId = useCookie(COOKIES.CART.KEY, { maxAge: COOKIES.CART.MAX_AGE });
 
-  const isEnabled = computed(() => !!localStorageCartValue.value);
+  const isEnabled = computed(() => !!cookieCartId.value);
 
   const {
     data: cart,
@@ -14,19 +13,24 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
     isFetching: isFetchingCart,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CART],
-    queryFn: skipFetchingCart
-      ? skipToken
-      : () => client.carts.retrieve(localStorageCartValue.value),
+    queryFn: skipFetchingCart ? skipToken : () => client.carts.retrieve(cookieCartId.value!),
     enabled: isEnabled,
   });
 
   const isCartEmpty = computed(() => !!cart.value && !cart.value.cart.items.length);
 
+  const cartId = computed(() => cart.value?.cart.id || cookieCartId.value || "");
+
+  const setCartId = (id: string | null) => {
+    cookieCartId.value = id;
+  };
+
   return {
-    localStorageCartValue,
+    cartId,
     cart,
     isFetchingCart,
     isLoadingCart,
     isCartEmpty,
+    setCartId,
   };
 };

@@ -8,6 +8,7 @@ import {
   type Customer as MedusaCustomer,
   type Product as MedusaProduct,
   type Order as MedusaOrder,
+  type LineItem as MedusaLineItem,
 } from "@medusajs/medusa";
 
 export type ProductCategory = MedusaProductCategory;
@@ -15,6 +16,7 @@ export type ProductsListResponse = MedusaProductsListResponse;
 export type RegionsListResponse = MedusaRegionsListResponse;
 export type CartsRes = MedusaCartsRes;
 export type Order = MedusaOrder;
+export type LineItem = MedusaLineItem;
 
 // Wishlist
 export type WishlistItem = {

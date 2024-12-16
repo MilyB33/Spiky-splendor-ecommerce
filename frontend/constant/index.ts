@@ -62,13 +62,21 @@ export const API_QUERY_KEY = {
 } as const;
 
 export const LOCAL_STORAGE_KEY = {
-  CART_ID: "CART_ID",
-  WISHLIST_ID: "WISHLIST_ID",
   LAST_ORDER_ID: "LAST_ORDER_ID",
   REGION_ID: "REGION_ID",
 } as const;
 
-// TODO: Maybe some lib
+export const COOKIES = {
+  CART: {
+    KEY: "CART_ID",
+    MAX_AGE: 7 * 24 * 60 * 60,
+  },
+  WISHLIST: {
+    KEY: "WISHLIST_ID",
+    MAX_AGE: 7 * 24 * 60 * 60,
+  },
+};
+
 export const COUNTRIES = [
   { name: "Afghanistan", code: "AF" },
   { name: "Åland Islands", code: "AX" },

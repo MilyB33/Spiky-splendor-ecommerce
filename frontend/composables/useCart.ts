@@ -21,7 +21,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const client = useMedusaClient();
   const { snackbar } = useSnackbar();
   const { region } = useRegions();
-  const { cart, isFetchingCart, isLoadingCart, isCartEmpty, localStorageCartValue } =
+  const { cartId, cart, isFetchingCart, isLoadingCart, isCartEmpty, setCartId } =
     useGetCart(skipFetchingCart);
   const { customer } = useCustomer();
 
@@ -46,7 +46,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
       snackbar.error("Something went wrong!");
     },
     onSuccess: async (data) => {
-      localStorageCartValue.value = data.cart.id;
+      setCartId(data.cart.id);
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
 
@@ -58,7 +58,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const { mutateAsync: createLineItemHandler, isPending: isCreatingLineItem } = useMutation({
     mutationFn: ({ variantId, quantity }: AddItemToCartParams) =>
-      client.carts.lineItems.create(localStorageCartValue.value, {
+      client.carts.lineItems.create(cartId.value, {
         variant_id: variantId,
         quantity: quantity ?? 1,
       }),
@@ -72,8 +72,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   });
 
   const { mutateAsync: deleteLineItemHandler, isPending: isDeletingLineItem } = useMutation({
-    mutationFn: (lineItemId: string) =>
-      client.carts.lineItems.delete(localStorageCartValue.value, lineItemId),
+    mutationFn: (lineItemId: string) => client.carts.lineItems.delete(cartId.value, lineItemId),
     onError: () => {
       snackbar.error("Something went wrong!");
     },
@@ -85,7 +84,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const { mutateAsync: updateLineItemHandler, isPending: isUpdatingLineItem } = useMutation({
     mutationFn: ({ line_item_id, ...data }: UpdateLineItemParams) =>
-      client.carts.lineItems.update(localStorageCartValue.value, line_item_id, data),
+      client.carts.lineItems.update(cartId.value, line_item_id, data),
     onError: () => {
       snackbar.error("Something went wrong!");
     },
@@ -96,7 +95,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
 
   const { mutateAsync: addShippingMethodHandler, isPending: isAddingShippingMethod } = useMutation({
     mutationFn: (shippingOptionId: string) =>
-      client.carts.addShippingMethod(localStorageCartValue.value, { option_id: shippingOptionId }),
+      client.carts.addShippingMethod(cartId.value, { option_id: shippingOptionId }),
     onError: () => {
       snackbar.error("Something went wrong!");
     },
@@ -108,7 +107,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const { mutateAsync: selectPaymentSessionHandler, isPending: isSelectingPaymentSession } =
     useMutation({
       mutationFn: (paymentProviderId: string) =>
-        client.carts.setPaymentSession(localStorageCartValue.value, {
+        client.carts.setPaymentSession(cartId.value, {
           provider_id: paymentProviderId,
         }),
       onError: () => {
@@ -139,13 +138,14 @@ export const useCart = (skipFetchingCart?: boolean) => {
     });
 
   const { mutateAsync: completeCartHandler, isPending: isCompletingCart } = useMutation({
-    mutationFn: () => client.carts.complete(localStorageCartValue.value),
+    mutationFn: () => client.carts.complete(cartId.value),
     onError: () => {
       snackbar.error("Something went wrong!");
     },
     onSuccess: () => {
-      localStorageCartValue.value = "";
+      setCartId(null);
       queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.ORDERS] });
     },
   });
 
@@ -166,7 +166,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   });
 
   const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {
-    if (!localStorageCartValue.value) {
+    if (!cartId.value) {
       await createCartHandler();
     }
 
@@ -204,7 +204,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   };
 
   const completeCart = async () => {
-    if (!cart.value?.cart.id && !localStorageCartValue.value) return;
+    if (!cart.value?.cart.id && !cartId.value) return;
 
     return completeCartHandler();
   };

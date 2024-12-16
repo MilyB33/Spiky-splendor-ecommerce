@@ -5,23 +5,15 @@
     persistent
   >
     <template v-slot:activator="{ props: activatorProps }">
-      <v-tooltip
-        :disabled="!isDisabled"
-        text="Zamówienie jest w trakcie lub zwrot juz istnieje."
-        location="bottom"
+      <v-btn
+        v-bind="{ ...activatorProps, ...props }"
+        variant="text"
+        block
+        :disabled="isDisabled"
+        style="pointer-events: auto"
       >
-        <template v-slot:activator="{ props }">
-          <v-btn
-            v-bind="{ ...activatorProps, ...props }"
-            variant="text"
-            block
-            :disabled="isDisabled"
-            style="pointer-events: auto"
-          >
-            Zwróć
-          </v-btn>
-        </template>
-      </v-tooltip>
+        Zwróć
+      </v-btn>
     </template>
 
     <template v-slot:default="{ isActive }">

@@ -1,15 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
-import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
-import { useStorage } from "@vueuse/core";
+import { useQuery } from "@tanstack/vue-query";
+import { API_QUERY_KEY, COOKIES } from "~/constant";
 
 export const useCustomer = () => {
   const client = useMedusaClient();
 
-  const storageWishlist = useStorage<string | null>(
-    LOCAL_STORAGE_KEY.WISHLIST_ID,
-    "",
-    sessionStorage,
-  );
+  const cookieWishlistId = useCookie(COOKIES.WISHLIST.KEY, { maxAge: COOKIES.WISHLIST.MAX_AGE });
 
   const {
     data: customer,
@@ -30,8 +25,8 @@ export const useCustomer = () => {
   const isAuthenticated = computed(() => !!customer.value);
 
   watch(customer, () => {
-    if (customer.value?.customer.wishlist_id !== storageWishlist.value) {
-      storageWishlist.value = customer.value?.customer.wishlist_id;
+    if (customer.value?.customer.wishlist_id !== cookieWishlistId.value) {
+      cookieWishlistId.value = customer.value?.customer.wishlist_id;
     }
   });
 

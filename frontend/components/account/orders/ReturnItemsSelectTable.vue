@@ -27,8 +27,6 @@
 import type { Order } from "@medusajs/medusa";
 import type { ReturnSchemaValues } from "~/utils/validation/return-schema";
 
-const { region } = useRegions();
-
 type ReturnItemsSelectTableProps = {
   orderItems: Order["items"];
 };

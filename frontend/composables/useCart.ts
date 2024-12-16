@@ -154,6 +154,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const {
     data: shippingMethodsResponse,
     isLoading: isLoadingShippingMethods,
+    isFetching: isFetchingShippingMethods,
     isPending: isPendingShippingMethods,
   } = useQuery({
     queryKey: [API_QUERY_KEY.SHIPPING_METHODS],
@@ -227,6 +228,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     isCompletingCart,
     isLoadingShippingMethods,
     isPendingShippingMethods,
+    isFetchingShippingMethods,
     isCartEmpty,
     addItemToCart,
     updateItemInCart,

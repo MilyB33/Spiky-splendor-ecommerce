@@ -5,6 +5,7 @@
   ></v-img>
   <v-skeleton-loader
     v-if="!isLoaded"
+    :loading="isLoaded"
     type="image"
     class="skeleton"
   ></v-skeleton-loader>

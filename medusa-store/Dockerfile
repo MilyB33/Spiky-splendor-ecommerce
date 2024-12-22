@@ -5,7 +5,7 @@ WORKDIR /app/medusa
 COPY . .
 
 RUN yarn --network-timeout 1000000 && \ 
-    global add @medusajs/medusa-cli typescript && \
+    yarn global add @medusajs/medusa-cli typescript && \
     yarn build
 
 ENTRYPOINT "./reset.sh"

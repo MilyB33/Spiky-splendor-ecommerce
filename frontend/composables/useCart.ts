@@ -2,10 +2,6 @@ import { useQuery, useMutation, useQueryClient, skipToken } from "@tanstack/vue-
 import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 
-type UpdateCartParams = {
-  cart_id: string;
-} & CartUpdateProps;
-
 type UpdateLineItemParams = {
   line_item_id: string;
   quantity: number;
@@ -25,8 +21,8 @@ export const useCart = (skipFetchingCart?: boolean) => {
     useGetCart(skipFetchingCart);
   const { customer } = useCustomer();
 
-  const { mutateAsync: updateCartHandler, isPending: isUpdatingCart } = useMutation({
-    mutationFn: ({ cart_id, ...rest }: UpdateCartParams) => client.carts.update(cart_id, rest),
+  const { mutateAsync: updateCart, isPending: isUpdatingCart } = useMutation({
+    mutationFn: ({ ...rest }: CartUpdateProps) => client.carts.update(cartId.value, rest),
     onError: () => {
       snackbar.error("Something went wrong!");
     },
@@ -71,7 +67,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
   });
 
-  const { mutateAsync: deleteLineItemHandler, isPending: isDeletingLineItem } = useMutation({
+  const { mutateAsync: deleteItemFromCart, isPending: isDeletingLineItem } = useMutation({
     mutationFn: (lineItemId: string) => client.carts.lineItems.delete(cartId.value, lineItemId),
     onError: () => {
       snackbar.error("Something went wrong!");
@@ -82,7 +78,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
   });
 
-  const { mutateAsync: updateLineItemHandler, isPending: isUpdatingLineItem } = useMutation({
+  const { mutateAsync: updateItemInCart, isPending: isUpdatingLineItem } = useMutation({
     mutationFn: ({ line_item_id, ...data }: UpdateLineItemParams) =>
       client.carts.lineItems.update(cartId.value, line_item_id, data),
     onError: () => {
@@ -93,7 +89,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
   });
 
-  const { mutateAsync: addShippingMethodHandler, isPending: isAddingShippingMethod } = useMutation({
+  const { mutateAsync: addShippingMethod, isPending: isAddingShippingMethod } = useMutation({
     mutationFn: (shippingOptionId: string) =>
       client.carts.addShippingMethod(cartId.value, { option_id: shippingOptionId }),
     onError: () => {
@@ -118,26 +114,25 @@ export const useCart = (skipFetchingCart?: boolean) => {
       },
     });
 
-  const { mutateAsync: createPaymentSessionHandler, isPending: isCreatingPaymentSession } =
-    useMutation({
-      mutationFn: () => client.carts.createPaymentSessions(cart.value?.cart.id || ""),
-      onError: () => {
-        snackbar.error("Something went wrong!");
-      },
-      onSuccess: (data) => {
-        const isStripeAvailable = data.cart.payment_sessions?.some(
-          (session) => session.provider_id === "stripe",
-        );
+  const { mutateAsync: createPaymentSession, isPending: isCreatingPaymentSession } = useMutation({
+    mutationFn: () => client.carts.createPaymentSessions(cart.value?.cart.id || ""),
+    onError: () => {
+      snackbar.error("Something went wrong!");
+    },
+    onSuccess: (data) => {
+      const isStripeAvailable = data.cart.payment_sessions?.some(
+        (session) => session.provider_id === "stripe",
+      );
 
-        if (!isStripeAvailable) {
-          return;
-        }
+      if (!isStripeAvailable) {
+        return;
+      }
 
-        selectPaymentSessionHandler("stripe");
-      },
-    });
+      selectPaymentSessionHandler("stripe");
+    },
+  });
 
-  const { mutateAsync: completeCartHandler, isPending: isCompletingCart } = useMutation({
+  const { mutateAsync: completeCart, isPending: isCompletingCart } = useMutation({
     mutationFn: () => client.carts.complete(cartId.value),
     onError: () => {
       snackbar.error("Something went wrong!");
@@ -172,42 +167,6 @@ export const useCart = (skipFetchingCart?: boolean) => {
     }
 
     return createLineItemHandler({ variantId, quantity });
-  };
-
-  const updateItemInCart = async (data: UpdateLineItemParams) => {
-    if (!cart.value?.cart.id) return;
-
-    return updateLineItemHandler(data);
-  };
-
-  const updateCart = async (data: Omit<UpdateCartParams, "cart_id">) => {
-    if (!cart.value?.cart.id) return;
-
-    return updateCartHandler({ cart_id: cart.value.cart.id, ...data });
-  };
-
-  const deleteItemFromCart = async (lineItemId: string) => {
-    if (!cart.value?.cart.id) return;
-
-    return deleteLineItemHandler(lineItemId);
-  };
-
-  const addShippingMethod = async (shippingMethodId: string) => {
-    if (!cart.value?.cart.id) return;
-
-    return addShippingMethodHandler(shippingMethodId);
-  };
-
-  const createPaymentSession = async () => {
-    if (!cart.value?.cart.id) return;
-
-    return createPaymentSessionHandler();
-  };
-
-  const completeCart = async () => {
-    if (!cart.value?.cart.id && !cartId.value) return;
-
-    return completeCartHandler();
   };
 
   const shippingMethods = computed(() => shippingMethodsResponse.value?.shipping_options || []);

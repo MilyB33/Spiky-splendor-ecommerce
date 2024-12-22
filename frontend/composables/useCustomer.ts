@@ -1,39 +1,34 @@
-import { useQuery } from "@tanstack/vue-query";
-import { API_QUERY_KEY, COOKIES } from "~/constant";
+import type { Customer } from "@medusajs/medusa";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
+import { API_QUERY_KEY } from "~/constant";
+
+type CustomerUpdatePayload = Partial<
+  Pick<Customer, "first_name" | "last_name" | "phone" | "email">
+>;
 
 export const useCustomer = () => {
   const client = useMedusaClient();
+  const queryClient = useQueryClient();
+  const { snackbar } = useSnackbar();
+  const { customer, isAuthenticated, isLoadingCustomer, isPendingCustomer } = useGetCustomer();
 
-  const cookieWishlistId = useCookie(COOKIES.WISHLIST.KEY, { maxAge: COOKIES.WISHLIST.MAX_AGE });
-
-  const {
-    data: customer,
-    isLoading: isLoadingCustomer,
-    isPending: isPendingCustomer,
-  } = useQuery({
-    queryKey: [API_QUERY_KEY.CUSTOMER],
-    queryFn: () =>
-      client.customers.retrieve({
-        expand: "billing_address,shipping_addresses",
-      }),
-    retry: false,
-    retryOnMount: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-
-  const isAuthenticated = computed(() => !!customer.value);
-
-  watch(customer, () => {
-    if (customer.value?.customer.wishlist_id !== cookieWishlistId.value) {
-      cookieWishlistId.value = customer.value?.customer.wishlist_id;
-    }
+  const { mutateAsync: updateCustomer, isPending: isUpdatingCustomer } = useMutation({
+    mutationFn: (data: CustomerUpdatePayload) => client.customers.update(data),
+    onSuccess: () => {
+      snackbar.success("Zaktualizowano");
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+    },
+    onError: () => {
+      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz");
+    },
   });
 
   return {
+    customer,
     isAuthenticated,
-    isLoading: isLoadingCustomer,
+    isLoadingCustomer,
     isPendingCustomer,
-    customer: customer,
+    isUpdatingCustomer,
+    updateCustomer,
   };
 };

@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { isAuthenticated } = useCustomer();
+  const { isAuthenticated } = useGetCustomer();
 
   watch(isAuthenticated, (newValue) => {
     if (newValue && to.path !== "/") {

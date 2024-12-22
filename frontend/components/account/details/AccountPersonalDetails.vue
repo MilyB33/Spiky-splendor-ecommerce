@@ -69,7 +69,7 @@
 import { personalDetailsTypedSchema } from "~/utils/validation/personal-details";
 
 const { customer } = useCustomer();
-const { updateCustomer, isUpdatingCustomer } = useCustomerPersonalDetails();
+const { updateCustomer, isUpdatingCustomer } = useCustomer();
 
 const initialValues = computed(() => ({
   firstName: customer.value?.customer.first_name,

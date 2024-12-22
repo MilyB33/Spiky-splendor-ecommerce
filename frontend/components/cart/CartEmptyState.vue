@@ -35,7 +35,6 @@
 </template>
 
 <style lang="scss" scoped>
-// TODO: use theme variable and add proper link above ^
 .report-error-link {
   color: crimson;
 }

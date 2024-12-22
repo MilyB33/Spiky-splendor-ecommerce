@@ -17,8 +17,6 @@ export const useReturns = () => {
     Math.ceil((returnsResponse.value?.count || 0) / SETTINGS.ORDERS_PAGE_LIMIT),
   );
 
-  const { customer } = useCustomer();
-
   const client = useMedusaClient();
 
   const queryKey = computed(() => [API_QUERY_KEY.RETURNS, params.value.limit, params.value.page]);

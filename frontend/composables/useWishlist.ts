@@ -1,7 +1,7 @@
+import type { Customer } from "@medusajs/medusa";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
-import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
-import type { Wishlist, WishlistItem } from "~/types";
-import { useStorage } from "@vueuse/core";
+import { API_QUERY_KEY, COOKIES } from "~/constant";
+import type { Wishlist } from "~/types";
 
 type AddToWishlistParams = {
   wishlistID: string;
@@ -19,14 +19,10 @@ export const useWishlist = () => {
   const { snackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { region } = useRegions();
-  const storageWishlist = useStorage<string | null>(
-    LOCAL_STORAGE_KEY.WISHLIST_ID,
-    null,
-    sessionStorage,
-  );
+  const cookieWishlistId = useCookie(COOKIES.WISHLIST.KEY, { maxAge: COOKIES.WISHLIST.MAX_AGE });
 
   const wishlistId = computed(() => {
-    return customer.value?.customer.wishlist_id || storageWishlist.value;
+    return customer.value?.customer.wishlist_id || cookieWishlistId.value;
   });
 
   const invalidateQueries = () => {
@@ -122,7 +118,7 @@ export const useWishlist = () => {
   const addToWishlist = async (data: Omit<AddToWishlistParams, "wishlistID">) => {
     if (!wishlistId.value) {
       const _wishlist = await createWishlistHandler();
-      storageWishlist.value = _wishlist.id;
+      cookieWishlistId.value = _wishlist.id;
       addToWishlistHandler({ productID: data.productID, wishlistID: _wishlist.id });
       return;
     }
@@ -138,12 +134,20 @@ export const useWishlist = () => {
     removeFromWishlistHandler({ wishlistID: wishlistId.value, wishItemIDS: data.wishItemIDS });
   };
 
-  const addCustomerToExistingWishlist = async () => {
-    // TODO: This should also check this  !customer.value?.customer || customer.value?.customer.wishlist_id
-    if (!wishlistId.value) return;
+  const addCustomerToExistingWishlist = async (customer: Omit<Customer, "password_hash">) => {
+    if (!wishlistId.value || customer.wishlist_id) return;
 
     return addCustomerToExistingWishlistHandler(wishlistId.value);
   };
+
+  watch(
+    () => customer.value?.customer.wishlist_id,
+    (newWishlistId) => {
+      if (newWishlistId !== cookieWishlistId.value) {
+        cookieWishlistId.value = customer.value?.customer.wishlist_id;
+      }
+    },
+  );
 
   const wishlistItems = computed(() => wishlistData.value?.items || []);
 

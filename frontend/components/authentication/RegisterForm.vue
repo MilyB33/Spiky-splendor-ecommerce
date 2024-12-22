@@ -42,46 +42,21 @@
 </template>
 
 <script setup lang="ts">
-import type { StorePostCustomersReq } from "@medusajs/medusa";
-import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useField, useForm } from "vee-validate";
-import { API_QUERY_KEY } from "~/constant";
 import { signUpTypedSchema } from "~/utils/validation/sign-up-schema";
 
-const client = useMedusaClient();
+const { registerCustomer, isRegisteringCustomer } = useAuth();
 const form = useForm({ validationSchema: signUpTypedSchema });
-const { addCustomerToExistingWishlist } = useWishlist();
-const { snackbar } = useSnackbar();
-const queryClient = useQueryClient();
-const { mutate, isPending } = useMutation({
-  mutationFn: (params: StorePostCustomersReq) => client.customers.create(params),
-  onError: (error) => {
-    console.error(error);
-    snackbar.error("Something went wrong.");
-  },
-  onSuccess: (data) => {
-    form.handleReset();
-    navigateTo("/");
-    snackbar.success("Account created.");
-    // TODO: This should be somewhere on top of app and watching customer
-    if (data.customer.wishlist_id) {
-      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
-    } else {
-      addCustomerToExistingWishlist().then(() => {
-        queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
-      });
-    }
-  },
-});
 
 const { value: first_name, errorMessage: firstNameError } = useField<string>("first_name");
 const { value: last_name, errorMessage: lastNameError } = useField<string>("last_name");
 const { value: email, errorMessage: emailError } = useField<string>("email");
 const { value: password, errorMessage: passwordError } = useField<string>("password");
-const isSubmitting = computed(() => form.isSubmitting.value || isPending.value);
+const isSubmitting = computed(() => form.isSubmitting.value || isRegisteringCustomer.value);
 
-const onSubmit = form.handleSubmit((values) => {
-  mutate(values);
+const onSubmit = form.handleSubmit(async (values) => {
+  await registerCustomer(values);
+  form.handleReset();
 });
 </script>
 

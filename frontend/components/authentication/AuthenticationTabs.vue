@@ -6,8 +6,16 @@
       color="green"
       grow
     >
-      <v-tab value="signIn">Log in</v-tab>
-      <v-tab value="signUp">Create an account</v-tab>
+      <v-tab
+        value="signIn"
+        key="signIn"
+        >Log in</v-tab
+      >
+      <v-tab
+        value="signUp"
+        key="signUp"
+        >Create an account</v-tab
+      >
     </v-tabs>
 
     <v-window

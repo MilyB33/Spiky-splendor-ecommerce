@@ -64,6 +64,7 @@ export const API_QUERY_KEY = {
 export const LOCAL_STORAGE_KEY = {
   LAST_ORDER_ID: "LAST_ORDER_ID",
   REGION_ID: "REGION_ID",
+  IS_AUTHENTICATED: "IS_AUTHENTICATED",
 } as const;
 
 export const COOKIES = {
@@ -73,6 +74,10 @@ export const COOKIES = {
   },
   WISHLIST: {
     KEY: "WISHLIST_ID",
+    MAX_AGE: 7 * 24 * 60 * 60,
+  },
+  AUTHENTICATED: {
+    KEY: "AUTHENTICATED",
     MAX_AGE: 7 * 24 * 60 * 60,
   },
 };

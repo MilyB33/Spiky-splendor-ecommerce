@@ -1,13 +1,9 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const { isAuthenticated } = useGetCustomer();
 
-  watch(isAuthenticated, (newValue) => {
-    if (newValue && to.path !== "/") {
-      return navigateTo("/");
-    }
+  const allowedRoutes = ["login"];
 
-    if (!newValue && to.path !== "/login") {
-      return navigateTo("/login#login");
-    }
-  });
+  if (!isAuthenticated.value && !allowedRoutes.some((route) => to.path.includes(route))) {
+    return abortNavigation("Insufficient permissions.");
+  }
 });

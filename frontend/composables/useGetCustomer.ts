@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/vue-query";
-import { API_QUERY_KEY } from "~/constant";
+import { API_QUERY_KEY, COOKIES } from "~/constant";
 
 export const useGetCustomer = () => {
   const client = useMedusaClient();
+  const authenticatedCookie = useCookie(COOKIES.AUTHENTICATED.KEY, {
+    maxAge: COOKIES.AUTHENTICATED.MAX_AGE,
+  });
 
   const {
     data: customer,
@@ -20,7 +23,21 @@ export const useGetCustomer = () => {
     refetchOnWindowFocus: false,
   });
 
-  const isAuthenticated = computed(() => !!customer.value);
+  const { data: session } = useQuery({
+    queryKey: [API_QUERY_KEY.SESSION],
+    queryFn: () => client.auth.getSession(),
+    enabled: !!customer.value?.customer,
+  });
+
+  watch(session, (newValue) => {
+    if (newValue) {
+      authenticatedCookie.value = "true";
+    } else {
+      authenticatedCookie.value = "false";
+    }
+  });
+
+  const isAuthenticated = computed(() => authenticatedCookie.value);
 
   return {
     customer,

@@ -10,7 +10,7 @@ export const useAuth = () => {
   const { addCustomerToExistingWishlist } = useWishlist();
   const { snackbar } = useSnackbar();
 
-  const { mutate: logCustomerOut, isPending: isLoggingCustomerOut } = useMutation({
+  const { mutateAsync: logCustomerOut, isPending: isLoggingCustomerOut } = useMutation({
     mutationFn: () => client.auth.deleteSession(),
     onError: () => {
       snackbar.error("Something went wrong.");
@@ -19,6 +19,7 @@ export const useAuth = () => {
       snackbar.success("Successfully logged out.");
       navigateTo("/");
       queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER], exact: true });
+      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.SESSION], exact: true });
     },
   });
 
@@ -37,6 +38,7 @@ export const useAuth = () => {
       }
 
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SESSION] });
     },
   });
 
@@ -55,6 +57,7 @@ export const useAuth = () => {
       }
 
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SESSION] });
     },
   });
 

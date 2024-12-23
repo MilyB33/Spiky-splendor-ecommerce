@@ -72,7 +72,7 @@
 
     <AccountDashboardCard
       v-if="!customer?.customer?.shipping_addresses?.length"
-      :title="`Adres wysyłkowy 1`"
+      :title="`Shipping address 1`"
       icon="mdi-map-marker"
       link="/account/addresses"
     >

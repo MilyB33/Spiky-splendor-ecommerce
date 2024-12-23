@@ -27,8 +27,8 @@ const convertToDecimal = (amount: number) => {
   return Math.floor(amount) / 100;
 };
 
-export const formatCurrency = (price: number | undefined, currencyCode: string = "usd") => {
-  return new Intl.NumberFormat("pl-PL", {
+export const formatCurrency = (price: number | undefined, currencyCode: string = "pln") => {
+  return new Intl.NumberFormat("en-EN", {
     style: "currency",
     currency: currencyCode,
   }).format(convertToDecimal(price || 0));

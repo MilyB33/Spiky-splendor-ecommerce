@@ -3,89 +3,79 @@ import * as z from "zod";
 
 export const shippingSchema = z.object({
   shippingCustomerType: z.union([z.literal("individual"), z.literal("company")], {
-    required_error: "Wymagane pole: wybierz rodzaj klienta (indywidualny lub firma).",
+    required_error: "Required field: select customer type (individual or company).",
   }),
   shippingName: z
     .string()
-    .min(5, "Imię musi mieć co najmniej 5 znaków.")
+    .min(5, "First name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
   shippingSurname: z
     .string()
-    .min(5, "Nazwisko musi mieć co najmniej 5 znaków.")
+    .min(5, "Last name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
   shippingCompany: z
     .string()
-    .min(5, "Nazwa firmy musi mieć co najmniej 5 znaków.")
+    .min(5, "Company name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  shippingEmail: z
-    .string()
-    .min(5, "Email musi mieć co najmniej 5 znaków.")
-    .email("Podaj poprawny adres email."),
-  shippingAddress1: z.string().min(5, "Adres musi mieć co najmniej 5 znaków."),
+  shippingEmail: z.string().min(5, "Email must be at least 5 characters long.").email(),
+  shippingAddress1: z.string().min(5, "Address must be at least 5 characters long."),
   shippingAddress2: z
     .string()
-    .min(5, "Adres dodatkowy musi mieć co najmniej 5 znaków.")
+    .min(5, "Address must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  shippingCountry: z.string().min(1, "Kraj jest wymagany."),
-  shippingZipCode: z.string().min(5, "Kod pocztowy musi mieć co najmniej 5 znaków."),
-  shippingCity: z.string().min(5, "Miasto musi mieć co najmniej 5 znaków."),
+  shippingCountry: z.string().min(1, "Country is required."),
+  shippingZipCode: z.string().min(5, "Zip code must be at least 5 characters long."),
+  shippingCity: z.string().min(5),
   shippingPhoneNumber: z
     .string()
-    .min(9, "Numer telefonu musi mieć co najmniej 9 cyfr.")
-    .regex(/^\d+$/, "Numer telefonu może zawierać tylko cyfry."),
+    .min(9, "Phone number must be at least 9 characters long.")
+    .regex(/^\d+$/, "Phone number can only contain numbers."),
 });
 
 const billingDetailsSchema = z.object({
-  sameBillingAddress: z.boolean().optional(), // Pole opcjonalne, brak walidacji tekstowej.
+  sameBillingAddress: z.boolean().optional(),
   billingCustomerType: z
     .union([z.literal("individual"), z.literal("company")])
     .optional()
     .or(z.literal("")),
   billingName: z
     .string()
-    .min(5, "Imię musi mieć co najmniej 5 znaków.")
+    .min(5, "First name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
   billingSurname: z
     .string()
-    .min(5, "Nazwisko musi mieć co najmniej 5 znaków.")
+    .min(5, "Last name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
   billingCompany: z
     .string()
-    .min(5, "Nazwa firmy musi mieć co najmniej 5 znaków.")
+    .min(5, "Company name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  billingEmail: z
-    .string()
-    .email("Podaj poprawny adres email.")
-    .min(4, "Email musi mieć co najmniej 4 znaki.")
-    .optional(),
-  billingAddress1: z.string().min(5, "Adres musi mieć co najmniej 5 znaków.").optional(),
+  billingEmail: z.string().email().min(4, "Email must be at least 5 characters long.").optional(),
+  billingAddress1: z.string().min(5, "Address must be at least 5 characters long.").optional(),
   billingAddress2: z
     .string()
-    .min(5, "Adres dodatkowy musi mieć co najmniej 5 znaków.")
+    .min(5, "Address must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  billingCountry: z.string().min(1, "Kraj jest wymagany.").optional(),
-  billingZipCode: z.string().min(5, "Kod pocztowy musi mieć co najmniej 5 znaków.").optional(),
-  billingCity: z.string().min(5, "Miasto musi mieć co najmniej 5 znaków.").optional(),
+  billingCountry: z.string().min(1, "Country is required.").optional(),
+  billingZipCode: z.string().min(5, "Zip code must be at least 5 characters long.").optional(),
+  billingCity: z.string().min(5, "City must be at least 5 characters long.").optional(),
   billingPhoneNumber: z
     .string()
-    .min(9, "Numer telefonu musi mieć co najmniej 9 cyfr.")
-    .regex(/^\d+$/, "Numer telefonu może zawierać tylko cyfry.")
+    .min(9, "Phone number must be at least 9 characters long.")
+    .regex(/^\d+$/, "Phone number can only contain numbers.")
     .optional(),
 });
 
 const shippingMethodsSchema = z.object({
-  shippingMethod: z.object(
-    { methodId: z.string(), price: z.number() },
-    { required_error: "Metoda wysyłki jest wymagana!" },
-  ),
+  shippingMethod: z.object({ methodId: z.string(), price: z.number() }),
 });
 
 export const checkoutSchema = shippingSchema
@@ -96,7 +86,7 @@ export const checkoutSchema = shippingSchema
       if (!data.shippingName) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Imię do wysyłki jest wymagane.",
+          message: "First name for shipping is required.",
           path: ["shippingName"],
         });
       }
@@ -104,7 +94,7 @@ export const checkoutSchema = shippingSchema
       if (!data.shippingSurname) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Nazwisko do wysyłki jest wymagane.",
+          message: "Last name for shipping is required.",
           path: ["shippingSurname"],
         });
       }
@@ -114,7 +104,7 @@ export const checkoutSchema = shippingSchema
       if (!data.shippingCompany) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Nazwa firmy do wysyłki jest wymagana.",
+          message: "Company name for shipping is required.",
           path: ["shippingCompany"],
         });
       }
@@ -124,70 +114,70 @@ export const checkoutSchema = shippingSchema
       if (!data.billingCustomerType) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Typ klienta dla faktury jest wymagany.",
+          message: "Customer type for billing is required.",
           path: ["billingCustomerType"],
         });
       }
       if (!data.billingName && data.billingCustomerType === "individual") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Imię na fakturze jest wymagane.",
+          message: "First name on the invoice is required.",
           path: ["billingName"],
         });
       }
       if (!data.billingSurname && data.billingCustomerType === "individual") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Nazwisko na fakturze jest wymagane dla osób indywidualnych.",
+          message: "Surname on the invoice is required for individuals.",
           path: ["billingSurname"],
         });
       }
       if (data.billingCustomerType === "company" && !data.billingCompany) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Nazwa firmy na fakturze jest wymagana dla firm.",
+          message: "Company name on the invoice is required for companies.",
           path: ["billingCompany"],
         });
       }
       if (!data.billingEmail) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Email do faktury jest wymagany.",
+          message: "Email for the invoice is required.",
           path: ["billingEmail"],
         });
       }
       if (!data.billingAddress1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Adres do faktury jest wymagany.",
+          message: "Address for the invoice is required.",
           path: ["billingAddress1"],
         });
       }
       if (!data.billingCountry) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Kraj na fakturze jest wymagany.",
+          message: "Country on the invoice is required.",
           path: ["billingCountry"],
         });
       }
       if (!data.billingZipCode) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Kod pocztowy na fakturze jest wymagany.",
+          message: "Zip code on the invoice is required.",
           path: ["billingZipCode"],
         });
       }
       if (!data.billingCity) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Miasto na fakturze jest wymagane.",
+          message: "City on the invoice is required.",
           path: ["billingCity"],
         });
       }
       if (!data.billingPhoneNumber) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Numer telefonu do faktury jest wymagany.",
+          message: "Phone number for the invoice is required.",
           path: ["billingPhoneNumber"],
         });
       }

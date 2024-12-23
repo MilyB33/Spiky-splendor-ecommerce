@@ -17,7 +17,7 @@ export const AddNewAttributeInput = ({
 
   const handleOnAdd = async () => {
     if (value.length === 0) {
-      setError("Pole nie moze być puste");
+      setError("Field cannot be empty");
       return;
     }
 
@@ -39,7 +39,7 @@ export const AddNewAttributeInput = ({
         />
 
         <Button onClick={handleOnAdd} disabled={isAdding}>
-          Dodaj
+          Add
         </Button>
       </div>
       <span className="text-red-500">{error}</span>

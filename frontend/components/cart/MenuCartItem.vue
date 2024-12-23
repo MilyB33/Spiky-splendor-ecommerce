@@ -24,7 +24,7 @@
         {{ lineItem.title }}
       </h4>
 
-      <p class="text-caption">Ilość: {{ lineItem.quantity }}</p>
+      <p class="text-caption">Quantity: {{ lineItem.quantity }}</p>
 
       <p class="align-self-end justify-self-end mt-auto">
         {{ price }}

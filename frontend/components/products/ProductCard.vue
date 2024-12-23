@@ -69,7 +69,7 @@
           append-icon="mdi-arrow-right"
           rounded
         >
-          Więcej
+          More
         </v-btn>
       </NuxtLink>
     </div>

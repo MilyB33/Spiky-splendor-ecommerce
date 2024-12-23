@@ -14,7 +14,7 @@
       @click="toggleExpanded"
       block
     >
-      {{ expanded ? "ZWIŃ OPIS" : "ROZWIŃ OPIS" }}
+      {{ expanded ? "COLLAPSE DESCRIPTION" : "EXPAND DESCRIPTION" }}
       <v-icon>{{ expanded ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
     </v-btn>
   </div>
@@ -65,6 +65,7 @@ onMounted(() => {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3; /* Limit to 3 lines */
+  line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 4.5em; /* Approximate height for 3 lines */

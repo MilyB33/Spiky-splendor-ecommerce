@@ -10,7 +10,7 @@
         class="text-decoration-none text-black text-h6 mx-2"
         exact-active-class="active-link"
       >
-        Przegląd
+        Overview
       </NuxtLink>
     </v-slide-group-item>
 
@@ -20,7 +20,7 @@
         class="text-decoration-none text-black text-h6 mx-2"
         exact-active-class="active-link"
       >
-        Zamówienia
+        Orders
       </NuxtLink>
     </v-slide-group-item>
 
@@ -30,7 +30,7 @@
         class="text-decoration-none text-black text-h6 mx-2"
         exact-active-class="active-link"
       >
-        Zwroty
+        Returns
       </NuxtLink>
     </v-slide-group-item>
     <v-slide-group-item value="/account/addresses">
@@ -39,7 +39,7 @@
         class="text-decoration-none text-black text-h6 mx-2"
         exact-active-class="active-link"
       >
-        Adresy
+        Addresses
       </NuxtLink>
     </v-slide-group-item>
     <v-slide-group-item value="/account/details">
@@ -48,7 +48,7 @@
         class="text-decoration-none text-black text-h6 mx-2"
         exact-active-class="active-link"
       >
-        Dane osobowe
+        Personal Details
       </NuxtLink>
     </v-slide-group-item>
   </v-slide-group>

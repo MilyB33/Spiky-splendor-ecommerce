@@ -6,11 +6,11 @@
       <div class="d-flex ga-4 w-100">
         <v-text-field
           density="compact"
-          label="Imię"
+          label="First name"
         />
         <v-text-field
           density="compact"
-          label="Nazwisko"
+          label="Last name"
         />
       </div>
       <v-text-field
@@ -19,13 +19,13 @@
       />
       <v-text-field
         density="compact"
-        label="Temat"
+        label="Topic"
       />
       <v-textarea
         density="compact"
-        label="Treść"
+        label="Contents"
       />
-      <v-btn color="primary">Wyślij</v-btn>
+      <v-btn color="primary">Send</v-btn>
     </form>
   </v-card>
 </template>

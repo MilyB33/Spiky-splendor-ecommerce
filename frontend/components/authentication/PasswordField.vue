@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    label="Hasło"
+    label="Password"
     variant="outlined"
     :type="fieldType"
     hint="Enter a strong password"

@@ -6,6 +6,6 @@
       :width="300"
       max-height="300"
     ></v-img>
-    <h2 class="mt-4">Nie znaleziono produktów</h2>
+    <h2 class="mt-4">No products found</h2>
   </div>
 </template>

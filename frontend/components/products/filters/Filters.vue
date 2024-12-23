@@ -10,7 +10,7 @@
         icon="mdi-filter-outline"
         readonly
       />
-      <h2>Filtry</h2>
+      <h2>Filters</h2>
     </div>
 
     <FiltersForm

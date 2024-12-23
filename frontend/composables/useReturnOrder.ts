@@ -19,10 +19,10 @@ export const useReturnOrder = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.RETURNS] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.ORDERS] });
-      snackbar.success("Zwrot został utworzony!");
+      snackbar.success("Return has been created!");
     },
     onError: () => {
-      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz.");
+      snackbar.error("Something went wrong, please try again.");
     },
   });
 

@@ -8,7 +8,7 @@
       class="text-decoration-none text-black text-h5"
       exact-active-class="active-link"
     >
-      Przegląd
+      Overview
     </NuxtLink>
 
     <NuxtLink
@@ -16,7 +16,7 @@
       class="text-decoration-none text-black text-h5"
       exact-active-class="active-link"
     >
-      Zamówienia
+      Orders
     </NuxtLink>
 
     <NuxtLink
@@ -24,7 +24,7 @@
       class="text-decoration-none text-black text-h5"
       exact-active-class="active-link"
     >
-      Zwroty
+      Returns
     </NuxtLink>
 
     <NuxtLink
@@ -32,7 +32,7 @@
       class="text-decoration-none text-black text-h5"
       exact-active-class="active-link"
     >
-      Adresy
+      Addresses
     </NuxtLink>
 
     <NuxtLink
@@ -40,7 +40,7 @@
       class="text-decoration-none text-black text-h5"
       exact-active-class="active-link"
     >
-      Dane osobowe
+      Personal details
     </NuxtLink>
   </div>
 </template>

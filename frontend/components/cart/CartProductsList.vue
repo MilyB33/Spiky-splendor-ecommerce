@@ -2,7 +2,7 @@
   <v-card class="cart-items-section">
     <div class="cart-items-section__wrapper">
       <div class="d-flex ga-4 align-center">
-        <h2>Koszyk</h2>
+        <h2>Cart</h2>
         <v-chip
           color="deep-purple-accent-4"
           label
@@ -31,7 +31,7 @@ const { cart } = useCart();
 
 const cartItems = computed(() => cart.value?.cart.items || []);
 const itemsCount = computed(() => cartItems.value.length || 0);
-const countLabel = computed(() => (itemsCount.value > 4 ? "produktów" : "produkty"));
+const countLabel = computed(() => (itemsCount.value > 1 ? "products" : "product"));
 </script>
 
 <style lang="scss" scoped>

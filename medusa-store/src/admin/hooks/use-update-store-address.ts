@@ -19,10 +19,10 @@ export const useUpdateStoreAddress = ({ notify }: SettingProps) => {
 
   const store = useAdminStore({
     onSuccess: () => {
-      notify.success("Zaktualizowano adres", "Poprawnie zaktualizowano adres");
+      notify.success("Address updated", "Address updated correctly");
     },
     onError: () => {
-      notify.error("Błąd", "Coś poszło nie tak");
+      notify.error("Error", "Something went wrong");
     },
   });
   const { mutateAsync: updateStore, isLoading: isUpdatingStore } =

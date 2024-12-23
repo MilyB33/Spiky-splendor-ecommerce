@@ -8,14 +8,14 @@ const StoreAddressPage = ({ notify }: SettingProps) => {
 
   return (
     <Container className="flex flex-col gap-5">
-      <Heading>Adres sklepu (na potrzeby faktur) </Heading>
+      <Heading>Store address (for invoices) </Heading>
 
       <div className="flex flex-col gap-2">
-        <Heading level="h3">Nazwa firmy</Heading>
+        <Heading level="h3">Company name</Heading>
         <Input
           name="company"
           id="company"
-          placeholder="Nazwa firmy"
+          placeholder="Company name"
           value={values.company}
           onChange={(event) => onChangeValues({ company: event.target.value })}
           disabled={isFetchingStore}
@@ -23,11 +23,11 @@ const StoreAddressPage = ({ notify }: SettingProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Heading level="h3">Miasto</Heading>
+        <Heading level="h3">City</Heading>
         <Input
           name="city"
           id="city"
-          placeholder="Miasto"
+          placeholder="City"
           value={values.city}
           onChange={(event) => onChangeValues({ city: event.target.value })}
           disabled={isFetchingStore}
@@ -35,11 +35,11 @@ const StoreAddressPage = ({ notify }: SettingProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Heading level="h3">Kod pocztowy</Heading>
+        <Heading level="h3">Zip code</Heading>
         <Input
           name="postal_code"
           id="postal_code"
-          placeholder="Kod pocztowy"
+          placeholder="Zip code"
           value={values.postal_code}
           onChange={(event) =>
             onChangeValues({ postal_code: event.target.value })
@@ -49,11 +49,11 @@ const StoreAddressPage = ({ notify }: SettingProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Heading level="h3">Adres</Heading>
+        <Heading level="h3">Address</Heading>
         <Input
           name="address"
           id="address"
-          placeholder="Adres"
+          placeholder="Address"
           value={values.address}
           onChange={(event) => onChangeValues({ address: event.target.value })}
           disabled={isFetchingStore}
@@ -61,7 +61,7 @@ const StoreAddressPage = ({ notify }: SettingProps) => {
       </div>
 
       <Button className="ml-auto" onClick={onSubmit} disabled={isUpdatingStore}>
-        Zapisz
+        Save
       </Button>
     </Container>
   );
@@ -70,7 +70,7 @@ const StoreAddressPage = ({ notify }: SettingProps) => {
 export const config: SettingConfig = {
   card: {
     label: "Adres",
-    description: "Zarządzaj adresem firmy (dla faktur)",
+    description: "Manage company address (for invoices)",
   },
 };
 

@@ -44,10 +44,10 @@ const CustomAttributesPage = ({ notify }: RouteProps) => {
   return (
     <div className="flex flex-col gap-5 bg-white p-8 border border-gray-200 ">
       <div className="flex flex-col gap-4">
-        <Heading className="max-h-96">Typy roślin</Heading>
+        <Heading className="max-h-96">Plant forms</Heading>
 
         <AddNewAttributeInput
-          placeholder="Typ rośliny"
+          placeholder="Plant form"
           onAdd={addPlantForm}
           isAdding={isAddingPlantForm}
         />
@@ -65,10 +65,10 @@ const CustomAttributesPage = ({ notify }: RouteProps) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <Heading className="max-h-96">Umiejscowienie roślin</Heading>
+        <Heading className="max-h-96">Plant placements</Heading>
 
         <AddNewAttributeInput
-          placeholder="Umiejscowienie rośliny"
+          placeholder="Plant placement"
           onAdd={addPlantPlacement}
           isAdding={isAddingPlantPlacement}
         />
@@ -86,10 +86,10 @@ const CustomAttributesPage = ({ notify }: RouteProps) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <Heading className="max-h-96">Zapotrzebowanie na wodę roślin</Heading>
+        <Heading className="max-h-96">Water demands</Heading>
 
         <AddNewAttributeInput
-          placeholder="Zapotrzebowanie na wodę"
+          placeholder="Water demand"
           onAdd={addWaterDemand}
           isAdding={isAddingWaterDemand}
         />
@@ -111,7 +111,7 @@ const CustomAttributesPage = ({ notify }: RouteProps) => {
 
 export const config: RouteConfig = {
   link: {
-    label: "Dodatkowe atrybuty",
+    label: "Additional attributes",
   },
 };
 

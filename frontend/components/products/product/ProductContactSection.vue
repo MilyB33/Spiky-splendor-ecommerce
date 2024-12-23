@@ -1,19 +1,19 @@
 <template>
   <v-card class="d-flex flex-column ga-4 pa-4">
     <div>
-      <span>Masz pytania dotyczące tego produktu?</span>
+      <span> Do you have questions about this product?</span>
       {{ " " }}
       <NuxtLink
         color="black"
         to="/contact"
-        >Napisz do nas!</NuxtLink
+        >Write to us!</NuxtLink
       >
     </div>
     <div class="d-flex flex-column ga-4">
-      <p>Telefon: 123 456 789</p>
+      <p>Phone: 123 456 789</p>
       <p>Email: example@example.com</p>
     </div>
-    <p>Pon. - Czw. 9:00 - 16:00</p>
+    <p>Mon. - Thu. 9:00 - 16:00</p>
   </v-card>
 </template>
 

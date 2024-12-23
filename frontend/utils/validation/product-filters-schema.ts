@@ -8,19 +8,19 @@ export const productFiltersSchema = z
     plantPlacements: z.array(z.string()).optional(),
     plantWaterDemands: z.array(z.string()).optional(),
     minPrice: z.coerce
-      .number({ required_error: "Wymagane" })
-      .min(0, { message: "Cena minimalna nie może być ujemna" })
-      .max(100000, { message: "Cena minimalna nie może być większa niż 100000" }),
+      .number()
+      .min(0, { message: "Minimum price cannot be negative" })
+      .max(100000, { message: "Minimum price cannot be greater than 100,000" }),
     maxPrice: z.coerce
-      .number({ required_error: "Wymagane" })
-      .min(0, { message: "Cena maksymalna nie może być ujemna" })
-      .max(100000, { message: "Cena maksymalna nie może być większa niż 100000" }),
+      .number()
+      .min(0, { message: "Maximum price cannot be negative" })
+      .max(100000, { message: "Maximum price cannot be greater than 100,000" }),
   })
   .superRefine((data, ctx) => {
     if (data.maxPrice < data.minPrice) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Cena maksymalna musi być większa niż cena minimalna",
+        message: "Maximum price must be greater than the minimum price",
         path: ["maxPrice"],
       });
     }
@@ -28,7 +28,7 @@ export const productFiltersSchema = z
     if (data.minPrice > data.maxPrice) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Cena minimalna musi być mniejsza niż cena maksymalna",
+        message: "Minimum price must be less than the maximum price",
         path: ["minPrice"],
       });
     }

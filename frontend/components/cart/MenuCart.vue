@@ -41,7 +41,7 @@
               />
             </template>
 
-            Twój koszyk
+            Your cart
           </v-btn>
         </NuxtLink>
       </template>
@@ -74,13 +74,13 @@
           v-else
           class="text-center"
         >
-          Koszyk jest pusty
+          Cart is empty
         </p>
 
         <v-divider :thickness="4"></v-divider>
 
         <div class="d-flex justify-space-between w-100">
-          <p>Całkowita wartość:</p>
+          <p>Total value:</p>
           <p>{{ subtotal }}</p>
         </div>
 
@@ -89,7 +89,7 @@
             color="black"
             width="100%"
             v-if="hasItems"
-            >Koszyk</v-btn
+            >Cart</v-btn
           >
         </NuxtLink>
       </v-card>

@@ -15,11 +15,11 @@ export const useCustomer = () => {
   const { mutateAsync: updateCustomer, isPending: isUpdatingCustomer } = useMutation({
     mutationFn: (data: CustomerUpdatePayload) => client.customers.update(data),
     onSuccess: () => {
-      snackbar.success("Zaktualizowano");
+      snackbar.success("Updated");
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
     onError: () => {
-      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz");
+      snackbar.error("Something went wrong, please try again");
     },
   });
 

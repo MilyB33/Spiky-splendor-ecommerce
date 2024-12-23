@@ -1,6 +1,6 @@
 <template>
   <v-card class="pa-4 d-flex flex-column ga-4">
-    <h2>Twoje dane</h2>
+    <h2>Your Data</h2>
     <form
       @submit="onSubmit"
       class="d-flex flex-column ga-2"
@@ -8,14 +8,14 @@
       <div class="d-flex ga-2">
         <v-text-field
           variant="outlined"
-          label="Imię"
+          label="First name"
           density="compact"
           v-model="firstName"
           :error-messages="firstNameError"
         ></v-text-field>
         <v-text-field
           variant="outlined"
-          label="Nazwisko"
+          label="Last name"
           density="compact"
           v-model="lastName"
           :error-messages="lastNameError"
@@ -31,7 +31,7 @@
       ></v-text-field>
       <v-text-field
         variant="outlined"
-        label="Telefon"
+        label="Phone"
         density="compact"
         class="w-50"
         v-model="phone"
@@ -43,18 +43,18 @@
         :disabled="isUpdatingCustomer"
         color="blue"
         style="grid-column: span 2"
-        >Zapisz</v-btn
+        >Save</v-btn
       >
     </form>
 
     <div class="d-flex ga-4">
-      <v-btn>Zmień hasło</v-btn>
+      <v-btn>Change password</v-btn>
     </div>
 
     <v-divider />
 
     <p class="text-body-2">
-      Konto utworzono:
+      Account created:
       {{
         customer?.customer
           ? new Date(customer?.customer.created_at).toLocaleDateString("pl-PL")
@@ -65,7 +65,6 @@
 </template>
 
 <script lang="ts" setup>
-// TODO: maybe add account removal or desavtivation
 import { personalDetailsTypedSchema } from "~/utils/validation/personal-details";
 
 const { customer } = useCustomer();

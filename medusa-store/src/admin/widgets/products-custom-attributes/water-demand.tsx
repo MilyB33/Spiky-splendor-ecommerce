@@ -24,7 +24,7 @@ export const WaterDemand = ({
   return (
     <Select value={value} onValueChange={onChange}>
       <Select.Trigger>
-        <Select.Value placeholder="Wybierz zapotrzebowanie na wodę" />
+        <Select.Value placeholder="Select water demand" />
       </Select.Trigger>
       <Select.Content>
         {options.map((item) => (

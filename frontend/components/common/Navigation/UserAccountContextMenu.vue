@@ -17,7 +17,7 @@
           />
         </template>
 
-        Ustawienia
+        Settings
       </v-btn>
     </NuxtLink>
 
@@ -34,7 +34,7 @@
       <template v-slot:append>
         <v-icon size="large" />
       </template>
-      Wyloguj się
+      Log out
     </v-btn>
   </v-card>
 </template>

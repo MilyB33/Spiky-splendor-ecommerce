@@ -1,7 +1,7 @@
 <template>
   <v-tooltip
     :disabled="!isDisabled"
-    text="Płatność jeszcze nie została zaksięgowana"
+    text="The payment has not yet been posted."
     location="bottom"
   >
     <template v-slot:activator="{ props }">
@@ -12,7 +12,7 @@
         :disabled="isDisabled"
         style="pointer-events: auto"
       >
-        Pobierz fakturę
+        Download the invoice
       </v-btn>
     </template>
   </v-tooltip>

@@ -29,13 +29,13 @@ const ProductsCustomAttributes = ({
   return (
     <div className="bg-white p-8 border border-gray-200 rounded-lg">
       <Heading level="h1" className="font-bold text-2xl mb-4">
-        Dodatkowe atrybuty
+        Additional attributes
       </Heading>
 
       <div className="flex flex-col gap-4">
         <div>
           <Heading level="h3" className="mb-2">
-            Typ rośliny
+            Plant form
           </Heading>
           <Multiselect
             options={plantFormsOptions}
@@ -46,7 +46,7 @@ const ProductsCustomAttributes = ({
 
         <div>
           <Heading level="h3" className="mb-2">
-            Umiejscowienie rośliny
+            Plant placement
           </Heading>
           <Multiselect
             options={plantPlacementsOptions}
@@ -57,7 +57,7 @@ const ProductsCustomAttributes = ({
 
         <div>
           <Heading level="h3" className="mb-2">
-            Zapotrzebowanie na wodę
+            Water demand
           </Heading>
           <WaterDemand
             options={plantWaterDemandsOptions}
@@ -68,7 +68,7 @@ const ProductsCustomAttributes = ({
 
         <div>
           <Heading level="h3" className="mb-2">
-            Średnica doniczki (cm)
+            Pot diameter (cm)
           </Heading>
           <Input
             type="number"
@@ -81,7 +81,7 @@ const ProductsCustomAttributes = ({
 
         <div>
           <Heading level="h3" className="mb-2">
-            Minimalna wysokość (cm)
+            Minimum height (cm)
           </Heading>
           <Input
             type="number"
@@ -94,7 +94,7 @@ const ProductsCustomAttributes = ({
 
         <div>
           <Heading level="h3" className="mb-2">
-            Maksymalna wysokość (cm)
+            Maximum height (cm)
           </Heading>
           <Input
             type="number"
@@ -108,7 +108,7 @@ const ProductsCustomAttributes = ({
 
       <div className="mt-2 w-full flex justify-end">
         <Button disabled={isUpdatingProduct} onClick={() => updateProduct()}>
-          Zapisz
+          Save
         </Button>
       </div>
     </div>

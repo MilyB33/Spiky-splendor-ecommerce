@@ -2,9 +2,9 @@ import { toTypedSchema } from "@vee-validate/zod";
 import z from "zod";
 
 export const personalDetailsSchema = z.object({
-  firstName: z.string({ required_error: "Wymagane" }),
-  lastName: z.string({ required_error: "Wymagane" }),
-  email: z.string({ required_error: "Wymagane" }),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
   phone: z.string().optional(),
 });
 

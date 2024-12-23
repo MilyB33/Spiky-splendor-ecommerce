@@ -70,10 +70,10 @@ export const useWishlist = () => {
       }),
     onError: (error) => {
       console.error(error);
-      snackbar.error("Nie można dodać produktu do ulubionych. Spróbuj ponownie!");
+      snackbar.error("Unable to add product to favorites. Please try again!");
     },
     onSuccess: () => {
-      snackbar.success("Produkt dodany do ulubionych!");
+      snackbar.success("Product added to favorites!");
       invalidateQueries();
     },
   });
@@ -87,10 +87,10 @@ export const useWishlist = () => {
       }),
     onError: (error) => {
       console.error(error);
-      snackbar.error("Nie można usunąć produktu z ulubionych. Spróbuj ponownie!");
+      snackbar.error("The product cannot be removed from favorites. Please try again!");
     },
     onSuccess: () => {
-      snackbar.success("Produkt został usunięty z ulubionych!");
+      snackbar.success("The product has been removed from favorites!");
       invalidateQueries();
     },
   });

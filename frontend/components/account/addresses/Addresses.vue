@@ -1,11 +1,11 @@
 <template>
   <v-card class="pa-4 d-flex flex-column ga-4">
-    <h2>Adres rozliczeniowy</h2>
+    <h2>Billing address</h2>
     <CustomerAddressForm />
     <h2>
-      Adresy wysyłkowe
+      Shipping addresses
       <v-tooltip
-        text="Mozesz utworzyć tylko 5 adresów"
+        text="You can only create 5 addresses"
         bottom
       >
         <template v-slot:activator="{ props }">

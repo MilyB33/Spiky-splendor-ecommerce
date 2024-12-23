@@ -11,8 +11,8 @@
         :class="isMobile ? 'mb-4' : 'mb-8'"
       >
       </v-img>
-      <p>Wygląda na to, że nie masz jeszcze ulubionego produktu.</p>
-      <p>Spójrz na nasze produkty, może coś wpadnie Ci w oko.</p>
+      <p>It looks like you don't have a favorite product yet.</p>
+      <p>Take a look at our products, maybe something will catch your eye.</p>
     </div>
 
     <v-divider
@@ -26,14 +26,14 @@
       v-if="!isAuthenticated"
       class="d-flex align-center flex-column ga-4 mr-auto ml-auto pa-2"
     >
-      <p>Chciałbyś zapisać ulubione na swoim koncie?</p>
+      <p>Would you like to save your favorites to your account?</p>
 
       <NuxtLink to="/login?login=true">
         <v-btn
           color="black"
           size="small"
         >
-          Zaloguj się lub stwórz konto
+          Log in or create an account
         </v-btn>
       </NuxtLink>
     </div>

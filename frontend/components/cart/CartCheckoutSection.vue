@@ -13,7 +13,7 @@
       class="w-100"
       v-if="!isAuthenticated"
     >
-      <p class="text-caption mb-4">Zaloguj się, aby zapisać zamówienie na swoim koncie.</p>
+      <p class="text-caption mb-4">Log in to save your order to your account.</p>
       <NuxtLink
         to="/login?login=true"
         class="text-decoration-none"
@@ -21,7 +21,7 @@
         <v-btn
           block
           color="black"
-          >Zaloguj się</v-btn
+          >Log in</v-btn
         >
       </NuxtLink>
     </div>
@@ -33,12 +33,12 @@
     ></v-divider>
 
     <div class="d-flex justify-space-between text-h6 w-100">
-      <p>Całkowita wartość:</p>
+      <p>Total value:</p>
       <p>{{ subtotal }}</p>
     </div>
 
     <NuxtLink to="/checkout/shipping">
-      <v-btn class="w-100">Zamówienie {{ !isAuthenticated ? "(Kontynuuj jako gość)" : "" }}</v-btn>
+      <v-btn class="w-100">Order {{ !isAuthenticated ? "(Continue as a guest)" : "" }}</v-btn>
     </NuxtLink>
   </v-card>
 </template>

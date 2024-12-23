@@ -17,7 +17,7 @@
         @click="isActive.value = false"
         :disabled="isCreatingReturn"
       >
-        Anuluj
+        Cancel
       </v-btn>
 
       <v-btn
@@ -25,7 +25,7 @@
         type="submit"
         :disabled="isCreatingReturn"
       >
-        Utwórz zwrot
+        Create a return
       </v-btn>
     </v-card-actions>
   </form>

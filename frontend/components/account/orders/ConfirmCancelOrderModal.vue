@@ -7,7 +7,7 @@
     <template v-slot:activator="{ props: activatorProps }">
       <v-tooltip
         :disabled="!isDisabled"
-        text="Zamówienie zostało wysłane lub anulowane."
+        text="The order has been shipped or canceled."
         location="bottom"
       >
         <template v-slot:activator="{ props }">
@@ -18,7 +18,7 @@
             :disabled="isDisabled"
             style="pointer-events: auto"
           >
-            Anuluj
+            Cancel
           </v-btn>
         </template>
       </v-tooltip>
@@ -27,9 +27,9 @@
     <template v-slot:default="{ isActive }">
       <v-card
         class="text-center pa-4"
-        :title="`Anuluj zamówienie ${displayOrderId}`"
+        :title="`Cancel order ${displayOrderId}`"
       >
-        <v-card-text> Czy jesteś pewien, ze chcesz anulować to zamówienie? </v-card-text>
+        <v-card-text> Are you sure you want to cancel this order? </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -39,7 +39,7 @@
             @click="isActive.value = false"
             :disabled="isCancellingOrder"
           >
-            Nie
+            No
           </v-btn>
 
           <v-btn
@@ -48,7 +48,7 @@
             @click="onCancel"
             :disabled="isCancellingOrder"
           >
-            Tak, anuluj
+            Yes, cancel
           </v-btn>
         </v-card-actions>
       </v-card>

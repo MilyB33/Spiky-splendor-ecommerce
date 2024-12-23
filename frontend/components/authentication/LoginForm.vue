@@ -20,7 +20,7 @@
         type="submit"
         :loading="isSubmitting"
       >
-        Zaloguj się
+        Log in
       </v-btn>
     </div>
   </form>

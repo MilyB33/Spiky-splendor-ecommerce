@@ -4,20 +4,20 @@
     style="height: fit-content"
     min-width="40%"
   >
-    <h3>Zamówienie</h3>
+    <h3>Order</h3>
     <div class="d-flex flex-column ga-4 mt-4">
       <div class="d-flex justify-space-between">
-        <p>Przedmioty ({{ cartItemsCount }}):</p>
+        <p>Items ({{ cartItemsCount }}):</p>
         <p>{{ formatCurrency(cartPrice, currencyCode) }}</p>
       </div>
       <div class="d-flex justify-space-between">
-        <p>Dostawa:</p>
+        <p>Shipping:</p>
         <p>{{ formatCurrency(shippingMethodPrice, currencyCode) }}</p>
       </div>
 
       <v-divider></v-divider>
       <div class="d-flex justify-space-between text-h6">
-        <p>Do zapłaty:</p>
+        <p>To be paid:</p>
         <p>{{ formatCurrency(totalPrice, currencyCode) }}</p>
       </div>
 
@@ -27,7 +27,7 @@
         :disabled="!isValid || isLoading"
         :loading="isLoading"
       >
-        Kontynuuj</v-btn
+        Continue</v-btn
       >
     </div>
   </v-card>

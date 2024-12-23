@@ -5,14 +5,15 @@
       :class="`text-white ${textSize}`"
       style="z-index: 1"
     >
-      Witaj w Spiky Splendor
+      Welcome in Spiky Splendor
     </h2>
     <NuxtLink to="/products">
       <v-btn
         color="white"
         :size="isMobile ? 'small' : undefined"
-        >Odkryj nasze rośliny</v-btn
       >
+        Discover our plants
+      </v-btn>
     </NuxtLink>
   </div>
 </template>

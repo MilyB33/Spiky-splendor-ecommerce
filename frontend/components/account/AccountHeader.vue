@@ -4,8 +4,9 @@
     <v-btn
       @click="logCustomerOut"
       :disabled="isLoggingCustomerOut"
-      >Wyloguj się</v-btn
     >
+      Log out
+    </v-btn>
   </div>
 </template>
 
@@ -17,15 +18,15 @@ const { isLoggingCustomerOut, logCustomerOut } = useAuth();
 const label = computed(() => {
   switch (route.path) {
     case "/account/orders":
-      return "Twoje zamówienia";
+      return "Your orders";
     case "/account/returns":
-      return "Twoje zwroty";
+      return "Your returns";
     case "/account/address":
-      return "Twoje adresy";
+      return "Your addresses";
     case "/account/details":
-      return "Dane osobowe";
+      return "Personal data";
     default:
-      return "Twoje konto";
+      return "Your account";
   }
 });
 </script>

@@ -85,7 +85,7 @@ export const useProductsCustomAttributes = (
 
   const updateProduct = async () => {
     await updateProductTrigger(values);
-    notify.success("Zapisano", "Poprawnie zapisano dodatkowe atrybuty");
+    notify.success("Saved", "Additional attributes saved correctly");
     refetch();
   };
 

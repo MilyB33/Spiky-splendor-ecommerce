@@ -6,7 +6,7 @@
       :to="link"
       class="text-blue-darken-2"
     >
-      Dodaj
+      Add
     </NuxtLink>
     <span v-else>{{ value }}</span>
   </p>

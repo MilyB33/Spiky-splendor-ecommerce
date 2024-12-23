@@ -11,7 +11,7 @@ export const generateCustomerInformation = (
   doc
     .setFillColor("#444444")
     .setFontSize(20)
-    .text("Szczegóły", pdfSettings.margin.left, y + 20);
+    .text("Details", pdfSettings.margin.left, y + 20);
 
   doc.line(pdfSettings.margin.left, y + 22, 200, y + 22);
 
@@ -19,7 +19,7 @@ export const generateCustomerInformation = (
 
   doc
     .setFontSize(10)
-    .text("Nabywca:", pdfSettings.margin.left, customerInformationTop, {
+    .text("Buyer:", pdfSettings.margin.left, customerInformationTop, {
       align: "left",
     })
     .text(
@@ -47,7 +47,7 @@ export const generateCustomerInformation = (
 
   doc
     .setFontSize(10)
-    .text("Odbiorca:", 200, customerInformationTop, {
+    .text("Recipient:", 200, customerInformationTop, {
       align: "right",
     })
     .text(

@@ -13,7 +13,7 @@ export const returnSchema = z
     ),
   })
   .refine((items) => items.items.some((item) => item.isSelected), {
-    message: "Przynajmniej jeden produkt musi być wybrany",
+    message: "At least one product must be selected",
     path: ["items"],
   });
 

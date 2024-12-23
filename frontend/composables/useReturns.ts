@@ -1,4 +1,4 @@
-import { API_QUERY_KEY, LOCAL_STORAGE_KEY, SETTINGS } from "~/constant";
+import { API_QUERY_KEY, SETTINGS } from "~/constant";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 import type { Return } from "@medusajs/medusa";
 

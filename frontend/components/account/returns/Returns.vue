@@ -39,7 +39,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { ReturnItem } from "@medusajs/medusa";
 import { SETTINGS } from "~/constant";
 import { getReturnsTableColumnsHeaders, prepareReturnsTableColumns } from "~/utils/returns";
 

@@ -21,9 +21,9 @@
       v-if="!mobile"
       class="ml-md-8 ml-4"
     >
-      <CommonNavigationButton to="/">Strona główna</CommonNavigationButton>
-      <CommonNavigationButton to="/products">Produkty</CommonNavigationButton>
-      <CommonNavigationButton to="/contact">Kontakt</CommonNavigationButton>
+      <CommonNavigationButton to="/">Home</CommonNavigationButton>
+      <CommonNavigationButton to="/products">Products</CommonNavigationButton>
+      <CommonNavigationButton to="/contact">Contact</CommonNavigationButton>
       <CommonNavigationButton to="/about">FAQ</CommonNavigationButton>
     </v-toolbar-items>
 

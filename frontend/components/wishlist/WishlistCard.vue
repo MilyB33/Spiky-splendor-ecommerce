@@ -61,7 +61,7 @@
         append-icon="mdi-arrow-right"
         block
       >
-        Więcej
+        More
       </v-btn>
 
       <v-btn
@@ -70,8 +70,9 @@
         size="small"
         block
         :disabled="productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK"
-        >Dodaj do koszyka</v-btn
       >
+        Add to cart
+      </v-btn>
     </div>
   </v-sheet>
 </template>

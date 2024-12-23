@@ -2,7 +2,7 @@
   <section class="address-fields">
     <v-text-field
       variant="outlined"
-      label="Imię"
+      label="First name"
       density="compact"
       hide-details="auto"
       v-model="name"
@@ -11,7 +11,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Nazwisko"
+      label="Last name"
       density="compact"
       hide-details="auto"
       v-model="surname"
@@ -20,7 +20,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Nazwa firmy (opcjonalne)"
+      label="Company (optionally)"
       density="compact"
       hide-details="auto"
       v-model="company"
@@ -30,7 +30,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Adres 1"
+      label="Address 1"
       density="compact"
       hide-details="auto"
       v-model="address1"
@@ -40,7 +40,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Adres 2"
+      label="Address 2"
       density="compact"
       hide-details="auto"
       v-model="address2"
@@ -50,7 +50,7 @@
 
     <v-select
       variant="outlined"
-      label="Kraj"
+      label="Country"
       density="compact"
       hide-details="auto"
       :items="availableCountries"
@@ -62,7 +62,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Kod pocztowy"
+      label="Zip code"
       density="compact"
       hide-details="auto"
       v-model="zipCode"
@@ -71,7 +71,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Miasto"
+      label="City"
       density="compact"
       hide-details="auto"
       v-model="city"
@@ -80,7 +80,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Numer telefonu"
+      label="Phone"
       density="compact"
       hide-details="auto"
       v-model="phoneNumber"

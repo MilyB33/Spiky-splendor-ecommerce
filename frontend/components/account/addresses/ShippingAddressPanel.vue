@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panel :value="address?.id || 'new'">
     <v-expansion-panel-title>
-      {{ address?.metadata.name || "Nowy adres" }}
+      {{ address?.metadata.name || "New address" }}
     </v-expansion-panel-title>
     <v-expansion-panel-text>
       <form
@@ -9,7 +9,7 @@
         class="d-flex flex-column ga-4"
       >
         <v-text-field
-          placeholder="Nazwa"
+          placeholder="Name"
           variant="outlined"
           density="compact"
           v-model="addressName"
@@ -24,13 +24,13 @@
             :disabled="isLoading"
             @click="onDelete"
             style="grid-column: span 2"
-            >Usuń</v-btn
+            >Delete</v-btn
           >
           <v-btn
             type="submit"
             :disabled="isLoading"
             style="grid-column: span 2"
-            >Zapisz</v-btn
+            >Save</v-btn
           >
         </div>
       </form>

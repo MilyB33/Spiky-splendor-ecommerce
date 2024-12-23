@@ -24,10 +24,10 @@ export const useHandleCustomAttributes = ({
         client.admin.client.request("DELETE", `/admin/plant-forms/${id}/`),
       onSuccess: () => {
         refetchPlantForms();
-        notify.success("Poprawnie usunięto", "Poprawnie usunięto element");
+        notify.success("Successfully deleted", "Item successfully deleted");
       },
       onError: () => {
-        notify.error("Błąd", "Wystąpił błąd. Spróbuj jeszcze raz");
+        notify.error("Error", "An error occurred. Please try again");
       },
     });
 
@@ -37,10 +37,10 @@ export const useHandleCustomAttributes = ({
         client.admin.client.request("POST", `/admin/plant-forms/`, { name }),
       onSuccess: () => {
         refetchPlantForms();
-        notify.success("Poprawnie dodano", "Poprawnie dodano element");
+        notify.success("Successfully added", "Item was successfully added");
       },
       onError: () => {
-        notify.error("Błąd", "Wystąpił błąd. Spróbuj jeszcze raz");
+        notify.error("Error", "An error occurred. Please try again");
       },
     });
 
@@ -52,10 +52,10 @@ export const useHandleCustomAttributes = ({
       client.admin.client.request("DELETE", `/admin/plant-placements/${id}/`),
     onSuccess: () => {
       refetchPlantPlacements();
-      notify.success("Poprawnie usunięto", "Poprawnie usunięto element");
+      notify.success("Successfully deleted", "Item successfully deleted");
     },
     onError: () => {
-      notify.error("Błąd", "Wystąpił błąd. Spróbuj jeszcze raz");
+      notify.error("Error", "An error occurred. Please try again");
     },
   });
 
@@ -67,10 +67,10 @@ export const useHandleCustomAttributes = ({
         }),
       onSuccess: () => {
         refetchPlantPlacements();
-        notify.success("Poprawnie dodano", "Poprawnie dodano element");
+        notify.success("Successfully added", "Item was successfully added");
       },
       onError: () => {
-        notify.error("Błąd", "Wystąpił błąd. Spróbuj jeszcze raz");
+        notify.error("Error", "An error occurred. Please try again");
       },
     });
 
@@ -86,12 +86,12 @@ export const useHandleCustomAttributes = ({
       ),
     onSuccess: () => {
       refetchPlantWaterDemands();
-      notify.success("Poprawnie usunięto", "Poprawnie usunięto element");
+      notify.success("Successfully deleted", "Item successfully deleted");
     },
     onError: () => {
       notify.error(
-        "Błąd",
-        "Prawdopodobnie naruszono więzy integralności. Usuń tę wartośc z wszystkich produktów zeby usunąć"
+        "Error",
+        "The integrity bond has probably been violated. Remove this value from all products to remove"
       );
     },
   });
@@ -104,10 +104,10 @@ export const useHandleCustomAttributes = ({
         }),
       onSuccess: () => {
         refetchPlantWaterDemands();
-        notify.success("Poprawnie dodano", "Poprawnie dodano element");
+        notify.success("Successfully added", "Item was successfully added");
       },
       onError: () => {
-        notify.error("Błąd", "Wystąpił błąd. Spróbuj jeszcze raz");
+        notify.error("Error", "An error occurred. Please try again");
       },
     });
 

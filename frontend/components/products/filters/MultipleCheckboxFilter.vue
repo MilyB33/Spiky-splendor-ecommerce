@@ -21,7 +21,7 @@
       v-if="options.length > 5"
       @click="toggleOptions"
       variant="text"
-      >{{ showAll ? "Pokaż mniej" : "Pokaż więcej" }}</v-btn
+      >{{ showAll ? "Show less" : "Show more" }}</v-btn
     >
   </div>
 </template>

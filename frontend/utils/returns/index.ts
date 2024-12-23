@@ -19,38 +19,38 @@ export const prepareReturnsTableColumns = (returns: Return[], currencyCode?: str
 export const getReturnsTableColumnsHeaders = () => {
   return [
     {
-      title: "Anuluj zwrot",
+      title: "Cancel return",
       key: "actions",
       fixed: true,
       align: "center",
     },
     {
-      title: "Numer zwrotu",
+      title: "Return number",
       key: "id",
       align: "start",
     },
     {
-      title: "Numer zamówienia",
+      title: "Order number",
       key: "order_id",
     },
     {
-      title: "Liczba pozycji",
+      title: "Number of items",
       key: "items_count",
     },
     {
-      title: "Produkty",
+      title: "Products",
       key: "items",
     },
     {
-      title: "Kwota zwrotu",
+      title: "Refund amount",
       key: "refund",
     },
     {
-      title: "Utworzono",
+      title: "Created",
       key: "created_at",
     },
     {
-      title: "Odebrano",
+      title: "Received",
       key: "received_at",
     },
     {

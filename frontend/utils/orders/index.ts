@@ -22,22 +22,22 @@ export const prepareOrdersTableColumns = (orders: Order[], currencyCode?: string
 export const getOrdersTableColumnsHeaders = () => {
   return [
     {
-      title: "Numer zamówienia",
+      title: "Order number",
       key: "order_id",
       align: "start",
     },
     {
-      title: "Data zamówienia",
+      title: "Order date",
       key: "created_at",
       align: "start",
     },
     {
-      title: "Łączna cena",
+      title: "Total price",
       key: "total",
       align: "end",
     },
     {
-      title: "Liczba pozycji",
+      title: "Number of items",
       key: "items_count",
       align: "end",
     },
@@ -46,6 +46,6 @@ export const getOrdersTableColumnsHeaders = () => {
       key: "status",
       align: "start",
     },
-    { title: "Akcje", key: "actions" },
+    { title: "Actions", key: "actions" },
   ] as const;
 };

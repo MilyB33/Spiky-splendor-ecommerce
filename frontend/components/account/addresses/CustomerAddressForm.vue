@@ -9,7 +9,7 @@
       type="submit"
       style="grid-column: span 2"
       :disabled="isSavingBillingAddress"
-      >Zapisz</v-btn
+      >Save</v-btn
     >
   </form>
 </template>

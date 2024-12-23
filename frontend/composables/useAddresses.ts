@@ -20,11 +20,11 @@ export const useAddresses = () => {
         billing_address: data,
       }),
     onSuccess: () => {
-      snackbar.success("Zapisano adres rozliczeniowy");
+      snackbar.success("Your billing address has been saved");
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
     onError: () => {
-      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz");
+      snackbar.error("Something went wrong, please try again");
     },
   });
 
@@ -32,11 +32,11 @@ export const useAddresses = () => {
     mutationFn: (data: AddressCreatePayload) =>
       client.customers.addresses.addAddress({ address: data }),
     onSuccess: () => {
-      snackbar.success("Zapisano adres wysyłkowy");
+      snackbar.success("shipping address saved");
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
     onError: () => {
-      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz");
+      snackbar.error("Something went wrong, please try again");
     },
   });
 
@@ -44,22 +44,22 @@ export const useAddresses = () => {
     mutationFn: ({ addressId, data }: UpdateAddressPayload) =>
       client.customers.addresses.updateAddress(addressId, data),
     onSuccess: () => {
-      snackbar.success("Zaktualizowano adres wysyłkowy");
+      snackbar.success("Shipping address updated");
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
     onError: () => {
-      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz");
+      snackbar.error("Something went wrong, please try again");
     },
   });
 
   const { mutateAsync: deleteShippingAddress, isPending: isDeletingShippingAddress } = useMutation({
     mutationFn: (addressId: string) => client.customers.addresses.deleteAddress(addressId),
     onSuccess: () => {
-      snackbar.success("Usunięto adres wysyłkowy");
+      snackbar.success("Shipping address removed");
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
     onError: () => {
-      snackbar.error("Coś poszło nie tak, spróbuj jeszcze raz");
+      snackbar.error("Something went wrong, please try again");
     },
   });
 

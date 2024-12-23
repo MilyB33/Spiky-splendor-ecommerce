@@ -6,12 +6,12 @@
     height="100"
   />
 
-  <h2>Zamówienie zostało opłacone</h2>
+  <h2>The order has been paid</h2>
 
   <div>
-    <p>Twój numer zamówienia: #{{ lastOrder?.order.display_id }}</p>
+    <p>Your order number: #{{ lastOrder?.order.display_id }}</p>
 
-    <p>Dziękujemy za zakupy.</p>
+    <p>Thank you for shopping.</p>
   </div>
 
   <div class="w-100 d-flex flex-column ga-3">
@@ -21,8 +21,9 @@
       block
       :disabled="isGeneratingInvoice"
       @click="() => generateInvoice(lastOrder?.order.id || '')"
-      >Pobierz fakturę</v-btn
     >
+      Download the invoice
+    </v-btn>
     <NuxtLink
       to="/"
       class="text-decoration-none w-100"
@@ -31,7 +32,7 @@
         color="green"
         block
         :disabled="isGeneratingInvoice"
-        >Kontynuuj</v-btn
+        >Continue</v-btn
       >
     </NuxtLink>
   </div>

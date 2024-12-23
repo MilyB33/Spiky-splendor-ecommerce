@@ -12,14 +12,14 @@
         :disabled="isDisabled"
         style="pointer-events: auto"
       >
-        Zwróć
+        Return
       </v-btn>
     </template>
 
     <template v-slot:default="{ isActive }">
       <v-card
         class="text-center pa-4"
-        title="Utwórz zwrot"
+        title="Create a return"
       >
         <CreateReturnForm
           :order-id="orderId"

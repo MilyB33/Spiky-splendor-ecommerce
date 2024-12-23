@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex flex-column ga-4">
-    <h4>Metody dostawy</h4>
+    <h4>Shipping methods</h4>
 
     <v-progress-circular
       v-if="isFetchingShippingMethods"

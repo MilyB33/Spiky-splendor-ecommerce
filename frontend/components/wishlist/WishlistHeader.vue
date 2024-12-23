@@ -7,7 +7,7 @@
       class="flex-0-1"
     >
     </v-img>
-    <h1 :class="isMobile ? 'text-h5' : 'text-h4'">Twoje ulubione produkty</h1>
+    <h1 :class="isMobile ? 'text-h5' : 'text-h4'">Your favorite products</h1>
   </v-card>
 </template>
 

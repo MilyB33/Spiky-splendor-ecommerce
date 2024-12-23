@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-column ga-4">
-      <h2>Lista produktów ({{ products?.count || 0 }})</h2>
+      <h2>Product list ({{ products?.count || 0 }})</h2>
       <div class="d-flex justify-start ga-2 align-center">
         <FiltersModal
           v-if="isMobile"
@@ -44,19 +44,19 @@ const value = ref<OrderValues>("title");
 const items = [
   {
     value: "price",
-    title: "cena rosnąco",
+    title: "price ascending",
   },
   {
     value: "-price",
-    title: "cena malejąco",
+    title: "price descending",
   },
   {
     value: "title",
-    title: "nazwa rosnąco",
+    title: "name ascending",
   },
   {
     value: "-title",
-    title: "nazwa malejąco",
+    title: "name descending",
   },
 ];
 </script>

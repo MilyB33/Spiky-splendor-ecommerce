@@ -9,12 +9,12 @@
       :error-messages="shippingCustomerTypeError"
     >
       <v-radio
-        label="Indywidualne"
+        label="Individual"
         value="individual"
         color="green"
       ></v-radio>
       <v-radio
-        label="Firma"
+        label="Company"
         value="company"
         color="green"
       ></v-radio>
@@ -26,7 +26,7 @@
     >
       <v-text-field
         variant="outlined"
-        label="Imię"
+        label="First name"
         density="compact"
         hide-details="auto"
         class="w-50"
@@ -36,7 +36,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Nazwisko"
+        label="Last name"
         density="compact"
         hide-details="auto"
         class="w-50"
@@ -47,7 +47,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Nazwa firmy"
+      label="Company"
       density="compact"
       hide-details="auto"
       v-if="isCompany"
@@ -57,18 +57,17 @@
 
     <v-text-field
       variant="outlined"
-      label="Adres email"
+      label="Email"
       density="compact"
       hide-details="auto"
       persistent-hint
-      hint="Wyślemy informacje o zamówieniu na ten adres"
       v-model="shippingEmail"
       :error-messages="shippingEmailError"
     ></v-text-field>
 
     <v-text-field
       variant="outlined"
-      label="Adres 1"
+      label="Address 1"
       density="compact"
       hide-details="auto"
       v-model="shippingAddress1"
@@ -77,7 +76,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Adres 2"
+      label="Address 2"
       density="compact"
       hide-details="auto"
       v-model="shippingAddress2"
@@ -87,7 +86,7 @@
     <div class="d-flex ga-4">
       <v-select
         variant="outlined"
-        label="Kraj"
+        label="Country"
         density="compact"
         hide-details="auto"
         :items="availableCountries"
@@ -100,7 +99,7 @@
 
       <v-text-field
         variant="outlined"
-        label="Kod pocztowy"
+        label="Zip code"
         density="compact"
         hide-details="auto"
         class="w-50"
@@ -112,7 +111,7 @@
     <div class="d-flex ga-4">
       <v-text-field
         variant="outlined"
-        label="Miasto"
+        label="City"
         density="compact"
         hide-details="auto"
         v-model="shippingCity"
@@ -122,7 +121,7 @@
 
     <v-text-field
       variant="outlined"
-      label="Numer telefonu"
+      label="Phone"
       density="compact"
       hide-details="auto"
       v-model="shippingPhoneNumber"

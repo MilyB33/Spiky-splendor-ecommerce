@@ -9,9 +9,9 @@
     </div>
 
     <div class="d-flex flex-column mt-4">
-      <SidebarNavigationButton to="/">Strona główna</SidebarNavigationButton>
-      <SidebarNavigationButton to="/products">Produkty</SidebarNavigationButton>
-      <SidebarNavigationButton to="/contact">Kontakt</SidebarNavigationButton>
+      <SidebarNavigationButton to="/">Home</SidebarNavigationButton>
+      <SidebarNavigationButton to="/products">Products</SidebarNavigationButton>
+      <SidebarNavigationButton to="/contact">Contact</SidebarNavigationButton>
       <SidebarNavigationButton to="/about">FAQ</SidebarNavigationButton>
     </div>
   </v-navigation-drawer>

@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex flex-column ga-4">
-    <h4>Metoda zwrotu</h4>
+    <h4>Return method</h4>
 
     <v-progress-circular
       v-if="isLoadingShippingMethods"
@@ -33,7 +33,7 @@
     </v-radio-group>
 
     <span class="text-grey text-caption"
-      >Adres zwrotu znajdziesz w naszym
+      >You will find the return address in our
       <NuxtLink
         class="text-grey"
         to="/faq"

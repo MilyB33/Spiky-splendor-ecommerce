@@ -3,26 +3,26 @@
     <InfoCard
       variant="store"
       icon="mdi-truck-delivery"
-      title="Szybka dostawa"
-      content="Wysyłamy sukulenty od poniedziałku do czwartku, aby uniknąć opóźnień. Starannie pakowane rośliny dotrą do Ciebie szybko i w idealnym stanie."
+      title="Fast delivery"
+      content="We ship succulents Monday through Thursday to avoid delays. Carefully packed plants will reach you quickly and in perfect condition."
     />
     <InfoCard
       variant="store"
       icon="mdi-credit-card-outline"
-      title="Bezpieczne płatności"
-      content="Zapewniamy w pełni bezpieczne i szybkie metody płatności, aby zakupy były komfortowe i bezstresowe."
+      title="Secure payments"
+      content="We provide fully safe and fast payment methods to make shopping comfortable and stress-free."
     />
     <InfoCard
       variant="store"
       icon="mdi-archive"
-      title="Szeroki asortyment"
-      content="Odkryj różnorodność – od klasycznych sukulentów po rzadkie gatunki. Idealne zarówno do dekoracji wnętrz, jak i na prezent!"
+      title="Wide range"
+      content="Discover the variety – from classic succulents to rare species. Perfect for both interior decoration and as a gift."
     />
     <InfoCard
       variant="store"
       icon="mdi-cash"
-      title="Atrakcyjne ceny"
-      content="Sukulenty dla każdego – wyjątkowe rośliny w konkurencyjnych cenach."
+      title="Attractive prices"
+      content="Succulents for everyone - unique plants at competitive prices."
     />
   </div>
 </template>

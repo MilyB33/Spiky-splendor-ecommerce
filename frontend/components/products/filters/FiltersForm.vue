@@ -9,7 +9,7 @@
 
     <MultipleCheckboxFilter
       :options="categories"
-      title="Kategorie"
+      title="Categories"
       field-name="categories"
     />
 
@@ -17,7 +17,7 @@
 
     <MultipleCheckboxFilter
       :options="plantForms"
-      title="Typ rośliny"
+      title="Plant form"
       field-name="plantForms"
     />
 
@@ -25,13 +25,13 @@
 
     <MultipleCheckboxFilter
       :options="plantPlacements"
-      title="Umiejscowienie rośliny"
+      title="Plant placement"
       field-name="plantPlacements"
     />
 
     <MultipleCheckboxFilter
       :options="plantWaterDemands"
-      title="Zapotrzebowanie na wodę"
+      title="Water demand"
       field-name="plantWaterDemands"
     />
 
@@ -43,8 +43,8 @@
         class="d-flex ga-2 justify-space-between w-100"
         style="position: sticky; bottom: 10px"
       >
-        <v-btn @click="handleClear">Wyczyść</v-btn>
-        <v-btn type="submit">Szukaj</v-btn>
+        <v-btn @click="handleClear">Clear</v-btn>
+        <v-btn type="submit">Search</v-btn>
       </div>
     </slot>
   </form>
@@ -86,6 +86,6 @@ const handleClear = () => {
     plantPlacements: [],
     plantWaterDemands: [],
   });
-  snackbar.success("Wyczyszczono filtry");
+  snackbar.success("Filters cleared!");
 };
 </script>

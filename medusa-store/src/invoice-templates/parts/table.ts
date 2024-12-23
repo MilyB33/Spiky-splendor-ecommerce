@@ -29,18 +29,18 @@ export const generateInvoiceTable = (
       [
         { title: "Lp.", styles: { cellWidth: 15, lineWidth: { right: 0.5 } } },
         {
-          title: "Nazwa",
+          title: "Name",
           styles: { cellWidth: 70, lineWidth: { right: 0.5 } },
         },
         {
-          title: "Cena jednostkowa (brutto)",
+          title: "Unit price",
           styles: { cellWidth: 40, lineWidth: { right: 0.5 } },
         },
         {
-          title: "Ilość",
+          title: "Quantity",
           styles: { cellWidth: 15, lineWidth: { right: 0.5 } },
         },
-        "Łączna wartość (brutto)",
+        "Total value",
       ],
     ],
     body: data,
@@ -50,7 +50,7 @@ export const generateInvoiceTable = (
       [
         "",
         "",
-        { content: "Dostawa", styles: { halign: "right" }, colSpan: 2 },
+        { content: "Shipping", styles: { halign: "right" }, colSpan: 2 },
         { content: shippingAmount, styles: { halign: "right" } },
       ],
       [
@@ -62,7 +62,7 @@ export const generateInvoiceTable = (
       [
         "",
         "",
-        { content: "Łączna kwota", styles: { halign: "right" }, colSpan: 2 },
+        { content: "Total value", styles: { halign: "right" }, colSpan: 2 },
         { content: orderTotal, styles: { halign: "right" } },
       ],
     ],

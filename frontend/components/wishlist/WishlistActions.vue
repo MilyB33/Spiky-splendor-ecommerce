@@ -12,15 +12,15 @@
         <v-btn
           v-bind="activatorProps"
           append-icon="mdi-close"
-          >Usuń wszystkie</v-btn
+          >Delete all</v-btn
         >
       </template>
 
       <v-card
         prepend-icon="mdi-alert-box"
-        text="Jesteś pewien, że chcesz usunąć wszystkie produkty z ulubionych?"
+        text="Are you sure you want to remove all products from your favorites?"
       >
-        <template v-slot:title><p>Usuwanie produktów</p></template>
+        <template v-slot:title><p>Products removal</p></template>
 
         <v-card-actions class="d-flex flex-wrap justify-space-between">
           <v-btn
@@ -30,7 +30,7 @@
             class="flex-grow-1"
             :disabled="isRemovingFromWishlist"
           >
-            Nie, daj mi się zastanowić!
+            No, let me think!
           </v-btn>
 
           <v-btn
@@ -40,7 +40,7 @@
             class="flex-grow-1"
             :disabled="isRemovingFromWishlist"
           >
-            Jestem w 100% pewny!
+            I'm 100% sure!
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -49,7 +49,7 @@
       append-icon="mdi-cart-plus"
       color="green_primary"
       @click="addAllItemsToCart"
-      >Dodaj wszystkie do koszyka</v-btn
+      >Add all to cart</v-btn
     >
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex flex-column ga-4">
-    <h4>Przedmioty do zwrotu</h4>
+    <h4>Items to be returned</h4>
 
     <v-table>
       <tbody>

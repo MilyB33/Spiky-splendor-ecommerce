@@ -26,18 +26,18 @@ export const RETURN_STATUS = {
 } as const;
 
 export const ORDER_STATUS_LABELS = {
-  [ORDER_STATUS.PENDING]: "Oczekujące",
-  [ORDER_STATUS.COMPLETED]: "Zakończone",
-  [ORDER_STATUS.CANCELED]: "Anulowane",
-  [ORDER_STATUS.REQUIRES_ACTION]: "Wymaga działania",
-  [ORDER_STATUS.ARCHIVED]: "Zarchiwizowane",
+  [ORDER_STATUS.PENDING]: "Pending",
+  [ORDER_STATUS.COMPLETED]: "Completed",
+  [ORDER_STATUS.CANCELED]: "Canceled",
+  [ORDER_STATUS.REQUIRES_ACTION]: "Requires action",
+  [ORDER_STATUS.ARCHIVED]: "Archived",
 } as const;
 
 export const RETURN_STATUS_LABELS = {
-  [RETURN_STATUS.REQUESTED]: "Zgłoszone",
-  [RETURN_STATUS.RECEIVED]: "Odebrane",
-  [RETURN_STATUS.REQUIRES_ACTION]: "Wymaga działania",
-  [RETURN_STATUS.CANCELED]: "Anulowane",
+  [RETURN_STATUS.REQUESTED]: "Requested",
+  [RETURN_STATUS.RECEIVED]: "Received",
+  [RETURN_STATUS.REQUIRES_ACTION]: "Requires action",
+  [RETURN_STATUS.CANCELED]: "Canceled",
 } as const;
 
 export const PRODUCT_LOW_STOCK_THRESHOLD = 10;

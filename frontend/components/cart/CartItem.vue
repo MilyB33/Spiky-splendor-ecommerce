@@ -27,7 +27,7 @@
         size="small"
         prepend-icon="mdi-cart-remove"
         @click="() => deleteItemFromCart(lineItem.id)"
-        >Usuń</v-btn
+        >Delete</v-btn
       >
     </div>
 

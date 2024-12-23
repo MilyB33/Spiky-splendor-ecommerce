@@ -3,7 +3,7 @@
     class="d-flex flex-column ga-4 w-100"
     style="max-width: 250px"
   >
-    <p class="text-h6">Cena</p>
+    <p class="text-h6">Price</p>
 
     <div class="d-flex align-center justify-space-between">
       <v-text-field

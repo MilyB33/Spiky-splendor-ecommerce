@@ -1,31 +1,31 @@
 <template>
   <v-expansion-panels>
-    <v-expansion-panel title="Szczegóły rośliny"
+    <v-expansion-panel title="Details of the plant"
       ><v-expansion-panel-text>
         <v-list>
           <ProductDetailsItem
-            :title="`Pokrój rośliny:`"
+            :title="`Plant form`"
             :subtitle="plantForms"
           />
           <ProductDetailsItem
-            :title="`Stanowisko: `"
+            :title="`Placement: `"
             :subtitle="plantPlacement"
           />
           <ProductDetailsItem
-            :title="`Średnica doniczki: `"
-            :subtitle="product.pot_diameter?.toString() + ' cm' ?? 'brak danych'"
+            :title="`Pot diameter: `"
+            :subtitle="product.pot_diameter?.toString() + ' cm' ?? 'no data'"
           />
           <ProductDetailsItem
-            :title="`Docelowa wysokość rośliny: `"
-            :subtitle="`Od ${product.min_height} do ${product.max_height} cm`"
+            :title="`Target plant height: `"
+            :subtitle="`From ${product.min_height} to ${product.max_height} cm`"
           />
           <ProductDetailsItem
-            :title="`Wymagana ilość wody: `"
-            :subtitle="product.plant_water_demand?.name ?? 'brak danych'"
+            :title="`Required amount of water: `"
+            :subtitle="product.plant_water_demand?.name ?? 'no data'"
           />
           <ProductDetailsItem
-            :title="`Waga rośliny (włączając doniczkę): `"
-            :subtitle="product.weight?.toString() + ' g' ?? 'brak danych'"
+            :title="`Plant weight (including pot): `"
+            :subtitle="product.weight?.toString() + ' g' ?? 'no data'"
           />
         </v-list>
       </v-expansion-panel-text>

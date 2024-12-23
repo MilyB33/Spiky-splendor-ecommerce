@@ -3,26 +3,26 @@
     <InfoCard
       variant="plant"
       icon="mdi-clock-outline"
-      title="Idealne rośliny idealne dla zapracowanych"
-      content="Sukulenty są wyjątkowo łatwe w pielęgnacji – potrzebują minimalnej ilości wody i świetnie radzą sobie w różnych warunkach. Idealne dla osób, które chcą cieszyć się zielenią bez codziennego podlewania."
+      title="Perfect plants for busy people"
+      content="Succulents are extremely easy to care for - they need a minimum amount of water and cope well in a variety of conditions. Perfect for people who want to enjoy greenery without daily watering."
     />
     <InfoCard
       variant="plant"
       icon="mdi-leaf"
-      title="Niezwykła różnorodność"
-      content="Od rozetowatych echeverii po kolczaste aloesy – sukulenty występują w setkach gatunków, które zaskakują unikalnym wyglądem. Dodadzą charakteru każdemu wnętrzu!"
+      title="Incredible diversity"
+      content="From rosette-shaped echeverias to spiky aloes - succulents come in hundreds of species that surprise with their unique appearance. They will add character to any interior!"
     />
     <InfoCard
       variant="plant"
       icon="mdi-air-filter"
-      title=" Naturalni mistrzowie oczyszczania powietrza"
-      content="Sukulenty nie tylko pięknie wyglądają, ale również poprawiają jakość powietrza, wchłaniając szkodliwe substancje i uwalniając tlen. Idealny wybór do domu i biura."
+      title="Natural masters of air purification"
+      content="SSucculents not only look beautiful, but also improve air quality by absorbing harmful substances and releasing oxygen. The perfect choice for home and office."
     />
     <InfoCard
       variant="plant"
       icon="mdi-shield-check"
-      title="Symbol siły i wytrwałości"
-      content="Sukulenty to rośliny przystosowane do trudnych warunków, dzięki czemu symbolizują odporność i siłę. Są doskonałym prezentem, który niesie wyjątkowe przesłanie."
+      title="A symbol of strength and perseverance"
+      content="Succulents are plants adapted to difficult conditions, thanks to which they symbolize resistance and strength. They are a perfect gift that carries a unique message."
     />
   </div>
 </template>

@@ -7,7 +7,7 @@
     <template v-slot:activator="{ props: activatorProps }">
       <v-tooltip
         :disabled="!isDisabled"
-        text="Zwrot został odebrany lub anulowany"
+        text="The refund has been received or canceled"
         location="bottom"
       >
         <template v-slot:activator="{ props }">
@@ -17,7 +17,7 @@
             :disabled="isDisabled"
             style="pointer-events: auto"
           >
-            Anuluj
+            Cancel
           </v-btn>
         </template>
       </v-tooltip>
@@ -26,9 +26,9 @@
     <template v-slot:default="{ isActive }">
       <v-card
         class="text-center pa-4"
-        :title="`Anuluj zwrot ${returnId}`"
+        :title="`Cancel return ${returnId}`"
       >
-        <v-card-text> Czy jesteś pewien, ze chcesz anulować zwrot? </v-card-text>
+        <v-card-text> Are you sure you want to cancel your return? </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -38,7 +38,7 @@
             @click="isActive.value = false"
             :disabled="isCancellingReturn"
           >
-            Nie
+            No
           </v-btn>
 
           <v-btn
@@ -47,7 +47,7 @@
             @click="onCancel"
             :disabled="isCancellingReturn"
           >
-            Tak, anuluj
+            Yes, cancel
           </v-btn>
         </v-card-actions>
       </v-card>

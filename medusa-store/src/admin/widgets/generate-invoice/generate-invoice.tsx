@@ -13,13 +13,13 @@ const GenerateInvoice = ({
 
   return (
     <div className="bg-white p-8 border border-gray-200 rounded-lg mb-4">
-      <Heading level="h2">Wygeneruj fakture</Heading>
+      <Heading level="h2">Generate an invoice</Heading>
       <Button
         disabled={!order.invoice || isGeneratingInvoice}
         onClick={() => generateInvoice(order.id)}
         className="mt-4"
       >
-        Generuj fakturę
+        Generuj
       </Button>
     </div>
   );

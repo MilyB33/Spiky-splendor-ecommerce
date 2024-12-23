@@ -32,13 +32,13 @@
               class="d-flex ga-4 ml-auto"
               style="position: sticky; bottom: 10px"
             >
-              <v-btn @click="props.handleClear">Wyczyść</v-btn>
+              <v-btn @click="props.handleClear">Clear</v-btn>
               <v-btn
-                text="Zamknij"
+                text="Close"
                 color="black"
                 @click="isActive.value = false"
               ></v-btn>
-              <v-btn type="submit">Szukaj</v-btn>
+              <v-btn type="submit">Search</v-btn>
             </div>
           </template>
         </FiltersForm>

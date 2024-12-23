@@ -22,6 +22,13 @@ Spiky splendor is an e-commerce shop that specializes in selling a wide variety 
 - [Storefront](https://spiky-splendor-storefront.vercel.app/)
 - [Admin](https://spiky-splendor-admin.vercel.app/)
 
+##### Credentials:
+
+Admin:
+
+- email: test@example.com
+- password: test
+
 ## Installation
 
 1. Clone the repository to your local machine:

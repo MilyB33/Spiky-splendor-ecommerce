@@ -16,122 +16,38 @@
       <p class="text-h4 my-auto">{{ customer?.customer.returns_count }}</p>
     </AccountDashboardCard>
 
-    <AccountDashboardCard
-      title="Personal Details"
-      icon="mdi-account"
-      link="/account/details"
-    >
-      <AccountDashboardCardListItem
-        label="First name"
-        :value="customer?.customer.first_name"
-        link="/account/details"
-      />
-      <AccountDashboardCardListItem
-        label="Last name"
-        :value="customer?.customer.last_name"
-        link="/account/details"
-      />
-      <AccountDashboardCardListItem
-        label="Email"
-        :value="customer?.customer.email"
-        link="/account/details"
-      />
-      <AccountDashboardCardListItem
-        label="Phone"
-        :value="customer?.customer.phone"
-        link="/account/details"
-      />
-    </AccountDashboardCard>
+    <AccountDashboardPersonalDetailsCard :customer="customer?.customer" />
 
-    <AccountDashboardCard
+    <AccountAddressCard
+      :address="customer?.customer.billing_address"
       title="Billing address"
-      icon="mdi-map-marker"
-      link="/account/addresses"
-    >
-      <AccountDashboardCardListItem
-        label="Country"
-        :value="customer?.customer?.billing_address?.country"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="City"
-        :value="customer?.customer?.billing_address?.city"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Street"
-        :value="customer?.customer?.billing_address?.street"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Zip code"
-        :value="customer?.customer?.billing_address?.postcode"
-        link="/account/addresses"
-      />
-    </AccountDashboardCard>
+    />
 
     <AccountDashboardCard
       v-if="!customer?.customer?.shipping_addresses?.length"
-      :title="`Shipping address 1`"
+      title="Add new shipping address"
       icon="mdi-map-marker"
       link="/account/addresses"
     >
-      <AccountDashboardCardListItem
-        label="Kraj"
-        :value="customer?.customer?.shipping_addresses[0]?.country"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Miasto"
-        :value="customer?.customer?.shipping_addresses[0]?.city"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Ulica"
-        :value="customer?.customer?.shipping_addresses[0]?.street"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Kod pocztowy"
-        :value="customer?.customer?.shipping_addresses[0]?.postcode"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Województwo"
-        :value="customer?.customer?.shipping_addresses[0]?.province"
-        link="/account/addresses"
-      />
+      <NuxtLink
+        class="ma-auto text-green"
+        to="/account/addresses"
+      >
+        <v-btn
+          class="ma-auto"
+          variant="outlined"
+          size="x-large"
+          icon="mdi-plus"
+        ></v-btn>
+      </NuxtLink>
     </AccountDashboardCard>
 
-    <AccountDashboardCard
+    <AccountAddressCard
       v-if="customer?.customer?.shipping_addresses?.length"
       v-for="(address, index) in customer?.customer?.shipping_addresses"
-      :key="address.id"
-      :title="`Shipping address ${index + 1}`"
-      icon="mdi-map-marker"
-      link="/account/addresses"
-    >
-      <AccountDashboardCardListItem
-        label="Country"
-        :value="address.country"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="City"
-        :value="address.city"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Street"
-        :value="address.street"
-        link="/account/addresses"
-      />
-      <AccountDashboardCardListItem
-        label="Zip code"
-        :value="address.postcode"
-        link="/account/addresses"
-      />
-    </AccountDashboardCard>
+      :address="address"
+      :title="address.metadata.name"
+    />
   </div>
 </template>
 

@@ -48,7 +48,7 @@ onMounted(async () => {
 
   if (!stripePk || !clientSecret) return;
 
-  stripe.value = await loadStripe(stripePk);
+  stripe.value = await loadStripe(stripePk, { locale: "en" });
 
   const appearance: Appearance = {
     theme: "flat",

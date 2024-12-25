@@ -141,6 +141,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
       setCartId(null);
       queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.ORDERS] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
   });
 

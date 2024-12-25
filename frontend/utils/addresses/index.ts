@@ -1,7 +1,7 @@
 import { Address } from "@medusajs/medusa";
 import { COUNTRIES } from "./../../constant/index";
 
-const getCountryByName = (countryCode?: string | null) => {
+export const getCountryByName = (countryCode?: string | null) => {
   if (countryCode) {
     return COUNTRIES.find((element) => element.code.toLowerCase() === countryCode);
   }

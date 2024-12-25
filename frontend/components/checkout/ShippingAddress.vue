@@ -1,179 +1,75 @@
 <template>
   <section class="d-flex justify-start flex-column ga-4">
-    <h4>Adres dostawy</h4>
+    <h4>Shipping address</h4>
 
-    <v-radio-group
-      inline
+    <v-select
+      v-if="!!customer"
+      label="Use one of your addresses"
+      :disabled="isCustomerHasAnyAddress"
+      :items="customerShippingAddresses"
       hide-details="auto"
-      v-model="shippingCustomerType"
-      :error-messages="shippingCustomerTypeError"
-    >
-      <v-radio
-        label="Individual"
-        value="individual"
-        color="green"
-      ></v-radio>
-      <v-radio
-        label="Company"
-        value="company"
-        color="green"
-      ></v-radio>
-    </v-radio-group>
-
-    <div
-      class="d-flex ga-4"
-      v-if="!isCompany"
-    >
-      <v-text-field
-        variant="outlined"
-        label="First name"
-        density="compact"
-        hide-details="auto"
-        class="w-50"
-        v-model="shippingName"
-        :error-messages="shippingNameError"
-      ></v-text-field>
-
-      <v-text-field
-        variant="outlined"
-        label="Last name"
-        density="compact"
-        hide-details="auto"
-        class="w-50"
-        v-model="shippingSurname"
-        :error-messages="shippingSurnameError"
-      ></v-text-field>
-    </div>
-
-    <v-text-field
-      variant="outlined"
-      label="Company"
       density="compact"
-      hide-details="auto"
-      v-if="isCompany"
-      v-model="shippingCompany"
-      :error-messages="shippingCompanyError"
-    ></v-text-field>
+      v-model="customerAddress"
+      :error-messages="customerAddressError"
+      @update:model-value="onCustomerAddressChange"
+    ></v-select>
 
-    <v-text-field
-      variant="outlined"
-      label="Email"
-      density="compact"
-      hide-details="auto"
-      persistent-hint
-      v-model="shippingEmail"
-      :error-messages="shippingEmailError"
-    ></v-text-field>
-
-    <v-text-field
-      variant="outlined"
-      label="Address 1"
-      density="compact"
-      hide-details="auto"
-      v-model="shippingAddress1"
-      :error-messages="shippingAddress1Error"
-    ></v-text-field>
-
-    <v-text-field
-      variant="outlined"
-      label="Address 2"
-      density="compact"
-      hide-details="auto"
-      v-model="shippingAddress2"
-      :error-messages="shippingAddress2Error"
-    ></v-text-field>
-
-    <div class="d-flex ga-4">
-      <v-select
-        variant="outlined"
-        label="Country"
-        density="compact"
-        hide-details="auto"
-        :items="availableCountries"
-        item-title="name"
-        item-value="code"
-        class="w-50"
-        v-model="shippingCountry"
-        :error-messages="shippingCountryError"
-      ></v-select>
-
-      <v-text-field
-        variant="outlined"
-        label="Zip code"
-        density="compact"
-        hide-details="auto"
-        class="w-50"
-        v-model="shippingZipCode"
-        :error-messages="shippingZipCodeError"
-      ></v-text-field>
-    </div>
-
-    <div class="d-flex ga-4">
-      <v-text-field
-        variant="outlined"
-        label="City"
-        density="compact"
-        hide-details="auto"
-        v-model="shippingCity"
-        :error-messages="shippingCityError"
-      ></v-text-field>
-    </div>
-
-    <v-text-field
-      variant="outlined"
-      label="Phone"
-      density="compact"
-      hide-details="auto"
-      v-model="shippingPhoneNumber"
-      :error-messages="shippingPhoneNumberError"
-    ></v-text-field>
+    <CheckoutAddressFields
+      address-type="shipping"
+      :onChangeField="onChangeShippingField"
+    />
   </section>
 </template>
 
 <script lang="ts" setup>
-import type { Country } from "@medusajs/medusa";
+import type { Address } from "@medusajs/medusa";
 import { useField } from "vee-validate";
-import { COUNTRIES } from "~/constant";
+import type { CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
+const { customer } = useCustomer();
 
-const { region } = useRegions();
+type ShippingAddressProps = {
+  setFormValues: (values: Partial<CheckoutSchemaValues>) => void;
+};
 
-const availableCountries = computed(() => {
-  return COUNTRIES.filter((country) => {
-    const selectedRegionCountries = region.value?.countries.map(
-      (selectedRegionCountry: Country) => {
-        return selectedRegionCountry.iso_2;
-      },
+const props = defineProps<ShippingAddressProps>();
+
+const onCustomerAddressChange = (value: string) => {
+  if (!!value && customer.value?.customer) {
+    const address: Address = customer.value.customer.shipping_addresses.find(
+      (addr) => addr.id === value,
     );
 
-    //@ts-ignore
-    return selectedRegionCountries.includes(country.code.toLocaleLowerCase());
-  }).map((filtererCountry) => {
-    return {
-      ...filtererCountry,
-      code: filtererCountry.code.toLocaleLowerCase(),
-    };
-  });
+    if (address) {
+      props.setFormValues({
+        shippingName: address.first_name || "",
+        shippingSurname: address.last_name || "",
+        shippingAddress1: address.address_1 || "",
+        shippingAddress2: address.address_2 || "",
+        shippingCountry: address.country_code || "",
+        shippingZipCode: address.postal_code || "",
+        shippingCity: address.city || "",
+        shippingPhoneNumber: address.phone || "",
+      });
+    }
+  }
+};
+
+const onChangeShippingField = () => {
+  customerAddress.value = undefined;
+};
+
+const isCustomerHasAnyAddress = computed(() => {
+  return !customer.value?.customer.shipping_addresses.length;
 });
 
-const isCompany = computed(() => shippingCustomerType.value === "company");
-const { value: shippingCustomerType, errorMessage: shippingCustomerTypeError } =
-  useField<string>("shippingCustomerType");
-const { value: shippingName, errorMessage: shippingNameError } = useField<string>("shippingName");
-const { value: shippingSurname, errorMessage: shippingSurnameError } =
-  useField<string>("shippingSurname");
-const { value: shippingCompany, errorMessage: shippingCompanyError } =
-  useField<string>("shippingCompany");
-const { value: shippingEmail, errorMessage: shippingEmailError } =
-  useField<string>("shippingEmail");
-const { value: shippingAddress1, errorMessage: shippingAddress1Error } =
-  useField<string>("shippingAddress1");
-const { value: shippingAddress2, errorMessage: shippingAddress2Error } =
-  useField<string>("shippingAddress2");
-const { value: shippingCountry, errorMessage: shippingCountryError } =
-  useField<string>("shippingCountry");
-const { value: shippingZipCode, errorMessage: shippingZipCodeError } =
-  useField<string>("shippingZipCode");
-const { value: shippingCity, errorMessage: shippingCityError } = useField<string>("shippingCity");
-const { value: shippingPhoneNumber, errorMessage: shippingPhoneNumberError } =
-  useField<string>("shippingPhoneNumber");
+const customerShippingAddresses = computed(() => {
+  return customer.value?.customer.shipping_addresses.map((address) => ({
+    title: address.metadata.name,
+    value: address.id,
+  }));
+});
+
+const { value: customerAddress, errorMessage: customerAddressError } = useField<string | undefined>(
+  "shippingCustomerAddress",
+);
 </script>

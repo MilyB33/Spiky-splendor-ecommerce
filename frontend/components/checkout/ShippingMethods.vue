@@ -3,7 +3,7 @@
     <h4>Shipping methods</h4>
 
     <v-progress-circular
-      v-if="isFetchingShippingMethods"
+      v-if="isPendingShippingMethods"
       color="primary"
       indeterminate
     ></v-progress-circular>
@@ -36,7 +36,7 @@
 import { formatCurrency } from "~/utils/product";
 import type { CheckoutSchemaValues } from "~/utils/validation/shipping-schema";
 
-const { shippingMethods, isFetchingShippingMethods } = useCart();
+const { shippingMethods, isPendingShippingMethods } = useCart();
 const { region } = useRegions();
 
 const { value: shippingMethod, errorMessage: shippingMethodError } =

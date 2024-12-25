@@ -6,12 +6,27 @@
 
     <v-card class="pa-4 w-100">
       <div style="max-width: 700px">
-        <ShippingAddress />
+        <ShippingAddress :setFormValues="setFormValues" />
         <v-divider
           :thickness="2"
           class="my-4"
         ></v-divider>
         <BillingAddress />
+
+        <v-divider
+          :thickness="2"
+          class="my-4"
+        ></v-divider>
+
+        <v-text-field
+          variant="outlined"
+          label="Email"
+          density="compact"
+          hide-details="auto"
+          v-model="email"
+          :error-messages="emailError"
+        ></v-text-field>
+
         <v-divider
           :thickness="2"
           class="my-4"
@@ -33,15 +48,18 @@ import { checkoutSchema, type CheckoutSchemaValues } from "~/utils/validation/sh
 
 type ShippingCustomerFormFieldsProps = {
   isLoading: boolean;
+  setFormValues: (values: Partial<CheckoutSchemaValues>) => void;
 };
 
 defineProps<ShippingCustomerFormFieldsProps>();
 
 const values = useFormValues<CheckoutSchemaValues>();
 
+const { value: email, errorMessage: emailError } = useField<string>("email");
+
 const isValid = computed(() => {
   const result = checkoutSchema.safeParse(values.value);
-
+  console.log(result.error?.errors);
   return result.success;
 });
 </script>

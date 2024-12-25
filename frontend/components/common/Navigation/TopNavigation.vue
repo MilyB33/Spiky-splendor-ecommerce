@@ -23,7 +23,6 @@
     >
       <CommonNavigationButton to="/">Home</CommonNavigationButton>
       <CommonNavigationButton to="/products">Products</CommonNavigationButton>
-      <CommonNavigationButton to="/contact">Contact</CommonNavigationButton>
       <CommonNavigationButton to="/about">FAQ</CommonNavigationButton>
     </v-toolbar-items>
 

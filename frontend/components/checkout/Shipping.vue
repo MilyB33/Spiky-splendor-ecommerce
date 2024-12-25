@@ -4,13 +4,16 @@
     class="d-flex ga-4 w-100"
     :class="isMobile && 'flex-column'"
   >
-    <ShippingCustomerFormFields :is-loading="isLoading" />
+    <ShippingCustomerFormFields
+      :isLoading="isLoading"
+      :setFormValues="form.setValues"
+    />
   </form>
 </template>
 
 <script lang="ts" setup>
 import { useForm } from "vee-validate";
-import { prepareCheckoutDataBeforePayment } from "~/utils/checkout";
+import { getShippingInitialValues, prepareCheckoutDataBeforePayment } from "~/utils/checkout";
 import { useDisplay } from "vuetify";
 
 import {
@@ -30,6 +33,7 @@ const {
 } = useCart();
 const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 const { snackbar } = useSnackbar();
+const { customer } = useCustomer();
 
 const initialShippingMethod = computed<CheckoutSchemaValues["shippingMethod"]>(() => {
   return {
@@ -38,13 +42,41 @@ const initialShippingMethod = computed<CheckoutSchemaValues["shippingMethod"]>((
   };
 });
 
-const form = useForm({
-  validationSchema: checkoutTypedSchema,
-  initialValues: {
+const initialValues = computed<Partial<CheckoutSchemaValues>>(() => {
+  return {
     shippingCustomerType: "individual",
     billingCustomerType: "individual",
     shippingMethod: initialShippingMethod.value,
-  },
+    shippingCustomerAddress: customer.value?.customer.shipping_addresses?.[0]?.id,
+    ...getShippingInitialValues({
+      billingAddress: customer.value?.customer.billing_address,
+      shippingAddress: customer.value?.customer.shipping_addresses[0],
+      customerEmail: customer.value?.customer.email,
+    }),
+  };
+});
+
+const initialErrors = computed(() => {
+  const result = checkoutSchema.safeParse(initialValues.value);
+
+  const errors = result.error?.errors.map((error) => [error.path[0], error.message]);
+
+  const filteredErrors = errors?.filter(([path]) => {
+    const entries = Object.entries(initialValues.value);
+
+    const searchedEntry = entries.find((entry) => entry[0] === path);
+
+    return searchedEntry?.[1] !== undefined;
+  });
+
+  return Object.fromEntries(filteredErrors || []);
+});
+
+const form = useForm({
+  validationSchema: checkoutTypedSchema,
+  initialValues: initialValues.value,
+  initialErrors: initialErrors.value,
+  keepValuesOnUnmount: true,
 });
 
 const isCreatingPaymentMethodDelayed = ref(false);

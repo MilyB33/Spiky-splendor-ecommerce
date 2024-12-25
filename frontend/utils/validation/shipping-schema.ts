@@ -2,6 +2,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 
 export const shippingSchema = z.object({
+  shippingCustomerAddress: z.string().optional(),
   shippingCustomerType: z.union([z.literal("individual"), z.literal("company")], {
     required_error: "Required field: select customer type (individual or company).",
   }),
@@ -20,20 +21,20 @@ export const shippingSchema = z.object({
     .min(5, "Company name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  shippingEmail: z.string().min(5, "Email must be at least 5 characters long.").email(),
-  shippingAddress1: z.string().min(5, "Address must be at least 5 characters long."),
+  shippingAddress1: z.string().min(5, "Address must be at least 5 characters long.").optional(),
   shippingAddress2: z
     .string()
     .min(5, "Address must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  shippingCountry: z.string().min(1, "Country is required."),
-  shippingZipCode: z.string().min(5, "Zip code must be at least 5 characters long."),
-  shippingCity: z.string().min(5),
+  shippingCountry: z.string().min(1, "Country is required.").optional(),
+  shippingZipCode: z.string().min(5, "Zip code must be at least 5 characters long.").optional(),
+  shippingCity: z.string().min(5).optional(),
   shippingPhoneNumber: z
     .string()
     .min(9, "Phone number must be at least 9 characters long.")
-    .regex(/^\d+$/, "Phone number can only contain numbers."),
+    .regex(/^\d+$/, "Phone number can only contain numbers.")
+    .optional(),
 });
 
 const billingDetailsSchema = z.object({
@@ -57,7 +58,6 @@ const billingDetailsSchema = z.object({
     .min(5, "Company name must be at least 5 characters long.")
     .optional()
     .or(z.literal("")),
-  billingEmail: z.string().email().min(4, "Email must be at least 5 characters long.").optional(),
   billingAddress1: z.string().min(5, "Address must be at least 5 characters long.").optional(),
   billingAddress2: z
     .string()
@@ -78,10 +78,37 @@ const shippingMethodsSchema = z.object({
   shippingMethod: z.object({ methodId: z.string(), price: z.number() }),
 });
 
-export const checkoutSchema = shippingSchema
+const commonFieldsSchema = z.object({
+  email: z.string().email().min(4, "Email must be at least 5 characters long.").optional(),
+});
+
+const mergedSchema = shippingSchema
   .merge(billingDetailsSchema)
-  .merge(shippingMethodsSchema)
-  .superRefine((data, ctx) => {
+  .merge(commonFieldsSchema)
+  .merge(shippingMethodsSchema);
+
+export type MergedSchemaValues = z.infer<typeof mergedSchema>;
+
+export const checkoutSchema = z.preprocess(
+  (data) => {
+    const newData = { ...(data as MergedSchemaValues) };
+
+    if (newData.sameBillingAddress) {
+      delete newData.billingCustomerType;
+      delete newData.billingName;
+      delete newData.billingSurname;
+      delete newData.billingCompany;
+      delete newData.billingAddress1;
+      delete newData.billingAddress2;
+      delete newData.billingCountry;
+      delete newData.billingZipCode;
+      delete newData.billingCity;
+      delete newData.billingPhoneNumber;
+    }
+
+    return newData;
+  },
+  mergedSchema.superRefine((data, ctx) => {
     if (data.shippingCustomerType === "individual") {
       if (!data.shippingName) {
         ctx.addIssue({
@@ -139,13 +166,6 @@ export const checkoutSchema = shippingSchema
           path: ["billingCompany"],
         });
       }
-      if (!data.billingEmail) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Email for the invoice is required.",
-          path: ["billingEmail"],
-        });
-      }
       if (!data.billingAddress1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -182,7 +202,8 @@ export const checkoutSchema = shippingSchema
         });
       }
     }
-  });
+  }),
+);
 
 export const checkoutTypedSchema = toTypedSchema(checkoutSchema);
 export type CheckoutSchemaValues = z.infer<typeof checkoutSchema>;

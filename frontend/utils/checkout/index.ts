@@ -1,5 +1,6 @@
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 import type { CheckoutSchemaValues } from "../validation/shipping-schema";
+import type { Address } from "@medusajs/medusa";
 
 export const prepareCheckoutDataBeforePayment = (
   values: Omit<CheckoutSchemaValues, "shippingMethod">,
@@ -49,8 +50,42 @@ export const prepareCheckoutDataBeforePayment = (
   }
 
   return {
-    email: values.shippingEmail,
+    email: values.email,
     shipping_address: shippingAddress,
     billing_address: billingAddress,
+  };
+};
+
+type GetShippingInitialValuesConfig = {
+  shippingAddress?: Address;
+  billingAddress?: Address;
+  customerEmail?: string;
+};
+
+export const getShippingInitialValues = ({
+  customerEmail,
+  shippingAddress,
+  billingAddress,
+}: GetShippingInitialValuesConfig): Partial<CheckoutSchemaValues> => {
+  return {
+    shippingName: shippingAddress?.first_name || undefined,
+    shippingSurname: shippingAddress?.last_name || undefined,
+    shippingCompany: shippingAddress?.company || undefined,
+    shippingAddress1: shippingAddress?.address_1 || undefined,
+    shippingAddress2: shippingAddress?.address_2 || undefined,
+    shippingCountry: shippingAddress?.country_code || undefined,
+    shippingZipCode: shippingAddress?.postal_code || undefined,
+    shippingCity: shippingAddress?.city || undefined,
+    shippingPhoneNumber: shippingAddress?.phone || undefined,
+    billingName: billingAddress?.first_name || undefined,
+    billingSurname: billingAddress?.last_name || undefined,
+    billingCompany: billingAddress?.company || undefined,
+    billingAddress1: billingAddress?.address_1 || undefined,
+    billingAddress2: billingAddress?.address_2 || undefined,
+    billingCountry: billingAddress?.country_code || undefined,
+    billingZipCode: billingAddress?.postal_code || undefined,
+    billingCity: billingAddress?.city || undefined,
+    billingPhoneNumber: billingAddress?.phone || undefined,
+    email: customerEmail,
   };
 };

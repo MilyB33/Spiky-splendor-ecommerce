@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panel :value="address?.id || 'new'">
+  <v-expansion-panel>
     <v-expansion-panel-title>
       {{ address?.metadata.name || "New address" }}
     </v-expansion-panel-title>
@@ -48,7 +48,6 @@ import { getInitialValues } from "~/utils/addresses";
 
 type ShippingAddressPanelProps = {
   address?: Address;
-  panel: string[];
 };
 
 const props = defineProps<ShippingAddressPanelProps>();

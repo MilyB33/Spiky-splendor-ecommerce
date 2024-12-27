@@ -1,8 +1,10 @@
 export const useInitialize = () => {
-  const { isPendingCustomer } = useCustomer();
+  const { isCheckingSession, isFetchingCustomer } = useGetCustomer();
   const { isFetchingRegions } = useRegions();
 
-  const isLoading = computed(() => isPendingCustomer.value || isFetchingRegions.value);
+  const isLoading = computed(
+    () => isCheckingSession.value || isFetchingCustomer.value || isFetchingRegions.value,
+  );
 
   return {
     isLoading,

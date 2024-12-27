@@ -8,8 +8,22 @@ export const useGetCustomer = () => {
   });
 
   const {
+    data: session,
+    isPending: isCheckingSession,
+    isError: isSessionError,
+  } = useQuery({
+    queryKey: [API_QUERY_KEY.SESSION],
+    queryFn: () => client.auth.getSession(),
+    retry: false,
+    retryOnMount: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
     data: customer,
     isLoading: isLoadingCustomer,
+    isFetching: isFetchingCustomer,
     isPending: isPendingCustomer,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CUSTOMER],
@@ -21,12 +35,7 @@ export const useGetCustomer = () => {
     retryOnMount: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-  });
-
-  const { data: session } = useQuery({
-    queryKey: [API_QUERY_KEY.SESSION],
-    queryFn: () => client.auth.getSession(),
-    enabled: !!customer.value?.customer,
+    enabled: !!session.value?.customer,
   });
 
   watch(session, (newValue) => {
@@ -37,12 +46,20 @@ export const useGetCustomer = () => {
     }
   });
 
+  watch(isSessionError, (newValue) => {
+    if (newValue) {
+      authenticatedCookie.value = "false";
+    }
+  });
+
   const isAuthenticated = computed(() => authenticatedCookie.value);
 
   return {
     customer,
     isLoadingCustomer,
     isPendingCustomer,
+    isFetchingCustomer,
+    isCheckingSession,
     isAuthenticated,
   };
 };

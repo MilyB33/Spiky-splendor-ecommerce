@@ -13,5 +13,9 @@ export const config: MiddlewaresConfig = {
       matcher: "/store/returns*",
       middlewares: [requireCustomerAuthentication()],
     },
+    {
+      matcher: "/store/customer/deactivate*",
+      middlewares: [requireCustomerAuthentication()],
+    },
   ],
 };

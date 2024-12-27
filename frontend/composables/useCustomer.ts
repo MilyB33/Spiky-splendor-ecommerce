@@ -1,5 +1,5 @@
 import type { Customer } from "@medusajs/medusa";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
 
 type CustomerUpdatePayload = Partial<
@@ -23,12 +23,28 @@ export const useCustomer = () => {
     },
   });
 
+  const { mutateAsync: deactivateCustomer, isPending: isDeactivatingCustomer } = useMutation({
+    mutationFn: () => client.customers.client.request("DELETE", "/store/customer/deactivate/"),
+    onSuccess: async () => {
+      await client.auth.deleteSession();
+      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.SESSION] });
+      snackbar.success("Successfully deactivated account!");
+      navigateTo("/");
+    },
+    onError: () => {
+      snackbar.error("Something went wrong, please try again");
+    },
+  });
+
   return {
     customer,
     isAuthenticated,
     isLoadingCustomer,
     isPendingCustomer,
     isUpdatingCustomer,
+    isDeactivatingCustomer,
     updateCustomer,
+    deactivateCustomer,
   };
 };

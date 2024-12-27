@@ -18,8 +18,8 @@ export const useAuth = () => {
     onSuccess: () => {
       snackbar.success("Successfully logged out.");
       navigateTo("/");
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER], exact: true });
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.SESSION], exact: true });
+      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.SESSION] });
+      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
   });
 

@@ -48,7 +48,40 @@
     </form>
 
     <div class="d-flex ga-4">
-      <v-btn>Change password</v-btn>
+      <v-dialog max-width="500">
+        <template v-slot:activator="{ props: activatorProps }">
+          <v-btn
+            v-bind="activatorProps"
+            color="red"
+            >Deactivate account</v-btn
+          >
+        </template>
+
+        <template v-slot:default="{ isActive }">
+          <v-card title="Deactivate account">
+            <v-card-text>
+              Are you sure you want to deactivate your account? This cannot be undone.
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                @click="isActive.value = false"
+                variant="outlined"
+                :disabled="isDeactivatingCustomer"
+                >No</v-btn
+              >
+              <v-btn
+                @click="handleDeactivateAccount"
+                variant="outlined"
+                :disabled="isDeactivatingCustomer"
+                >Yes</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
     </div>
 
     <v-divider />
@@ -67,8 +100,8 @@
 <script lang="ts" setup>
 import { personalDetailsTypedSchema } from "~/utils/validation/personal-details";
 
-const { customer } = useCustomer();
-const { updateCustomer, isUpdatingCustomer } = useCustomer();
+const { customer, updateCustomer, deactivateCustomer, isDeactivatingCustomer, isUpdatingCustomer } =
+  useCustomer();
 
 const initialValues = computed(() => ({
   firstName: customer.value?.customer.first_name,
@@ -90,6 +123,12 @@ const onSubmit = form.handleSubmit(async (values) => {
     phone: values.phone,
   });
 });
+
+const handleDeactivateAccount = async () => {
+  if (!customer.value?.customer.id) return;
+
+  await deactivateCustomer(customer.value.customer.id);
+};
 
 const { value: firstName, errorMessage: firstNameError } = useField<string>("firstName");
 const { value: lastName, errorMessage: lastNameError } = useField<string>("lastName");

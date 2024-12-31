@@ -59,7 +59,7 @@ const { value: email, errorMessage: emailError } = useField<string>("email");
 
 const isValid = computed(() => {
   const result = checkoutSchema.safeParse(values.value);
-  console.log(result.error?.errors);
+
   return result.success;
 });
 </script>

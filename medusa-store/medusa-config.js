@@ -1,5 +1,4 @@
 const dotenv = require("dotenv");
-const fs = require("fs");
 
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {

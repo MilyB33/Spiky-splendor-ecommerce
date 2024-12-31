@@ -5,7 +5,7 @@
       :class="`text-white ${textSize}`"
       style="z-index: 1"
     >
-      Welcome in Spiky Splendor
+      Welcome to Spiky Splendor
     </h2>
     <NuxtLink to="/products">
       <v-btn

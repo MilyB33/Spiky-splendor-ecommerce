@@ -10,6 +10,10 @@ export const config: MiddlewaresConfig = {
       middlewares: [requireCustomerAuthentication()],
     },
     {
+      matcher: "/store/orders/last*",
+      middlewares: [requireCustomerAuthentication()],
+    },
+    {
       matcher: "/store/returns*",
       middlewares: [requireCustomerAuthentication()],
     },

@@ -23,8 +23,8 @@
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
 
 const config = useRuntimeConfig();
-const { cart, isFetchingCart, completeCart, isCompletingCart } = useCart(true);
-const { isFetchingLastOrder, setOrderId } = useOrders();
+const { cart, isFetchingCart, completeCart, isCompletingCart } = useCart();
+const { isFetchingLastOrder, shouldFetchLastOrder, cartId, isLoadingOrder } = useOrders();
 
 const stripePk = config.public.PUBLIC_STRIPE_KEY;
 const stripe = ref<Stripe | null>(null);
@@ -50,19 +50,32 @@ onMounted(async () => {
     isFail.value = true;
   }
 
-  if (!isFail.value && !cart.value?.cart.completed_at) {
-    const cart = await completeCart();
+  try {
+    if (
+      !isFail.value &&
+      !cart.value?.cart.completed_at &&
+      !isCompletingCart.value &&
+      !!cart.value?.cart
+    ) {
+      const response = await completeCart();
 
-    if (cart?.type === "order") {
-      setOrderId(cart.data.id);
+      if (response.type === "order") {
+        cartId.value = response.data.cart_id;
+      }
+    } else {
+      shouldFetchLastOrder.value = true;
     }
-  }
+  } catch (_) {}
 
   isMounting.value = false;
 });
 
 const isLoading = computed(
   () =>
-    isMounting.value || isCompletingCart.value || isFetchingLastOrder.value || isFetchingCart.value,
+    isMounting.value ||
+    isCompletingCart.value ||
+    isFetchingLastOrder.value ||
+    isFetchingCart.value ||
+    isLoadingOrder.value,
 );
 </script>

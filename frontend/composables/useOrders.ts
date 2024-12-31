@@ -1,7 +1,7 @@
-import { API_QUERY_KEY, LOCAL_STORAGE_KEY, SETTINGS } from "~/constant";
+import { API_QUERY_KEY, SETTINGS } from "~/constant";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 
-import { useStorage } from "@vueuse/core";
+import type { Order } from "@medusajs/medusa";
 
 type Params = {
   page: number;
@@ -17,7 +17,7 @@ export const useOrders = () => {
   const pageCount = computed(() =>
     Math.ceil((orders.value?.count || 0) / SETTINGS.ORDERS_PAGE_LIMIT),
   );
-  const localStorageLastOrderId = useStorage(LOCAL_STORAGE_KEY.LAST_ORDER_ID, "");
+
   const { customer } = useCustomer();
 
   const client = useMedusaClient();
@@ -25,7 +25,8 @@ export const useOrders = () => {
   const queryKey = computed(() => [API_QUERY_KEY.ORDERS, params.value.limit, params.value.page]);
 
   const isListOrdersEnabled = computed(() => () => !!customer.value?.customer.id);
-  const isLastOrderEnabled = computed(() => !!localStorageLastOrderId.value);
+  const shouldFetchLastOrder = ref(false);
+  const cartId = ref("");
 
   const {
     data: orders,
@@ -42,10 +43,16 @@ export const useOrders = () => {
     enabled: isListOrdersEnabled,
   });
 
-  const { data: lastOrder, isLoading: isFetchingLastOrder } = useQuery({
-    queryKey: [API_QUERY_KEY.ORDERS, localStorageLastOrderId.value],
-    queryFn: () => client.orders.retrieve(localStorageLastOrderId.value),
-    enabled: isLastOrderEnabled,
+  const { data: lastOrderResponse, isLoading: isFetchingLastOrder } = useQuery({
+    queryKey: [API_QUERY_KEY.LAST_ORDER],
+    queryFn: (): Promise<Order | null> => client.orders.client.request("GET", "/store/orders/last"),
+    enabled: shouldFetchLastOrder,
+  });
+
+  const { data: order, isLoading: isLoadingOrder } = useQuery({
+    queryKey: [API_QUERY_KEY.LAST_ORDER],
+    queryFn: () => client.orders.retrieveByCartId(cartId.value),
+    enabled: computed(() => !!cartId.value),
   });
 
   const { mutateAsync: cancelOrder, isPending: isCancellingOrder } = useMutation({
@@ -72,14 +79,12 @@ export const useOrders = () => {
     },
   });
 
-  const setOrderId = (orderID: string) => {
-    localStorageLastOrderId.value = orderID;
-  };
+  const lastOrder = computed(() => lastOrderResponse.value || order.value?.order);
 
   return {
     lastOrder,
     isFetchingLastOrder,
-    setOrderId,
+    isLoadingOrder,
     orders,
     isLoadingOrders,
     isFetchingOrders,
@@ -89,5 +94,7 @@ export const useOrders = () => {
     isCancellingOrder,
     generateInvoice,
     isGeneratingInvoice,
+    shouldFetchLastOrder,
+    cartId,
   };
 };

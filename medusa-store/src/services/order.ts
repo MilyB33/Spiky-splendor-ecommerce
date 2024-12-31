@@ -55,6 +55,21 @@ class OrderService extends MedusaOrderService {
   async retrieve(orderId: string, config?: FindConfig<Order>) {
     return super.retrieve(orderId, config);
   }
+
+  async getLastCustomerOrder(customerId: string) {
+    const searchedOrder = await this.orderRepository_.findOne({
+      order: { created_at: "DESC" },
+      where: { customer_id: customerId },
+    });
+
+    if (searchedOrder) {
+      const order = await this.retrieveWithTotals(searchedOrder.id);
+
+      return order;
+    }
+
+    return null;
+  }
 }
 
 export default OrderService;

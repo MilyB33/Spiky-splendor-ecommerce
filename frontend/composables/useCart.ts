@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient, skipToken } from "@tanstack/vue-query";
-import { API_QUERY_KEY, LOCAL_STORAGE_KEY } from "~/constant";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
+import { API_QUERY_KEY } from "~/constant";
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 
 type UpdateLineItemParams = {
@@ -152,14 +152,23 @@ export const useCart = (skipFetchingCart?: boolean) => {
     isLoading: isLoadingShippingMethods,
     isFetching: isFetchingShippingMethods,
     isPending: isPendingShippingMethods,
+    refetch,
   } = useQuery({
     queryKey: [API_QUERY_KEY.SHIPPING_METHODS],
-    queryFn: () => {
-      if (cart.value?.cart.id) {
-        return client.shippingOptions.listCartOptions(cart.value?.cart.id);
-      }
-    },
+    queryFn: () => client.shippingOptions.listCartOptions(cart.value?.cart.id!),
+
     enabled: shippingMethodsEnabled,
+  });
+
+  watch(shippingMethodsResponse, (oldValue, newValue) => {
+    if (
+      oldValue?.shipping_options.length === 0 &&
+      oldValue.response.status === 200 &&
+      !!cart.value?.cart.id &&
+      !isFetchingShippingMethods.value
+    ) {
+      refetch();
+    }
   });
 
   const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {

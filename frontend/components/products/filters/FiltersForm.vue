@@ -40,8 +40,8 @@
       :handleClear="handleClear"
     >
       <div
-        class="d-flex ga-2 justify-space-between w-100"
-        style="position: sticky; bottom: 10px"
+        class="d-flex ga-2 justify-space-between w-100 pa-4"
+        style="position: sticky; bottom: 0px; background-color: #e0e0e0"
       >
         <v-btn @click="handleClear">Clear</v-btn>
         <v-btn type="submit">Search</v-btn>

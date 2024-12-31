@@ -127,7 +127,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 const handleDeactivateAccount = async () => {
   if (!customer.value?.customer.id) return;
 
-  await deactivateCustomer(customer.value.customer.id);
+  await deactivateCustomer();
 };
 
 const { value: firstName, errorMessage: firstNameError } = useField<string>("firstName");

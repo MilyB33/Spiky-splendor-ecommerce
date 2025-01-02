@@ -7,19 +7,19 @@ import { Type } from "class-transformer";
 
 export class AdminPostStoreReq extends MedusaAdminPostStoreReq {
   @IsOptional()
-  @Type(() => String)
+  @IsString()
   company?: string;
 
   @IsOptional()
-  @Type(() => String())
+  @IsString()
   city?: string;
 
   @IsOptional()
-  @Type(() => String())
+  @IsString()
   postal_code?: string;
 
   @IsOptional()
-  @Type(() => String())
+  @IsString()
   address?: string;
 }
 

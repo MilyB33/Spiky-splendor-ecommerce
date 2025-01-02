@@ -25,6 +25,7 @@
           :display-order-id="displayOrderId"
           :order-status="orderStatus"
           :fulfillment_status="fulfillmentStatus"
+          :payment-status="paymentStatus"
         />
       </div>
       <v-divider />

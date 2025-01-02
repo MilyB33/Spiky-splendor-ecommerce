@@ -13,6 +13,7 @@ export const useProduct = (productHandle: string) => {
       expand:
         "categories,variants,variants.prices,images,options,variants.options,plant_forms,plant_placements,plant_water_demand",
       region_id: region.value?.id,
+      region: region.value?.id,
     });
   };
 

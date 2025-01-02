@@ -30,6 +30,7 @@ declare module "@medusajs/medusa/dist/api/routes/store/products" {
     min_price?: number;
     max_price?: number;
     is_search?: boolean;
+    region?: string;
   }
 }
 

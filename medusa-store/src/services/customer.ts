@@ -4,29 +4,28 @@ import {
   CustomerService as MedusaCustomerService,
 } from "@medusajs/medusa";
 import CustomerRepository from "@medusajs/medusa/dist/repositories/customer";
-import ProductRepository from "src/repositories/product";
 import OrderRepository from "@medusajs/medusa/dist/repositories/order";
 import ReturnRepository from "@medusajs/medusa/dist/repositories/return";
 import AddressRepository from "@medusajs/medusa/dist/repositories/address";
+import OrderService from "./order";
 
 type InjectedDependencies = {
   customerRepository: typeof CustomerRepository;
-  productRepository: typeof ProductRepository;
   orderRepository: typeof OrderRepository;
   returnRepository: typeof ReturnRepository;
   addressRepository: typeof AddressRepository;
+  orderService: OrderService;
 };
 
 class CustomerService extends MedusaCustomerService {
   protected customerRepository_: typeof CustomerRepository;
-  protected productRepository_: typeof ProductRepository;
   protected orderRepository_: typeof OrderRepository;
   protected returnRepository_: typeof ReturnRepository;
   protected addressRepository_: typeof AddressRepository;
+  protected orderService_: OrderService;
 
   constructor({
     customerRepository,
-    productRepository,
     orderRepository,
     returnRepository,
     addressRepository,
@@ -34,7 +33,6 @@ class CustomerService extends MedusaCustomerService {
     super(arguments[0]);
 
     this.customerRepository_ = customerRepository;
-    this.productRepository_ = productRepository;
     this.orderRepository_ = orderRepository;
     this.returnRepository_ = returnRepository;
     this.addressRepository_ = addressRepository;

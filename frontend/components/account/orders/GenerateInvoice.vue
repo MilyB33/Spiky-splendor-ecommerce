@@ -1,7 +1,7 @@
 <template>
   <v-tooltip
     :disabled="!isDisabled"
-    text="The payment has not yet been posted."
+    text="The payment has not yet been captured."
     location="bottom"
   >
     <template v-slot:activator="{ props }">

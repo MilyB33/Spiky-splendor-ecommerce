@@ -7,8 +7,9 @@
     <template v-slot:activator="{ props: activatorProps }">
       <v-tooltip
         :disabled="!isDisabled"
-        text="The order has been shipped or canceled."
+        text="The order has been shipped, canceled or payment was not captured yet."
         location="bottom"
+        max-width="300"
       >
         <template v-slot:activator="{ props }">
           <v-btn
@@ -64,6 +65,7 @@ type ConfirmCancelOrderModalProps = {
   displayOrderId: string;
   orderStatus: OrderStatus;
   fulfillment_status: FulfillmentStatus;
+  paymentStatus: string;
 };
 
 const { cancelOrder, isCancellingOrder } = useOrders();
@@ -71,9 +73,12 @@ const { cancelOrder, isCancellingOrder } = useOrders();
 const isActive = ref(false);
 
 const props = defineProps<ConfirmCancelOrderModalProps>();
-
+console.log(props.paymentStatus);
 const isDisabled = computed(
-  () => props.orderStatus !== "pending" || props.fulfillment_status !== "not_fulfilled",
+  () =>
+    props.orderStatus !== "pending" ||
+    props.fulfillment_status !== "not_fulfilled" ||
+    props.paymentStatus !== "captured",
 );
 
 const onCancel = async () => {

@@ -2,6 +2,7 @@ import {
   buildQuery,
   ExtendedFindConfig,
   ProductService as MedusaProductService,
+  RegionService,
   Product,
 } from "@medusajs/medusa";
 import {
@@ -19,6 +20,7 @@ type InjectedDependencies = {
   productRepository: typeof ProductRepository;
   plantFormRepository: typeof PlantFormRepository;
   plantPlacementRepository: typeof PlantPlacementRepository;
+  regionService: RegionService;
 };
 
 type ProductSelectorExtended = ProductSelector & {
@@ -29,6 +31,7 @@ type ProductSelectorExtended = ProductSelector & {
   min_price?: number;
   max_price?: number;
   is_search?: boolean;
+  region?: string; // region_id is removed on api/endpoint level and we don't get it here
 };
 
 type UpdateProductInputExtended = UpdateProductInput & {
@@ -39,21 +42,29 @@ type UpdateProductInputExtended = UpdateProductInput & {
   max_price?: number;
 };
 
+type PrepareFiltersConfig = {
+  tax_rate: number;
+  currency_code: string;
+};
+
 class ProductService extends MedusaProductService {
   protected productRepository_: typeof ProductRepository;
   protected plantFormRepository_: typeof PlantFormRepository;
   protected plantPlacementRepository_: typeof PlantPlacementRepository;
+  protected regionService_: RegionService;
 
   constructor({
     productRepository,
     plantFormRepository,
     plantPlacementRepository,
+    regionService,
   }: InjectedDependencies) {
     super(arguments[0]);
 
     this.productRepository_ = productRepository;
     this.plantFormRepository_ = plantFormRepository;
     this.plantPlacementRepository_ = plantPlacementRepository;
+    this.regionService_ = regionService;
   }
 
   async update(productId: string, update: UpdateProductInputExtended) {
@@ -78,7 +89,7 @@ class ProductService extends MedusaProductService {
     selector: ProductSelectorExtended,
     config?: FindProductConfig
   ): Promise<[Product[], number]> {
-    const { is_search, ...restSelector } = selector;
+    const { is_search, region: region_id, ...restSelector } = selector;
 
     if (!is_search) {
       return super.listAndCount(restSelector, config);
@@ -99,6 +110,9 @@ class ProductService extends MedusaProductService {
       ...productSelector
     } = restSelector;
 
+    const region = await this.regionService_.retrieve(region_id);
+    const { tax_rate, currency_code } = region;
+
     const query = buildQuery(productSelector, config) as ExtendedFindConfig<
       Product & ProductFilterOptions
     >;
@@ -109,14 +123,17 @@ class ProductService extends MedusaProductService {
     delete query.where.sales_channel_id;
 
     // Additional filters
-    const filtersQuery = this.prepareFilters_({
-      plant_forms_ids,
-      plant_placements_ids,
-      plant_water_demand_ids,
-      min_price,
-      max_price,
-      categories_ids,
-    });
+    const filtersQuery = this.prepareFilters_(
+      {
+        plant_forms_ids,
+        plant_placements_ids,
+        plant_water_demand_ids,
+        min_price,
+        max_price,
+        categories_ids,
+      },
+      { tax_rate, currency_code }
+    );
 
     const order = this.prepareOrder_(config.order);
 
@@ -133,7 +150,10 @@ class ProductService extends MedusaProductService {
     return result;
   }
 
-  prepareFilters_(selector: ProductSelectorExtended) {
+  prepareFilters_(
+    selector: ProductSelectorExtended,
+    config: PrepareFiltersConfig
+  ) {
     let filtersQuery: FindOptionsWhere<Product> | FindOptionsWhere<Product>[] =
       {};
 
@@ -158,12 +178,14 @@ class ProductService extends MedusaProductService {
     if (selector.min_price || selector.max_price) {
       const min = selector.min_price || 0;
       const max = selector.max_price || 100000;
+      const taxRate = config.tax_rate / 100 + 1;
 
       filtersQuery.variants = {
         prices: {
-          currency_code: "pln", // TODO: this is not needed if switch to only one region with one currency (product can have one price rather than more)
+          currency_code: config.currency_code,
           amount: Raw(
-            (alias) => `${alias} * 1.23 between ${min * 100} and ${max * 100}`
+            (alias) =>
+              `${alias} * ${taxRate} between ${min * 100} and ${max * 100}`
           ),
         },
       };

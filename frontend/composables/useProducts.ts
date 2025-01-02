@@ -39,6 +39,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
       ...filters.value,
       expand: "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
       region_id: region.value?.id,
+      region: region.value?.id,
       order: order.value,
       is_search: true,
     });

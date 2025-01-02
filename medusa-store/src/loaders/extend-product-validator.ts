@@ -5,47 +5,55 @@ import {
   ValidateNested,
   IsObject,
   IsString,
+  IsBoolean,
   IsOptional,
+  IsNumber,
   IsArray,
   Max,
   Min,
 } from "class-validator";
 import { registerOverriddenValidators } from "@medusajs/medusa";
-import { Type } from "class-transformer";
+import { Type, Transform } from "class-transformer";
 import { MAX_PRICE_FILTER_VALUE, MIN_PRICE_FILTER_VALUE } from "src/constant";
 
 export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
   @IsOptional()
   @IsArray()
-  @Type(() => String)
-  plant_forms_ids: string[];
+  @IsString({ each: true })
+  plant_forms_ids?: string[];
 
   @IsOptional()
   @IsArray()
-  @Type(() => String())
-  categories_ids: string[];
+  @IsString({ each: true })
+  categories_ids?: string[];
 
   @IsOptional()
   @IsArray()
-  @Type(() => String())
-  plant_placements_ids: string[];
+  @IsString({ each: true })
+  plant_placements_ids?: string[];
 
   @IsOptional()
   @IsArray()
-  @Type(() => String())
-  plant_water_demand_ids: string[];
+  @IsString({ each: true })
+  plant_water_demand_ids?: string[];
 
   @IsOptional()
-  @Type(() => Number())
-  min_price: number;
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  min_price?: number;
 
   @IsOptional()
-  @Type(() => Number())
-  max_price: number;
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  max_price?: number;
 
   @IsOptional()
-  @Type(() => Boolean())
-  is_search: boolean;
+  @IsBoolean()
+  @Transform(({ value }) => Boolean(value))
+  is_search?: boolean;
+
+  @IsString()
+  region: string;
 }
 
 registerOverriddenValidators(StoreGetProductsParams);

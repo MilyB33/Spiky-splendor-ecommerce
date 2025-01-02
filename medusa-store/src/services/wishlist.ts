@@ -10,33 +10,33 @@ import {
   RemoveWishlistItemStateInput,
   RetrieveWishlistStateInput,
 } from "../types/wishlist";
-import { CustomerRepository } from "@medusajs/medusa/dist/repositories/customer";
 import { Wishlist } from "src/models/wishlist";
+import CustomerService from "./customer";
 
 type InjectedDependencies = {
   manager: EntityManager;
   wishlistRepository: typeof WishlistRepository;
   wishlistItemRepository: typeof WishlistItemRepository;
-  customerRepository: typeof CustomerRepository;
+  customerService: CustomerService;
   pricingService: PricingService;
 };
 
 class WishlistService extends TransactionBaseService {
   protected readonly wishlistRepository_: typeof WishlistRepository;
   protected readonly wishlistItemRepository_: typeof WishlistItemRepository;
-  protected readonly customerRepository_: typeof CustomerRepository;
+  protected readonly customerService_: CustomerService;
   protected readonly pricingService_: PricingService;
 
   constructor({
     wishlistRepository,
     wishlistItemRepository,
-    customerRepository,
+    customerService,
     pricingService,
   }: InjectedDependencies) {
     super(arguments[0]);
     this.wishlistRepository_ = wishlistRepository;
     this.wishlistItemRepository_ = wishlistItemRepository;
-    this.customerRepository_ = customerRepository;
+    this.customerService_ = customerService;
     this.pricingService_ = pricingService;
   }
   async create(payload: CreateWishlistStateInput) {
@@ -51,14 +51,14 @@ class WishlistService extends TransactionBaseService {
     const { id } = savedWishlist;
 
     if (restPayload.customer_id && id) {
-      const customer = await this.customerRepository_.findOne({
-        where: { id: restPayload.customer_id },
-      });
+      const customer = await this.customerService_.retrieve(
+        restPayload.customer_id
+      );
 
       if (customer) {
         customer.wishlist_id = id;
-
-        await this.customerRepository_.save(customer);
+        // @ts-expect-error Can't extend input type
+        await this.customerService_.update(customer.id, { wishlist_id: id });
       }
     }
 
@@ -210,10 +210,10 @@ class WishlistService extends TransactionBaseService {
         { customer_id: data.customer_id }
       );
 
-      await this.customerRepository_.update(
-        { id: data.customer_id },
-        { wishlist_id: data.id }
-      );
+      await this.customerService_.update(data.customer_id, {
+        // @ts-expect-error can't extend input type
+        wishlist_id: data.id,
+      });
 
       const [wishlist] = await wishlistRepository.find({
         where: { id: data.id },

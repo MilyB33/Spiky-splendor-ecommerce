@@ -40,6 +40,14 @@ export const useFilters = () => {
     return mainCategory.value?.[0].category_children || [];
   });
 
+  const isFetchingFilters = computed(
+    () =>
+      isFetchingCategories.value ||
+      isFetchingPlantForms.value ||
+      isFetchingPlantPlacements.value ||
+      isFetchingPlantWaterDemands.value,
+  );
+
   return {
     plantForms,
     plantPlacements,
@@ -49,5 +57,6 @@ export const useFilters = () => {
     isFetchingPlantPlacements,
     isFetchingPlantForms,
     isFetchingCategories,
+    isFetchingFilters,
   };
 };

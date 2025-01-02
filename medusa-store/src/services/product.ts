@@ -13,13 +13,13 @@ import {
 } from "@medusajs/medusa/dist/types/product";
 import ProductRepository from "src/repositories/product";
 import { FindOneOptions, FindOptionsWhere, In, Raw } from "typeorm";
-import { PlantFormRepository } from "src/repositories/plant-form";
-import { PlantPlacementRepository } from "src/repositories/plant-placement";
+import PlantFormService from "./plant-form";
+import PlantPlacementService from "./plant-placement";
 
 type InjectedDependencies = {
   productRepository: typeof ProductRepository;
-  plantFormRepository: typeof PlantFormRepository;
-  plantPlacementRepository: typeof PlantPlacementRepository;
+  plantPlacementService: PlantPlacementService;
+  plantFormService: PlantFormService;
   regionService: RegionService;
 };
 
@@ -49,32 +49,31 @@ type PrepareFiltersConfig = {
 
 class ProductService extends MedusaProductService {
   protected productRepository_: typeof ProductRepository;
-  protected plantFormRepository_: typeof PlantFormRepository;
-  protected plantPlacementRepository_: typeof PlantPlacementRepository;
+  protected plantFormService_: PlantFormService;
+  protected plantPlacementService_: PlantPlacementService;
   protected regionService_: RegionService;
 
   constructor({
     productRepository,
-    plantFormRepository,
-    plantPlacementRepository,
+    plantFormService,
+    plantPlacementService,
     regionService,
   }: InjectedDependencies) {
     super(arguments[0]);
 
     this.productRepository_ = productRepository;
-    this.plantFormRepository_ = plantFormRepository;
-    this.plantPlacementRepository_ = plantPlacementRepository;
+    this.plantFormService_ = plantFormService;
+    this.plantPlacementService_ = plantPlacementService;
     this.regionService_ = regionService;
   }
 
   async update(productId: string, update: UpdateProductInputExtended) {
     const { plant_forms, plant_placements, ...restUpdate } = update;
 
-    const plantForms = await this.plantFormRepository_.find({
-      where: { id: In(plant_forms) },
-    });
-    const plantPlacements = await this.plantPlacementRepository_.find({
-      where: { id: In(plant_placements) },
+    const plantForms = await this.plantFormService_.list({ ids: plant_forms });
+
+    const plantPlacements = await this.plantPlacementService_.list({
+      ids: plant_placements,
     });
 
     return super.update(productId, {

@@ -2,32 +2,27 @@ import { TransactionBaseService, StoreService, Store } from "@medusajs/medusa";
 import { generateInvoice } from "../invoice-templates/basic";
 import { EntityManager } from "typeorm";
 import { InvoiceRepository } from "src/repositories/invoice";
-import { OrderRepository } from "@medusajs/medusa/dist/repositories/order";
 import OrderService from "./order";
 
 type InjectedDependencies = {
   manager: EntityManager;
   invoiceRepository: typeof InvoiceRepository;
-  orderRepository: typeof OrderRepository;
   orderService: OrderService;
   storeService: StoreService;
 };
 
 class InvoiceService extends TransactionBaseService {
   protected readonly invoiceRepository_: typeof InvoiceRepository;
-  protected readonly orderRepository_: typeof OrderRepository;
   protected readonly orderService_: OrderService;
   protected readonly storeService_: StoreService;
 
   constructor({
-    orderRepository,
     invoiceRepository,
     orderService,
     storeService,
   }: InjectedDependencies) {
     super(arguments[0]);
     this.invoiceRepository_ = invoiceRepository;
-    this.orderRepository_ = orderRepository;
     this.orderService_ = orderService;
     this.storeService_ = storeService;
   }

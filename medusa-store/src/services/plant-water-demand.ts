@@ -8,21 +8,21 @@ type InjectedDependencies = {
 };
 
 class PlantWaterDemandService {
-  protected readonly plantWaterDemandRepository: typeof PlantWaterDemandRepository;
+  protected readonly plantWaterDemandRepository_: typeof PlantWaterDemandRepository;
 
   constructor({ plantWaterDemandRepository }: InjectedDependencies) {
-    this.plantWaterDemandRepository = plantWaterDemandRepository;
+    this.plantWaterDemandRepository_ = plantWaterDemandRepository;
   }
 
   async list(): Promise<PlantWaterDemand[]> {
-    const plantWaterDemands = await this.plantWaterDemandRepository.find();
+    const plantWaterDemands = await this.plantWaterDemandRepository_.find();
 
     return plantWaterDemands;
   }
 
   async delete(id: string): Promise<DeleteResult> {
     const removedPlantWaterDemand =
-      await this.plantWaterDemandRepository.delete({
+      await this.plantWaterDemandRepository_.delete({
         id,
       });
 
@@ -30,10 +30,10 @@ class PlantWaterDemandService {
   }
 
   async add(name: string): Promise<PlantWaterDemand> {
-    const newPlantWaterDemand = this.plantWaterDemandRepository.create({
+    const newPlantWaterDemand = this.plantWaterDemandRepository_.create({
       name,
     });
-    const plantWaterDemandResult = await this.plantWaterDemandRepository.save(
+    const plantWaterDemandResult = await this.plantWaterDemandRepository_.save(
       newPlantWaterDemand
     );
 

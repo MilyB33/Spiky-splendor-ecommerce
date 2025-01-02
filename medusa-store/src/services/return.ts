@@ -2,7 +2,6 @@ import {
   FindConfig,
   ReturnService as MedusaReturnService,
   Return,
-  Selector,
 } from "@medusajs/medusa";
 import ReturnRepository from "@medusajs/medusa/dist/repositories/return";
 

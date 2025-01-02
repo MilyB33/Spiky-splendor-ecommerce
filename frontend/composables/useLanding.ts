@@ -6,11 +6,10 @@ export const useLanding = () => {
   const client = useMedusaClient();
   const { region } = useRegions();
 
-  const { data: recommendedCollectionResponse, isLoading: isLoadingRecommendedCollection } =
-    useQuery({
-      queryKey: [API_QUERY_KEY.COLLECTIONS],
-      queryFn: () => client.collections.list({ handle: ["recommended"] }),
-    });
+  const { data: recommendedCollectionResponse } = useQuery({
+    queryKey: [API_QUERY_KEY.COLLECTIONS],
+    queryFn: () => client.collections.list({ handle: ["recommended"] }),
+  });
 
   const recommendedCollection = computed<ProductCollection | undefined>(() => {
     return recommendedCollectionResponse?.value?.collections[0];
@@ -26,6 +25,7 @@ export const useLanding = () => {
         expand:
           "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
         region_id: region.value?.id,
+        region: region.value?.id,
         collection_id: [recommendedCollection.value?.id || ""],
       }),
     enabled: shouldFetch,

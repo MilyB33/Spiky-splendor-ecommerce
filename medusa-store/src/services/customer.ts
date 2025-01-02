@@ -12,9 +12,9 @@ import OrderService from "./order";
 type InjectedDependencies = {
   customerRepository: typeof CustomerRepository;
   orderRepository: typeof OrderRepository;
+  orderService: OrderService;
   returnRepository: typeof ReturnRepository;
   addressRepository: typeof AddressRepository;
-  orderService: OrderService;
 };
 
 class CustomerService extends MedusaCustomerService {
@@ -22,7 +22,6 @@ class CustomerService extends MedusaCustomerService {
   protected orderRepository_: typeof OrderRepository;
   protected returnRepository_: typeof ReturnRepository;
   protected addressRepository_: typeof AddressRepository;
-  protected orderService_: OrderService;
 
   constructor({
     customerRepository,
@@ -79,7 +78,7 @@ class CustomerService extends MedusaCustomerService {
     );
 
     if (customer.billing_address) {
-      // Delete this via repository as it's have relation with customer
+      // Delete this via repository as it's have relation with customer (no service)
       await this.addressRepository_.delete({ id: customer.billing_address.id });
     }
 

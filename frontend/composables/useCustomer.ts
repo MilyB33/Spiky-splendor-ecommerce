@@ -10,7 +10,8 @@ export const useCustomer = () => {
   const client = useMedusaClient();
   const queryClient = useQueryClient();
   const { snackbar } = useSnackbar();
-  const { customer, isAuthenticated, isLoadingCustomer, isPendingCustomer } = useGetCustomer();
+  const { customer, isAuthenticated, isLoadingCustomer, isPendingCustomer, isFetchingCustomer } =
+    useGetCustomer();
 
   const { mutateAsync: updateCustomer, isPending: isUpdatingCustomer } = useMutation({
     mutationFn: (data: CustomerUpdatePayload) => client.customers.update(data),
@@ -42,6 +43,7 @@ export const useCustomer = () => {
     isAuthenticated,
     isLoadingCustomer,
     isPendingCustomer,
+    isFetchingCustomer,
     isUpdatingCustomer,
     isDeactivatingCustomer,
     updateCustomer,

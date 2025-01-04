@@ -80,7 +80,7 @@ const finishPayment = async () => {
         clientSecret,
         elements: elements.value,
         confirmParams: {
-          return_url: config.public.PAYMENT_RETURN_URL,
+          return_url: `${config.public.PAYMENT_RETURN_URL}?cart_id=${cart.value?.cart.id}`,
           payment_method_data: {
             billing_details: {
               email: cart.value?.cart.email,

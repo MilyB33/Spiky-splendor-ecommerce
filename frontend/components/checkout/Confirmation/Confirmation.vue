@@ -23,8 +23,10 @@
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
 
 const config = useRuntimeConfig();
-const { cart, isFetchingCart, completeCart, isCompletingCart } = useCart();
-const { isFetchingLastOrder, shouldFetchLastOrder, cartId, isLoadingOrder } = useOrders();
+const route = useRoute();
+const { completeCart, isCompletingCart } = useCart(true);
+const { isLoadingLastOrder, shouldFetchLastOrder, cartId, cartForOrder, isFetchingCartForOrder } =
+  useOrders();
 
 const stripePk = config.public.PUBLIC_STRIPE_KEY;
 const stripe = ref<Stripe | null>(null);
@@ -33,7 +35,9 @@ const clientSecret = params["payment_intent_client_secret"] as string;
 const isFail = ref(false);
 const isMounting = ref(true);
 
-onMounted(async () => {
+watch(cartForOrder, async (oldCartValue) => {
+  if (!oldCartValue?.cart) return;
+
   isMounting.value = true;
 
   if (!stripePk || !clientSecret) return;
@@ -53,29 +57,30 @@ onMounted(async () => {
   try {
     if (
       !isFail.value &&
-      !cart.value?.cart.completed_at &&
+      !cartForOrder.value?.cart.completed_at &&
       !isCompletingCart.value &&
-      !!cart.value?.cart
+      !!cartForOrder.value?.cart
     ) {
-      const response = await completeCart();
-
-      if (response.type === "order") {
-        cartId.value = response.data.cart_id;
-      }
-    } else {
+      await completeCart();
       shouldFetchLastOrder.value = true;
     }
-  } catch (_) {}
+  } catch (_) {
+  } finally {
+    shouldFetchLastOrder.value = true;
 
-  isMounting.value = false;
+    isMounting.value = false;
+  }
+});
+
+onMounted(() => {
+  cartId.value = route.query.cart_id as string;
 });
 
 const isLoading = computed(
   () =>
     isMounting.value ||
     isCompletingCart.value ||
-    isFetchingLastOrder.value ||
-    isFetchingCart.value ||
-    isLoadingOrder.value,
+    isLoadingLastOrder.value ||
+    isFetchingCartForOrder.value,
 );
 </script>

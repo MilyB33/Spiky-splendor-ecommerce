@@ -1,8 +1,6 @@
 import { API_QUERY_KEY, SETTINGS } from "~/constant";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 
-import type { Order } from "@medusajs/medusa";
-
 type Params = {
   page: number;
   limit: number;
@@ -18,7 +16,7 @@ export const useOrders = () => {
     Math.ceil((orders.value?.count || 0) / SETTINGS.ORDERS_PAGE_LIMIT),
   );
 
-  const { customer } = useCustomer();
+  const { customer, isFetchingCustomer } = useCustomer();
 
   const client = useMedusaClient();
 
@@ -27,6 +25,10 @@ export const useOrders = () => {
   const isListOrdersEnabled = computed(() => () => !!customer.value?.customer.id);
   const shouldFetchLastOrder = ref(false);
   const cartId = ref("");
+
+  const lastOrderEnabled = computed(
+    () => shouldFetchLastOrder.value && !isFetchingCustomer.value && !!cartId.value,
+  );
 
   const {
     data: orders,
@@ -43,16 +45,16 @@ export const useOrders = () => {
     enabled: isListOrdersEnabled,
   });
 
-  const { data: lastOrderResponse, isLoading: isFetchingLastOrder } = useQuery({
-    queryKey: [API_QUERY_KEY.LAST_ORDER],
-    queryFn: (): Promise<Order | null> => client.orders.client.request("GET", "/store/orders/last"),
-    enabled: shouldFetchLastOrder,
+  const { data: cartForOrder, isFetching: isFetchingCartForOrder } = useQuery({
+    queryKey: [API_QUERY_KEY.CART_ORDER],
+    queryFn: () => client.carts.retrieve(cartId.value),
+    enabled: computed(() => !!cartId.value),
   });
 
-  const { data: order, isLoading: isLoadingOrder } = useQuery({
+  const { data: lastOrderResponse, isLoading: isLoadingLastOrder } = useQuery({
     queryKey: [API_QUERY_KEY.LAST_ORDER],
     queryFn: () => client.orders.retrieveByCartId(cartId.value),
-    enabled: computed(() => !!cartId.value),
+    enabled: lastOrderEnabled,
   });
 
   const { mutateAsync: cancelOrder, isPending: isCancellingOrder } = useMutation({
@@ -79,12 +81,13 @@ export const useOrders = () => {
     },
   });
 
-  const lastOrder = computed(() => lastOrderResponse.value || order.value?.order);
+  const lastOrder = computed(() => lastOrderResponse.value?.order);
 
   return {
     lastOrder,
-    isFetchingLastOrder,
-    isLoadingOrder,
+    cartForOrder,
+    isFetchingCartForOrder,
+    isLoadingLastOrder,
     orders,
     isLoadingOrders,
     isFetchingOrders,

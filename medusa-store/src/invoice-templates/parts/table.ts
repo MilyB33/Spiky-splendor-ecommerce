@@ -34,13 +34,16 @@ export const generateInvoiceTable = (
         },
         {
           title: "Unit price",
-          styles: { cellWidth: 40, lineWidth: { right: 0.5 } },
+          styles: { cellWidth: 35, lineWidth: { right: 0.5 }, halign: "right" },
         },
         {
           title: "Quantity",
-          styles: { cellWidth: 15, lineWidth: { right: 0.5 } },
+          styles: { cellWidth: 20, lineWidth: { right: 0.5 }, halign: "right" },
         },
-        "Total value",
+        {
+          title: "Total value",
+          styles: { halign: "right" },
+        },
       ],
     ],
     body: data,
@@ -84,7 +87,7 @@ const formatDataForTable = (order: Order, items: LineItem[]) => {
     const itemTotal = amountToDisplay(item.total || 0, order.currency_code);
 
     return [
-      { content: `${index}.`, styles: { halign: "right" } },
+      { content: `${index}.` },
       item.title,
       { content: itemPrice, styles: { halign: "right" } },
       { content: String(item.quantity), styles: { halign: "right" } },

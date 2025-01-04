@@ -1,4 +1,4 @@
-import { TransactionBaseService, StoreService, Store } from "@medusajs/medusa";
+import { TransactionBaseService, StoreService } from "@medusajs/medusa";
 import { generateInvoice } from "../invoice-templates/basic";
 import { EntityManager } from "typeorm";
 import { InvoiceRepository } from "src/repositories/invoice";
@@ -26,9 +26,9 @@ class InvoiceService extends TransactionBaseService {
     this.orderService_ = orderService;
     this.storeService_ = storeService;
   }
-
+  // Todo: try to retrieve with totals
   async generateInvoice(orderId: string) {
-    const order = await this.orderService_.retrieve(orderId, {
+    const order = await this.orderService_.retrieveWithTotals(orderId, {
       relations: [
         "billing_address",
         "shipping_address",
@@ -57,6 +57,7 @@ class InvoiceService extends TransactionBaseService {
         "shipping_total",
       ],
     });
+
     const store = await this.storeService_.retrieve();
     const settings = {
       store_address: {

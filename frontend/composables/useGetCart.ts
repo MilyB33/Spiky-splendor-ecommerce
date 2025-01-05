@@ -11,6 +11,7 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
     data: cart,
     isLoading: isLoadingCart,
     isFetching: isFetchingCart,
+    refetch: refetchCart,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CART],
     queryFn: skipFetchingCart ? skipToken : () => client.carts.retrieve(cookieCartId.value!),
@@ -32,5 +33,6 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
     isLoadingCart,
     isCartEmpty,
     setCartId,
+    refetchCart,
   };
 };

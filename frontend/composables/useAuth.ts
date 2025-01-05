@@ -7,8 +7,10 @@ import { API_QUERY_KEY } from "~/constant";
 export const useAuth = () => {
   const client = useMedusaClient();
   const queryClient = useQueryClient();
-  const { addCustomerToExistingWishlist } = useWishlist();
+  const { synchronizeWishlist } = useWishlist();
+  const { synchronizeCart } = useCart(true);
   const { snackbar } = useSnackbar();
+  const {} = useGetCustomer();
 
   const { mutateAsync: logCustomerOut, isPending: isLoggingCustomerOut } = useMutation({
     mutationFn: () => client.auth.deleteSession(),
@@ -18,8 +20,9 @@ export const useAuth = () => {
     onSuccess: () => {
       snackbar.success("Successfully logged out.");
       navigateTo("/");
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.SESSION] });
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+
+      queryClient.setQueryData([API_QUERY_KEY.SESSION], () => null);
+      queryClient.setQueryData([API_QUERY_KEY.CUSTOMER], () => null);
     },
   });
 
@@ -33,12 +36,12 @@ export const useAuth = () => {
       navigateTo("/");
       snackbar.success("Successfully logged in.");
 
-      if (!data.customer.wishlist_id) {
-        await addCustomerToExistingWishlist(data.customer);
-      }
+      synchronizeWishlist(data.customer);
 
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SESSION] });
+
+      synchronizeCart(data.customer);
     },
   });
 
@@ -52,12 +55,12 @@ export const useAuth = () => {
       navigateTo("/");
       snackbar.success("Account created.");
 
-      if (!data.customer.wishlist_id) {
-        await addCustomerToExistingWishlist(data.customer);
-      }
+      synchronizeWishlist(data.customer);
 
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SESSION] });
+
+      synchronizeCart(data.customer);
     },
   });
 

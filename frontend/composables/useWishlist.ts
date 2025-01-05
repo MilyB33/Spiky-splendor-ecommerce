@@ -35,7 +35,11 @@ export const useWishlist = () => {
 
   const isWishlistEnabled = computed(() => !!wishlistId.value);
 
-  const { data: wishlistData, isLoading } = useQuery({
+  const {
+    data: wishlistData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: [API_QUERY_KEY.WISHLIST],
     queryFn: (): Promise<Wishlist> =>
       client.client.request(
@@ -43,6 +47,7 @@ export const useWishlist = () => {
         `/store/wishlist/${wishlistId.value}?region_id=${region.value?.id}&currency_code=${region.value?.currency_code}`,
       ),
     enabled: isWishlistEnabled,
+    retry: 2,
   });
 
   const { mutateAsync: createWishlistHandler, isPending: isCreatingWishlist } = useMutation({
@@ -140,14 +145,23 @@ export const useWishlist = () => {
     return addCustomerToExistingWishlistHandler(wishlistId.value);
   };
 
-  watch(
-    () => customer.value?.customer.wishlist_id,
-    (newWishlistId) => {
-      if (newWishlistId !== cookieWishlistId.value) {
-        cookieWishlistId.value = customer.value?.customer.wishlist_id;
-      }
-    },
-  );
+  const synchronizeWishlist = (customer?: Omit<Customer, "password_hash">) => {
+    if (!!customer && !customer.wishlist_id && !wishlistData.value?.customer_id) {
+      addCustomerToExistingWishlist(customer);
+      return;
+    }
+
+    if (!!customer && !customer.wishlist_id && !!wishlistData.value?.customer_id) {
+      cookieWishlistId.value = null;
+      queryClient.setQueryData([API_QUERY_KEY.WISHLIST], () => null);
+      return;
+    }
+
+    if (!!customer && customer.wishlist_id !== cookieWishlistId.value) {
+      cookieWishlistId.value = customer.wishlist_id;
+      refetch();
+    }
+  };
 
   const wishlistItems = computed(() => wishlistData.value?.items || []);
 
@@ -155,6 +169,7 @@ export const useWishlist = () => {
     addToWishlist,
     removeFromWishlist,
     addCustomerToExistingWishlist,
+    synchronizeWishlist,
     isFetchingWishlist: isLoading,
     isRemovingFromWishlist,
     isAddingToWishlist,

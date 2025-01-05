@@ -25,6 +25,7 @@ export const useGetCustomer = () => {
     isLoading: isLoadingCustomer,
     isFetching: isFetchingCustomer,
     isPending: isPendingCustomer,
+    refetch: refetchCustomer,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CUSTOMER],
     queryFn: () =>
@@ -49,6 +50,12 @@ export const useGetCustomer = () => {
   watch(isSessionError, (newValue) => {
     if (newValue) {
       authenticatedCookie.value = "false";
+    }
+  });
+
+  watch([session, customer], ([newSession, newCustomer]) => {
+    if (newSession?.customer && !newCustomer) {
+      refetchCustomer();
     }
   });
 

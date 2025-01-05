@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
+import type { Customer } from "@medusajs/medusa";
 
 type UpdateLineItemParams = {
   line_item_id: string;
@@ -17,7 +18,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const client = useMedusaClient();
   const { snackbar } = useSnackbar();
   const { region } = useRegions();
-  const { cartId, cart, isFetchingCart, isLoadingCart, isCartEmpty, setCartId } =
+  const { cartId, cart, isFetchingCart, isLoadingCart, isCartEmpty, setCartId, refetchCart } =
     useGetCart(skipFetchingCart);
   const { customer } = useCustomer();
 
@@ -160,10 +161,10 @@ export const useCart = (skipFetchingCart?: boolean) => {
     enabled: shippingMethodsEnabled,
   });
 
-  watch(shippingMethodsResponse, (oldValue, newValue) => {
+  watch(shippingMethodsResponse, (newValue) => {
     if (
-      oldValue?.shipping_options.length === 0 &&
-      oldValue.response.status === 200 &&
+      newValue?.shipping_options.length === 0 &&
+      newValue.response.status === 200 &&
       !!cart.value?.cart.id &&
       !isFetchingShippingMethods.value
     ) {
@@ -180,6 +181,21 @@ export const useCart = (skipFetchingCart?: boolean) => {
   };
 
   const shippingMethods = computed(() => shippingMethodsResponse.value?.shipping_options || []);
+
+  const synchronizeCart = (customer: Omit<Customer, "password_hash">) => {
+    if (!!customer && cart.value && !cart.value.cart.customer_id) {
+      updateCart({ customer_id: customer.id });
+    }
+
+    if (
+      !!customer &&
+      !!cart.value?.cart.customer_id &&
+      cart.value?.cart.customer_id !== customer.id
+    ) {
+      setCartId(null);
+      queryClient.setQueryData([API_QUERY_KEY.CART], () => null);
+    }
+  };
 
   return {
     cart,
@@ -206,5 +222,6 @@ export const useCart = (skipFetchingCart?: boolean) => {
     addShippingMethod,
     createPaymentSession,
     completeCart,
+    synchronizeCart,
   };
 };

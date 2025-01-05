@@ -23,6 +23,7 @@
           label="Email"
           density="compact"
           hide-details="auto"
+          :disabled="!!customer"
           v-model="email"
           :error-messages="emailError"
         ></v-text-field>
@@ -55,7 +56,12 @@ defineProps<ShippingCustomerFormFieldsProps>();
 
 const values = useFormValues<CheckoutSchemaValues>();
 
+const { customer } = useCustomer();
 const { value: email, errorMessage: emailError } = useField<string>("email");
+
+watch(customer, () => {
+  console.log(customer);
+});
 
 const isValid = computed(() => {
   const result = checkoutSchema.safeParse(values.value);

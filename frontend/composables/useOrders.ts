@@ -65,7 +65,7 @@ export const useOrders = () => {
     },
   });
 
-  const { mutateAsync: generateInvoice, isPending: isGeneratingInvoice } = useMutation({
+  const { mutate: generateInvoice, isPending: isGeneratingInvoice } = useMutation({
     mutationFn: (orderId: string) =>
       client.client.request("GET", `/store/orders/${orderId}/invoice/`),
     onSuccess: (response) => {

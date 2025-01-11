@@ -26,8 +26,8 @@ const form = useForm({
   initialValues: initialValues.value,
 });
 
-const onSubmit = form.handleSubmit(async (values) => {
-  await saveBillingAddress({
+const onSubmit = form.handleSubmit((values) => {
+  saveBillingAddress({
     first_name: values.name,
     last_name: values.surname,
     company: values.company,

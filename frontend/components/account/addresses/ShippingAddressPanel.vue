@@ -89,32 +89,36 @@ const { value: addressName, errorMessage: addressNameError } = useField<string>(
 
 const mapValues = (values: ExtendedShippingAddressSchemaValues) => {
   return {
-    first_name: values.name,
-    last_name: values.surname,
+    first_name: values.name || "",
+    last_name: values.surname || "",
     company: values.company || "",
-    address_1: values.address1,
+    address_1: values.address1 || "",
     address_2: values.address2 || "",
-    country_code: values.country,
-    postal_code: values.zipCode,
-    city: values.city,
-    phone: values.phoneNumber,
-    metadata: { name: values.addressName },
+    country_code: values.country || "",
+    postal_code: values.zipCode || "",
+    city: values.city || "",
+    phone: values.phoneNumber || "",
+    metadata: { name: values.addressName || "" },
+    province: "",
   };
 };
 
 const onSubmit = form.handleSubmit(async (values) => {
   const mappedValues = mapValues(values);
+  try {
+    if (props.address?.id) {
+      await updateShippingAddress({
+        addressId: props.address.id,
+        data: mappedValues,
+      });
 
-  if (props.address?.id) {
-    await updateShippingAddress({
-      addressId: props.address.id,
-      data: mappedValues,
-    });
+      return;
+    }
 
-    return;
+    await createShippingAddress(mappedValues);
+    form.handleReset();
+  } catch (error) {
+    // handled in mutation query composable
   }
-
-  await createShippingAddress(mappedValues);
-  form.handleReset();
 });
 </script>

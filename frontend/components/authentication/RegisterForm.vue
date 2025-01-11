@@ -55,8 +55,12 @@ const { value: password, errorMessage: passwordError } = useField<string>("passw
 const isSubmitting = computed(() => form.isSubmitting.value || isRegisteringCustomer.value);
 
 const onSubmit = form.handleSubmit(async (values) => {
-  await registerCustomer(values);
-  form.handleReset();
+  try {
+    await registerCustomer(values);
+    form.handleReset();
+  } catch (error) {
+    // handled in mutation query composable
+  }
 });
 </script>
 

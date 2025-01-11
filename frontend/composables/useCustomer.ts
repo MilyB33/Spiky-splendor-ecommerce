@@ -13,7 +13,7 @@ export const useCustomer = () => {
   const { customer, isAuthenticated, isLoadingCustomer, isPendingCustomer, isFetchingCustomer } =
     useGetCustomer();
 
-  const { mutateAsync: updateCustomer, isPending: isUpdatingCustomer } = useMutation({
+  const { mutate: updateCustomer, isPending: isUpdatingCustomer } = useMutation({
     mutationFn: (data: CustomerUpdatePayload) => client.customers.update(data),
     onSuccess: () => {
       snackbar.success("Updated");
@@ -24,12 +24,13 @@ export const useCustomer = () => {
     },
   });
 
-  const { mutateAsync: deactivateCustomer, isPending: isDeactivatingCustomer } = useMutation({
+  const { mutate: deactivateCustomer, isPending: isDeactivatingCustomer } = useMutation({
     mutationFn: () => client.customers.client.request("DELETE", "/store/customer/deactivate/"),
     onSuccess: async () => {
       await client.auth.deleteSession();
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.SESSION] });
+      queryClient.setQueryData([API_QUERY_KEY.CUSTOMER], () => null);
+      queryClient.setQueryData([API_QUERY_KEY.SESSION], () => null);
+
       snackbar.success("Successfully deactivated account!");
       navigateTo("/");
     },

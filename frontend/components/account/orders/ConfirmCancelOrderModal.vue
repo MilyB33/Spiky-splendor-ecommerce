@@ -82,8 +82,12 @@ const isDisabled = computed(
 );
 
 const onCancel = async () => {
-  await cancelOrder(props.orderId);
+  try {
+    await cancelOrder(props.orderId);
 
-  isActive.value = false;
+    isActive.value = false;
+  } catch (error) {
+    // handled in mutation query composable
+  }
 };
 </script>

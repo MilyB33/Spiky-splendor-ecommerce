@@ -63,19 +63,23 @@ const form = useForm({
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
-  await createReturn({
-    order_id: props.orderId,
-    return_shipping: {
-      option_id: values.shippingMethod.methodId,
-    },
-    items: values.items
-      .filter((item) => item.isSelected)
-      .map((item) => ({
-        item_id: item.id,
-        quantity: item.quantity,
-      })),
-  });
+  try {
+    await createReturn({
+      order_id: props.orderId,
+      return_shipping: {
+        option_id: values.shippingMethod.methodId,
+      },
+      items: values.items
+        .filter((item) => item.isSelected)
+        .map((item) => ({
+          item_id: item.id,
+          quantity: item.quantity,
+        })),
+    });
 
-  props.isActive.value = false;
+    props.isActive.value = false;
+  } catch (error) {
+    // handled in mutation query composable
+  }
 });
 </script>

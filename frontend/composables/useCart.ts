@@ -18,7 +18,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   const client = useMedusaClient();
   const { snackbar } = useSnackbar();
   const { region } = useRegions();
-  const { cartId, cart, isFetchingCart, isLoadingCart, isCartEmpty, setCartId, refetchCart } =
+  const { cartId, cart, isFetchingCart, isLoadingCart, isCartEmpty, setCartId } =
     useGetCart(skipFetchingCart);
   const { customer } = useCustomer();
 
@@ -140,7 +140,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
     onSuccess: () => {
       setCartId(null);
-      queryClient.resetQueries({ queryKey: [API_QUERY_KEY.CART] });
+      queryClient.setQueryData([API_QUERY_KEY.CART], () => null);
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.ORDERS] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
     },
@@ -173,27 +173,35 @@ export const useCart = (skipFetchingCart?: boolean) => {
   });
 
   const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {
-    if (!cartId.value) {
-      await createCartHandler();
-    }
+    try {
+      if (!cartId.value) {
+        await createCartHandler();
+      }
 
-    return createLineItemHandler({ variantId, quantity });
+      return createLineItemHandler({ variantId, quantity });
+    } catch (error) {
+      // handled in mutation query composable
+    }
   };
 
   const shippingMethods = computed(() => shippingMethodsResponse.value?.shipping_options || []);
 
   const synchronizeCart = (customer: Omit<Customer, "password_hash">) => {
-    if (!!customer && cart.value && !cart.value.cart.customer_id) {
-      updateCart({ customer_id: customer.id });
-    }
+    try {
+      if (!!customer && cart.value && !cart.value.cart.customer_id) {
+        updateCart({ customer_id: customer.id });
+      }
 
-    if (
-      !!customer &&
-      !!cart.value?.cart.customer_id &&
-      cart.value?.cart.customer_id !== customer.id
-    ) {
-      setCartId(null);
-      queryClient.setQueryData([API_QUERY_KEY.CART], () => null);
+      if (
+        !!customer &&
+        !!cart.value?.cart.customer_id &&
+        cart.value?.cart.customer_id !== customer.id
+      ) {
+        setCartId(null);
+        queryClient.setQueryData([API_QUERY_KEY.CART], () => null);
+      }
+    } catch (error) {
+      // handled in mutation query composable
     }
   };
 

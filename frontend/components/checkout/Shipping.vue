@@ -111,7 +111,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       isCreatingPaymentMethodDelayed.value = false;
 
       navigateTo("/checkout/payment");
-    }, 1000);
+    }, 3000);
   } catch (error) {
     snackbar.error("Something went wrong!");
   }

@@ -84,12 +84,16 @@ const selectItems = [
 const selected = ref<number | "remove">(props.lineItem.quantity);
 
 const onChangeQuantity = (quantity: number | "remove") => {
-  if (quantity === "remove") {
-    deleteItemFromCart(props.lineItem.id);
-    return;
-  }
+  try {
+    if (quantity === "remove") {
+      deleteItemFromCart(props.lineItem.id);
+      return;
+    }
 
-  updateItemInCart({ line_item_id: props.lineItem.id, quantity });
+    updateItemInCart({ line_item_id: props.lineItem.id, quantity });
+  } catch (error) {
+    // handled in mutation query composable
+  }
 };
 </script>
 

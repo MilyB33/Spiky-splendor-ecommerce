@@ -14,7 +14,7 @@ export const useAddresses = () => {
   const { customer } = useCustomer();
   const { region } = useRegions();
 
-  const { mutateAsync: saveBillingAddress, isPending: isSavingBillingAddress } = useMutation({
+  const { mutate: saveBillingAddress, isPending: isSavingBillingAddress } = useMutation({
     mutationFn: (data: AddressPayload) =>
       client.customers.update({
         billing_address: data,
@@ -52,7 +52,7 @@ export const useAddresses = () => {
     },
   });
 
-  const { mutateAsync: deleteShippingAddress, isPending: isDeletingShippingAddress } = useMutation({
+  const { mutate: deleteShippingAddress, isPending: isDeletingShippingAddress } = useMutation({
     mutationFn: (addressId: string) => client.customers.addresses.deleteAddress(addressId),
     onSuccess: () => {
       snackbar.success("Shipping address removed");

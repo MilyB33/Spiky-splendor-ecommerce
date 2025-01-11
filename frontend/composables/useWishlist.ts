@@ -121,14 +121,18 @@ export const useWishlist = () => {
   });
 
   const addToWishlist = async (data: Omit<AddToWishlistParams, "wishlistID">) => {
-    if (!wishlistId.value) {
-      const _wishlist = await createWishlistHandler();
-      cookieWishlistId.value = _wishlist.id;
-      addToWishlistHandler({ productID: data.productID, wishlistID: _wishlist.id });
-      return;
-    }
+    try {
+      if (!wishlistId.value) {
+        const _wishlist = await createWishlistHandler();
+        cookieWishlistId.value = _wishlist.id;
+        addToWishlistHandler({ productID: data.productID, wishlistID: _wishlist.id });
+        return;
+      }
 
-    addToWishlistHandler({ productID: data.productID, wishlistID: wishlistId.value });
+      addToWishlistHandler({ productID: data.productID, wishlistID: wishlistId.value });
+    } catch (error) {
+      // handled in mutation query composable
+    }
   };
 
   const removeFromWishlist = async (data: Omit<RemoveFromWishlistParams, "wishlistID">) => {

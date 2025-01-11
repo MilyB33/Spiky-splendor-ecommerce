@@ -115,8 +115,8 @@ const form = useForm({
   initialValues: initialValues.value,
 });
 
-const onSubmit = form.handleSubmit(async (values) => {
-  await updateCustomer({
+const onSubmit = form.handleSubmit((values) => {
+  updateCustomer({
     first_name: values.firstName,
     last_name: values.lastName,
     email: values.email,
@@ -127,7 +127,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 const handleDeactivateAccount = async () => {
   if (!customer.value?.customer.id) return;
 
-  await deactivateCustomer();
+  deactivateCustomer();
 };
 
 const { value: firstName, errorMessage: firstNameError } = useField<string>("firstName");

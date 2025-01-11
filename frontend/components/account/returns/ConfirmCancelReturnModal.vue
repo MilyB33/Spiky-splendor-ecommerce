@@ -74,8 +74,12 @@ const isDisabled = computed(
 );
 
 const onCancel = async () => {
-  await cancelReturn(props.returnId);
+  try {
+    await cancelReturn(props.returnId);
 
-  isActive.value = false;
+    isActive.value = false;
+  } catch (error) {
+    // handled in mutation query composable
+  }
 };
 </script>

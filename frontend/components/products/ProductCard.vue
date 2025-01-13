@@ -51,14 +51,10 @@
     </div>
 
     <div class="d-flex align-center ga-1 mt-2 justify-space-between">
-      <v-btn
-        icon="mdi-cart-plus"
-        size="x-small"
-        color="green_primary"
-        :disabled="
-          productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK || isCreatingLineItem
-        "
-        @click="onAddToCart"
+      <AddToCartButton
+        :product="product"
+        iconButton
+        :quantity="1"
       />
 
       <NuxtLink :to="`/products/${product.handle}`">
@@ -78,18 +74,15 @@
 
 <script setup lang="ts">
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
-import { PRODUCT_AVAILABILITY } from "~/constant";
-import { getProductAvailabilityStatus, formatCurrency } from "~/utils/product";
+import { formatCurrency } from "~/utils/product";
 
 type ProductCardProps = {
   product: PricedProduct;
 };
 
 const props = defineProps<ProductCardProps>();
-const productQuantityStatus = getProductAvailabilityStatus(props.product);
 const { wishlist, removeFromWishlist, addToWishlist, isRemovingFromWishlist, isAddingToWishlist } =
   useWishlist();
-const { addItemToCart, isCreatingLineItem } = useCart();
 const { region } = useRegions();
 
 const wishlistItemId = computed(() => {
@@ -109,12 +102,6 @@ const onClick = () => {
     addToWishlist({ productID });
   } else {
     removeFromWishlist({ wishItemIDS: [wishlistItemId.value] });
-  }
-};
-
-const onAddToCart = () => {
-  if (props.product.variants[0].id) {
-    addItemToCart({ variantId: props.product.variants[0].id, quantity: 1 });
   }
 };
 

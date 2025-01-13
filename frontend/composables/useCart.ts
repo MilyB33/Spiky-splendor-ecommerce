@@ -64,6 +64,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
       snackbar.success("Item added to cart");
     },
   });
@@ -75,6 +76,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CART] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.SHIPPING_METHODS] });
       snackbar.success("Item removed from cart");
     },
   });
@@ -153,23 +155,10 @@ export const useCart = (skipFetchingCart?: boolean) => {
     isLoading: isLoadingShippingMethods,
     isFetching: isFetchingShippingMethods,
     isPending: isPendingShippingMethods,
-    refetch,
   } = useQuery({
     queryKey: [API_QUERY_KEY.SHIPPING_METHODS],
     queryFn: () => client.shippingOptions.listCartOptions(cart.value?.cart.id!),
-
     enabled: shippingMethodsEnabled,
-  });
-
-  watch(shippingMethodsResponse, (newValue) => {
-    if (
-      newValue?.shipping_options.length === 0 &&
-      newValue.response.status === 200 &&
-      !!cart.value?.cart.id &&
-      !isFetchingShippingMethods.value
-    ) {
-      refetch();
-    }
   });
 
   const addItemToCart = async ({ variantId, quantity }: AddItemToCartParams) => {
@@ -205,6 +194,10 @@ export const useCart = (skipFetchingCart?: boolean) => {
     }
   };
 
+  const isAddingItemToCart = computed(() => {
+    return isCreatingCart.value || isCreatingLineItem.value;
+  });
+
   return {
     cart,
     shippingMethods,
@@ -223,6 +216,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
     isPendingShippingMethods,
     isFetchingShippingMethods,
     isCartEmpty,
+    isAddingItemToCart,
     addItemToCart,
     updateItemInCart,
     updateCart,

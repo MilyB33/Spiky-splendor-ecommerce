@@ -24,16 +24,23 @@
       </v-btn>
     </div>
 
-    <v-btn
-      size="large"
-      max-width="400"
-      width="100%"
-      color="black"
-      append-icon="mdi-cart-outline"
-      @click="onAddToCart"
-      :loading="isCreatingLineItem"
-      >Add to cart</v-btn
+    <AddToCartButton
+      :product="product"
+      :quantity="counter"
+      v-slot="slotProps"
     >
+      <v-btn
+        size="large"
+        max-width="400"
+        width="100%"
+        color="black"
+        append-icon="mdi-cart-outline"
+        @click="slotProps.props.onAddToCart"
+        :loading="slotProps.props.isAddToCartDisabled"
+        :disabled="slotProps.props.isAddToCartDisabled"
+        >Add to cart</v-btn
+      >
+    </AddToCartButton>
   </div>
 </template>
 
@@ -44,7 +51,6 @@ import { getProductQuantity } from "~/utils/product";
 type ProductCartActionProps = {
   product: PricedProduct;
 };
-const { addItemToCart, isCreatingLineItem } = useCart();
 
 const props = defineProps<ProductCartActionProps>();
 
@@ -60,11 +66,5 @@ const decrement = () => {
   if (counter.value > 1) {
     counter.value--;
   }
-};
-
-const onAddToCart = () => {
-  if (!props.product.variants[0].id) return;
-
-  addItemToCart({ variantId: props.product.variants[0].id, quantity: counter.value });
 };
 </script>

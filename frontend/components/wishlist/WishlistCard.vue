@@ -64,15 +64,23 @@
         More
       </v-btn>
 
-      <v-btn
-        prepend-icon="mdi-cart-plus"
-        variant="outlined"
-        size="small"
-        block
-        :disabled="productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK"
+      <AddToCartButton
+        :product="wishlistItem.product"
+        :quantity="1"
+        v-slot="slotProps"
       >
-        Add to cart
-      </v-btn>
+        <v-btn
+          prepend-icon="mdi-cart-plus"
+          variant="outlined"
+          size="small"
+          block
+          :disabled="slotProps.props.isAddToCartDisabled"
+          :loading="slotProps.props.isAddToCartDisabled"
+          @click="slotProps.props.onAddToCart"
+        >
+          Add to cart
+        </v-btn>
+      </AddToCartButton>
     </div>
   </v-sheet>
 </template>

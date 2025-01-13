@@ -1,5 +1,7 @@
 <template>
   <v-toolbar :elevation="3">
+    <Progress />
+
     <template
       v-if="mobile"
       v-slot:prepend

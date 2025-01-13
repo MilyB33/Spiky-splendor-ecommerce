@@ -2,7 +2,8 @@
   <NuxtLayout>
     <div
       v-if="isLoading"
-      class="d-flex justify-center align-center fill-height"
+      class="d-flex justify-center align-center w-100"
+      style="height: calc(100vh - 96px)"
     >
       <v-progress-circular
         size="80"

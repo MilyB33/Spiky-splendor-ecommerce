@@ -33,11 +33,6 @@
               style="position: sticky; bottom: 10px"
             >
               <v-btn @click="props.handleClear">Clear</v-btn>
-              <v-btn
-                text="Close"
-                color="black"
-                @click="isActive.value = false"
-              ></v-btn>
               <v-btn type="submit">Search</v-btn>
             </div>
           </template>

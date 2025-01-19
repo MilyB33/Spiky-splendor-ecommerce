@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title>Order Confirmation</Title>
+  </Head>
+
   <Confirmation />
 </template>
 

@@ -1,10 +1,14 @@
 <template>
+  <Head>
+    <Title>Product - {{ product?.title }}</Title>
+  </Head>
+
   <v-progress-circular
     indeterminate
     v-if="isLoading"
   ></v-progress-circular>
   <div
-    class="d-flex flex-column ga-8"
+    class="d-flex flex-column ga-8 w-100"
     v-else
   >
     <div class="d-flex ga-8">
@@ -58,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import { formatCurrency, getProductQuantity } from "~/utils/product";
+import { formatCurrency } from "~/utils/product";
 
 const route = useRoute();
 const { product, isLoading } = useProduct(route.params.handle as string);

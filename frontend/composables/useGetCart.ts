@@ -1,4 +1,5 @@
 import { useQuery, skipToken } from "@tanstack/vue-query";
+import type { AxiosError } from "axios";
 import { API_QUERY_KEY, COOKIES } from "~/constant";
 
 export const useGetCart = (skipFetchingCart?: boolean) => {
@@ -11,6 +12,7 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
     data: cart,
     isLoading: isLoadingCart,
     isFetching: isFetchingCart,
+    error: cartError,
     refetch: refetchCart,
   } = useQuery({
     queryKey: [API_QUERY_KEY.CART],
@@ -25,6 +27,16 @@ export const useGetCart = (skipFetchingCart?: boolean) => {
   const setCartId = (id: string | null) => {
     cookieCartId.value = id;
   };
+
+  watch(cartError, (newError) => {
+    if (newError) {
+      const err = newError as AxiosError;
+
+      if (err.response?.status === 404) {
+        setCartId(null);
+      }
+    }
+  });
 
   return {
     cartId,

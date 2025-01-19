@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title>Checkout - Shipping</Title>
+  </Head>
+
   <Shipping />
 </template>
 

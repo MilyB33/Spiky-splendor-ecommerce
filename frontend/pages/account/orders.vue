@@ -1,5 +1,11 @@
 <template>
-  <Orders />
+  <Head>
+    <Title>My orders</Title>
+  </Head>
+
+  <div class="w-100">
+    <Orders />
+  </div>
 </template>
 
 <script setup lang="ts">

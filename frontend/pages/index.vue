@@ -1,4 +1,7 @@
 <template>
+  <Head>
+    <Title>Home</Title>
+  </Head>
   <Landing />
 </template>
 

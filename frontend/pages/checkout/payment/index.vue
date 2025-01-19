@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title>Checkout - Payment</Title>
+  </Head>
+
   <v-progress-circular
     v-if="isFetchingCart"
     indeterminate

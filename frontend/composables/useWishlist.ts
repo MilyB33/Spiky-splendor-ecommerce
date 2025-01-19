@@ -1,5 +1,6 @@
 import type { Customer } from "@medusajs/medusa";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
+import type { AxiosError } from "axios";
 import { API_QUERY_KEY, COOKIES } from "~/constant";
 import type { Wishlist } from "~/types";
 
@@ -37,6 +38,7 @@ export const useWishlist = () => {
 
   const {
     data: wishlistData,
+    error: wishlistError,
     isLoading,
     refetch,
   } = useQuery({
@@ -48,6 +50,16 @@ export const useWishlist = () => {
       ),
     enabled: isWishlistEnabled,
     retry: 2,
+  });
+
+  watch(wishlistError, (newError) => {
+    if (newError) {
+      const err = newError as AxiosError;
+
+      if (err.response?.status === 404) {
+        cookieWishlistId.value = null;
+      }
+    }
   });
 
   const { mutateAsync: createWishlistHandler, isPending: isCreatingWishlist } = useMutation({

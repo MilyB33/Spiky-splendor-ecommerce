@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isWishlistEmpty"
-    class="d-flex justify-center"
+    class="d-flex justify-center w-100"
     :class="isMobile ? 'mt-4' : 'mt-12'"
   >
     <WishlistEmptyState />

@@ -16,7 +16,7 @@
       variant="plant"
       icon="mdi-air-filter"
       title="Natural masters of air purification"
-      content="SSucculents not only look beautiful, but also improve air quality by absorbing harmful substances and releasing oxygen. The perfect choice for home and office."
+      content="Succulents not only look beautiful, but also improve air quality by absorbing harmful substances and releasing oxygen. The perfect choice for home and office."
     />
     <InfoCard
       variant="plant"

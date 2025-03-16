@@ -6,7 +6,7 @@
         :label="item.title"
         color="green"
         hide-details
-        v-model="props.isSelected"
+        @update:model-value="() => onToggle(item.id)"
       ></v-checkbox>
     </td>
 
@@ -47,9 +47,9 @@ import { formatCurrency } from "~/utils/product";
 
 type ReturnItemsSelectRowProps = {
   item: LineItem;
-  isSelected: boolean;
   decrement: (id: string) => void;
   increment: (id: string) => void;
+  onToggle: (id: string) => void;
   quantity: number;
 };
 

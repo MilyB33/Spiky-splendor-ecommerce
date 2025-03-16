@@ -7,7 +7,7 @@
         <ReturnItemsSelectRow
           v-for="(item, index) in orderItems"
           :item="item"
-          :isSelected="items[index].isSelected"
+          :onToggle="toggleItem"
           :decrement="decrement"
           :increment="increment"
           :quantity="items[index].quantity"
@@ -47,6 +47,13 @@ const decrement = (id: string) => {
   if (items.value[itemIndex].quantity > 1) {
     items.value[itemIndex].quantity--;
   }
+};
+
+const toggleItem = (id: string) => {
+  const itemIndex = items.value.findIndex((item) => item.id === id);
+
+  if (itemIndex === -1) return;
+  items.value[itemIndex].isSelected = !items.value[itemIndex].isSelected;
 };
 
 defineProps<ReturnItemsSelectTableProps>();

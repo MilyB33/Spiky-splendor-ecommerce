@@ -12,10 +12,17 @@ export const returnSchema = z
       }),
     ),
   })
-  .refine((items) => items.items.some((item) => item.isSelected), {
-    message: "At least one product must be selected",
-    path: ["items"],
-  });
+  .refine(
+    (items) =>
+      items.items.some((item) => {
+        console.log(item);
+        return item.isSelected;
+      }),
+    {
+      message: "At least one product must be selected",
+      path: ["items"],
+    },
+  );
 
 export const returnTypedSchema = toTypedSchema(returnSchema);
 export type ReturnSchemaValues = z.infer<typeof returnSchema>;

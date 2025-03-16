@@ -26,6 +26,7 @@
           v-for="(returnItem, index) in item.items"
           :item="returnItem"
           :index="index + 1"
+          :key="returnItem.id"
         />
       </template>
       <template v-slot:item.actions="{ item }">

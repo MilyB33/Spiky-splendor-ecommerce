@@ -11,6 +11,8 @@ import {
   type LineItem as MedusaLineItem,
 } from "@medusajs/medusa";
 
+import { WATER_DEMAND } from "~/constant";
+
 export type ProductCategory = MedusaProductCategory;
 export type ProductsListResponse = MedusaProductsListResponse;
 export type RegionsListResponse = MedusaRegionsListResponse;
@@ -47,13 +49,6 @@ export type PlantPlacement = {
   updated_at: Date;
 };
 
-export type PlantWaterDemand = {
-  id: string;
-  name: string;
-  created_at: Date;
-  updated_at: Date;
-};
-
 export type Invoice = {
   id: string;
   name: string;
@@ -63,3 +58,7 @@ export type Invoice = {
   created_at: Date;
   updated_at: Date;
 };
+
+export type WaterDemandKey = keyof typeof WATER_DEMAND;
+
+export type WaterDemand = (typeof WATER_DEMAND)[WaterDemandKey];

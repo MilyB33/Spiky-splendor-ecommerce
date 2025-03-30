@@ -22,37 +22,12 @@ export default async (
 ): Promise<void> => {
   console.info("Starting loader...");
 
-  await writePlantWaterDemandsToDatabase(container);
   await writePlantFormsToDatabase(container);
   await writePlantPlacementsToDatabase(container);
   await associatePlantFormsWithProducts(container);
   await associatePlantPlacementsWithProducts(container);
-  await associatePlantWaterDemandsWithProducts(container);
 
   console.info("Ending loader...");
-};
-
-const writePlantWaterDemandsToDatabase = async (container: MedusaContainer) => {
-  const plantWaterDemandRepository = container.resolve<
-    typeof PlantWaterDemandRepository
-  >("plantWaterDemandRepository");
-
-  data.plant_water_demands.forEach(async (plantWaterDemand) => {
-    const existingPlantWaterDemand = await plantWaterDemandRepository.findOne({
-      where: { name: plantWaterDemand.name },
-    });
-
-    if (!existingPlantWaterDemand) {
-      await plantWaterDemandRepository.save({
-        id: plantWaterDemand.id,
-        name: plantWaterDemand.name,
-      });
-    } else {
-      console.log("Plant water demand found in database. Skipping.");
-    }
-  });
-
-  console.log("Plant water demands written to database.");
 };
 
 const writePlantFormsToDatabase = async (container: MedusaContainer) => {
@@ -188,37 +163,4 @@ const associatePlantFormsWithProducts = async (container: MedusaContainer) => {
   }
 
   console.log("Plant forms associated with products successfully.");
-};
-
-const associatePlantWaterDemandsWithProducts = async (
-  container: MedusaContainer
-) => {
-  const plantWaterDemandRepository = container.resolve<
-    typeof PlantWaterDemandRepository
-  >("plantWaterDemandRepository");
-  const productRepository =
-    container.resolve<typeof ProductRepository>("productRepository");
-
-  const plantWaterDemands = await plantWaterDemandRepository.find();
-  const products = await productRepository.find();
-
-  for (const product of products) {
-    // Assuming each product has a plant_water_demand_id field
-    const plantWaterDemand = getRandomPlantWaterDemand(plantWaterDemands);
-
-    if (plantWaterDemand) {
-      // Associate product with plant water demand
-      product.plant_water_demand_id = plantWaterDemand.id;
-      // Ensure the product is saved correctly
-      await productRepository.save(product); // Changed from upsert to save
-    }
-  }
-
-  console.log("Plant water demands associated with products successfully.");
-};
-
-const getRandomPlantWaterDemand = (plantWaterDemands: PlantWaterDemand[]) => {
-  return plantWaterDemands[
-    Math.floor(Math.random() * plantWaterDemands.length)
-  ];
 };

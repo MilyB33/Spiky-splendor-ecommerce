@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/vue-query";
-import { API_QUERY_KEY } from "~/constant";
-import type { PlantForm, PlantPlacement, PlantWaterDemand } from "~/types";
+import { API_QUERY_KEY, WATER_DEMAND } from "~/constant";
+import type { PlantForm, PlantPlacement } from "~/types";
 
 export const useFilters = () => {
   const client = useMedusaClient();
@@ -18,12 +18,6 @@ export const useFilters = () => {
       client.client.request("GET", "/store/plant-placements/"),
   });
 
-  const { data: plantWaterDemandsResponse, isFetching: isFetchingPlantWaterDemands } = useQuery({
-    queryKey: [API_QUERY_KEY.PLANT_WATER_DEMANDS],
-    queryFn: (): Promise<{ plant_water_demands: PlantWaterDemand[] }> =>
-      client.client.request("GET", "/store/plant-water-demands/"),
-  });
-
   const plantForms = computed(() => {
     return plantFormsResponse.value?.plant_forms || [];
   });
@@ -33,7 +27,7 @@ export const useFilters = () => {
   });
 
   const plantWaterDemands = computed(() => {
-    return plantWaterDemandsResponse.value?.plant_water_demands || [];
+    return Object.values(WATER_DEMAND);
   });
 
   const categories = computed(() => {
@@ -42,10 +36,7 @@ export const useFilters = () => {
 
   const isFetchingFilters = computed(
     () =>
-      isFetchingCategories.value ||
-      isFetchingPlantForms.value ||
-      isFetchingPlantPlacements.value ||
-      isFetchingPlantWaterDemands.value,
+      isFetchingCategories.value || isFetchingPlantForms.value || isFetchingPlantPlacements.value,
   );
 
   return {
@@ -53,7 +44,6 @@ export const useFilters = () => {
     plantPlacements,
     plantWaterDemands,
     categories,
-    isFetchingPlantWaterDemands,
     isFetchingPlantPlacements,
     isFetchingPlantForms,
     isFetchingCategories,

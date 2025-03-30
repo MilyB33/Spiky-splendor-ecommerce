@@ -11,7 +11,7 @@ export const useProduct = (productHandle: string) => {
     return client.products.list({
       handle: productHandle,
       expand:
-        "categories,variants,variants.prices,images,options,variants.options,plant_forms,plant_placements,plant_water_demand",
+        "categories,variants,variants.prices,images,options,variants.options,plant_forms,plant_placements",
       region_id: region.value?.id,
       region: region.value?.id,
     });

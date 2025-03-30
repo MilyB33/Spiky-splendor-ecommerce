@@ -1,8 +1,15 @@
 import { AdminPostProductsProductReq as MedusaAdminPostProductsProductReq } from "@medusajs/medusa/dist/api/routes/admin/products/update-product";
 import { registerOverriddenValidators } from "@medusajs/medusa";
 
-import { IsOptional, IsArray, IsString, IsNumber } from "class-validator";
+import {
+  IsOptional,
+  IsArray,
+  IsString,
+  IsNumber,
+  IsEnum,
+} from "class-validator";
 import { Transform } from "class-transformer";
+import { WaterDemand } from "../types/product";
 
 export class AdminPostProductsProductReq extends MedusaAdminPostProductsProductReq {
   @IsOptional()
@@ -13,9 +20,6 @@ export class AdminPostProductsProductReq extends MedusaAdminPostProductsProductR
   @IsArray()
   @IsString({ each: true })
   plant_placements?: string[];
-  @IsOptional()
-  @IsString({ each: true })
-  plant_water_demand_id?: string;
   @IsOptional()
   @IsNumber()
   @Transform(({ value }) => Number(value))
@@ -28,6 +32,9 @@ export class AdminPostProductsProductReq extends MedusaAdminPostProductsProductR
   @IsNumber()
   @Transform(({ value }) => Number(value))
   pot_diameter: number;
+  @IsOptional()
+  @IsEnum(WaterDemand)
+  water_demand: WaterDemand;
 }
 
 registerOverriddenValidators(AdminPostProductsProductReq);

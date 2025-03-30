@@ -25,6 +25,12 @@ export const RETURN_STATUS = {
   CANCELED: "canceled",
 } as const;
 
+export const WATER_DEMAND = {
+  SMALL: "small",
+  MEDIUM: "medium",
+  LARGE: "large",
+} as const;
+
 export const ORDER_STATUS_LABELS = {
   [ORDER_STATUS.PENDING]: "Pending",
   [ORDER_STATUS.COMPLETED]: "Completed",
@@ -58,7 +64,6 @@ export const API_QUERY_KEY = {
   RETURNS: "RETURNS",
   PLANT_FORMS: "PLANT_FORMS",
   PLANT_PLACEMENTS: "PLANT_PLACEMENTS",
-  PLANT_WATER_DEMANDS: "PLANT_WATER_DEMANDS",
   COLLECTIONS: "COLLECTIONS",
   ALL: "ALL",
 } as const;

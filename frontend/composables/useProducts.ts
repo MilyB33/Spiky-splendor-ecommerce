@@ -1,13 +1,14 @@
 import type { StoreGetProductsParams } from "@medusajs/medusa";
 import { useQuery } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
+import type { WaterDemand } from "~/types";
 import type { ProductFiltersSchemaValues } from "~/utils/validation/product-filters-schema";
 
 type Filters = Pick<
   StoreGetProductsParams,
   | "plant_forms_ids"
   | "plant_placements_ids"
-  | "plant_water_demand_ids"
+  | "water_demand"
   | "min_price"
   | "max_price"
   | "categories_ids"
@@ -37,7 +38,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     return client.products.list({
       ...params?.value,
       ...filters.value,
-      expand: "categories,variants,variants.prices,plant_forms,plant_placements,plant_water_demand",
+      expand: "categories,variants,variants.prices,plant_forms,plant_placements",
       region_id: region.value?.id,
       region: region.value?.id,
       order: order.value,
@@ -90,7 +91,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     }
 
     if (values.plantWaterDemands) {
-      filters.value.plant_water_demand_ids = values.plantWaterDemands;
+      filters.value.water_demand = values.plantWaterDemands as WaterDemand[];
     }
 
     if (values.minPrice >= 0) {
@@ -111,7 +112,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
       categories: filters.value.categories_ids || [],
       plantForms: filters.value.plant_forms_ids || [],
       plantPlacements: filters.value.plant_placements_ids || [],
-      plantWaterDemands: filters.value.plant_water_demand_ids || [],
+      plantWaterDemands: filters.value.water_demand || [],
     };
   });
 

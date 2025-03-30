@@ -6,6 +6,5 @@ export default async function () {
     ...imports.allowedStoreProductsRelations,
     "plant_forms",
     "plant_placements",
-    "plant_water_demand",
   ];
 }

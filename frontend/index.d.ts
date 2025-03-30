@@ -1,4 +1,4 @@
-import { Wishlist, PlantForm, PlantPlacement, PlantWaterDemand, type Invoice } from "./types/index";
+import { Wishlist, PlantForm, PlantPlacement, type Invoice, WaterDemand } from "./types/index";
 
 declare module "@medusajs/medusa/dist/models/customer" {
   export interface Customer {
@@ -16,8 +16,7 @@ declare module "@medusajs/medusa/dist/models/product" {
     max_height: number;
     plant_forms: PlantForm[];
     plant_placements: PlantPlacement[];
-    plant_water_demand: PlantWaterDemand;
-    plant_water_demand_id: string;
+    water_demand: WaterDemand;
   }
 }
 
@@ -25,7 +24,7 @@ declare module "@medusajs/medusa/dist/api/routes/store/products" {
   export interface StoreGetProductsParams {
     plant_forms_ids?: string[];
     plant_placements_ids?: string[];
-    plant_water_demand_ids?: string[];
+    water_demand?: WaterDemand[];
     categories_ids?: string[];
     min_price?: number;
     max_price?: number;

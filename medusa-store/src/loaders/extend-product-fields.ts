@@ -9,14 +9,13 @@ export default async function () {
     "max_height",
     "plant_forms",
     "plant_placements",
-    "plant_water_demand_id",
-    "plant_water_demand",
+    "water_demand",
   ];
   imports.defaultStoreProductsFields = [
     ...imports.defaultStoreProductsFields,
     "pot_diameter",
-    "plant_water_demand_id",
     "min_height",
     "max_height",
+    "water_demand",
   ];
 }

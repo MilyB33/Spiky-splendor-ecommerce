@@ -11,10 +11,12 @@ import {
   IsArray,
   Max,
   Min,
+  IsEnum,
 } from "class-validator";
 import { registerOverriddenValidators } from "@medusajs/medusa";
 import { Type, Transform } from "class-transformer";
 import { MAX_PRICE_FILTER_VALUE, MIN_PRICE_FILTER_VALUE } from "src/constant";
+import { WaterDemand } from "../types/product";
 
 export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
   @IsOptional()
@@ -33,11 +35,6 @@ export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
   plant_placements_ids?: string[];
 
   @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
-  plant_water_demand_ids?: string[];
-
-  @IsOptional()
   @IsNumber()
   @Transform(({ value }) => Number(value))
   min_price?: number;
@@ -54,6 +51,11 @@ export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
 
   @IsString()
   region: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsEnum(WaterDemand, { each: true })
+  water_demand: WaterDemand[];
 }
 
 registerOverriddenValidators(StoreGetProductsParams);

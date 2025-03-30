@@ -29,7 +29,7 @@
       field-name="plantPlacements"
     />
 
-    <MultipleCheckboxFilter
+    <NewMultipleCheckboxFilter
       :options="plantWaterDemands"
       title="Water demand"
       field-name="plantWaterDemands"

@@ -18,7 +18,7 @@ export const WaterDemand = ({
   onChangeValues,
 }: WaterDemandProps) => {
   const onChange = (value: string) => {
-    onChangeValues({ plant_water_demand_id: value });
+    onChangeValues({ water_demand: value });
   };
 
   return (
@@ -35,9 +35,4 @@ export const WaterDemand = ({
       </Select.Content>
     </Select>
   );
-};
-
-type RadioOptionProps = Option & {
-  onChange: (value: string) => void;
-  initialValue: string;
 };

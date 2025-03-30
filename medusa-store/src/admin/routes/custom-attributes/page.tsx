@@ -8,7 +8,6 @@ import { useHandleCustomAttributes } from "../../hooks/use-handle-custom-attribu
 export const API_QUERY_KEY = {
   PLANT_FORMS: "PLANT_FORMS",
   PLANT_PLACEMENTS: "PLANT_PLACEMENTS",
-  PLANT_WATER_DEMANDS: "PLANT_WATER_DEMANDS",
   PRODUCT: "PRODUCT",
 } as const;
 
@@ -16,28 +15,21 @@ const CustomAttributesPage = ({ notify }: RouteProps) => {
   const {
     plantFormsOptions,
     plantPlacementsOptions,
-    plantWaterDemandsOptions,
     refetchPlantForms,
     refetchPlantPlacements,
-    refetchPlantWaterDemands,
   } = useGetCustomAttributes();
   const {
     removePlantForm,
     removePlantPlacement,
-    removeWaterDemand,
     addPlantForm,
     addPlantPlacement,
-    addWaterDemand,
     isRemovingPlantForm,
     isRemovingPlantPlacement,
-    isRemovingWaterDemand,
     isAddingPlantForm,
     isAddingPlantPlacement,
-    isAddingWaterDemand,
   } = useHandleCustomAttributes({
     refetchPlantForms,
     refetchPlantPlacements,
-    refetchPlantWaterDemands,
     notify,
   });
 
@@ -80,27 +72,6 @@ const CustomAttributesPage = ({ notify }: RouteProps) => {
               item={option}
               onRemove={removePlantPlacement}
               isRemoving={isRemovingPlantPlacement}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <Heading className="max-h-96">Water demands</Heading>
-
-        <AddNewAttributeInput
-          placeholder="Water demand"
-          onAdd={addWaterDemand}
-          isAdding={isAddingWaterDemand}
-        />
-
-        <div className="border-b-2 flex flex-wrap gap-4 py-2">
-          {plantWaterDemandsOptions.map((option) => (
-            <CustomAttributeItem
-              key={option.value}
-              item={option}
-              onRemove={removeWaterDemand}
-              isRemoving={isRemovingWaterDemand}
             />
           ))}
         </div>

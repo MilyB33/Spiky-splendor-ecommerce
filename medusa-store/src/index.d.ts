@@ -3,6 +3,7 @@ import { PlantForm } from "./models/plant-form";
 import { PlantPlacement } from "./models/plant-placement";
 import { Wishlist } from "./models/wishlist";
 import { WishlistItem } from "./models/wishlist-item";
+import { WaterDemand } from "./models/product";
 
 declare module "@medusajs/medusa/dist/models/store" {
   export interface Store {
@@ -33,11 +34,10 @@ export declare module "@medusajs/medusa/dist/models/product" {
     pot_diameter: number;
     plant_forms: PlantForm[];
     plant_placements: PlantPlacement[];
-    plant_water_demand: PlantWaterDemand;
-    plant_water_demand_id: string;
     plant_forms_ids: string[];
     min_height: number;
     max_height: number;
+    water_demand: WaterDemand;
   }
 }
 
@@ -52,7 +52,6 @@ export declare module "@medusajs/medusa/dist/api/routes/admin/products/update-pr
     pot_diameter?: number;
     plant_forms?: string[];
     plant_placements?: string[];
-    plant_water_demand_id?: string;
     min_height?: number;
     max_height?: number;
   }

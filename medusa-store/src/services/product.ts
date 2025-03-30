@@ -15,6 +15,7 @@ import ProductRepository from "src/repositories/product";
 import { FindOneOptions, FindOptionsWhere, In, Raw } from "typeorm";
 import PlantFormService from "./plant-form";
 import PlantPlacementService from "./plant-placement";
+import { WaterDemand } from "../types/product";
 
 type InjectedDependencies = {
   productRepository: typeof ProductRepository;
@@ -26,7 +27,7 @@ type InjectedDependencies = {
 type ProductSelectorExtended = ProductSelector & {
   plant_forms_ids?: string[];
   plant_placements_ids?: string[];
-  plant_water_demand_ids?: string[];
+  water_demand?: WaterDemand[];
   categories_ids?: string[];
   min_price?: number;
   max_price?: number;
@@ -37,7 +38,7 @@ type ProductSelectorExtended = ProductSelector & {
 type UpdateProductInputExtended = UpdateProductInput & {
   plant_forms?: string[];
   plant_placements?: string[];
-  plant_water_demand_id: string[];
+  water_demand?: WaterDemand;
   min_price?: number;
   max_price?: number;
 };
@@ -102,10 +103,10 @@ class ProductService extends MedusaProductService {
       q,
       plant_forms_ids,
       plant_placements_ids,
-      plant_water_demand_ids,
       categories_ids,
       min_price,
       max_price,
+      water_demand,
       ...productSelector
     } = restSelector;
 
@@ -126,7 +127,7 @@ class ProductService extends MedusaProductService {
       {
         plant_forms_ids,
         plant_placements_ids,
-        plant_water_demand_ids,
+        water_demand,
         min_price,
         max_price,
         categories_ids,
@@ -168,10 +169,8 @@ class ProductService extends MedusaProductService {
       filtersQuery.plant_placements = { id: In(selector.plant_placements_ids) };
     }
 
-    if (selector.plant_water_demand_ids) {
-      filtersQuery.plant_water_demand = {
-        id: In(selector.plant_water_demand_ids),
-      };
+    if (selector.water_demand) {
+      filtersQuery.water_demand = In(selector.water_demand);
     }
 
     if (selector.min_price || selector.max_price) {

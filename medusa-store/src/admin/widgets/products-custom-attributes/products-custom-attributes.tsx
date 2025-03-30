@@ -11,7 +11,7 @@ const ProductsCustomAttributes = ({
   const {
     plantFormsOptions,
     plantPlacementsOptions,
-    plantWaterDemandsOptions,
+    waterDemandOptions,
     values,
     onChangeValues,
     isUpdatingProduct,
@@ -60,8 +60,8 @@ const ProductsCustomAttributes = ({
             Water demand
           </Heading>
           <WaterDemand
-            options={plantWaterDemandsOptions}
-            value={values.plant_water_demand_id}
+            options={waterDemandOptions}
+            value={values.water_demand}
             onChangeValues={onChangeValues}
           />
         </div>

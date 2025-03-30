@@ -51,13 +51,20 @@ cd medusa-store
 yarn install
 ```
 
-4. Build the app image
+4. Build Medusa (just in case to build loaders)
+
+```bash
+cd medusa-store
+yarn build
+```
+
+5. Build the app image
 
 ```bash
 docker compose build
 ```
 
-5. Run the app
+6. Run the app
 
 ```bash
 docker compose up

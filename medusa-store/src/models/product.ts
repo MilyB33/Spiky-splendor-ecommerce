@@ -1,15 +1,8 @@
-import {
-  Entity,
-  Column,
-  ManyToMany,
-  JoinTable,
-  JoinColumn,
-  ManyToOne,
-} from "typeorm";
+import { Entity, Column, ManyToMany, JoinTable } from "typeorm";
 import { Product as MedusaProduct } from "@medusajs/medusa";
 import { PlantForm } from "./plant-form";
 import { PlantPlacement } from "./plant-placement";
-import { PlantWaterDemand } from "./plant-water-demand";
+import { WaterDemand } from "../types/product";
 
 @Entity()
 export class Product extends MedusaProduct {
@@ -56,14 +49,10 @@ export class Product extends MedusaProduct {
   })
   plant_placements: PlantPlacement[];
 
-  @Column({ type: "varchar", nullable: true })
-  plant_water_demand_id: string;
-
-  @ManyToOne(() => PlantWaterDemand, {
-    cascade: true,
+  @Column({
+    type: "enum",
+    enum: WaterDemand,
     nullable: true,
-    onDelete: "CASCADE",
   })
-  @JoinColumn({ name: "plant_water_demand_id" })
-  plant_water_demand: PlantWaterDemand;
+  water_demand: WaterDemand;
 }

@@ -13,7 +13,7 @@
           />
           <ProductDetailsItem
             :title="`Pot diameter: `"
-            :subtitle="product.pot_diameter?.toString() + ' cm' ?? 'no data'"
+            :subtitle="product.pot_diameter ? product.pot_diameter?.toString() + ' cm' : 'no data'"
           />
           <ProductDetailsItem
             :title="`Target plant height: `"
@@ -21,11 +21,11 @@
           />
           <ProductDetailsItem
             :title="`Required amount of water: `"
-            :subtitle="product.plant_water_demand?.name ?? 'no data'"
+            :subtitle="product.water_demand ?? 'no data'"
           />
           <ProductDetailsItem
             :title="`Plant weight (including pot): `"
-            :subtitle="product.weight?.toString() + ' g' ?? 'no data'"
+            :subtitle="product.weight ? product.weight?.toString() + ' g' : 'no data'"
           />
         </v-list>
       </v-expansion-panel-text>

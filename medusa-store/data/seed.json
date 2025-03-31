@@ -89,6 +89,7 @@
       "max_height": 80,
       "pot_diameter": 30,
       "water_demand": "small",
+      "plant_placements": ["Indoor Table", "Indoor Shelf"],
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2335199133/display_1500/stock-photo-leaves-of-the-succulent-plant-adromischus-cooperi-on-a-blurry-background-2335199133.jpg",
         "https://www.shutterstock.com/shutterstock/photos/1898795101/display_1500/stock-photo-adromischus-maculatus-in-flowerpot-with-white-background-1898795101.jpg"
@@ -150,6 +151,7 @@
       "max_height": 60,
       "pot_diameter": 30,
       "water_demand": "small",
+      "plant_placements": ["Indoor Table", "Indoor Shelf", "Indoor Corner"],
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2492317671/display_1500/stock-photo-a-plant-with-spiky-leaves-grows-in-a-pot-in-the-home-garden-2492317671.jpg",
         "https://www.shutterstock.com/shutterstock/photos/2448629537/display_1500/stock-photo-aloe-vera-leaves-where-growth-in-our-house-yard-it-is-natural-ingredients-of-cosmetics-skin-care-2448629537.jpg"
@@ -209,6 +211,7 @@
       "height": 30,
       "pot_diameter": 20,
       "water_demand": "medium",
+      "plant_placements": ["Indoor Corner"],
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2123723780/display_1500/stock-photo-haworthia-fasciata-concolor-indoor-plant-2123723780.jpg",
         "https://www.shutterstock.com/shutterstock/photos/1883417128/display_1500/stock-photo-haworthiopsis-fasciata-formerly-haworthia-fasciata-it-s-a-species-of-succulent-plant-native-from-1883417128.jpg"
@@ -270,6 +273,7 @@
       "max_height": 50,
       "pot_diameter": 30,
       "water_demand": "large",
+      "plant_placements": ["Indoor Table", "Indoor Shelf", "Indoor Corner"],
       "images": [
         "https://www.shutterstock.com/shutterstock/photos/2262430201/display_1500/stock-photo-sansevieria-golden-hahnii-snake-plant-in-grey-plastic-pot-on-wooden-table-on-light-background-in-2262430201.jpg",
         "https://www.shutterstock.com/shutterstock/photos/2309666589/display_1500/stock-photo-succulent-of-sansevieria-cylindrica-or-cylindrical-snake-plant-growing-in-a-pot-on-a-wooden-boat-2309666589.jpg"

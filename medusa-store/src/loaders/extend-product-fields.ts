@@ -17,5 +17,6 @@ export default async function () {
     "min_height",
     "max_height",
     "water_demand",
+    "plant_placements",
   ];
 }

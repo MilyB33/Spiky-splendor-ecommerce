@@ -9,7 +9,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Transform } from "class-transformer";
-import { WaterDemand } from "../types/product";
+import { WaterDemand, PlantPlacement } from "../types/product";
 
 export class AdminPostProductsProductReq extends MedusaAdminPostProductsProductReq {
   @IsOptional()
@@ -18,8 +18,8 @@ export class AdminPostProductsProductReq extends MedusaAdminPostProductsProductR
   plant_forms?: string[];
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  plant_placements?: string[];
+  @IsEnum(PlantPlacement, { each: true })
+  plant_placements?: PlantPlacement[];
   @IsOptional()
   @IsNumber()
   @Transform(({ value }) => Number(value))

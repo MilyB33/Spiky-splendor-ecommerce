@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo, useState, useEffect } from "react";
 import type { ProductDetailsWidgetProps } from "@medusajs/admin";
 import { useGetCustomAttributes } from "../../hooks/use-get-custom-attributes";
-import { WaterDemand } from "../../types/product";
+import { PlantPlacement, WaterDemand } from "../../types/product";
 
 export const API_QUERY_KEY = {
   PRODUCT: "PRODUCT",
@@ -11,8 +11,8 @@ export const API_QUERY_KEY = {
 
 export type CustomAttributesValues = {
   plant_forms?: string[];
-  plant_placements?: string[];
-  water_demand?: string;
+  plant_placements?: PlantPlacement[];
+  water_demand?: WaterDemand;
   pot_diameter?: number;
   min_height?: number;
   max_height?: number;
@@ -27,12 +27,7 @@ export const useProductsCustomAttributes = (
     plant_placements: [],
   });
   const { client } = useMedusa();
-  const {
-    plantFormsOptions,
-    plantPlacementsOptions,
-    isFetchingPlantForms,
-    isFetchingPlantPlacements,
-  } = useGetCustomAttributes();
+  const { plantFormsOptions, isFetchingPlantForms } = useGetCustomAttributes();
 
   // NOTE: this is only as I cannot extend admin product response
   const {
@@ -44,8 +39,9 @@ export const useProductsCustomAttributes = (
     queryFn: () =>
       client.admin.products.list({
         id: [productId],
-        expand: "plant_forms,plant_placements",
-        fields: "pot_diameter,min_height,max_height,water_demand",
+        expand: "plant_forms",
+        fields:
+          "pot_diameter,min_height,max_height,water_demand,plant_placements",
       }),
   });
 
@@ -61,10 +57,7 @@ export const useProductsCustomAttributes = (
         productResponse?.products[0]?.plant_forms?.map(
           (plantForm) => plantForm.id
         ) || [],
-      plant_placements:
-        productResponse?.products[0]?.plant_placements?.map(
-          (plantForm) => plantForm.id
-        ) || [],
+      plant_placements: productResponse?.products[0]?.plant_placements || [],
       water_demand: productResponse?.products[0]?.water_demand,
       pot_diameter: productResponse?.products[0]?.pot_diameter || undefined,
       min_height: productResponse?.products[0]?.min_height || undefined,
@@ -94,6 +87,13 @@ export const useProductsCustomAttributes = (
     }));
   }, []);
 
+  const plantPlacementsOptions = useMemo(() => {
+    return Object.values(PlantPlacement).map((placement) => ({
+      value: placement,
+      label: placement,
+    }));
+  }, []);
+
   return {
     plantFormsOptions,
     plantPlacementsOptions,
@@ -102,7 +102,6 @@ export const useProductsCustomAttributes = (
     onChangeValues,
     updateProduct,
     isFetchingPlantForms,
-    isFetchingPlantPlacements,
     isUpdatingProduct,
     isFetchingProduct,
   };

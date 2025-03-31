@@ -5,6 +5,5 @@ export default async function () {
   imports.allowedStoreProductsRelations = [
     ...imports.allowedStoreProductsRelations,
     "plant_forms",
-    "plant_placements",
   ];
 }

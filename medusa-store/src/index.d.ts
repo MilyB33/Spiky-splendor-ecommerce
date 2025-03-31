@@ -1,9 +1,8 @@
 import { Invoice } from "./models/invoice";
 import { PlantForm } from "./models/plant-form";
-import { PlantPlacement } from "./models/plant-placement";
 import { Wishlist } from "./models/wishlist";
 import { WishlistItem } from "./models/wishlist-item";
-import { WaterDemand } from "./models/product";
+import { WaterDemand, PlantPlacement } from "./types/product";
 
 declare module "@medusajs/medusa/dist/models/store" {
   export interface Store {
@@ -51,7 +50,7 @@ export declare module "@medusajs/medusa/dist/api/routes/admin/products/update-pr
   export interface AdminPostProductsProductReq {
     pot_diameter?: number;
     plant_forms?: string[];
-    plant_placements?: string[];
+    plant_placements?: PlantPlacement[];
     min_height?: number;
     max_height?: number;
   }

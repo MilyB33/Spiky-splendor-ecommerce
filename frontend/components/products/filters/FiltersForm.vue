@@ -23,7 +23,7 @@
 
     <v-divider></v-divider>
 
-    <MultipleCheckboxFilter
+    <NewMultipleCheckboxFilter
       :options="plantPlacements"
       title="Plant placement"
       field-name="plantPlacements"

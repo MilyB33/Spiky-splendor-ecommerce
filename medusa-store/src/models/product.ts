@@ -1,8 +1,7 @@
 import { Entity, Column, ManyToMany, JoinTable } from "typeorm";
 import { Product as MedusaProduct } from "@medusajs/medusa";
 import { PlantForm } from "./plant-form";
-import { PlantPlacement } from "./plant-placement";
-import { WaterDemand } from "../types/product";
+import { WaterDemand, PlantPlacement } from "../types/product";
 
 @Entity()
 export class Product extends MedusaProduct {
@@ -32,20 +31,12 @@ export class Product extends MedusaProduct {
   })
   plant_forms: PlantForm[];
 
-  @ManyToMany(() => PlantPlacement, {
-    cascade: true,
-    onDelete: "CASCADE",
-  })
-  @JoinTable({
-    name: "product_plant_placements_plant_placement",
-    joinColumn: {
-      name: "product_id",
-      referencedColumnName: "id",
-    },
-    inverseJoinColumn: {
-      name: "plant_placement_id",
-      referencedColumnName: "id",
-    },
+  @Column({
+    type: "enum",
+    enum: PlantPlacement,
+    enumName: "plant_placements_enum",
+    nullable: true,
+    array: true,
   })
   plant_placements: PlantPlacement[];
 

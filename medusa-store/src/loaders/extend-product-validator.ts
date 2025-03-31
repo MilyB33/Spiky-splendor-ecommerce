@@ -16,7 +16,7 @@ import {
 import { registerOverriddenValidators } from "@medusajs/medusa";
 import { Type, Transform } from "class-transformer";
 import { MAX_PRICE_FILTER_VALUE, MIN_PRICE_FILTER_VALUE } from "src/constant";
-import { WaterDemand } from "../types/product";
+import { PlantPlacement, WaterDemand } from "../types/product";
 
 export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
   @IsOptional()
@@ -31,8 +31,8 @@ export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
 
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  plant_placements_ids?: string[];
+  @IsEnum(PlantPlacement, { each: true })
+  plant_placements?: PlantPlacement[];
 
   @IsOptional()
   @IsNumber()

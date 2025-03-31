@@ -31,6 +31,19 @@ export const WATER_DEMAND = {
   LARGE: "large",
 } as const;
 
+export const PLANT_PLACEMENT = {
+  INDOOR_TABLE: "Indoor Table",
+  INDOOR_SHELF: "Indoor Shelf",
+  INDOOR_HANGING: "Indoor Hanging",
+  INDOOR_CORNER: "Indoor Corner",
+  INDOOR_WINDOW: "Indoor Window",
+  OUTDOOR_GARDEN_BED: "Outdoor Garden Bed",
+  OUTDOOR_POT: "Outdoor Pot",
+  OUTDOOR_HANGING: "Outdoor Hanging",
+  OUTDOOR_BALCONY: "Outdoor Balcony",
+  OUTDOOR_FENCE: "Outdoor Fence",
+} as const;
+
 export const ORDER_STATUS_LABELS = {
   [ORDER_STATUS.PENDING]: "Pending",
   [ORDER_STATUS.COMPLETED]: "Completed",
@@ -63,7 +76,6 @@ export const API_QUERY_KEY = {
   CART_ORDER: "CART_ORDER",
   RETURNS: "RETURNS",
   PLANT_FORMS: "PLANT_FORMS",
-  PLANT_PLACEMENTS: "PLANT_PLACEMENTS",
   COLLECTIONS: "COLLECTIONS",
   ALL: "ALL",
 } as const;

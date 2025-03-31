@@ -1,5 +1,6 @@
 import { Select } from "@medusajs/ui";
 import { CustomAttributesValues } from "./useProductsCustomAttributes";
+import { WaterDemand as WaterDemandType } from "../../types/product";
 
 type Option = {
   value: string;
@@ -8,7 +9,7 @@ type Option = {
 
 type WaterDemandProps = {
   options: Option[];
-  value: string;
+  value: WaterDemandType;
   onChangeValues: (values: CustomAttributesValues) => void;
 };
 
@@ -17,7 +18,7 @@ export const WaterDemand = ({
   value,
   onChangeValues,
 }: WaterDemandProps) => {
-  const onChange = (value: string) => {
+  const onChange = (value: WaterDemandType) => {
     onChangeValues({ water_demand: value });
   };
 

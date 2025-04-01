@@ -9,21 +9,18 @@ import {
   ProductSelector,
   FindProductConfig,
   ProductFilterOptions,
-  UpdateProductInput,
 } from "@medusajs/medusa/dist/types/product";
 import ProductRepository from "src/repositories/product";
-import { FindOneOptions, FindOptionsWhere, In, Raw, Any } from "typeorm";
-import PlantFormService from "./plant-form";
-import { PlantPlacement, WaterDemand } from "../types/product";
+import { FindOneOptions, FindOptionsWhere, In, Raw } from "typeorm";
+import { PlantPlacement, WaterDemand, PlantForm } from "../types/product";
 
 type InjectedDependencies = {
   productRepository: typeof ProductRepository;
-  plantFormService: PlantFormService;
   regionService: RegionService;
 };
 
 type ProductSelectorExtended = ProductSelector & {
-  plant_forms_ids?: string[];
+  plant_forms?: PlantForm[];
   plant_placements?: PlantPlacement[];
   water_demand?: WaterDemand[];
   categories_ids?: string[];
@@ -33,14 +30,6 @@ type ProductSelectorExtended = ProductSelector & {
   region?: string; // region_id is removed on api/endpoint level and we don't get it here
 };
 
-type UpdateProductInputExtended = UpdateProductInput & {
-  plant_forms?: string[];
-  plant_placements?: string[];
-  water_demand?: WaterDemand;
-  min_price?: number;
-  max_price?: number;
-};
-
 type PrepareFiltersConfig = {
   tax_rate: number;
   currency_code: string;
@@ -48,31 +37,13 @@ type PrepareFiltersConfig = {
 
 class ProductService extends MedusaProductService {
   protected productRepository_: typeof ProductRepository;
-  protected plantFormService_: PlantFormService;
   protected regionService_: RegionService;
 
-  constructor({
-    productRepository,
-    plantFormService,
-    regionService,
-  }: InjectedDependencies) {
+  constructor({ productRepository, regionService }: InjectedDependencies) {
     super(arguments[0]);
 
     this.productRepository_ = productRepository;
-    this.plantFormService_ = plantFormService;
     this.regionService_ = regionService;
-  }
-
-  async update(productId: string, update: UpdateProductInputExtended) {
-    const { plant_forms, ...restUpdate } = update;
-
-    const plantForms = await this.plantFormService_.list({ ids: plant_forms });
-
-    return super.update(productId, {
-      ...restUpdate,
-      // @ts-expect-error can't update module
-      plant_forms: plantForms,
-    });
   }
 
   async listAndCount(
@@ -91,7 +62,7 @@ class ProductService extends MedusaProductService {
 
     const {
       q,
-      plant_forms_ids,
+      plant_forms,
       plant_placements,
       categories_ids,
       min_price,
@@ -115,7 +86,7 @@ class ProductService extends MedusaProductService {
     // Additional filters
     const filtersQuery = this.prepareFilters_(
       {
-        plant_forms_ids,
+        plant_forms,
         plant_placements,
         water_demand,
         min_price,
@@ -151,8 +122,13 @@ class ProductService extends MedusaProductService {
       filtersQuery.categories = { id: In(selector.categories_ids) };
     }
 
-    if (selector.plant_forms_ids) {
-      filtersQuery.plant_forms = { id: In(selector.plant_forms_ids) };
+    if (selector.plant_forms) {
+      filtersQuery.plant_forms = Raw(
+        (alias) =>
+          `${alias} && ARRAY[${selector.plant_forms
+            .map((p) => `'${p}'`)
+            .join(", ")}]::plant_forms_enum[]`
+      );
     }
 
     if (selector.plant_placements) {

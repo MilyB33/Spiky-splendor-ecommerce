@@ -9,12 +9,12 @@ import {
   IsEnum,
 } from "class-validator";
 import { Transform } from "class-transformer";
-import { WaterDemand, PlantPlacement } from "../types/product";
+import { WaterDemand, PlantPlacement, PlantForm } from "../types/product";
 
 export class AdminPostProductsProductReq extends MedusaAdminPostProductsProductReq {
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsEnum(PlantForm, { each: true })
   plant_forms?: string[];
   @IsOptional()
   @IsArray()

@@ -1,17 +1,12 @@
 import type { StoreGetProductsParams } from "@medusajs/medusa";
 import { useQuery } from "@tanstack/vue-query";
 import { API_QUERY_KEY } from "~/constant";
-import type { PlantPlacement, WaterDemand } from "~/types";
+import type { PlantForm, PlantPlacement, WaterDemand } from "~/types";
 import type { ProductFiltersSchemaValues } from "~/utils/validation/product-filters-schema";
 
 type Filters = Pick<
   StoreGetProductsParams,
-  | "plant_forms_ids"
-  | "plant_placements"
-  | "water_demand"
-  | "min_price"
-  | "max_price"
-  | "categories_ids"
+  "plant_forms" | "plant_placements" | "water_demand" | "min_price" | "max_price" | "categories_ids"
 >;
 
 type OrderValues = "price" | "-price" | "title" | "-title";
@@ -38,7 +33,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     return client.products.list({
       ...params?.value,
       ...filters.value,
-      expand: "categories,variants,variants.prices,plant_forms",
+      expand: "categories,variants,variants.prices",
       region_id: region.value?.id,
       region: region.value?.id,
       order: order.value,
@@ -83,7 +78,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     }
 
     if (values.plantForms) {
-      filters.value.plant_forms_ids = values.plantForms;
+      filters.value.plant_forms = values.plantForms as PlantForm[];
     }
 
     if (values.plantPlacements) {
@@ -110,7 +105,7 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
       minPrice: filters.value.min_price || 0,
       maxPrice: filters.value.max_price || 100000,
       categories: filters.value.categories_ids || [],
-      plantForms: filters.value.plant_forms_ids || [],
+      plantForms: filters.value.plant_forms || [],
       plantPlacements: filters.value.plant_placements || [],
       plantWaterDemands: filters.value.water_demand || [],
     };

@@ -41,8 +41,6 @@ type ProductDetailsProps = {
 };
 
 const props = defineProps<ProductDetailsProps>();
-const plantForms = computed(
-  () => props.product.plant_forms?.map((form) => form.name).join(", ") ?? "",
-);
+const plantForms = computed(() => props.product.plant_forms?.join(", ") ?? "");
 const plantPlacement = computed(() => props.product.plant_placements?.join(", ") ?? "");
 </script>

@@ -15,7 +15,7 @@
 
     <v-divider></v-divider>
 
-    <MultipleCheckboxFilter
+    <NewMultipleCheckboxFilter
       :options="plantForms"
       title="Plant form"
       field-name="plantForms"
@@ -28,6 +28,8 @@
       title="Plant placement"
       field-name="plantPlacements"
     />
+
+    <v-divider></v-divider>
 
     <NewMultipleCheckboxFilter
       :options="plantWaterDemands"

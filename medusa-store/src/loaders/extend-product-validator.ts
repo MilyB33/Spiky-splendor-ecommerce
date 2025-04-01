@@ -16,13 +16,13 @@ import {
 import { registerOverriddenValidators } from "@medusajs/medusa";
 import { Type, Transform } from "class-transformer";
 import { MAX_PRICE_FILTER_VALUE, MIN_PRICE_FILTER_VALUE } from "src/constant";
-import { PlantPlacement, WaterDemand } from "../types/product";
+import { PlantPlacement, WaterDemand, PlantForm } from "../types/product";
 
 export class StoreGetProductsParams extends MedusaStoreGetProductsParams {
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  plant_forms_ids?: string[];
+  @IsEnum(PlantForm, { each: true })
+  plant_forms?: string[];
 
   @IsOptional()
   @IsArray()

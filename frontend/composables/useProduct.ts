@@ -10,7 +10,7 @@ export const useProduct = (productHandle: string) => {
   const fetchProduct = () => {
     return client.products.list({
       handle: productHandle,
-      expand: "categories,variants,variants.prices,images,options,variants.options,plant_forms",
+      expand: "categories,variants,variants.prices,images,options,variants.options",
       region_id: region.value?.id,
       region: region.value?.id,
     });

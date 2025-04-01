@@ -2,15 +2,14 @@ import { useMedusa } from "medusa-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo, useState, useEffect } from "react";
 import type { ProductDetailsWidgetProps } from "@medusajs/admin";
-import { useGetCustomAttributes } from "../../hooks/use-get-custom-attributes";
-import { PlantPlacement, WaterDemand } from "../../types/product";
+import { PlantForm, PlantPlacement, WaterDemand } from "../../types/product";
 
 export const API_QUERY_KEY = {
   PRODUCT: "PRODUCT",
 } as const;
 
 export type CustomAttributesValues = {
-  plant_forms?: string[];
+  plant_forms?: PlantForm[];
   plant_placements?: PlantPlacement[];
   water_demand?: WaterDemand;
   pot_diameter?: number;
@@ -27,7 +26,6 @@ export const useProductsCustomAttributes = (
     plant_placements: [],
   });
   const { client } = useMedusa();
-  const { plantFormsOptions, isFetchingPlantForms } = useGetCustomAttributes();
 
   // NOTE: this is only as I cannot extend admin product response
   const {
@@ -39,9 +37,8 @@ export const useProductsCustomAttributes = (
     queryFn: () =>
       client.admin.products.list({
         id: [productId],
-        expand: "plant_forms",
         fields:
-          "pot_diameter,min_height,max_height,water_demand,plant_placements",
+          "pot_diameter,min_height,max_height,water_demand,plant_placements,plant_forms",
       }),
   });
 
@@ -53,10 +50,7 @@ export const useProductsCustomAttributes = (
 
   useEffect(() => {
     setValues({
-      plant_forms:
-        productResponse?.products[0]?.plant_forms?.map(
-          (plantForm) => plantForm.id
-        ) || [],
+      plant_forms: productResponse?.products[0]?.plant_forms || [],
       plant_placements: productResponse?.products[0]?.plant_placements || [],
       water_demand: productResponse?.products[0]?.water_demand,
       pot_diameter: productResponse?.products[0]?.pot_diameter || undefined,
@@ -94,6 +88,13 @@ export const useProductsCustomAttributes = (
     }));
   }, []);
 
+  const plantFormsOptions = useMemo(() => {
+    return Object.values(PlantForm).map((placement) => ({
+      value: placement,
+      label: placement,
+    }));
+  }, []);
+
   return {
     plantFormsOptions,
     plantPlacementsOptions,
@@ -101,7 +102,6 @@ export const useProductsCustomAttributes = (
     values,
     onChangeValues,
     updateProduct,
-    isFetchingPlantForms,
     isUpdatingProduct,
     isFetchingProduct,
   };

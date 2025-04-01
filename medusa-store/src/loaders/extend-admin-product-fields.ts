@@ -18,9 +18,5 @@ export default async function () {
     "plant_forms",
     "plant_placements",
   ];
-  imports.defaultAdminProductsRelations = [
-    ...imports.defaultAdminProductsRelations,
-    "plant_forms",
-  ];
 }
 // TODO: this doesn't work for some reason maybe try something with product instead of products

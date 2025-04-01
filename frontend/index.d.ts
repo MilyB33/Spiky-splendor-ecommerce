@@ -22,7 +22,7 @@ declare module "@medusajs/medusa/dist/models/product" {
 
 declare module "@medusajs/medusa/dist/api/routes/store/products" {
   export interface StoreGetProductsParams {
-    plant_forms_ids?: string[];
+    plant_forms?: PlantForm[];
     plant_placements?: PlantPlacement[];
     water_demand?: WaterDemand[];
     categories_ids?: string[];

@@ -44,6 +44,16 @@ export const PLANT_PLACEMENT = {
   OUTDOOR_FENCE: "Outdoor Fence",
 } as const;
 
+export const PLANT_FORM = {
+  TREE: "Tree",
+  SHRUB: "Shrub",
+  VINE: "Vine",
+  HERB: "Herb",
+  GRASS: "Grass",
+  FERN: "Fern",
+  SUCCULENT: "Succulent",
+} as const;
+
 export const ORDER_STATUS_LABELS = {
   [ORDER_STATUS.PENDING]: "Pending",
   [ORDER_STATUS.COMPLETED]: "Completed",
@@ -75,7 +85,6 @@ export const API_QUERY_KEY = {
   LAST_ORDER: "LAST_ORDER",
   CART_ORDER: "CART_ORDER",
   RETURNS: "RETURNS",
-  PLANT_FORMS: "PLANT_FORMS",
   COLLECTIONS: "COLLECTIONS",
   ALL: "ALL",
 } as const;

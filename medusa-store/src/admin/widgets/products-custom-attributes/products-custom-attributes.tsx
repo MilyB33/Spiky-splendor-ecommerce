@@ -3,7 +3,7 @@ import { Heading, Button, Input } from "@medusajs/ui";
 import { Multiselect } from "./Multiselect";
 import { WaterDemand } from "./water-demand";
 import { useProductsCustomAttributes } from "./useProductsCustomAttributes";
-import { PlantPlacement } from "../../types/product";
+import { PlantForm, PlantPlacement } from "../../types/product";
 
 const ProductsCustomAttributes = ({
   product,
@@ -19,7 +19,7 @@ const ProductsCustomAttributes = ({
     updateProduct,
   } = useProductsCustomAttributes(product.id, notify);
 
-  const onChangePlantForms = (values: string[]) => {
+  const onChangePlantForms = (values: PlantForm[]) => {
     onChangeValues({ plant_forms: values });
   };
 

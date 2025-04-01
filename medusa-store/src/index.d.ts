@@ -1,8 +1,7 @@
 import { Invoice } from "./models/invoice";
-import { PlantForm } from "./models/plant-form";
 import { Wishlist } from "./models/wishlist";
 import { WishlistItem } from "./models/wishlist-item";
-import { WaterDemand, PlantPlacement } from "./types/product";
+import { WaterDemand, PlantPlacement, PlantForm } from "./types/product";
 
 declare module "@medusajs/medusa/dist/models/store" {
   export interface Store {

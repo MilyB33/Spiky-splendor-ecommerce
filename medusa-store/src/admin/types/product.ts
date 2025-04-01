@@ -16,3 +16,13 @@ export enum PlantPlacement {
   OUTDOOR_BALCONY = "Outdoor Balcony",
   OUTDOOR_FENCE = "Outdoor Fence",
 }
+
+export enum PlantForm {
+  TREE = "Tree",
+  SHRUB = "Shrub",
+  VINE = "Vine",
+  HERB = "Herb",
+  GRASS = "Grass",
+  FERN = "Fern",
+  SUCCULENT = "Succulent",
+}

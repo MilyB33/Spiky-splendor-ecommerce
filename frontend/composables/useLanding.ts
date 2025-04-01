@@ -22,7 +22,7 @@ export const useLanding = () => {
     queryKey: keys,
     queryFn: () =>
       client.products.list({
-        expand: "categories,variants,variants.prices,plant_forms",
+        expand: "categories,variants,variants.prices",
         region_id: region.value?.id,
         region: region.value?.id,
         collection_id: [recommendedCollection.value?.id || ""],

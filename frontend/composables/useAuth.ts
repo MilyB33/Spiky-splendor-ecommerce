@@ -23,6 +23,7 @@ export const useAuth = () => {
 
       queryClient.setQueryData([API_QUERY_KEY.SESSION], () => null);
       queryClient.setQueryData([API_QUERY_KEY.CUSTOMER], () => null);
+      queryClient.setQueryData([API_QUERY_KEY.CUSTOMER_WISHLIST], () => null);
     },
   });
 

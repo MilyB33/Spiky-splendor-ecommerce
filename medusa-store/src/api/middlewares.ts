@@ -21,5 +21,9 @@ export const config: MiddlewaresConfig = {
       matcher: "/store/customer/deactivate*",
       middlewares: [requireCustomerAuthentication()],
     },
+    {
+      matcher: "/store/customer/wishlist*",
+      middlewares: [requireCustomerAuthentication()],
+    },
   ],
 };

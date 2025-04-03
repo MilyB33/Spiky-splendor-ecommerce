@@ -16,19 +16,21 @@ type RemoveFromWishlistParams = {
 
 export const useWishlist = () => {
   const client = useMedusaClient();
-  const { customer, isAuthenticated } = useCustomer();
+  const { isAuthenticated } = useCustomer();
+  const { customerWishlist } = useGetCustomerWishlist();
   const { snackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { region } = useRegions();
   const cookieWishlistId = useCookie(COOKIES.WISHLIST.KEY, { maxAge: COOKIES.WISHLIST.MAX_AGE });
 
   const wishlistId = computed(() => {
-    return customer.value?.customer.wishlist_id || cookieWishlistId.value;
+    return customerWishlist.value?.id || cookieWishlistId.value;
   });
 
   const invalidateQueries = () => {
-    if (!customer.value?.customer.wishlist_id && isAuthenticated.value) {
+    if (!customerWishlist.value?.id && isAuthenticated.value) {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER_WISHLIST] });
     }
 
     queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.WISHLIST] });
@@ -129,6 +131,7 @@ export const useWishlist = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER] });
       queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.WISHLIST] });
+      queryClient.invalidateQueries({ queryKey: [API_QUERY_KEY.CUSTOMER_WISHLIST] });
     },
   });
 
@@ -156,25 +159,25 @@ export const useWishlist = () => {
   };
 
   const addCustomerToExistingWishlist = async (customer: Omit<Customer, "password_hash">) => {
-    if (!wishlistId.value || customer.wishlist_id) return;
+    if (!wishlistId.value || customer.wishlist?.id) return;
 
     return addCustomerToExistingWishlistHandler(wishlistId.value);
   };
 
   const synchronizeWishlist = (customer?: Omit<Customer, "password_hash">) => {
-    if (!!customer && !customer.wishlist_id && !wishlistData.value?.customer_id) {
+    if (!!customer && !customer.wishlist?.id && !wishlistData.value?.customer_id) {
       addCustomerToExistingWishlist(customer);
       return;
     }
 
-    if (!!customer && !customer.wishlist_id && !!wishlistData.value?.customer_id) {
+    if (!!customer && !customer.wishlist?.id && !!wishlistData.value?.customer_id) {
       cookieWishlistId.value = null;
       queryClient.setQueryData([API_QUERY_KEY.WISHLIST], () => null);
       return;
     }
 
-    if (!!customer && customer.wishlist_id !== cookieWishlistId.value) {
-      cookieWishlistId.value = customer.wishlist_id;
+    if (!!customer && customer.wishlist?.id !== cookieWishlistId.value) {
+      cookieWishlistId.value = customer.wishlist?.id;
       refetch();
     }
   };

@@ -50,18 +50,6 @@ class WishlistService extends TransactionBaseService {
     const savedWishlist = await wishlistRepository.save(createdWishlist);
     const { id } = savedWishlist;
 
-    if (restPayload.customer_id && id) {
-      const customer = await this.customerService_.retrieve(
-        restPayload.customer_id
-      );
-
-      if (customer) {
-        customer.wishlist_id = id;
-        // @ts-expect-error Can't extend input type
-        await this.customerService_.update(customer.id, { wishlist_id: id });
-      }
-    }
-
     const [wishlist] = await wishlistRepository.find({
       where: { id },
       relations: [
@@ -210,11 +198,6 @@ class WishlistService extends TransactionBaseService {
         { customer_id: data.customer_id }
       );
 
-      await this.customerService_.update(data.customer_id, {
-        // @ts-expect-error can't extend input type
-        wishlist_id: data.id,
-      });
-
       const [wishlist] = await wishlistRepository.find({
         where: { id: data.id },
         relations: [
@@ -234,6 +217,38 @@ class WishlistService extends TransactionBaseService {
 
       return { ...wishlist, items };
     });
+  }
+
+  async userWishlist(
+    payload: Omit<RetrieveWishlistStateInput, "id"> & { customer_id: string }
+  ) {
+    const { region_id, currency_code, customer_id } = payload;
+
+    const [wishlist] = await this.wishlistRepository_.find({
+      where: { customer_id: customer_id },
+      relations: [
+        "items",
+        "items.product",
+        "items.product.categories",
+        "items.product.variants",
+        "items.product.variants.prices",
+      ],
+    });
+
+    if (!wishlist) {
+      throw new MedusaError(
+        MedusaError.Types.NOT_FOUND,
+        `Wishlist for user ${customer_id} was not found`
+      );
+    }
+
+    const items = await this.addPricesToProducts(
+      wishlist.items,
+      region_id,
+      currency_code
+    );
+
+    return { ...wishlist, items };
   }
 
   async addPricesToProducts(

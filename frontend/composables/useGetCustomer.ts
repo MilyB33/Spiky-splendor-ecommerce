@@ -30,7 +30,7 @@ export const useGetCustomer = () => {
     queryKey: [API_QUERY_KEY.CUSTOMER],
     queryFn: () =>
       client.customers.retrieve({
-        expand: "billing_address,shipping_addresses",
+        expand: "billing_address,shipping_addresses,wishlist",
       }),
     retry: false,
     retryOnMount: false,

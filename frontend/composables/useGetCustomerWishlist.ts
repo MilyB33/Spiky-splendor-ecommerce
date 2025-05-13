@@ -17,11 +17,7 @@ export const useGetCustomerWishlist = () => {
         `/store/customer/wishlist?region_id=${region.value?.id}&currency_code=${region.value?.currency_code}`,
       ),
     enabled: enabled,
-    retry: 1,
-  });
-
-  watch(customerWishlist, (val) => {
-    console.log(val);
+    retry: 2,
   });
 
   return {

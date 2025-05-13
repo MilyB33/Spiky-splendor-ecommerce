@@ -27,7 +27,7 @@ type ProductSelectorExtended = ProductSelector & {
   min_price?: number;
   max_price?: number;
   is_search?: boolean;
-  region?: string; // region_id is removed on api/endpoint level and we don't get it here
+  region?: string;
 };
 
 type PrepareFiltersConfig = {
@@ -78,12 +78,10 @@ class ProductService extends MedusaProductService {
       Product & ProductFilterOptions
     >;
 
-    // Needs to remove this from query
     delete query.select.sales_channel_id;
     // @ts-ignore
     delete query.where.sales_channel_id;
 
-    // Additional filters
     const filtersQuery = this.prepareFilters_(
       {
         plant_forms,
@@ -100,7 +98,7 @@ class ProductService extends MedusaProductService {
 
     const result = await productRepo.findAndCount({
       ...query,
-      relationLoadStrategy: "join", // It cuts the values that are not applied by filter e.g only returns plant_form which is applied in form
+      relationLoadStrategy: "join",
       where: {
         ...query.where,
         ...filtersQuery,

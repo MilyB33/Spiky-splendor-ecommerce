@@ -6,8 +6,7 @@ export class AddPlantPlacementEnumArray1680013376188
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TYPE "plant_placements_enum" AS ENUM(
-        'Indoor Table', 'Indoor Shelf', 'Indoor Hanging', 'Indoor Corner', 'Indoor Window',
-        'Outdoor Garden Bed', 'Outdoor Pot', 'Outdoor Hanging', 'Outdoor Balcony', 'Outdoor Fence'
+        'Shaded', 'Diffused Light', 'Full Sun'
       )`
     );
 

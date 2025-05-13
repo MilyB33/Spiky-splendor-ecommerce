@@ -20,7 +20,6 @@ export type CartsRes = MedusaCartsRes;
 export type Order = MedusaOrder;
 export type LineItem = MedusaLineItem;
 
-// Wishlist
 export type WishlistItem = {
   id: string;
   wishlist: Wishlist;

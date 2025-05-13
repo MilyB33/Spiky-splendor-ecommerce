@@ -3,11 +3,7 @@
     <div>
       <span> Do you have questions about this product?</span>
       {{ " " }}
-      <NuxtLink
-        color="black"
-        to="/contact"
-        >Write to us!</NuxtLink
-      >
+      Write or call to us!
     </div>
     <div class="d-flex flex-column ga-4">
       <p>Phone: 123 456 789</p>

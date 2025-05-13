@@ -103,15 +103,13 @@ const onSubmit = form.handleSubmit(async (values) => {
     await updateCart(preparedData);
     await addShippingMethod(shippingMethod.methodId);
 
-    // TODO: remove this after testing (for now it's needed as there is some race condition in the backend https://github.com/medusajs/medusa/issues/6331) maybe 2 second needs to be added
     isCreatingPaymentMethodDelayed.value = true;
     setTimeout(async () => {
       await createPaymentSession();
 
       isCreatingPaymentMethodDelayed.value = false;
+      navigateTo("/checkout/payment");
     }, 3000);
-
-    navigateTo("/checkout/payment");
   } catch (error) {
     snackbar.error("Something went wrong!");
   }

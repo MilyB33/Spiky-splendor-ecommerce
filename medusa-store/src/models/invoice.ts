@@ -11,7 +11,7 @@ export class Invoice extends BaseEntity {
 
   @Column({ type: "varchar" })
   order_id: string;
-  // TODO: check if order fields are changing when canceling itp
+
   @OneToOne(() => Order)
   @JoinColumn({ name: "order_id" })
   order: Order;

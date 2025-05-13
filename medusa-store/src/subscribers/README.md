@@ -25,8 +25,6 @@ export default async function orderPlacedHandler({
   const order = await orderService.retrieve(data.id, {
     relations: ["items", "items.variant", "items.variant.product"],
   });
-
-  // Do something with the order
 }
 
 export const config: SubscriberConfig = {

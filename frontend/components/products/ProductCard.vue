@@ -28,11 +28,17 @@
         </v-btn>
       </div>
     </div>
-    <div class="mt-2 d-flex flex-column ga-1">
+
+    <div
+      class="mt-2"
+      style="max-width: 180px"
+    >
       <h4>
         {{ product.title }}
       </h4>
+    </div>
 
+    <div class="mt-auto mb-2 d-flex flex-column ga-1">
       <h6
         class="category"
         v-if="product.categories?.length"
@@ -40,17 +46,19 @@
         {{ product.categories[0].name }}
       </h6>
 
-      <ProductAvailability
-        :product="props.product"
-        size="sm"
-      />
+      <div class="mt-auto">
+        <ProductAvailability
+          :product="props.product"
+          size="sm"
+        />
+      </div>
 
       <div class="">
         <span>{{ price }}</span>
       </div>
     </div>
 
-    <div class="d-flex align-center ga-1 mt-2 justify-space-between">
+    <div class="d-flex align-center ga-1 justify-space-between">
       <AddToCartButton
         :product="product"
         iconButton

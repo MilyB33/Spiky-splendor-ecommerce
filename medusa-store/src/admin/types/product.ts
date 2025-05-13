@@ -5,24 +5,21 @@ export enum WaterDemand {
 }
 
 export enum PlantPlacement {
-  INDOOR_TABLE = "Indoor Table",
-  INDOOR_SHELF = "Indoor Shelf",
-  INDOOR_HANGING = "Indoor Hanging",
-  INDOOR_CORNER = "Indoor Corner",
-  INDOOR_WINDOW = "Indoor Window",
-  OUTDOOR_GARDEN_BED = "Outdoor Garden Bed",
-  OUTDOOR_POT = "Outdoor Pot",
-  OUTDOOR_HANGING = "Outdoor Hanging",
-  OUTDOOR_BALCONY = "Outdoor Balcony",
-  OUTDOOR_FENCE = "Outdoor Fence",
+  SHADED = "Shaded",
+  DIFFUSED_LIGHT = "Diffused Light",
+  FULL_SUN = "Full Sun",
 }
 
 export enum PlantForm {
-  TREE = "Tree",
-  SHRUB = "Shrub",
-  VINE = "Vine",
-  HERB = "Herb",
-  GRASS = "Grass",
-  FERN = "Fern",
-  SUCCULENT = "Succulent",
+  ERECT = "Standing",
+  CREEPING = "Creeping",
+  TRAILING = "Trailing",
+  CLIMBING = "Climbing",
+  CLUMPING = "Clumping",
+  STOLONIFEROUS = "Stoloniferous",
+  TREE_LIKE = "Tree-like",
+  COLUMNAR = "Columnar",
+  ROSETTE = "Rosette-forming",
+  BRANCHED = "Branched",
+  COMPACT = "Compact",
 }

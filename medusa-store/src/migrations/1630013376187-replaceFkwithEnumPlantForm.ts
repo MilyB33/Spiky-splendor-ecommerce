@@ -4,7 +4,7 @@ export class AddPlantFormsEnumArray1680013376187 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TYPE "plant_forms_enum" AS ENUM(
-          'Tree', 'Shrub', 'Vine', 'Herb', 'Grass', 'Fern', 'Succulent'
+          'Standing', 'Creeping', 'Trailing', 'Climbing', 'Clumping', 'Stoloniferous', 'Tree-like', 'Columnar', 'Rosette-forming', 'Branched', 'Compact'
         )`
     );
 

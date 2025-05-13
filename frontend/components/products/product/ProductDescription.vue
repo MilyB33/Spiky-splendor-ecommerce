@@ -36,11 +36,10 @@ const checkTextHeight = () => {
   if (!element) return;
 
   const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
-  const maxLines = 3; // Limit to 3 lines
+  const maxLines = 3;
 
-  // Check if the scrollHeight of the text is larger than the height for 3 lines
   if (element.scrollHeight > lineHeight * maxLines) {
-    showButton.value = true; // Show button if text exceeds 3 lines
+    showButton.value = true;
   }
 };
 

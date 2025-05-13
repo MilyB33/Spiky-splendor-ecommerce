@@ -80,7 +80,7 @@
         }
       ],
       "subtitle": null,
-      "description": "Andromischus cristatus to roślina o gęsto owłosionych liściach, znana z atrakcyjnego wyglądu i łatwości w uprawie.",
+      "description": "Andromischus cristatus is a unique succulent with densely hairy, crinkled leaves that give it an intriguing texture. Known for its attractive, rosette-shaped growth, this plant is easy to care for and adds a touch of charm to any indoor space. Its minimal water requirements make it perfect for beginners, and it thrives in bright, diffused light. A great choice for a low-maintenance, decorative addition to your collection.",
       "handle": "andromischus-cristatus",
       "is_giftcard": false,
       "weight": 300,
@@ -89,23 +89,14 @@
       "max_height": 80,
       "pot_diameter": 30,
       "water_demand": "small",
-      "plant_placements": ["Indoor Table", "Indoor Shelf"],
-      "plant_forms": ["Tree", "Shrub", "Grass"],
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Clumping", "Compact"],
       "images": [
-        "https://www.shutterstock.com/shutterstock/photos/2335199133/display_1500/stock-photo-leaves-of-the-succulent-plant-adromischus-cooperi-on-a-blurry-background-2335199133.jpg",
-        "https://www.shutterstock.com/shutterstock/photos/1898795101/display_1500/stock-photo-adromischus-maculatus-in-flowerpot-with-white-background-1898795101.jpg"
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-cristatus-Crinkle-Leaf-Plant.jpg?updatedAt=1746199179226",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-cristatus-Crinkle-Leaf-Plant%20(2).jpg?updatedAt=1746199178990",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-cristatus-Crinkle-Leaf-Plant%20(1).jpg?updatedAt=1746199178965"
       ],
-      "options": [
-        {
-          "id": "opt_1",
-          "created_at": "2024-10-06T19:27:24.836Z",
-          "updated_at": "2024-10-06T19:27:24.836Z",
-          "deleted_at": null,
-          "title": "Plant habit",
-          "product_id": "prod_1",
-          "metadata": null
-        }
-      ],
+      "options": [],
       "variants": [
         {
           "id": "variant_1",
@@ -116,18 +107,7 @@
               "amount": 1500
             }
           ],
-          "options": [
-            {
-              "id": "optval_1",
-              "created_at": "2024-10-06T19:27:24.836Z",
-              "updated_at": "2024-10-06T19:27:38.141Z",
-              "deleted_at": null,
-              "value": "Upright plant",
-              "option_id": "opt_1",
-              "variant_id": "variant_1",
-              "metadata": null
-            }
-          ],
+          "options": [],
           "inventory_quantity": 50,
           "manage_inventory": true
         }
@@ -136,186 +116,1446 @@
     {
       "id": "prod_2",
       "collection_id": "pcol_01JDJ75975RSXAGDGQSKZWJRNA",
-      "title": "Aloe Vera",
+      "title": "Andromischus maculatus",
       "categories": [
         {
-          "id": "pcat_aloesy"
+          "id": "pcat_andromischus"
         }
       ],
       "subtitle": null,
-      "description": "Aloe Vera to znana roślina o licznych właściwościach leczniczych, idealna do uprawy w domu.",
-      "handle": "aloe-vera",
+      "description": "Andromischus maculatus has fleshy, spotted leaves and a compact growth habit. Easy to grow and thrives in full sun.",
+      "handle": "andromischus-maculatus",
       "is_giftcard": false,
-      "weight": 400,
-      "height": 50,
-      "min_height": 40,
-      "max_height": 60,
-      "pot_diameter": 30,
+      "weight": 250,
+      "height": 40,
+      "min_height": 30,
+      "max_height": 50,
+      "pot_diameter": 25,
       "water_demand": "small",
-      "plant_placements": ["Indoor Table", "Indoor Shelf", "Indoor Corner"],
-      "plant_forms": ["Tree", "Grass"],
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Rosette-forming", "Compact"],
       "images": [
-        "https://www.shutterstock.com/shutterstock/photos/2492317671/display_1500/stock-photo-a-plant-with-spiky-leaves-grows-in-a-pot-in-the-home-garden-2492317671.jpg",
-        "https://www.shutterstock.com/shutterstock/photos/2448629537/display_1500/stock-photo-aloe-vera-leaves-where-growth-in-our-house-yard-it-is-natural-ingredients-of-cosmetics-skin-care-2448629537.jpg"
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-maculatus-Calico-hearts--6cm.jpg?updatedAt=1746199449357",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-maculatus-Calico-hearts--6cm%20(1).jpg?updatedAt=1746199449208"
       ],
-      "options": [
-        {
-          "id": "opt_2",
-          "created_at": "2024-10-06T19:27:24.836Z",
-          "updated_at": "2024-10-06T19:27:24.836Z",
-          "deleted_at": null,
-          "title": "Plant habit",
-          "product_id": "prod_2",
-          "metadata": null
-        }
-      ],
+      "options": [],
       "variants": [
         {
           "id": "variant_2",
-          "title": "Medium",
+          "title": "Standard",
           "prices": [
             {
               "currency_code": "PLN",
-              "amount": 1200
+              "amount": 1300
             }
           ],
-          "options": [
-            {
-              "id": "optval_2",
-              "created_at": "2024-10-06T19:27:24.836Z",
-              "updated_at": "2024-10-06T19:27:38.141Z",
-              "deleted_at": null,
-              "value": "Upright plant",
-              "option_id": "opt_2",
-              "variant_id": "variant_2",
-              "metadata": null
-            }
-          ],
-          "inventory_quantity": 100,
+          "options": [],
+          "inventory_quantity": 40,
           "manage_inventory": true
         }
       ]
     },
     {
       "id": "prod_3",
-      "collection_id": "pcol_01JDJ75975RSXAGDGQSKZWJRNA",
-      "title": "Haworthia fasciata",
+      "title": "Andromischus cooperi",
       "categories": [
         {
-          "id": "pcat_haworsje"
+          "id": "pcat_andromischus"
         }
       ],
       "subtitle": null,
-      "description": "Haworthia fasciata to mała, soczysta roślina o wyjątkowych liściach pokrytych białymi paskami, łatwa w pielęgnacji.",
-      "handle": "haworthia-fasciata",
+      "description": "Andromischus cooperi features thick leaves with red spots. Grows well in slightly shaded areas.",
+      "handle": "andromischus-cooperi",
       "is_giftcard": false,
-      "weight": 200,
-      "height": 30,
-      "pot_diameter": 20,
-      "water_demand": "medium",
-      "plant_placements": ["Indoor Corner"],
-      "plant_forms": ["Tree", "Shrub"],
+      "weight": 260,
+      "height": 50,
+      "min_height": 35,
+      "max_height": 60,
+      "pot_diameter": 26,
+      "water_demand": "small",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Clumping", "Compact"],
       "images": [
-        "https://www.shutterstock.com/shutterstock/photos/2123723780/display_1500/stock-photo-haworthia-fasciata-concolor-indoor-plant-2123723780.jpg",
-        "https://www.shutterstock.com/shutterstock/photos/1883417128/display_1500/stock-photo-haworthiopsis-fasciata-formerly-haworthia-fasciata-it-s-a-species-of-succulent-plant-native-from-1883417128.jpg"
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/adromischus-cooperii_10x10-1_1636195593-756x1008.jpg?updatedAt=1746199703650",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/adromischus-cooperii_10x10-2_1636195593-756x1008.jpg?updatedAt=1746199703610",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/adromischus-cooperii_10x10-3_1636195593-756x1008.jpg?updatedAt=1746199703580"
       ],
-      "options": [
-        {
-          "id": "opt_3",
-          "created_at": "2024-10-06T19:27:24.836Z",
-          "updated_at": "2024-10-06T19:27:24.836Z",
-          "deleted_at": null,
-          "title": "Plant habit",
-          "product_id": "prod_3",
-          "metadata": null
-        }
-      ],
+      "options": [],
       "variants": [
         {
           "id": "variant_3",
-          "title": "Small",
+          "title": "Standard",
           "prices": [
             {
               "currency_code": "PLN",
-              "amount": 800
+              "amount": 1350
             }
           ],
-          "options": [
-            {
-              "id": "optval_3",
-              "created_at": "2024-10-06T19:27:24.836Z",
-              "updated_at": "2024-10-06T19:27:38.141Z",
-              "deleted_at": null,
-              "value": "Upright plant",
-              "option_id": "opt_3",
-              "variant_id": "variant_3",
-              "metadata": null
-            }
-          ],
-          "inventory_quantity": 75,
+          "options": [],
+          "inventory_quantity": 45,
           "manage_inventory": true
         }
       ]
     },
     {
       "id": "prod_4",
+      "title": "Andromischus marianiae 'Little Spheroid'",
+      "categories": [
+        {
+          "id": "pcat_andromischus"
+        }
+      ],
+      "subtitle": null,
+      "description": "Andromischus marianiae 'Little Spheroid' is a rare succulent with dense, knobby green leaves that form a compact mound. Thrives in bright, diffused light and requires minimal watering.",
+      "handle": "andromischus-marianiae-little-spheroid",
+      "is_giftcard": false,
+      "weight": 240,
+      "height": 35,
+      "min_height": 25,
+      "max_height": 45,
+      "pot_diameter": 22,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Compact", "Clumping"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-littlespheroid%20(1).jpg?updatedAt=1746199861152",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-littlespheroid.jpg?updatedAt=1746199861012",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Adromischus-littlespheroid%20(2).jpg?updatedAt=1746199860871"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_4",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1550
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 30,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_aloe_1",
       "collection_id": "pcol_01JDJ75975RSXAGDGQSKZWJRNA",
+      "title": "Aloe vera",
+      "categories": [
+        {
+          "id": "pcat_aloesy"
+        }
+      ],
+      "subtitle": null,
+      "description": "Aloe vera is a well-known succulent valued for its soothing gel and minimal care needs. Thrives in bright, direct light and tolerates drought.",
+      "handle": "aloe-vera",
+      "is_giftcard": false,
+      "weight": 500,
+      "height": 60,
+      "min_height": 45,
+      "max_height": 75,
+      "pot_diameter": 30,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Rosette-forming", "Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Aloe-vera--60cm%20(2).jpg?updatedAt=1746201299010",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Aloe-vera--60cm.jpg?updatedAt=1746201298957",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Aloe-vera--60cm%20(1).jpg?updatedAt=1746201298895"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_aloevera",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1800
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 40,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_aloe_2",
+      "title": "Aloe juvenna",
+      "categories": [
+        {
+          "id": "pcat_aloesy"
+        }
+      ],
+      "subtitle": null,
+      "description": "Aloe juvenna, also known as Tiger Tooth Aloe, features spiky green leaves with white spots. Perfect for sunny indoor spots or outdoor containers.",
+      "handle": "aloe-juvenna",
+      "is_giftcard": false,
+      "weight": 300,
+      "height": 40,
+      "min_height": 25,
+      "max_height": 50,
+      "pot_diameter": 24,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Standing", "Clumping"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/ALOE-JUVENNA-zab-tygrysi-SOCZYSTA-ZIELEN-sukulent-MALUCH-rozmiar-S.jpeg?updatedAt=1746201489269",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/images.jpeg?updatedAt=1746201488136"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_alojuvenna",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1450
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 35,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_aloe_3",
+      "title": "Aloe aristata",
+      "categories": [
+        {
+          "id": "pcat_aloesy"
+        }
+      ],
+      "subtitle": null,
+      "description": "Aloe aristata has dense rosettes of dark green, toothed leaves with white markings. This hardy aloe prefers bright, indirect light.",
+      "handle": "aloe-aristata",
+      "is_giftcard": false,
+      "weight": 280,
+      "height": 35,
+      "min_height": 20,
+      "max_height": 45,
+      "pot_diameter": 22,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Rosette-forming", "Compact"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Aloe-aristata%20(1).jpg?updatedAt=1746201631329",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Aloe-aristata.jpg?updatedAt=1746201631247",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Aloe-aristata%20(2).jpg?updatedAt=1746201631264"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_aloaristata",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1400
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 50,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_aloe_4",
+      "title": "Aloe humilis",
+      "categories": [
+        {
+          "id": "pcat_aloesy"
+        }
+      ],
+      "subtitle": null,
+      "description": "Aloe humilis is a dwarf aloe species with short, spiky blue-green leaves covered in white bumps. It enjoys full sun and little water.",
+      "handle": "aloe-humilis",
+      "is_giftcard": false,
+      "weight": 260,
+      "height": 30,
+      "min_height": 20,
+      "max_height": 40,
+      "pot_diameter": 20,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Rosette-forming", "Clumping"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/mala-szklarnia-rosliny-1-645x645.jpg?updatedAt=1746201762092",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/mala-szklarnia-rosliny-8-645x645.jpg?updatedAt=1746201762198",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/mala-szklarnia-rosliny-7-645x645.jpg?updatedAt=1746201761982"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_alohumilis",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1300
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 48,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_ceropegia_1",
+      "title": "Ceropegia woodii",
+      "categories": [
+        {
+          "id": "pcat_ceropegie"
+        }
+      ],
+      "subtitle": "String of Hearts",
+      "description": "Ceropegia woodii, commonly known as String of Hearts, features long trailing vines with heart-shaped leaves. Ideal for hanging baskets and bright indoor spaces.",
+      "handle": "ceropegia-woodii",
+      "is_giftcard": false,
+      "weight": 200,
+      "height": 20,
+      "min_height": 15,
+      "max_height": 25,
+      "pot_diameter": 14,
+      "water_demand": "small",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Trailing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/DSC05971.jpg?updatedAt=1746202335594",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/DSC05931.jpg?updatedAt=1746202335397",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/DSC05947.jpg?updatedAt=1746202335375"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_ceropegia_woodii",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1600
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 38,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_ceropegia_2",
+      "collection_id": "pcol_01JDJ75975RSXAGDGQSKZWJRNA",
+      "title": "Ceropegia sandersonii",
+      "categories": [
+        {
+          "id": "pcat_ceropegie"
+        }
+      ],
+      "subtitle": "Parachute Plant",
+      "description": "Ceropegia sandersonii is a vining succulent known for its parachute-like green flowers. It thrives in bright, indirect light and moderate warmth.",
+      "handle": "ceropegia-sandersonii",
+      "is_giftcard": false,
+      "weight": 220,
+      "height": 25,
+      "min_height": 18,
+      "max_height": 30,
+      "pot_diameter": 16,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Trailing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/ceropegia-sandersonii-african-parachute_12x45-1_1713601609-756x1134.jpg?updatedAt=1746202464270",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/ceropegia-sandersonii-african-parachute_12x45-3_1713601609-756x1134.jpg?updatedAt=1746202464225",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/ceropegia-sandersonii-african-parachute_12x45-2_1713601609-756x1134.jpg?updatedAt=1746202464176"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_ceropegia_sandersonii",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1650
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 34,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_ceropegia_3",
+      "title": "Ceropegia ampliata",
+      "categories": [
+        {
+          "id": "pcat_ceropegie"
+        }
+      ],
+      "subtitle": null,
+      "description": "Ceropegia ampliata is a climbing succulent with unusual tubular flowers and smooth, fleshy stems. Prefers filtered sunlight and well-draining soil.",
+      "handle": "ceropegia-ampliata",
+      "is_giftcard": false,
+      "weight": 210,
+      "height": 30,
+      "min_height": 20,
+      "max_height": 40,
+      "pot_diameter": 16,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Climbing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/image.jpg?updatedAt=1746202606831",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/image%20(1).jpg?updatedAt=1746202606819"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_ceropegia_ampliata",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1700
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 30,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_ceropegia_4",
+      "title": "Ceropegia 'Silver Glory'",
+      "categories": [
+        {
+          "id": "pcat_ceropegie"
+        }
+      ],
+      "subtitle": "Silver String of Hearts",
+      "description": "This cultivar of Ceropegia woodii features silvery heart-shaped leaves with deep green edges. Excellent for hanging displays with cascading vines.",
+      "handle": "ceropegia-silver-glory",
+      "is_giftcard": false,
+      "weight": 210,
+      "height": 20,
+      "min_height": 15,
+      "max_height": 25,
+      "pot_diameter": 14,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Trailing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/ceropegia-woodii-silver-glory_11x24-1_1684576478-756x1008.jpg?updatedAt=1746202693501",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/ceropegia-woodii-silver-glory_11x24-2_1684576478-756x1008.jpg?updatedAt=1746202693414"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_ceropegia_silver_glory",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1750
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 42,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_dracaena_1",
+      "title": "Dracaena marginata",
+      "categories": [
+        {
+          "id": "pcat_draceny"
+        }
+      ],
+      "subtitle": "Dragon Tree",
+      "description": "Dracaena marginata, known as the Dragon Tree, features slender green leaves with red edges. A hardy, upright plant ideal for bright indoor corners.",
+      "handle": "dracaena-marginata",
+      "is_giftcard": false,
+      "weight": 1800,
+      "height": 120,
+      "min_height": 100,
+      "max_height": 150,
+      "pot_diameter": 28,
+      "water_demand": "medium",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Dracaena-marginata-Sunray--150cm%20(1).webp?updatedAt=1746203591855",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Dracaena-marginata-Sunray--150cm.webp?updatedAt=1746203591806"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_dracaena_marginata",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 2400
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 20,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_dracaena_2",
+      "title": "Dracaena fragrans",
+      "categories": [
+        {
+          "id": "pcat_draceny"
+        }
+      ],
+      "subtitle": "Corn Plant",
+      "description": "Dracaena fragrans, also called Corn Plant, has wide, arching leaves with a glossy green color. Perfect for shaded interiors with low maintenance needs.",
+      "handle": "dracaena-fragrans",
+      "is_giftcard": false,
+      "weight": 2200,
+      "height": 140,
+      "min_height": 120,
+      "max_height": 160,
+      "pot_diameter": 32,
+      "water_demand": "medium",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Dracaena-fragrans-Tornado--25cm%20(1).webp?updatedAt=1746205553351",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Dracaena-fragrans-Tornado--25cm.webp?updatedAt=1746205553341",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Dracaena-fragrans-Tornado--25cm%20(2).webp?updatedAt=1746205553144"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_dracaena_fragrans",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 2550
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 18,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_dischidia_1",
+      "title": "Dischidia nummularia",
+      "categories": [
+        {
+          "id": "pcat_dischidie"
+        }
+      ],
+      "subtitle": "String of Nickels",
+      "description": "Dischidia nummularia is a trailing epiphyte with small, coin-shaped leaves. Ideal for hanging pots and bright, indirect light.",
+      "handle": "dischidia-nummularia",
+      "is_giftcard": false,
+      "weight": 220,
+      "height": 35,
+      "min_height": 25,
+      "max_height": 45,
+      "pot_diameter": 14,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Trailing", "Compact"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-okraglolistna-dischidia-nummularia-7.jpg?updatedAt=1746382691243",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-okraglolistna-dischidia-nummularia-9.jpg?updatedAt=1746382691089",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-okraglolistna-dischidia-nummularia-2.jpg?updatedAt=1746382690717"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_dischidia_nummularia",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1200
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 40,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_dischidia_2",
+      "title": "Dischidia ovata",
+      "categories": [
+        {
+          "id": "pcat_dischidie"
+        }
+      ],
+      "subtitle": "Watermelon Dischidia",
+      "description": "Dischidia ovata stands out with its striped, watermelon-like leaves. A beautiful vining plant for shelves and hanging planters.",
+      "handle": "dischidia-ovata",
+      "is_giftcard": false,
+      "weight": 250,
+      "height": 40,
+      "min_height": 30,
+      "max_height": 50,
+      "pot_diameter": 16,
+      "water_demand": "small",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Climbing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-ovata_14x30-1.jpg?updatedAt=1746382818297",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-ovata_14x30-2.jpg?updatedAt=1746382818286",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-ovata_14x30-0.jpg?updatedAt=1746382818278"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_dischidia_ovata",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1300
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 35,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_dischidia_3",
+      "title": "Dischidia ruscifolia",
+      "categories": [
+        {
+          "id": "pcat_dischidie"
+        }
+      ],
+      "subtitle": "Million Hearts",
+      "description": "Dischidia ruscifolia, or Million Hearts, is a charming vining plant with pairs of tiny, heart-shaped leaves. Great for decorative hanging displays.",
+      "handle": "dischidia-ruscifolia",
+      "is_giftcard": false,
+      "weight": 270,
+      "height": 50,
+      "min_height": 35,
+      "max_height": 60,
+      "pot_diameter": 18,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Trailing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-ruscifolia_12x25-2-1536x2048.jpg?updatedAt=1746383016524",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-ruscifolia_12x25-1-1536x2048.jpg?updatedAt=1746383016403",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/dischidia-ruscifolia_12x25-0-1536x2048.jpg?updatedAt=1746383016301"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_dischidia_ruscifolia",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1250
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 38,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_sansevieria_1",
+      "title": "Sansevieria trifasciata 'Laurentii'",
+      "categories": [
+        {
+          "id": "pcat_eszeverie"
+        }
+      ],
+      "subtitle": "Variegated Snake Plant",
+      "description": "Sansevieria 'Laurentii' features sword-like, upright leaves edged in golden yellow. Known for its air-purifying qualities and tolerance to low light.",
+      "handle": "sansevieria-laurentii",
+      "is_giftcard": false,
+      "weight": 900,
+      "height": 70,
+      "min_height": 50,
+      "max_height": 90,
+      "pot_diameter": 22,
+      "water_demand": "small",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Standing", "Clumping"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-laurenti_11x50-3_1620986575-1536x2048.jpg?updatedAt=1746383207327",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-laurenti_11x50-1_1620986575-1536x2048.jpg?updatedAt=1746383207132",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-laurenti_11x50-2_1620986575-1536x2048.jpg?updatedAt=1746383206941"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_sansevieria_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1600
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 28,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_sansevieria_2",
+      "title": "Sansevieria cylindrica",
+      "categories": [
+        {
+          "id": "pcat_eszeverie"
+        }
+      ],
+      "subtitle": "African Spear Plant",
+      "description": "Sansevieria cylindrica displays cylindrical, pointed leaves arranged in an upright fan. An architectural plant that thrives on neglect.",
+      "handle": "sansevieria-cylindrica",
+      "is_giftcard": false,
+      "weight": 1000,
+      "height": 60,
+      "min_height": 40,
+      "max_height": 75,
+      "pot_diameter": 20,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-cylindrica-silver-syreni_12x50-3_1743853125.jpg?updatedAt=1746383750798",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-cylindrica-silver-syreni_12x50-1_1743853125.jpg?updatedAt=1746383750799",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-cylindrica-silver-syreni_12x50-2_1743853125.jpg?updatedAt=1746383750736"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_sansevieria_2",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1750
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 30,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_crassula_1",
+      "title": "Crassula ovata",
+      "categories": [
+        {
+          "id": "pcat_grubosze"
+        }
+      ],
+      "subtitle": "Jade Plant",
+      "description": "Crassula ovata, commonly known as the Jade Plant, is a classic succulent with thick, glossy green leaves. It thrives in bright locations and is valued for its longevity and low maintenance.",
+      "handle": "crassula-ovata",
+      "is_giftcard": false,
+      "weight": 520,
+      "height": 45,
+      "min_height": 35,
+      "max_height": 55,
+      "pot_diameter": 18,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/crassula-ovata-gollum_6x10-1_1690013054-1365x2048.jpg?updatedAt=1746384243491",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/crassula-ovata-gollum_6x10-2_1690013054-1365x2048.jpg?updatedAt=1746384243256"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_crassula_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1450
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 42,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_haworthia_1",
+      "title": "Haworthia fasciata",
+      "categories": [
+        {
+          "id": "pcat_haworsje"
+        }
+      ],
+      "subtitle": "Zebra Plant",
+      "description": "Haworthia fasciata, known as the Zebra Plant, is a compact succulent with dark green leaves and white horizontal stripes. Ideal for desks and shelves due to its small size and minimal care needs.",
+      "handle": "haworthia-fasciata",
+      "is_giftcard": false,
+      "weight": 200,
+      "height": 12,
+      "min_height": 8,
+      "max_height": 15,
+      "pot_diameter": 10,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Compact", "Rosette-forming"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/P1167747.webp?updatedAt=1746384422764",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/P1167756-1536x1536.webp?updatedAt=1746384422573",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/P1167753-1536x1536.webp?updatedAt=1746384422330"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_haworthia_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1150
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 38,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_kaktus_1",
+      "title": "Mammillaria elongata",
+      "categories": [
+        {
+          "id": "pcat_kaktusy"
+        }
+      ],
+      "subtitle": "Ladyfinger Cactus",
+      "description": "Mammillaria elongata forms clustered cylindrical stems covered in golden spines. A low-maintenance cactus that adds texture and interest to small pots.",
+      "handle": "mammillaria-elongata",
+      "is_giftcard": false,
+      "weight": 280,
+      "height": 18,
+      "min_height": 12,
+      "max_height": 22,
+      "pot_diameter": 12,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Clumping", "Compact"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Mammillaria-elongata.jpg?updatedAt=1746384599146",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Mammillaria-elongata%20(2).jpg?updatedAt=1746384599106",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Mammillaria-elongata%20(1).jpg?updatedAt=1746384598861"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_kaktus_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1250
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 33,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_kaktus_2",
+      "title": "Echinopsis subdenudata",
+      "categories": [
+        {
+          "id": "pcat_kaktusy"
+        }
+      ],
+      "subtitle": "Domino Cactus",
+      "description": "Echinopsis subdenudata, or the Domino Cactus, is a globe-shaped cactus with white areoles and occasional night-blooming flowers. It thrives on minimal water and bright light.",
+      "handle": "echinopsis-subdenudata",
+      "is_giftcard": false,
+      "weight": 320,
+      "height": 14,
+      "min_height": 10,
+      "max_height": 18,
+      "pot_diameter": 11,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Compact"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Echinopsis-subdenudata%20(1).jpg?updatedAt=1746384829221",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Echinopsis-subdenudata%20(2).jpg?updatedAt=1746384829186",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Echinopsis-subdenudata.jpg?updatedAt=1746384829063"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_kaktus_2",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1190
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 40,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_kalanchoe_1",
+      "title": "Kalanchoe tomentosa",
+      "categories": [
+        {
+          "id": "pcat_kalanchoe"
+        }
+      ],
+      "subtitle": "Panda Plant",
+      "description": "Kalanchoe tomentosa, also known as Panda Plant, is a charming succulent with fuzzy, silver-green leaves edged in brown. It’s perfect for bright indoor spaces and requires minimal care.",
+      "handle": "kalanchoe-tomentosa",
+      "is_giftcard": false,
+      "weight": 240,
+      "height": 22,
+      "min_height": 18,
+      "max_height": 26,
+      "pot_diameter": 12,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Compact", "Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/kalanchoe-tomentosa_6x10-2_1645876171-1536x2048.jpg?updatedAt=1746384959140",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/kalanchoe-tomentosa_6x10-1_1645876171-1536x2048.jpg?updatedAt=1746384958939"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_kalanchoe_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1290
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 37,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_nolina_1",
+      "title": "Nolina recurvata",
+      "categories": [
+        {
+          "id": "pcat_noliny"
+        }
+      ],
+      "subtitle": "Ponytail Palm",
+      "description": "Nolina recurvata, also known as the Ponytail Palm, features a bulbous trunk and cascading, strap-like leaves. This low-maintenance plant thrives in bright light and dry conditions.",
+      "handle": "nolina-recurvata",
+      "is_giftcard": false,
+      "weight": 1800,
+      "height": 80,
+      "min_height": 60,
+      "max_height": 100,
+      "pot_diameter": 28,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Tree-like"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Nolina-Beukarnea-wygieta-stanowisko.jpg?updatedAt=1746385423382"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_nolina_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1890
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 25,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_nolina_2",
+      "title": "Nolina longifolia",
+      "categories": [
+        {
+          "id": "pcat_noliny"
+        }
+      ],
+      "subtitle": null,
+      "description": "Nolina longifolia is an ornamental succulent with a thickened stem and long, arching leaves. It’s an excellent choice for bright interiors and requires minimal watering.",
+      "handle": "nolina-longifolia",
+      "is_giftcard": false,
+      "weight": 1600,
+      "height": 70,
+      "min_height": 50,
+      "max_height": 90,
+      "pot_diameter": 26,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Tree-like", "Rosette-forming"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/nolina-longifolia.jpg?updatedAt=1746385563202"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_nolina_2",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1790
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 30,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_opuncja_1",
+      "title": "Opuntia microdasys",
+      "categories": [
+        {
+          "id": "pcat_opuncje"
+        }
+      ],
+      "subtitle": "Bunny Ears Cactus",
+      "description": "Opuntia microdasys, also known as Bunny Ears Cactus, features flat, oval pads covered with golden glochids. It thrives in bright sunlight and requires very little water, making it ideal for sunny indoor spots.",
+      "handle": "opuntia-microdasys",
+      "is_giftcard": false,
+      "weight": 600,
+      "height": 35,
+      "min_height": 25,
+      "max_height": 45,
+      "pot_diameter": 18,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Clumping", "Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/opuntia-microdasys_12x25-1_1684576284-1536x2048.jpg?updatedAt=1746385674636",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/opuntia-microdasys_12x25-2_1684576284-1536x2048.jpg?updatedAt=1746385674520"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_opuncja_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1490
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 40,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_peperomia_1",
+      "title": "Peperomia obtusifolia",
+      "categories": [
+        {
+          "id": "pcat_peperomie"
+        }
+      ],
+      "subtitle": "Baby Rubber Plant",
+      "description": "Peperomia obtusifolia is a compact houseplant with thick, glossy leaves. It thrives in indirect light and requires little maintenance, making it perfect for desks and shelves.",
+      "handle": "peperomia-obtusifolia",
+      "is_giftcard": false,
+      "weight": 320,
+      "height": 25,
+      "min_height": 18,
+      "max_height": 30,
+      "pot_diameter": 14,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Compact", "Clumping"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/10_11_2020_16_21_14.Zdjecie_1.143549-1536x2048.jpg?updatedAt=1746385792036"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_peperomia_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1290
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 60,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_peperomia_2",
+      "title": "Peperomia caperata",
+      "categories": [
+        {
+          "id": "pcat_peperomie"
+        }
+      ],
+      "subtitle": "Emerald Ripple",
+      "description": "Peperomia caperata features deeply ridged leaves with a rich, dark green color. It is a low-growing plant perfect for shaded interiors and thrives with minimal watering.",
+      "handle": "peperomia-caperata",
+      "is_giftcard": false,
+      "weight": 280,
+      "height": 20,
+      "min_height": 15,
+      "max_height": 25,
+      "pot_diameter": 12,
+      "water_demand": "small",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Compact", "Rosette-forming"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/peperomia-rosso_10x17-1_1629787053-1536x2048.jpg?updatedAt=1746386038371"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_peperomia_2",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1190
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 50,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_peperomia_3",
+      "title": "Peperomia argyreia",
+      "categories": [
+        {
+          "id": "pcat_peperomie"
+        }
+      ],
+      "subtitle": "Watermelon Peperomia",
+      "description": "Peperomia argyreia, nicknamed Watermelon Peperomia, has striking foliage that resembles the rind of a watermelon. It’s a favorite among plant lovers for its unique look and ease of care.",
+      "handle": "peperomia-argyreia",
+      "is_giftcard": false,
+      "weight": 310,
+      "height": 22,
+      "min_height": 16,
+      "max_height": 28,
+      "pot_diameter": 14,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Rosette-forming", "Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/192835771_967792874036694_8991914706722398360_n.jpg?updatedAt=1746386136736",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/191001687_225627219023658_465928678034107092_n.jpg?updatedAt=1746386136715"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_peperomia_3",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1390
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 42,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_rochodnik_1",
+      "title": "Sedum morganianum",
+      "categories": [
+        {
+          "id": "pcat_rochodniki"
+        }
+      ],
+      "subtitle": "Burro's Tail",
+      "description": "Sedum morganianum, commonly known as Burro's Tail, is a trailing succulent with thick, blue-green leaves that cascade beautifully over the edges of pots. It's ideal for hanging planters in bright but indirect light.",
+      "handle": "sedum-morganianum",
+      "is_giftcard": false,
+      "weight": 450,
+      "height": 40,
+      "min_height": 30,
+      "max_height": 50,
+      "pot_diameter": 16,
+      "water_demand": "small",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Trailing", "Columnar"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/8FW1676FR.png?updatedAt=1746386299834"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_rochodnik_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1450
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 38,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_ripsalis_1",
+      "title": "Rhipsalis cassutha",
+      "categories": [
+        {
+          "id": "pcat_ripsalisy"
+        }
+      ],
+      "subtitle": "Mistletoe Cactus",
+      "description": "Rhipsalis cassutha, or Mistletoe Cactus, is a unique epiphytic cactus with long, thin, green stems that droop and create a cascading effect. It thrives in bright, indirect light and is a great choice for hanging baskets.",
+      "handle": "rhipsalis-cassutha",
+      "is_giftcard": false,
+      "weight": 550,
+      "height": 40,
+      "min_height": 30,
+      "max_height": 50,
+      "pot_diameter": 20,
+      "water_demand": "medium",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Trailing", "Columnar"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/09_27_2020_16_27_42.Zdjecie_2.143017-1536x2048.jpg?updatedAt=1746386423802",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/09_27_2020_16_27_42.Zdjecie_1.143017-1536x2048.jpg?updatedAt=1746386423337"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_ripsalis_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1390
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 45,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_ripsalis_2",
+      "title": "Rhipsalis baccifera",
+      "categories": [
+        {
+          "id": "pcat_ripsalisy"
+        }
+      ],
+      "subtitle": "White Mistletoe Cactus",
+      "description": "Rhipsalis baccifera, also known as White Mistletoe Cactus, is a unique cactus that thrives in low light conditions and requires little care. Its small, round white berries give it an attractive, delicate appearance.",
+      "handle": "rhipsalis-baccifera",
+      "is_giftcard": false,
+      "weight": 400,
+      "height": 30,
+      "min_height": 25,
+      "max_height": 40,
+      "pot_diameter": 18,
+      "water_demand": "medium",
+      "plant_placements": ["Diffused Light"],
+      "plant_forms": ["Trailing", "Creeping"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/rhipsalis-baccifera-horrida_10x15-2_1699607848-1536x2048.jpg?updatedAt=1746386530313",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/rhipsalis-baccifera-horrida_10x15-1_1699607848-1536x2048.jpg?updatedAt=1746386530157"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_ripsalis_2",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 1450
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 40,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_sansewieria_1",
       "title": "Sansevieria trifasciata",
       "categories": [
         {
           "id": "pcat_sansewierie"
         }
       ],
-      "subtitle": null,
-      "description": "Sansevieria trifasciata, znana również jako Wężownica, to wytrzymała roślina doniczkowa o charakterystycznych liściach.",
+      "subtitle": "Snake Plant",
+      "description": "Sansevieria trifasciata, or Snake Plant, is a popular low-maintenance houseplant known for its upright, sword-like leaves with dark green and light green banding. It thrives in low light and is perfect for beginners.",
       "handle": "sansevieria-trifasciata",
       "is_giftcard": false,
-      "weight": 500,
-      "height": 40,
-      "min_height": 30,
-      "max_height": 50,
-      "pot_diameter": 30,
-      "water_demand": "large",
-      "plant_placements": ["Indoor Table", "Indoor Shelf", "Indoor Corner"],
-      "plant_forms": ["Tree"],
+      "weight": 350,
+      "height": 60,
+      "min_height": 50,
+      "max_height": 70,
+      "pot_diameter": 20,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Standing", "Rosette-forming"],
       "images": [
-        "https://www.shutterstock.com/shutterstock/photos/2262430201/display_1500/stock-photo-sansevieria-golden-hahnii-snake-plant-in-grey-plastic-pot-on-wooden-table-on-light-background-in-2262430201.jpg",
-        "https://www.shutterstock.com/shutterstock/photos/2309666589/display_1500/stock-photo-succulent-of-sansevieria-cylindrica-or-cylindrical-snake-plant-growing-in-a-pot-on-a-wooden-boat-2309666589.jpg"
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-trifasciata-hahnii-sansewieria-gwinejska.jpg?updatedAt=1746386662610",
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/sansevieria-trifasciata-hahnii-sansewieria-gwinejska%20(1).jpg?updatedAt=1746386662045"
       ],
-      "options": [
-        {
-          "id": "opt_4",
-          "created_at": "2024-10-06T19:27:24.836Z",
-          "updated_at": "2024-10-06T19:27:24.836Z",
-          "deleted_at": null,
-          "title": "Plant habit",
-          "product_id": "prod_4",
-          "metadata": null
-        }
-      ],
+      "options": [],
       "variants": [
         {
-          "id": "variant_4",
-          "title": "Large",
+          "id": "variant_sansewieria_1",
+          "title": "Standard",
           "prices": [
             {
               "currency_code": "PLN",
-              "amount": 2000
+              "amount": 1190
             }
           ],
-          "options": [
+          "options": [],
+          "inventory_quantity": 50,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_wilczomlecze_1",
+      "title": "Euphorbia tirucalli",
+      "categories": [
+        {
+          "id": "pcat_wilczomlecze"
+        }
+      ],
+      "subtitle": "Pencil Cactus",
+      "description": "Euphorbia tirucalli, commonly known as Pencil Cactus, is a striking succulent with thin, pencil-like branches that turn from green to red-orange when exposed to bright sunlight. It's a low-maintenance plant ideal for sunny spots.",
+      "handle": "euphorbia-tirucalli",
+      "is_giftcard": false,
+      "weight": 600,
+      "height": 90,
+      "min_height": 70,
+      "max_height": 110,
+      "pot_diameter": 24,
+      "water_demand": "small",
+      "plant_placements": ["Shaded"],
+      "plant_forms": ["Standing"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/euphorbia-tirucalli_12x40-1_1629441293-1536x2048.jpg?updatedAt=1746386884913"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_wilczomlecze_1",
+          "title": "Standard",
+          "prices": [
             {
-              "id": "optval_4",
-              "created_at": "2024-10-06T19:27:24.836Z",
-              "updated_at": "2024-10-06T19:27:38.141Z",
-              "deleted_at": null,
-              "value": "Upright plant",
-              "option_id": "opt_4",
-              "variant_id": "variant_4",
-              "metadata": null
+              "currency_code": "PLN",
+              "amount": 1200
             }
           ],
+          "options": [],
           "inventory_quantity": 30,
+          "manage_inventory": true
+        }
+      ]
+    },
+    {
+      "id": "prod_zywe_kamienie_1",
+      "title": "Lithops lesliei",
+      "categories": [
+        {
+          "id": "pcat_zywe_kamienie"
+        }
+      ],
+      "subtitle": "Living Stones",
+      "description": "Lithops lesliei, also known as Living Stones, is a small succulent that mimics the appearance of pebbles or stones, making it a perfect plant for rock gardens or decorative containers. It thrives in bright, indirect light and is well-suited to dry conditions.",
+      "handle": "lithops-lesliei",
+      "is_giftcard": false,
+      "weight": 150,
+      "height": 10,
+      "min_height": 5,
+      "max_height": 15,
+      "pot_diameter": 10,
+      "water_demand": "small",
+      "plant_placements": ["Full Sun"],
+      "plant_forms": ["Rosette-forming"],
+      "images": [
+        "https://ik.imagekit.io/2ttnwqpt98/succulents/Lithops_lesliei_ssp._lesliei_v._mariae_Cole_141_01.jpg?updatedAt=1746387030387"
+      ],
+      "options": [],
+      "variants": [
+        {
+          "id": "variant_zywe_kamienie_1",
+          "title": "Standard",
+          "prices": [
+            {
+              "currency_code": "PLN",
+              "amount": 950
+            }
+          ],
+          "options": [],
+          "inventory_quantity": 25,
           "manage_inventory": true
         }
       ]
@@ -325,13 +1565,13 @@
     [
       {
         "id": "pcat_succulents",
-        "name": "Sukulenty",
+        "name": "Succulents",
         "rank": 0,
         "parent_category_id": null,
         "category_children": [
           {
             "id": "pcat_andromischus",
-            "name": "Andromischusy",
+            "name": "Adromischus",
             "rank": 0,
             "category_children": [],
             "handle": "andromischus",
@@ -340,74 +1580,74 @@
           },
           {
             "id": "pcat_aloesy",
-            "name": "Aloesy",
+            "name": "Aloes",
             "rank": 1,
             "category_children": [],
-            "handle": "aloesy",
+            "handle": "aloes",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_ceropegie",
-            "name": "Ceropegie",
+            "name": "Ceropegia",
             "rank": 2,
             "category_children": [],
-            "handle": "ceropegie",
+            "handle": "ceropegia",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_draceny",
-            "name": "Draceny",
+            "name": "Dracaena",
             "rank": 3,
             "category_children": [],
-            "handle": "draceny",
+            "handle": "dracaena",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_dischidie",
-            "name": "Dischidie",
+            "name": "Dischidia",
             "rank": 4,
             "category_children": [],
-            "handle": "dischidie",
+            "handle": "dischidia",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
 
           {
             "id": "pcat_eszeverie",
-            "name": "Eszeverie",
+            "name": "Echeveria",
             "rank": 5,
             "category_children": [],
-            "handle": "eszeverie",
+            "handle": "echeveria",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_grubosze",
-            "name": "Grubosze",
+            "name": "Jade Plants",
             "rank": 6,
             "category_children": [],
-            "handle": "grubosze",
+            "handle": "jade_plants",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_haworsje",
-            "name": "Haworsje",
+            "name": "Haworthia",
             "rank": 7,
             "category_children": [],
-            "handle": "haworsje",
+            "handle": "haworthia",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_kaktusy",
-            "name": "Kaktusy",
+            "name": "Cactus",
             "rank": 8,
             "category_children": [],
-            "handle": "kaktusy",
+            "handle": "cactus",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
@@ -422,82 +1662,82 @@
           },
           {
             "id": "pcat_noliny",
-            "name": "Noliny",
+            "name": "Ponytail Palms",
             "rank": 10,
             "category_children": [],
-            "handle": "noliny",
+            "handle": "ponytail_palms",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_opuncje",
-            "name": "Opuncje",
+            "name": "Prickly Pears",
             "rank": 11,
             "category_children": [],
-            "handle": "opuncje",
+            "handle": "prickly_pears",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_peperomie",
-            "name": "Peperomie",
+            "name": "Peperomia",
             "rank": 12,
             "category_children": [],
-            "handle": "peperomie",
+            "handle": "peperomia",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_rochodniki",
-            "name": "Rozchodniki",
+            "name": "Stonecrops",
             "rank": 13,
             "category_children": [],
-            "handle": "rozchodniki",
+            "handle": "stonecrops",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_ripsalisy",
-            "name": "Ripsalisy",
+            "name": "rhipsalis",
             "rank": 14,
             "category_children": [],
-            "handle": "ripsalisy",
+            "handle": "rhipsalis",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_sansewierie",
-            "name": "Sansewierie",
+            "name": "Snake Plants",
             "rank": 15,
             "category_children": [],
-            "handle": "sansewierie",
+            "handle": "snake_plants",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_wilczomlecze",
-            "name": "Wilczomlecze",
+            "name": "Euphorbia",
             "rank": 16,
             "category_children": [],
-            "handle": "wilczomlecze",
+            "handle": "euphorbia",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_zywe_kamienie",
-            "name": "Żywe Kamienie",
+            "name": "Living Stones",
             "rank": 17,
             "category_children": [],
-            "handle": "zywe_kamienie",
+            "handle": "living_stones",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           },
           {
             "id": "pcat_inne",
-            "name": "Inne",
+            "name": "Other",
             "rank": 18,
             "category_children": [],
-            "handle": "inne",
+            "handle": "other",
             "parent_category_id": "pcat_succulents",
             "is_active": true
           }
@@ -507,16 +1747,16 @@
       },
       {
         "id": "pcat_andromischus",
-        "name": "Andromischusy",
+        "name": "Adromischus",
         "rank": 1,
         "category_children": [],
-        "handle": "andromischus",
+        "handle": "adromischus",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -526,16 +1766,16 @@
       },
       {
         "id": "pcat_aloesy",
-        "name": "Aloesy",
+        "name": "Aloes",
         "rank": 2,
         "category_children": [],
-        "handle": "aloesy",
+        "handle": "aloes",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -545,16 +1785,16 @@
       },
       {
         "id": "pcat_ceropegie",
-        "name": "Ceropegie",
+        "name": "Ceropegia",
         "rank": 3,
         "category_children": [],
-        "handle": "ceropegie",
+        "handle": "ceropegia",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -564,16 +1804,16 @@
       },
       {
         "id": "pcat_draceny",
-        "name": "Draceny",
+        "name": "Dracaena",
         "rank": 4,
         "category_children": [],
-        "handle": "draceny",
+        "handle": "dracaena",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -583,16 +1823,16 @@
       },
       {
         "id": "pcat_dischidie",
-        "name": "Dischidie",
+        "name": "Dischidia",
         "rank": 5,
         "category_children": [],
-        "handle": "dischidie",
+        "handle": "dischidia",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -602,16 +1842,16 @@
       },
       {
         "id": "pcat_eszeverie",
-        "name": "Eszeverie",
+        "name": "Echeveria",
         "rank": 6,
         "category_children": [],
-        "handle": "eszeverie",
+        "handle": "echeveria",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -621,16 +1861,16 @@
       },
       {
         "id": "pcat_grubosze",
-        "name": "Grubosze",
+        "name": "Jade Plants",
         "rank": 7,
         "category_children": [],
-        "handle": "grubosze",
+        "handle": "jade_plants",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -640,16 +1880,16 @@
       },
       {
         "id": "pcat_haworsje",
-        "name": "Haworsje",
+        "name": "Haworthia",
         "rank": 8,
         "category_children": [],
-        "handle": "haworsje",
+        "handle": "haworthia",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -659,16 +1899,16 @@
       },
       {
         "id": "pcat_kaktusy",
-        "name": "Kaktusy",
+        "name": "Cactus",
         "rank": 9,
         "category_children": [],
-        "handle": "kaktusy",
+        "handle": "cactus",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -687,7 +1927,7 @@
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -697,16 +1937,16 @@
       },
       {
         "id": "pcat_noliny",
-        "name": "Noliny",
+        "name": "Ponytail Palms",
         "rank": 11,
         "category_children": [],
-        "handle": "noliny",
+        "handle": "ponytail_palms",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -716,16 +1956,16 @@
       },
       {
         "id": "pcat_opuncje",
-        "name": "Opuncje",
+        "name": "Prickly Pear",
         "rank": 12,
         "category_children": [],
-        "handle": "opuncje",
+        "handle": "prickly_pear",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -735,16 +1975,16 @@
       },
       {
         "id": "pcat_peperomie",
-        "name": "Peperomie",
+        "name": "Peperomia",
         "rank": 13,
         "category_children": [],
-        "handle": "peperomie",
+        "handle": "peperomia",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -754,16 +1994,16 @@
       },
       {
         "id": "pcat_rochodniki",
-        "name": "Rozchodniki",
+        "name": "Stonecrops",
         "rank": 14,
         "category_children": [],
-        "handle": "rozchodniki",
+        "handle": "stonecrops",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -773,16 +2013,16 @@
       },
       {
         "id": "pcat_ripsalisy",
-        "name": "Ripsalisy",
+        "name": "Rhipsalis",
         "rank": 15,
         "category_children": [],
-        "handle": "ripsalisy",
+        "handle": "rhipsalis",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -792,16 +2032,16 @@
       },
       {
         "id": "pcat_sansewierie",
-        "name": "Sansewierie",
+        "name": "Snake Plants",
         "rank": 16,
         "category_children": [],
-        "handle": "sansewierie",
+        "handle": "snake_plants",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -811,16 +2051,16 @@
       },
       {
         "id": "pcat_wilczomlecze",
-        "name": "Wilczomlecze",
+        "name": "Euphorbia",
         "rank": 17,
         "category_children": [],
-        "handle": "wilczomlecze",
+        "handle": "euphorbia",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -830,16 +2070,16 @@
       },
       {
         "id": "pcat_zywe_kamienie",
-        "name": "Żywe Kamienie",
+        "name": "Living Stones",
         "rank": 18,
         "category_children": [],
-        "handle": "zywe_kamienie",
+        "handle": "living_stones",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,
@@ -849,16 +2089,16 @@
       },
       {
         "id": "pcat_inne",
-        "name": "Inne",
+        "name": "Other",
         "rank": 19,
         "category_children": [],
-        "handle": "inne",
+        "handle": "other",
         "parent_category_id": "pcat_succulents",
         "is_active": true,
         "parent_category": [
           {
             "id": "pcat_succulents",
-            "name": "Sukulenty",
+            "name": "Succulents",
             "rank": 0,
             "handle": "succulents",
             "parent_category_id": null,

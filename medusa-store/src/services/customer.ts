@@ -78,7 +78,6 @@ class CustomerService extends MedusaCustomerService {
     );
 
     if (customer.billing_address) {
-      // Delete this via repository as it's have relation with customer (no service)
       await this.addressRepository_.delete({ id: customer.billing_address.id });
     }
 

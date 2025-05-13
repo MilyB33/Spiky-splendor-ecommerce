@@ -26,7 +26,7 @@ class InvoiceService extends TransactionBaseService {
     this.orderService_ = orderService;
     this.storeService_ = storeService;
   }
-  // Todo: try to retrieve with totals
+
   async generateInvoice(orderId: string) {
     const order = await this.orderService_.retrieveWithTotals(orderId, {
       relations: [

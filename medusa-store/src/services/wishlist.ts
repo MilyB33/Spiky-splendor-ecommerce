@@ -79,7 +79,7 @@ class WishlistService extends TransactionBaseService {
       const { id, region_id, currency_code } = payload;
       const [wishlist] = await wishlistRepository.find({
         where: { id },
-        // TODO: it's not adding a price like for extend in product
+
         relations: [
           "items",
           "items.product",
@@ -236,10 +236,11 @@ class WishlistService extends TransactionBaseService {
     });
 
     if (!wishlist) {
-      throw new MedusaError(
-        MedusaError.Types.NOT_FOUND,
-        `Wishlist for user ${customer_id} was not found`
-      );
+      return await this.create({
+        currency_code: payload.currency_code,
+        customer_id: payload.customer_id,
+        region_id: payload.region_id,
+      });
     }
 
     const items = await this.addPricesToProducts(

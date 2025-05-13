@@ -78,7 +78,6 @@ export const generateInvoiceTable = (
 
 const formatDataForTable = (order: Order, items: LineItem[]) => {
   const formattedData: RowInput[] = items.map((item, index) => {
-    // TODO: tutaj był bład ze dzielilem calosc przez item.quantity - dodaj do pracki jako testowanie
     const itemPrice = amountToDisplay(
       item.unit_price + item.tax_total / item.quantity || 0,
       order.currency_code

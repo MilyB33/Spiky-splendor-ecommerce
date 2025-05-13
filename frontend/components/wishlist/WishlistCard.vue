@@ -28,11 +28,17 @@
         </v-btn>
       </div>
     </div>
-    <div class="mt-2 d-flex flex-column ga-1">
+
+    <div
+      class="mt-2"
+      style="max-width: 225px"
+    >
       <h4>
         {{ wishlistItem.product.title }}
       </h4>
+    </div>
 
+    <div class="mt-auto mb-2 d-flex flex-column ga-1">
       <h6
         class="category"
         v-if="wishlistItem.product.categories?.length"
@@ -53,7 +59,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-column align-center ga-1 mt-2">
+    <div class="d-flex flex-column align-center ga-1">
       <v-btn
         size="small"
         color="green_primary"

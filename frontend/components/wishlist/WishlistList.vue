@@ -18,7 +18,10 @@
     />
   </div>
 
-  <div v-else>
+  <div
+    v-else
+    class="w-100"
+  >
     <WishlistHeader />
     <WishlistActions />
 

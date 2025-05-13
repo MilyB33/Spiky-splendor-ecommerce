@@ -17,7 +17,5 @@ export class DropAllPlantRelatedTables1699999999999
     await queryRunner.query(`DROP TABLE IF EXISTS "plant_form" CASCADE`);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    // Optionally, you can re-create the tables here if needed
-  }
+  public async down(queryRunner: QueryRunner): Promise<void> {}
 }

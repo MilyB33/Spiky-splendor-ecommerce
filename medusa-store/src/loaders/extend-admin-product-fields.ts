@@ -19,4 +19,3 @@ export default async function () {
     "plant_placements",
   ];
 }
-// TODO: this doesn't work for some reason maybe try something with product instead of products

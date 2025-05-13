@@ -76,7 +76,6 @@ export const useOrders = () => {
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
       const blobUrl = URL.createObjectURL(blob);
 
-      // Open the blob URL in a new tab
       window.open(blobUrl, "_blank");
     },
   });

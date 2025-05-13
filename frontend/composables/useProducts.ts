@@ -18,7 +18,6 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
   const filters = ref<Filters>({});
   const order = ref<OrderParam>("title");
 
-  // Computed query key to ensure reactivity
   const queryKey = computed(() => [
     API_QUERY_KEY.PRODUCTS,
     API_QUERY_KEY.ALL,
@@ -28,7 +27,6 @@ export const useProducts = (params?: ComputedRef<StoreGetProductsParams>) => {
     region.value?.id,
   ]);
 
-  // Query function
   const fetchProducts = () => {
     return client.products.list({
       ...params?.value,

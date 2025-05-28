@@ -11,10 +11,13 @@
     class="d-flex flex-column ga-8 w-100"
     v-else
   >
-    <div class="d-flex ga-8">
+    <div
+      class="d-flex ga-8"
+      :class="isMobile ? 'flex-column align-center' : ''"
+    >
       <div style="max-width: 400px; width: 100%">
         <v-carousel
-          height="600"
+          :height="isMobile ? 250 : 600"
           cycle
           hide-delimiters
         >
@@ -63,10 +66,12 @@
 
 <script lang="ts" setup>
 import { formatCurrency } from "~/utils/product";
+import { useDisplay } from "vuetify";
 
 const route = useRoute();
 const { product, isLoading } = useProduct(route.params.handle as string);
 const { region } = useRegions();
+const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "sm" });
 
 const images = computed(() => {
   const images = product.value?.images;

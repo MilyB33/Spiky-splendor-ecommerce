@@ -19,7 +19,21 @@
             v-if="isMobile"
             icon="mdi-cart-outline"
             v-bind="props"
-          />
+            stacked
+          >
+            <v-badge
+              v-if="!!hasItems"
+              :content="itemsCount"
+              color="light_green"
+            >
+              <v-icon size="large" />
+            </v-badge>
+
+            <v-icon
+              size="large"
+              v-else
+            />
+          </v-btn>
 
           <v-btn
             v-else

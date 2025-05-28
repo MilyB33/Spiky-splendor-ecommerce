@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-space-between">
+  <div class="d-flex flex-wrap justify-space-between">
     <div class="d-flex ga-4 align-center">
       <v-btn
         icon

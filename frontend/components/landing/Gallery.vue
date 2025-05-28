@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column ga-4">
-    <h4 class="text-h4 text-green text-center">Galeria</h4>
+    <h4 class="text-h4 text-green text-center">Gallery</h4>
     <v-divider :thickness="3"></v-divider>
     <div class="gallery">
       <v-img

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
-import { API_QUERY_KEY } from "~/constant";
+import { API_MUTATIONS_KEY, API_QUERY_KEY } from "~/constant";
 import type { CartUpdateProps } from "@medusajs/medusa/dist/types/cart";
 import type { Customer } from "@medusajs/medusa";
 
@@ -54,6 +54,7 @@ export const useCart = (skipFetchingCart?: boolean) => {
   });
 
   const { mutateAsync: createLineItemHandler, isPending: isCreatingLineItem } = useMutation({
+    mutationKey: [API_MUTATIONS_KEY.ADD_TO_CART],
     mutationFn: ({ variantId, quantity }: AddItemToCartParams) =>
       client.carts.lineItems.create(cartId.value, {
         variant_id: variantId,

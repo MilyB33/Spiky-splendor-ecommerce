@@ -15,7 +15,7 @@
 
     <PaymentConfirmSummary
       :pay="finishPayment"
-      :is-paying="isLoading"
+      :is-paying="buttonLoading"
     />
   </div>
 </template>
@@ -39,11 +39,15 @@ const elements = ref<StripeElements | null | undefined>(null);
 const paymentElement = ref<StripePaymentElement | null | undefined>(null);
 let clientSecret: string | undefined;
 const isLoading = ref(false);
+const isInitializing = ref(false);
 const { snackbar } = useSnackbar();
 
 const { mobile: isMobile } = useDisplay({ mobileBreakpoint: "md" });
 
+const buttonLoading = computed(() => isLoading.value || isInitializing.value);
+
 onMounted(async () => {
+  isInitializing.value = true;
   clientSecret = cart.value?.cart.payment_session?.data.client_secret as string;
 
   if (!stripePk || !clientSecret) return;
@@ -66,6 +70,7 @@ onMounted(async () => {
   elements.value = stripe.value?.elements({ clientSecret, appearance });
   paymentElement.value = elements.value?.create("payment", options);
   paymentElement.value?.mount("#payment-element");
+  isInitializing.value = false;
 });
 
 const finishPayment = async () => {

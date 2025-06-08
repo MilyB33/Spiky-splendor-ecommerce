@@ -1,7 +1,7 @@
 import FileService from "@medusajs/file-local/dist/services/local-file-service";
 import { ProductService } from "@medusajs/medusa";
 import { ConfigModule, MedusaContainer } from "@medusajs/medusa";
-import fs from "fs";
+import fs_promises from "fs/promises";
 import path from "path";
 
 const IMAGES_MAPPING = [
@@ -239,69 +239,60 @@ export default async (
     return;
   }
 
-  fs.readdir(productsFolderPath, (err, files) => {
-    if (err) {
-      console.error("Error reading directory:", err);
-      return;
-    }
+  const filesPaths = await fs_promises.readdir(productsFolderPath);
 
-    files.forEach((file) => {
+  await Promise.all(
+    filesPaths.map(async (file) => {
       const filePath = path.join(productsFolderPath, file);
-      const fileStat = fs.statSync(filePath);
+      const fileStat = await fs_promises.stat(filePath);
+      if (!fileStat.isFile()) return;
 
-      if (fileStat.isFile()) {
-        const multerFile = {
-          fieldname: "file",
-          originalname: file,
-          encoding: "utf-8",
-          path: filePath,
-          mimetype: "application/octet-stream",
-          buffer: fs.readFileSync(filePath),
-          size: fileStat.size,
-        };
+      const fileBuffer = await fs_promises.readFile(filePath);
+      const multerFile = {
+        fieldname: "file",
+        originalname: file,
+        encoding: "utf-8",
+        path: filePath,
+        mimetype: "application/octet-stream",
+        buffer: fileBuffer,
+        size: fileStat.size,
+      };
 
-        fileService
-          .uploadFile(multerFile)
-          .then(async (data) => {
-            try {
-              const product = IMAGES_MAPPING.find((product) => {
-                return product.images.some((image) => data.url.includes(image));
-              });
+      try {
+        const data = await fileService.uploadFile(multerFile);
 
-              if (product) {
-                const _product = await productService.retrieve(product.id);
-                await productService.update(product.id, {
-                  images: [
-                    ...(_product.images?.map((image) => image.url) || []),
-                    data.url,
-                  ],
-                  thumbnail: data.url,
-                });
-              }
-            } catch (err) {
-              setTimeout(async () => {
-                const product = IMAGES_MAPPING.find((product) => {
-                  return product.images.some((image) =>
-                    data.url.includes(image)
-                  );
-                });
-
-                if (product) {
-                  const _product = await productService.retrieve(product.id);
-                  await productService.update(product.id, {
-                    images: [data.url],
-                    thumbnail: data.url,
-                  });
-                }
-              }, 2000);
-            }
-          })
-          .catch((uploadError) => {
-            console.error("Error uploading file:", uploadError);
-          });
+        for (const product of IMAGES_MAPPING) {
+          const idx = product.images.findIndex((img) => data.url.includes(img));
+          if (idx !== -1) {
+            product.images[idx] = data.url;
+            break;
+          }
+        }
+      } catch (err) {
+        console.log("Error uploading file:", String(err));
       }
-    });
-  });
+    })
+  );
+
+  for (const product of IMAGES_MAPPING) {
+    try {
+      if (product.images.length === 0) continue;
+      if (product.id === "prod_1") {
+        console.log(product.images);
+      }
+      await productService.update(product.id, {
+        images: product.images,
+        thumbnail: product.images[0],
+      });
+    } catch (err) {
+      setTimeout(async () => {
+        await productService.update(product.id, {
+          images: product.images,
+          thumbnail: product.images[0],
+        });
+      }, 2000);
+    }
+  }
 
   console.info("Ending loader...");
 };

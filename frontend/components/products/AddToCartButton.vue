@@ -4,7 +4,7 @@
       icon="mdi-cart-plus"
       size="x-small"
       color="green_primary"
-      :disabled="isAddToCartDisabled"
+      :disabled="isAddToCartDisabled || !!isAddingToCart"
       @click="onAddToCart"
     />
   </slot>
@@ -13,7 +13,8 @@
 <script lang="ts" setup>
 import type { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { getProductAvailabilityStatus } from "~/utils/product";
-import { PRODUCT_AVAILABILITY } from "~/constant";
+import { API_MUTATIONS_KEY, PRODUCT_AVAILABILITY } from "~/constant";
+import { useIsMutating } from "@tanstack/vue-query";
 
 type AddToCartButtonProps = {
   product: PricedProduct;
@@ -30,6 +31,8 @@ const onAddToCart = () => {
     addItemToCart({ variantId: props.product.variants[0].id, quantity: props.quantity });
   }
 };
+
+const isAddingToCart = useIsMutating({ mutationKey: [API_MUTATIONS_KEY.ADD_TO_CART] });
 
 const isAddToCartDisabled = computed(
   () => isAddingItemToCart.value || productQuantityStatus === PRODUCT_AVAILABILITY.OUT_OF_STOCK,

@@ -87,6 +87,10 @@ export const API_QUERY_KEY = {
   ALL: "ALL",
 } as const;
 
+export const API_MUTATIONS_KEY = {
+  ADD_TO_CART: "ADD_TO_CART",
+} as const;
+
 export const LOCAL_STORAGE_KEY = {
   REGION_ID: "REGION_ID",
   IS_AUTHENTICATED: "IS_AUTHENTICATED",

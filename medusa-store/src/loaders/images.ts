@@ -277,9 +277,7 @@ export default async (
   for (const product of IMAGES_MAPPING) {
     try {
       if (product.images.length === 0) continue;
-      if (product.id === "prod_1") {
-        console.log(product.images);
-      }
+
       await productService.update(product.id, {
         images: product.images,
         thumbnail: product.images[0],

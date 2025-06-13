@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     public: {
       PUBLIC_STRIPE_KEY: process.env.PUBLIC_STRIPE_KEY,
       PAYMENT_RETURN_URL: process.env.PAYMENT_RETURN_URL,
+      ENVIRONMENT: process.env.NODE_ENV,
     },
   },
   modules: [

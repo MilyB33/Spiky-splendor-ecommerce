@@ -1,12 +1,10 @@
-> [!WARNING]  
-> Work in progress
-
 # Spiky Splendor - E-commerce
 
 ## Table of contents
 
 - [Introduction](#introduction)
 - [Demo](#demo)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Technologies](#technologies)
 
@@ -28,6 +26,25 @@ Admin:
 
 - email: test@example.com
 - password: test
+
+## Prerequisites
+
+##### Environments:
+
+- Docker
+- Docker Compose
+- Node.js version at least 20.0
+- Yarn package manager
+
+##### Setup:
+
+Before installing the required dependencies for the environments, you also need to create and configure a Stripe account:
+
+1. After creating the account, you need to set up a test environment, known as a sandbox.
+
+2. Then, go to Settings → Business and set the country to Poland.
+
+3. Finally, in Settings → Payments → Payment methods, select the payment methods to be used. The only requirement for the application is that they must be instant payment methods — preferably BLIK, PayPal, and Przelewy24. All other methods should be disabled.
 
 ## Installation
 
@@ -58,22 +75,41 @@ cd medusa-store
 yarn build
 ```
 
-5. Build the app image
+5. Create a .env file and set the environment variables based on the provided .env.template file for both environments.
+
+6. Build the app image
 
 ```bash
 docker compose build
 ```
 
-6. Run the app
+7. Run the app
 
 ```bash
 docker compose up
 ```
 
+##### Running app:
+
+App should run by default on given urls:
+
+- Storefront: http://localhost:3000/
+- Admin panel: http://localhost:7001/
+- Backend: http://localhost:9000/
+
+##### Credentials:
+
+Admin:
+
+- email: test@example.com
+- password: test
+
 ## Technologies
 
-- Vue (storefront)
-- Nuxt (storefront)
-- MedusaJs (backend)
-- NextJs (admin panel)
+- Javascript
+- Typescript
+- Vue.js (storefront)
+- Nuxt.js (storefront)
+- Medusa.js (backend)
+- Next.js (admin panel)
 - Stripe (payments)

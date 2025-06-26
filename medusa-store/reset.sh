@@ -12,10 +12,6 @@ export PGPASSWORD="$DB_PASSWORD"
 
 medusa migrations run
 
-cp -R ./static ./dist
-
-rm -rf ./uploads/*
-
 DB_EXISTS=$(psql -h "$DB_HOST" -U "$DB_USER" -p "$DB_PORT" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'" | grep -q 1)
 
 if [ $? -eq 0 ]; then
@@ -27,7 +23,14 @@ if [ $? -eq 0 ]; then
     echo "The product table has records."
   else
     echo "The product table has no records."
+    
+    cp -R ./static ./dist
+
+    rm -rf ./uploads/*
+
     medusa seed --seed-file="./data/seed.json"
+
+    
   fi
 else
   echo "Database $DB_NAME does not exist."

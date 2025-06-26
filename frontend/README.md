@@ -1,75 +1,24 @@
-# Nuxt 3 Minimal Starter
+# Storefront
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Table of contents
 
-## Setup
+- [Demo](#demo)
+- [Technologies](#technologies)
 
-Make sure to install the dependencies:
+## Demo
 
-```bash
-# npm
-npm install
+> [!Important]
+> If Storefront is not loading give it a 2 minutes as backend is deployed on render and needs around 2 minutes to start as it's spinning down on inactivity
 
-# pnpm
-pnpm install
+- [Storefront](https://spiky-splendor-storefront.vercel.app/)
 
-# yarn
-yarn install
+## Technologies
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Javascript
+- Typescript
+- Vue.js
+- Stripe.js (payments)
+- Vue Query
+- Zod
+- Vee validate
+- Vuetify
